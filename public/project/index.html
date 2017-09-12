@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Project Home Page</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="app.js"></script>
 </head>
 <body>
+
+
+    <div ng-app="TestApp" ng-controller="TestController as model">
     <h1>Project Home Page</h1>
+    <table class="table">
+    <tbody>
+        <tr>
+            <td>
+                <input ng-model="videoId"
+                       value="7nol7e9HJXg"
+                       placeholder="youtube video id"
+                       class="form-control"/>
+            </td>
+            <td>
+                <button ng-click="onButtonClick(videoId)">Load</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                url:{{videoUrl}}
+                <br>
+                <audio class="audioTag">
+                    <source src="{{videoUrl}}" type="audio/mp3"></source>
+                </audio>
+                <br>
+                <button ng-click="onButtonPlayPause()">Play/Pause</button>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+
+
 </body>
 </html>
