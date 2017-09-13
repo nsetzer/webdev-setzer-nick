@@ -1,5 +1,22 @@
 # AngularFourMEANSeed
 
+
+# webdev-setzer-nick
+
+## About
+
+I am a graduate student at Northeastern. I am also a software engineer at [Cogito Corp](http://www.cogitocorp.com/), working on real time audio processing and speech recognition for phone calls in a call center environment.
+
+This repository contains a node.js web application for CS5610 Web Development. Source code for assignments and the project can be found here.
+
+## Links
+
+1. https://webdev-setzer-nick.herokuapp.com
+1. [Project](https://webdev-setzer-nick.herokuapp.com/project/index.html)
+1. [Assignments](https://webdev-setzer-nick.herokuapp.com/assignment/index.html)
+1. [Mongo Test](https://webdev-setzer-nick.herokuapp.com/test/index.html)
+
+
 After you clone this repository and run "npm install"
 To start the project
 Open two terminals, One to start the front end, One to start the backend
@@ -42,3 +59,4 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
