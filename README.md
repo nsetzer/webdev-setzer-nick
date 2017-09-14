@@ -1,5 +1,3 @@
-# AngularFourMEANSeed
-
 
 # webdev-setzer-nick
 
@@ -17,6 +15,8 @@ This repository contains a node.js web application for CS5610 Web Development. S
 1. [Mongo Test](https://webdev-setzer-nick.herokuapp.com/test/index.html)
 
 
+## Install
+
 After you clone this repository and run "npm install"
 To start the project
 Open two terminals, One to start the front end, One to start the backend
@@ -28,11 +28,6 @@ Open two terminals, One to start the front end, One to start the backend
 
 Front end will run on `http://localhost:4200/`
 Server will run on port 3100. Specified in server.js and in environment.ts files
-
-
-
-
-
 
 
 ## Development server
