@@ -1,3 +1,33 @@
-<p>
-  login works!
-</p>
+
+<div class="container">
+
+    <h1>Login</h1>
+
+    <form>
+
+        <input type="text"
+               name="username"
+               placeholder="username"
+               class="form-control"
+               ngModel
+               required
+               #username="ngModel"/>
+
+        <input type="password"
+               name="password"
+               placeholder="password"
+               class="form-control"
+               ngModel
+               required
+               #username="ngModel"/>
+
+
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+        <button class="btn btn-success btn-block">Register</button>
+
+
+    </form>
+
+
+</div>

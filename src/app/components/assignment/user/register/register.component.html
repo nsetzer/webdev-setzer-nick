@@ -1,3 +1,40 @@
-<p>
-  register works!
-</p>
+
+<div class="container">
+
+    <h1>Register</h1>
+
+    <form>
+
+        <input type="text"
+               name="username"
+               placeholder="username"
+               class="form-control"
+               ngModel
+               required
+               #username="ngModel"/>
+
+        <input type="password"
+               name="password"
+               placeholder="password"
+               class="form-control"
+               ngModel
+               required
+               #username="ngModel"/>
+
+        <input type="password"
+               name="password2"
+               placeholder="verify password"
+               class="form-control"
+               ngModel
+               required
+               #username="ngModel"/>
+
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+
+        <button class="btn btn-success btn-block">Cancel</button>
+
+
+    </form>
+
+
+</div>
