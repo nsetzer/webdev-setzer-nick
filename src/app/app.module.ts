@@ -10,6 +10,9 @@ import {FormsModule} from '@angular/forms';
 import {TestService} from './services/test.service.client';
 import { AssignmentComponent } from './components/assignment/assignment.component';
 import { ProjectComponent } from './components/project/project.component';
+import { LoginComponent } from './components/assignment/user/login/login.component';
+import { ProfileComponent } from './components/assignment/user/profile/profile.component';
+import { RegisterComponent } from './components/assignment/user/register/register.component';
 
 @NgModule({
   // Declare components here
@@ -18,7 +21,10 @@ import { ProjectComponent } from './components/project/project.component';
     HomeComponent,
     TestComponent,
     AssignmentComponent,
-    ProjectComponent
+    ProjectComponent,
+    LoginComponent,
+    ProfileComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
