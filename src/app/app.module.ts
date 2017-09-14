@@ -9,6 +9,7 @@ import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {TestService} from './services/test.service.client';
 import { AssignmentComponent } from './components/assignment/assignment.component';
+import { ProjectComponent } from './components/project/project.component';
 
 @NgModule({
   // Declare components here
@@ -16,7 +17,8 @@ import { AssignmentComponent } from './components/assignment/assignment.componen
     AppComponent,
     HomeComponent,
     TestComponent,
-    AssignmentComponent
+    AssignmentComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
