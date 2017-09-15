@@ -1,3 +1,80 @@
-<p>
-  profile works!
-</p>
+
+<!-- header -->
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div>
+
+    <p class="navbar-header pull-left">Profile</p>
+
+    <p class="navbar-text pull-right">
+        <span class="glyphicon glyphicon-ok"></span>
+    </p>
+
+  </div>
+</nav>
+
+<!-- body -->
+
+<div class="container">
+
+    <form>
+
+        <h2>Username</h2>
+
+        <input type="text"
+               name="username"
+               placeholder="username"
+               class="form-control"
+               ngModel
+               required
+               #username="ngModel"/>
+
+        <h2>Email</h2>
+
+        <input type="text"
+               name="email"
+               placeholder="email"
+               class="form-control"
+               ngModel
+               required
+               #email="ngModel"/>
+
+        <h2>First Name</h2>
+
+        <input type="text"
+               name="firstname"
+               placeholder="First Name"
+               class="form-control"
+               ngModel
+               required
+               #firstname="ngModel"/>
+
+        <h2>Last Name</h2>
+
+        <input type="text"
+               name="lastname"
+               placeholder="Last Name"
+               class="form-control"
+               ngModel
+               required
+               #lastname="ngModel"/>
+
+        <button type="submit" class="btn btn-primary btn-block">Websites</button>
+
+        <button class="btn btn-success btn-block">Logout</button>
+
+
+    </form>
+
+
+</div>
+
+<!-- footer -->
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div>
+    <p class="navbar-text pull-right">
+        <span class="glyphicon glyphicon-user"></span>
+    </p>
+  </div>
+</nav>
