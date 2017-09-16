@@ -20,15 +20,21 @@
 <body>
 <div class="container">
   <h1>Register</h1>
-  <input placeholder="username"
+  <input name="username"
+         placeholder="username"
          type="text"
-         class="form-control"/>
-  <input placeholder="password"
+         class="form-control"
+         required/>
+  <input name="password"
+         placeholder="password"
          type="password"
-         class="form-control"/>
-  <input placeholder="verify password"
+         class="form-control"
+         required/>
+  <input name="password2"
+         placeholder="verify password"
          type="password"
-         class="form-control"/>
+         class="form-control"
+         required/>
   <a class="btn btn-primary btn-block"
      href="profile.html">Register</a>
   <a class="btn btn-danger btn-block"
