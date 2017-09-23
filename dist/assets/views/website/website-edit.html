@@ -5,7 +5,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="viewport" content="initial-scale=1.25, user-scalable=no">
     <meta charset="UTF-8">
-    <title>Website Edit</title>
+    <title>Edit Website</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../../css/style.css" rel="stylesheet"/>
@@ -40,9 +40,13 @@
         </p>
 
       </div> <!-- end lhs column-->
-    <div class="col-xs-12 col-sm-8 padding-none">
+      <!-- end lhs column-->
+
+      <!-- rhs (normal) column-->
+      <div class="col-sm-8 hidden-xs padding-left-default padding-right-none">
+
         <!--heading on the nav bar-->
-        <a class="navbar-brand thick ">
+        <a class="navbar-brand thick">
           <b>Edit Website</b>
         </a>
         <!--tick mark-->
@@ -52,6 +56,21 @@
           </a>
         </p>
       </div> <!-- end rhs column-->
+      <div class="col-xs-12 hidden-sm padding-left-default padding-right-none">
+        <p class="navbar-text pull-left">
+          <a href="website-list.html" class="navbar-link">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        </p>
+        <a class="navbar-brand thick">
+          <b>Edit Website</b>
+        </a>
+        <p class="navbar-text pull-right">
+          <a href="website-list.html" class="navbar-link">
+            <span class="glyphicon glyphicon-ok padding-right-default"></span>
+          </a>
+        </p>
+      </div> <!-- end rhs (normal) column-->
       </div> <!-- end row-->
   </div>
 
@@ -92,7 +111,7 @@
 
       </ul>
     </div>
-    <div class="col-xs-12 col-sm-8 padding-right-double">
+    <div class="col-xs-12 col-sm-8 padding-content">
       <form>
         <div class="form-group">
           <label for="websiteName">Website Name</label>
