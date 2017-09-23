@@ -1,4 +1,18 @@
 
+/*
+.navbar {
+    color: #FFFFFF;
+    background-color: #5555CC;
+}
+*/
+
+.navbar-brand,
+.navbar-brand:hover,
+.navbar-link,
+.navbar-text{
+  color: white;
+}
+
 /*rule to center a div*/
 .centered-content {
     width: 600px;
@@ -6,7 +20,9 @@
     text-align: justify;
 }
 
-.navbar-default {
+
+.navbar-default,
+.navbar-dark {
   height: 60px;
 }
 
