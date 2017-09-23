@@ -49,3 +49,7 @@ input{
     border-bottom-left-radius: 8px;
 }
 
+li.list-item-borderless {
+  border: none;
+}
+
