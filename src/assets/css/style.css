@@ -51,5 +51,11 @@ input{
 
 li.list-item-borderless {
   border: none;
+  margin: 0px;
 }
 
+
+ul.list-group {
+  margin: 0px;
+  padding: 0px;
+}

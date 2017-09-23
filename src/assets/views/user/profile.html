@@ -14,12 +14,12 @@
 
   <!-- STYLE sheet comes after all the libraries are loaded. Document style-->
 
-  <link href="../css/style.css" rel="stylesheet"/>
+  <link href="../../css/style.css" rel="stylesheet"/>
 </head>
 
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
   <div>
 
     <!--heading on the nav bar-->
@@ -40,32 +40,32 @@
 </nav>
 
 
-<div class="container">
+<div class="container-fluid">
   <form>
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" class="form-control" id="username" placeholder="walice">
+      <input type="text" class="form-control" id="username" value="alice">
     </div>
   </form>
 
   <form>
     <div class="form-group">
       <label for="email">Email address</label>
-      <input type="email" class="form-control" id="email" placeholder="alice.wonderland@unicorn.com">
+      <input type="email" class="form-control" id="email" value="alice.wonderland@unicorn.com">
     </div>
   </form>
 
   <form>
     <div class="form-group">
       <label for="first-name">First Name</label>
-      <input type="text" class="form-control" id="first-name" placeholder="Alice">
+      <input type="text" class="form-control" id="first-name" value="Alice">
     </div>
   </form>
 
   <form>
     <div class="form-group">
       <label for="last-name">Last Name</label>
-      <input type="text" class="form-control" id="last-name" placeholder="Wonderland">
+      <input type="text" class="form-control" id="last-name" value="Wonderland">
     </div>
   </form>
   <a class="btn btn-primary btn-block"
@@ -76,14 +76,13 @@
 </div>
 
 <!-- Footer -->
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <div class="container-fluid">
-    <p class="navbar-text pull-right">
-      <a href="profile.html">
-        <span class="glyphicon glyphicon-user"></span>
-      </a>
-    </p>
-
+  <p class="navbar-text pull-right">
+    <a href="../user/profile.html" class="navbar-link">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </p>
   </div>
 </nav>
 
