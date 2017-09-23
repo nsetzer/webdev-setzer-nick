@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="viewport" content="initial-scale=1.25, user-scalable=no">
 
+  <meta name="viewport" content="width=device-width" />
 
   <meta charset="UTF-8">
   <title>Edit Widget</title>
@@ -20,12 +21,12 @@
 <body>
 
 
-<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
 
     <!--back mark-->
-    <p class="navbar-text pull-left">
-      <a href="widget-list.html" class="navbar-link">
+    <p class="navbar-text pull-left  glyph-margin">
+      <a href="widget-list.html" class="navbar-link navbar-chevron-link">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
     </p>
@@ -38,7 +39,7 @@
     </p>
 
     <!--tick mark-->
-    <p class="navbar-text pull-right">
+    <p class="navbar-text pull-right glyph-margin">
       <a href="widget-list.html" class="navbar-link">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
@@ -47,26 +48,35 @@
   </div>
 </nav>
 
-<div class="container-fluid">
+<div class="container-fluid container-margin">
 
   <form>
     <div class="form-group">
       <label for="pagename">Name</label>
-      <input type="text" class="form-control" id="pagename" placeholder="Page Name">
+      <input type="text"
+             class="form-control"
+             id="pagename"
+             placeholder="">
     </div>
   </form>
 
   <form>
     <div class="form-group">
       <label for="title">Text</label>
-      <input type="text" class="form-control" id="title" placeholder="Page Title">
+      <input type="text"
+             class="form-control"
+             id="title"
+             value="US Senate Reaches Compromise on Emergency Zika Funding">
     </div>
   </form>
 
   <form>
     <div class="form-group">
-      <label for="title">Size</label>
-      <input type="number" class="form-control" id="title" placeholder="Page Title">
+      <label for="widgetSize">Size</label>
+      <input type="number"
+             class="form-control"
+             id="widgetSize"
+             value="3">
     </div>
   </form>
 
@@ -76,9 +86,9 @@
 </div>
 
 <!-- Footer -->
-<nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+<nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid">
-  <p class="navbar-text pull-right">
+  <p class="navbar-text pull-right glyph-margin">
     <a href="../user/profile.html" class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
