@@ -8,7 +8,7 @@
 
 
   <meta charset="UTF-8">
-  <title>User Profile</title>
+  <title>Edit Widget</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
 
@@ -19,19 +19,27 @@
 
 <body>
 
+
 <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
-  <div>
+  <div class="container-fluid">
+
+    <!--back mark-->
+    <p class="navbar-text pull-left">
+      <a href="widget-list.html" class="navbar-link">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+    </p>
 
     <!--heading on the nav bar-->
     <p class="navbar-header pull-left">
       <a class="navbar-brand thick">
-        <b>Profile</b>
+        <b>Edit Widget</b>
       </a>
     </p>
 
     <!--tick mark-->
     <p class="navbar-text pull-right">
-      <a href="profile.html" class="navbar-link">
+      <a href="widget-list.html" class="navbar-link">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
     </p>
@@ -40,38 +48,43 @@
 </nav>
 
 
+
 <div class="container-fluid">
+
   <form>
     <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" class="form-control" id="username" value="alice">
+      <label for="pagename">Name</label>
+      <input type="text" class="form-control" id="pagename" placeholder="Page Name">
     </div>
   </form>
 
   <form>
     <div class="form-group">
-      <label for="email">Email address</label>
-      <input type="email" class="form-control" id="email" value="alice.wonderland@unicorn.com">
+      <label for="title">Text</label>
+      <input type="text" class="form-control" id="title" placeholder="Page Title">
     </div>
   </form>
 
   <form>
     <div class="form-group">
-      <label for="first-name">First Name</label>
-      <input type="text" class="form-control" id="first-name" value="Alice">
+      <label for="title">URL</label>
+      <input type="text" class="form-control" id="title" placeholder="Page Title">
     </div>
   </form>
 
+  <!--
+  this shows how to add a percentage symbol as a suffix
+    http://jsfiddle.net/madterry/W4Y58/
+    -->
   <form>
     <div class="form-group">
-      <label for="last-name">Last Name</label>
-      <input type="text" class="form-control" id="last-name" value="Wonderland">
+      <label for="title">Width</label>
+      <input type="number" class="form-control" id="title" placeholder="Page Title">
     </div>
   </form>
-  <a class="btn btn-primary btn-block"
-     href="../website/website-list.html">Websites</a>
+
   <a class="btn btn-danger btn-block "
-     href="login.html" >Logout</a>
+     href="widget.html" >Delete</a>
 
 </div>
 

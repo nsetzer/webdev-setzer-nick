@@ -1,0 +1,61 @@
+
+/*
+.navbar {
+    color: #FFFFFF;
+    background-color: #5555CC;
+}
+*/
+
+.navbar-brand,
+.navbar-brand:hover,
+.navbar-link,
+.navbar-text{
+  color: white;
+}
+
+/*rule to center a div*/
+.centered-content {
+    width: 600px;
+    margin: auto;
+    text-align: justify;
+}
+
+
+.navbar-default,
+.navbar-dark {
+  height: 60px;
+}
+
+body {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+input{
+  margin-bottom: 8px;
+}
+
+.user-widget {
+    background-color: rgb(200,0,200) ;
+}
+
+
+.user-widget .user-widget-toolbar {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color: rgba(192, 192, 192, 0.4) ;
+    padding: 3px;
+    border-bottom-left-radius: 8px;
+}
+
+li.list-item-borderless {
+  border: none;
+  margin: 0px;
+}
+
+
+ul.list-group {
+  margin: 0px;
+  padding: 0px;
+}
