@@ -80,28 +80,30 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_test_service_client__ = __webpack_require__("../../../../../src/app/services/test.service.client.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_assignment_assignment_component__ = __webpack_require__("../../../../../src/app/components/assignment/assignment.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_project_project_component__ = __webpack_require__("../../../../../src/app/components/project/project.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_assignment_user_login_login_component__ = __webpack_require__("../../../../../src/app/components/assignment/user/login/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_assignment_user_profile_profile_component__ = __webpack_require__("../../../../../src/app/components/assignment/user/profile/profile.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_assignment_user_register_register_component__ = __webpack_require__("../../../../../src/app/components/assignment/user/register/register.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_assignment_page_page_edit_page_edit_component__ = __webpack_require__("../../../../../src/app/components/assignment/page/page-edit/page-edit.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_assignment_page_page_list_page_list_component__ = __webpack_require__("../../../../../src/app/components/assignment/page/page-list/page-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_assignment_page_page_new_page_new_component__ = __webpack_require__("../../../../../src/app/components/assignment/page/page-new/page-new.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_assignment_website_website_edit_website_edit_component__ = __webpack_require__("../../../../../src/app/components/assignment/website/website-edit/website-edit.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_assignment_website_website_list_website_list_component__ = __webpack_require__("../../../../../src/app/components/assignment/website/website-list/website-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_assignment_website_website_new_website_new_component__ = __webpack_require__("../../../../../src/app/components/assignment/website/website-new/website-new.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_assignment_widget_widget_choose_widget_choose_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-choose/widget-choose.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_assignment_widget_widget_heading_widget_heading_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-heading/widget-heading.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_assignment_widget_widget_image_widget_image_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-image/widget-image.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_assignment_widget_widget_list_widget_list_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-list/widget-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_assignment_widget_widget_youtube_widget_youtube_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-youtube/widget-youtube.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_project_service_client__ = __webpack_require__("../../../../../src/app/services/project.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_assignment_assignment_component__ = __webpack_require__("../../../../../src/app/components/assignment/assignment.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_project_project_component__ = __webpack_require__("../../../../../src/app/components/project/project.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_assignment_user_login_login_component__ = __webpack_require__("../../../../../src/app/components/assignment/user/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_assignment_user_profile_profile_component__ = __webpack_require__("../../../../../src/app/components/assignment/user/profile/profile.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_assignment_user_register_register_component__ = __webpack_require__("../../../../../src/app/components/assignment/user/register/register.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_assignment_page_page_edit_page_edit_component__ = __webpack_require__("../../../../../src/app/components/assignment/page/page-edit/page-edit.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_assignment_page_page_list_page_list_component__ = __webpack_require__("../../../../../src/app/components/assignment/page/page-list/page-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_assignment_page_page_new_page_new_component__ = __webpack_require__("../../../../../src/app/components/assignment/page/page-new/page-new.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_assignment_website_website_edit_website_edit_component__ = __webpack_require__("../../../../../src/app/components/assignment/website/website-edit/website-edit.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_assignment_website_website_list_website_list_component__ = __webpack_require__("../../../../../src/app/components/assignment/website/website-list/website-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_assignment_website_website_new_website_new_component__ = __webpack_require__("../../../../../src/app/components/assignment/website/website-new/website-new.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_assignment_widget_widget_choose_widget_choose_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-choose/widget-choose.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_assignment_widget_widget_heading_widget_heading_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-heading/widget-heading.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_assignment_widget_widget_image_widget_image_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-image/widget-image.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_assignment_widget_widget_list_widget_list_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-list/widget-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_assignment_widget_widget_youtube_widget_youtube_component__ = __webpack_require__("../../../../../src/app/components/assignment/widget/widget-youtube/widget-youtube.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -139,22 +141,22 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_3__components_home_home_component__["a" /* HomeComponent */],
             __WEBPACK_IMPORTED_MODULE_4__components_test_test_component__["a" /* TestComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__components_assignment_assignment_component__["a" /* AssignmentComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__components_project_project_component__["a" /* ProjectComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__components_assignment_user_login_login_component__["a" /* LoginComponent */],
-            __WEBPACK_IMPORTED_MODULE_12__components_assignment_user_profile_profile_component__["a" /* ProfileComponent */],
-            __WEBPACK_IMPORTED_MODULE_13__components_assignment_user_register_register_component__["a" /* RegisterComponent */],
-            __WEBPACK_IMPORTED_MODULE_14__components_assignment_page_page_edit_page_edit_component__["a" /* PageEditComponent */],
-            __WEBPACK_IMPORTED_MODULE_15__components_assignment_page_page_list_page_list_component__["a" /* PageListComponent */],
-            __WEBPACK_IMPORTED_MODULE_16__components_assignment_page_page_new_page_new_component__["a" /* PageNewComponent */],
-            __WEBPACK_IMPORTED_MODULE_17__components_assignment_website_website_edit_website_edit_component__["a" /* WebsiteEditComponent */],
-            __WEBPACK_IMPORTED_MODULE_18__components_assignment_website_website_list_website_list_component__["a" /* WebsiteListComponent */],
-            __WEBPACK_IMPORTED_MODULE_19__components_assignment_website_website_new_website_new_component__["a" /* WebsiteNewComponent */],
-            __WEBPACK_IMPORTED_MODULE_20__components_assignment_widget_widget_choose_widget_choose_component__["a" /* WidgetChooseComponent */],
-            __WEBPACK_IMPORTED_MODULE_21__components_assignment_widget_widget_heading_widget_heading_component__["a" /* WidgetHeadingComponent */],
-            __WEBPACK_IMPORTED_MODULE_22__components_assignment_widget_widget_image_widget_image_component__["a" /* WidgetImageComponent */],
-            __WEBPACK_IMPORTED_MODULE_23__components_assignment_widget_widget_list_widget_list_component__["a" /* WidgetListComponent */],
-            __WEBPACK_IMPORTED_MODULE_24__components_assignment_widget_widget_youtube_widget_youtube_component__["a" /* WidgetYoutubeComponent */]
+            __WEBPACK_IMPORTED_MODULE_10__components_assignment_assignment_component__["a" /* AssignmentComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__components_project_project_component__["a" /* ProjectComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__components_assignment_user_login_login_component__["a" /* LoginComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__components_assignment_user_profile_profile_component__["a" /* ProfileComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__components_assignment_user_register_register_component__["a" /* RegisterComponent */],
+            __WEBPACK_IMPORTED_MODULE_15__components_assignment_page_page_edit_page_edit_component__["a" /* PageEditComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__components_assignment_page_page_list_page_list_component__["a" /* PageListComponent */],
+            __WEBPACK_IMPORTED_MODULE_17__components_assignment_page_page_new_page_new_component__["a" /* PageNewComponent */],
+            __WEBPACK_IMPORTED_MODULE_18__components_assignment_website_website_edit_website_edit_component__["a" /* WebsiteEditComponent */],
+            __WEBPACK_IMPORTED_MODULE_19__components_assignment_website_website_list_website_list_component__["a" /* WebsiteListComponent */],
+            __WEBPACK_IMPORTED_MODULE_20__components_assignment_website_website_new_website_new_component__["a" /* WebsiteNewComponent */],
+            __WEBPACK_IMPORTED_MODULE_21__components_assignment_widget_widget_choose_widget_choose_component__["a" /* WidgetChooseComponent */],
+            __WEBPACK_IMPORTED_MODULE_22__components_assignment_widget_widget_heading_widget_heading_component__["a" /* WidgetHeadingComponent */],
+            __WEBPACK_IMPORTED_MODULE_23__components_assignment_widget_widget_image_widget_image_component__["a" /* WidgetImageComponent */],
+            __WEBPACK_IMPORTED_MODULE_24__components_assignment_widget_widget_list_widget_list_component__["a" /* WidgetListComponent */],
+            __WEBPACK_IMPORTED_MODULE_25__components_assignment_widget_widget_youtube_widget_youtube_component__["a" /* WidgetYoutubeComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -163,7 +165,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_5__app_routing__["a" /* Routing */]
         ],
         // Client Side services here
-        providers: [__WEBPACK_IMPORTED_MODULE_8__services_test_service_client__["a" /* TestService */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_8__services_test_service_client__["a" /* TestService */], __WEBPACK_IMPORTED_MODULE_9__services_project_service_client__["a" /* ProjectService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
@@ -244,7 +246,7 @@ var APP_ROUTES = [
     { path: 'view/assignment/widget/choose', component: __WEBPACK_IMPORTED_MODULE_18__components_assignment_widget_widget_choose_widget_choose_component__["a" /* WidgetChooseComponent */] },
 ];
 // Export the routes as module providers
-var Routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterModule */].forRoot(APP_ROUTES);
+var Routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterModule */].forRoot(APP_ROUTES, { enableTracing: true });
 //# sourceMappingURL=app.routing.js.map
 
 /***/ }),
@@ -1246,7 +1248,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/project.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  project works!\n</p>\n"
+module.exports = "\n\n<div class=\"container\">\n\n  <h1>Project Api Test</h1>\n\n\n  <div *ngIf=\"alertMessage\"\n       class=\"alert alert-danger\">\n    \"Failed to create\"\n  </div>\n\n  <div *ngIf=\"successMessage\"\n       class=\"alert alert-success\">\n    \"Succesfully executed query\"\n  </div>\n\n\n  <table class=\"table\">\n    <thead>\n    <tr>\n      <th>Enter a search term and press the search button</th>\n      <th>&nbsp;</th>\n    </tr>\n\n\n    <tr>\n      <td>\n        <input [(ngModel)]=\"searchTerm\"\n               placeholder=\"search term\"\n               class=\"form-control\"/>\n      </td>\n\n\n      <td>\n        <button (click)=\"keywordSearch()\"\n                class=\"btn btn-primary pull-right\">\n          <span class=\"glyphicon glyphicon-search\"></span>\n        </button>\n      </td>\n    </tr>\n    </thead>\n\n    <tbody>\n    <tr *ngFor=\"let result of searchResults\">\n\n\n      <td>\n      <div *ngIf=result>\n          {{result.title}}\n        <br>\n\n        <audio controls *ngIf=result>\n          <source src=\"{{result.url}}\" type=\"audio/mp3\">\n        </audio>\n      </div>\n      <div *ngIf=!result>\n        No Results to display\n      </div>\n\n\n\n      </td>\n    </tr>\n    </tbody>\n\n  </table>\n\n\n\n</div>\n\n"
 
 /***/ }),
 
@@ -1256,6 +1258,7 @@ module.exports = "<p>\n  project works!\n</p>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProjectComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_project_service_client__ = __webpack_require__("../../../../../src/app/services/project.service.client.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1266,10 +1269,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var ProjectComponent = (function () {
-    function ProjectComponent() {
+    function ProjectComponent(_service) {
+        this._service = _service;
+        this.alertMessage = false;
+        this.successMessage = false;
+        this.searchResults = [0,];
     }
     ProjectComponent.prototype.ngOnInit = function () {
+    };
+    ProjectComponent.prototype.keywordSearch = function () {
+        var _this = this;
+        return this._service.keywordSearch(this.searchTerm)
+            .subscribe(function (data) {
+            _this.successMessage = true;
+            _this.searchTerm = null;
+            _this.searchResults = data;
+            console.log(data);
+        });
     };
     return ProjectComponent;
 }());
@@ -1279,9 +1297,10 @@ ProjectComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/project/project.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/project/project.component.css")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_project_service_client__["a" /* ProjectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_project_service_client__["a" /* ProjectService */]) === "function" && _a || Object])
 ], ProjectComponent);
 
+var _a;
 //# sourceMappingURL=project.component.js.map
 
 /***/ }),
@@ -1379,6 +1398,60 @@ var _a;
 
 /***/ }),
 
+/***/ "../../../../../src/app/services/project.service.client.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProjectService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ProjectService = (function () {
+    function ProjectService(_http) {
+        this._http = _http;
+        this.baseUrl = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseUrl;
+    }
+    ProjectService.prototype.keywordSearch = function (searchTerm) {
+        var _this = this;
+        var encTerm = encodeURIComponent(searchTerm);
+        var path = this.baseUrl + '/api/youtube/query/' + encTerm;
+        return this._http.get(path)
+            .map(function (res) {
+            var data = res.json();
+            // add the url, using the current environment for each result
+            for (var i = 0; i < data.length; ++i) {
+                data[i].url = _this.baseUrl + "/api/youtube/" + data[i].videoId;
+            }
+            return data;
+        });
+    };
+    return ProjectService;
+}());
+ProjectService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object])
+], ProjectService);
+
+var _a;
+//# sourceMappingURL=project.service.client.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/services/test.service.client.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1408,7 +1481,6 @@ var TestService = (function () {
         this.baseUrl = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseUrl;
     }
     TestService.prototype.findAllMessages = function () {
-        console.log(this.baseUrl);
         return this._http.get(this.baseUrl + '/api/test')
             .map(function (res) {
             var data = res.json();

@@ -19,7 +19,7 @@
   <table class="table">
     <thead>
     <tr>
-      <th>Test Message</th>
+      <th>Enter a search term and press the search button</th>
       <th>&nbsp;</th>
     </tr>
 
@@ -35,7 +35,7 @@
       <td>
         <button (click)="keywordSearch()"
                 class="btn btn-primary pull-right">
-          <span class="glyphicon glyphicon-plus"></span>
+          <span class="glyphicon glyphicon-search"></span>
         </button>
       </td>
     </tr>
@@ -43,8 +43,23 @@
 
     <tbody>
     <tr *ngFor="let result of searchResults">
+
+
       <td>
-        {{result.title}}
+      <div *ngIf=result>
+          {{result.title}}
+        <br>
+
+        <audio controls *ngIf=result>
+          <source src="{{result.url}}" type="audio/mp3">
+        </audio>
+      </div>
+      <div *ngIf=!result>
+        No Results to display
+      </div>
+
+
+
       </td>
     </tr>
     </tbody>
