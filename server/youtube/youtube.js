@@ -20,7 +20,7 @@ if (process.env.YOUTUBE_APIKEY) {
     console.log(`key:${process.env.YOUTUBE_APIKEY}:`)
     var APIKEY = process.env.YOUTUBE_APIKEY;
 } else {
-    console.log("using default key")
+    console.log("YOUTUBE_APIKEY not specified by environment")
 }
 
 // load a set of cached outputs from the API calls,

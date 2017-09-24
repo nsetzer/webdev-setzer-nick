@@ -1,3 +1,56 @@
-<p>
-  project works!
-</p>
+<div class="container">
+
+  <h1>Test</h1>
+
+  <div *ngIf="alertMessage"
+       class="alert alert-danger">
+    "Failed to create"
+  </div>
+
+  <div *ngIf="successMessage"
+       class="alert alert-success">
+    "Succesfully executed query"
+  </div>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Test Message</th>
+      <th>&nbsp;</th>
+    </tr>
+
+
+    <tr>
+      <td>
+        <input [(ngModel)]="searchTerm"
+               placeholder="search term"
+               class="form-control"/>
+      </td>
+
+
+      <td>
+        <button (click)="keywordSearch()"
+                class="btn btn-primary pull-right">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+      </td>
+    </tr>
+    </thead>
+
+
+    <tbody>
+    <tr *ngFor="let result of searchResults">
+      <td>
+        {{result.title}}
+      </td>
+      <td>
+        <button (click)=""
+                class="btn btn-danger pull-right">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
