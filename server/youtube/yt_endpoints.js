@@ -17,7 +17,7 @@ module.exports = function(app)
      * to consume by the frontend
      */
     app.get('/api/youtube/query/:searchterm', function (req, res) {
-        console.log(req.params.searchterm);
+        console.log("received query request: " + req.params.searchterm);
 
         youtube.keywordSearch(req.params.searchterm, function(code, ytres) {
             if (code != 200) {

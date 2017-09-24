@@ -8,6 +8,7 @@ import {Routing} from './app.routing';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {TestService} from './services/test.service.client';
+import {ProjectService} from './services/project.service.client';
 import { AssignmentComponent } from './components/assignment/assignment.component';
 import { ProjectComponent } from './components/project/project.component';
 import { LoginComponent } from './components/assignment/user/login/login.component';
@@ -55,7 +56,7 @@ import { WidgetYoutubeComponent } from './components/assignment/widget/widget-yo
     Routing
   ],
   // Client Side services here
-  providers: [ TestService],
+  providers: [ TestService, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

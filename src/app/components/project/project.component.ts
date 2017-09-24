@@ -17,9 +17,11 @@ export class ProjectComponent implements OnInit {
   searchResults: any[] = [];
 
   ngOnInit() {
+
   }
 
   keywordSearch() {
+
     return this._service.keywordSearch(this.searchTerm)
         .subscribe(
             (data: any[]) => {
@@ -28,5 +30,7 @@ export class ProjectComponent implements OnInit {
                 this.searchResults = data;
             }
         );
+
   }
+
 }

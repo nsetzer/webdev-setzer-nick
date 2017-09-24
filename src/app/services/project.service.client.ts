@@ -5,13 +5,16 @@ import {environment} from '../../environments/environment';
 @Injectable()
 
 export class ProjectService {
+
+
   baseUrl = environment.baseUrl;
 
   constructor(private _http: Http) {
   }
 
-  keywordSearch(keywords) {
-    return this._http.get(this.baseUrl + '/api/youtube/query/sampple')
+  keywordSearch(searchTerm) {
+    console.log("got here")
+    return this._http.get(this.baseUrl + '/api/youtube/query/sample')
       .map(
         (res: Response) => {
           const data = res.json();
@@ -20,5 +23,5 @@ export class ProjectService {
       );
   }
 
-
 }
+
