@@ -14,7 +14,7 @@ export class ProjectComponent implements OnInit {
   successMessage: Boolean = false;
 
   searchTerm: String;
-  searchResults: any[] = [];
+  searchResults: any[] = [0,];
 
   ngOnInit() {
 
@@ -28,6 +28,7 @@ export class ProjectComponent implements OnInit {
                 this.successMessage = true;
                 this.searchTerm = null;
                 this.searchResults = data;
+                console.log(data)
             }
         );
 
