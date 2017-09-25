@@ -6,6 +6,8 @@
 }
 */
 
+
+
 .navbar-brand,
 .navbar-brand:hover,
 .navbar-link,
@@ -159,4 +161,8 @@ p.glyph-padding-short {
 div.container-margin {
   margin-left:15px;
   margin-right:15px;
+}
+
+input {
+  margin-bottom: 5px;
 }
