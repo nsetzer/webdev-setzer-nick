@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 
 @Injectable()
 
-export class UserService {
+export class WebsiteService {
 
   baseUrl = environment.baseUrl;
 
@@ -23,9 +23,9 @@ export class UserService {
 
   api = {
     'createWebsite'   : this.createWebsite,
-    'findWebsitesByUser' : this.findWebsitesByUser
-    'findWebsiteById' : this.findWebsiteById
-    'updateWebsite' : this.updateWebsite
+    'findWebsitesByUser' : this.findWebsitesByUser,
+    'findWebsiteById' : this.findWebsiteById,
+    'updateWebsite' : this.updateWebsite,
     'deleteWebsite' : this.deleteWebsite
   };
 
@@ -88,7 +88,7 @@ export class UserService {
      whose _id matches the websiteId parameter
      */
      for (let x = 0; x < this.sites.length; x++) {
-      if (this.sites[x]._id === userId) {
+      if (this.sites[x]._id === websiteId) {
         this.sites.splice(x, 1)
       }
     }

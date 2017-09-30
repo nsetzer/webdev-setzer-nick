@@ -21,9 +21,9 @@ export class UserService {
 
   api = {
     'createUser'   : this.createUser,
-    'findUserById' : this.findUserById
-    'findUserByUsername' : this.findUserByUsername
-    'updateUser' : this.updateUser
+    'findUserById' : this.findUserById,
+    'findUserByUsername' : this.findUserByUsername,
+    'updateUser' : this.updateUser,
     'deleteUser' : this.deleteUser
   };
 
@@ -67,9 +67,6 @@ export class UserService {
       }
     }
   }
-
-
-
 
 }
 
