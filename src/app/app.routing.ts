@@ -28,35 +28,30 @@ import {WebsiteEditComponent} from './components/assignment/website/website-edit
 import {WebsiteListComponent} from './components/assignment/website/website-list/website-list.component';
 import {WebsiteNewComponent}  from './components/assignment/website/website-new/website-new.component';
 
-import {WidgetYoutubeComponent} from './components/assignment/widget/widget-youtube/widget-youtube.component';
 import {WidgetListComponent} from './components/assignment/widget/widget-list/widget-list.component';
-import {WidgetImageComponent} from './components/assignment/widget/widget-image/widget-image.component';
-import {WidgetHeadingComponent} from './components/assignment/widget/widget-heading/widget-heading.component';
 import {WidgetChooseComponent} from './components/assignment/widget/widget-choose/widget-choose.component';
 
 const APP_ROUTES: Routes = [
   {path: '', component : HomeComponent},
-  {path: 'test', component: TestComponent},
+  {path: 'test',       component: TestComponent},
   {path: 'assignment', component: AssignmentComponent},
-  {path: 'project', component: ProjectComponent},
+  {path: 'project',    component: ProjectComponent},
 
-  {path: 'view/assignment/user/login',    component: LoginComponent},
-  {path: 'view/assignment/user/register', component: RegisterComponent},
-  {path: 'view/assignment/user/profile',  component: ProfileComponent},
+  {path: 'login',     component: LoginComponent},
+  {path: 'register',  component: RegisterComponent},
+  {path: 'user/:uid', component: ProfileComponent},
 
-  {path: 'view/assignment/page/edit',    component: PageEditComponent},
-  {path: 'view/assignment/page/list',    component: PageListComponent},
-  {path: 'view/assignment/page/new',    component: PageNewComponent},
+  {path: 'user/:uid/website',      component: WebsiteListComponent},
+  {path: 'user/:uid/website/new',  component: WebsiteNewComponent},
+  {path: 'user/:uid/website/:wid', component: WebsiteEditComponent},
 
-  {path: 'view/assignment/website/edit',    component: WebsiteEditComponent},
-  {path: 'view/assignment/website/list',    component: WebsiteListComponent},
-  {path: 'view/assignment/website/new',    component: WebsiteNewComponent},
+  {path: 'user/:uid/website/:wid/page',      component: PageListComponent},
+  {path: 'user/:uid/website/:wid/page/new',  component: PageNewComponent},
+  {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
 
-  {path: 'view/assignment/widget/youtube',    component: WidgetYoutubeComponent},
-  {path: 'view/assignment/widget/list',    component: WidgetListComponent},
-  {path: 'view/assignment/widget/image',    component: WidgetImageComponent},
-  {path: 'view/assignment/widget/heading',    component: WidgetHeadingComponent},
-  {path: 'view/assignment/widget/choose',    component: WidgetChooseComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget',    component: WidgetListComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/new',    component: WidgetChooseComponent},
+  //{path: 'user/:uid/website/:wid/page/:pid/widget/:wgid',    component: WidgetEditComponent},
 
 
 ];

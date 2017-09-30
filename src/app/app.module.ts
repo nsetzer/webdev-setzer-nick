@@ -21,10 +21,10 @@ import { WebsiteEditComponent } from './components/assignment/website/website-ed
 import { WebsiteListComponent } from './components/assignment/website/website-list/website-list.component';
 import { WebsiteNewComponent } from './components/assignment/website/website-new/website-new.component';
 import { WidgetChooseComponent } from './components/assignment/widget/widget-choose/widget-choose.component';
-import { WidgetHeadingComponent } from './components/assignment/widget/widget-heading/widget-heading.component';
-import { WidgetImageComponent } from './components/assignment/widget/widget-image/widget-image.component';
 import { WidgetListComponent } from './components/assignment/widget/widget-list/widget-list.component';
-import { WidgetYoutubeComponent } from './components/assignment/widget/widget-youtube/widget-youtube.component';
+//import { WidgetHeadingComponent } from './components/assignment/widget/widget-heading/widget-heading.component';
+//import { WidgetImageComponent } from './components/assignment/widget/widget-image/widget-image.component';
+//import { WidgetYoutubeComponent } from './components/assignment/widget/widget-youtube/widget-youtube.component';
 
 @NgModule({
   // Declare components here
@@ -44,10 +44,7 @@ import { WidgetYoutubeComponent } from './components/assignment/widget/widget-yo
     WebsiteListComponent,
     WebsiteNewComponent,
     WidgetChooseComponent,
-    WidgetHeadingComponent,
-    WidgetImageComponent,
     WidgetListComponent,
-    WidgetYoutubeComponent
   ],
   imports: [
     BrowserModule,
