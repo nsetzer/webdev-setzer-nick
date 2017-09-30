@@ -11,7 +11,7 @@
 .navbar-brand,
 .navbar-brand:hover,
 .navbar-link,
-.navbar-text{
+.navbar-text {
   color: white;
 }
 
@@ -26,13 +26,13 @@
     text-align: justify;
 }
 
-
 .navbar-default,
 .navbar-dark {
   height: 60px;
 }
 
-body {
+body,
+.content-body {
    /*navbar height (60) + padding*/
     padding-top: 65px;
     padding-bottom: 60px;

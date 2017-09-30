@@ -1,3 +1,133 @@
-<p>
-  website-edit works!
-</p>
+
+  <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+    <div class="container-fluid">
+
+      <div class="row">
+      <div class="col-sm-4 hidden-xs padding-none" >
+
+        <!--back mark-->
+        <p class="navbar-text pull-left glyph-margin">
+          <a href="website-list.html" class="navbar-link  navbar-chevron-link">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        </p>
+
+        <!--heading on the nav bar-->
+        <a class="navbar-brand thick">
+          <b>Website</b>
+        </a>
+
+        <!--tick mark-->
+        <!--TODO: link?-->
+        <p class="navbar-text pull-right glyph-padding-short">
+          <a href="website-new.html" class="navbar-link">
+            <span class="glyphicon glyphicon-plus"></span>
+          </a>
+        </p>
+
+      </div> <!-- end lhs column-->
+      <!-- end lhs column-->
+
+      <!-- rhs (normal) column-->
+      <div class="col-sm-8 hidden-xs padding-left-default padding-right-none">
+
+        <!--heading on the nav bar-->
+        <a class="navbar-brand thick">
+          <b>Edit Website</b>
+        </a>
+        <!--tick mark-->
+        <p class="navbar-text pull-right glyph-margin">
+          <a href="website-list.html" class="navbar-link">
+            <span class="glyphicon glyphicon-ok padding-right-default"></span>
+          </a>
+        </p>
+      </div> <!-- end rhs column-->
+      <div class="col-xs-12 hidden-sm padding-left-default padding-right-none">
+        <p class="navbar-text pull-left glyph-margin">
+          <a href="website-list.html" class="navbar-link  navbar-chevron-link">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        </p>
+        <a class="navbar-brand thick">
+          <b>Edit Website</b>
+        </a>
+        <p class="navbar-text pull-right glyph-margin">
+          <a href="website-list.html" class="navbar-link">
+            <span class="glyphicon glyphicon-ok padding-right-default"></span>
+          </a>
+        </p>
+      </div> <!-- end rhs (normal) column-->
+      </div> <!-- end row-->
+  </div>
+
+</nav>
+
+<div class="container-fluid container-margin">
+  <div class="row">
+    <div class="col-sm-4 hidden-xs padding-none">
+      <ul class="list-group">
+
+        <li class="list-group-item list-item-borderless padding-default">
+          <a href="../page/page-list.html">Blogging App</a>
+              <a href="website-edit.html" class="pull-right">
+                <span class="glyphicon glyphicon-cog padding-right-default"></span>
+          </a>
+        </li>
+
+        <li class="list-group-item  list-item-borderless padding-default">
+          <a href="../page/page-list.html">Address Book App</a>
+              <a href="website-edit.html" class="pull-right">
+                <span class="glyphicon glyphicon-cog padding-right-default"></span>
+          </a>
+        </li>
+
+        <li class="list-group-item list-item-borderless padding-default">
+              <a href="../page/page-list.html">Script Testing App</a>
+              <a href="website-edit.html" class="pull-right">
+                <span class="glyphicon glyphicon-cog padding-right-default"></span>
+          </a>
+        </li>
+
+        <li class="list-group-item  list-item-borderless padding-default">
+              <a href="../page/page-list.html">Blogger</a>
+              <a href="website-edit.html" class="pull-right">
+                <span class="glyphicon glyphicon-cog padding-right-default"></span>
+              </a>
+        </li>
+
+      </ul>
+    </div>
+    <div class="col-xs-12 col-sm-8 padding-content">
+      <form>
+        <div class="form-group">
+          <label for="websiteName">Website Name</label>
+          <input type="text"
+                 class="form-control"
+                 id="websiteName"
+                 value="Blogger"
+                 placeholder="Website Name">
+        </div>
+        <div class="form-group">
+          <label for="websiteDescription">Website Description</label>
+          <textarea rows="5"
+                    class="form-control"
+                    id="websiteDescription">This is a blogger website</textarea>
+        </div>
+      </form>
+      <a class="btn btn-danger btn-block"
+         href="website-list.html" >Delete</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+  <div class="container-fluid">
+  <p class="navbar-text pull-right glyph-margin">
+    <a href="../user/profile.html" class="navbar-link">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </p>
+  </div>
+</nav>
