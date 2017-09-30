@@ -35,7 +35,7 @@ export class PageService {
     */
     page._id = Math.random();
     page.websiteId = websiteId;
-    this.pages.push(website);
+    this.pages.push(page);
     return page;
   }
 
@@ -70,7 +70,7 @@ export class PageService {
     updates the page in local pages array whose
     _id matches the pageId parameter
     */
-    for (let x = 0; x < this.sites.length; x++) {
+    for (let x = 0; x < this.pages.length; x++) {
       if (this.pages[x]._id === pageId) {
         this.pages[x].name = page.name;
         this.pages[x].description = page.description;

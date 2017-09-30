@@ -7,8 +7,14 @@ import { TestComponent } from './components/test/test.component';
 import {Routing} from './app.routing';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
-import {TestService} from './services/test.service.client';
-import {ProjectService} from './services/project.service.client';
+
+import { TestService } from './services/test.service.client';
+import { ProjectService } from './services/project.service.client';
+import { UserService } from './services/user.service.client';
+import { WebsiteService } from './services/website.service.client';
+import { PageService } from './services/page.service.client';
+import { WidgetService } from './services/widget.service.client';
+
 import { AssignmentComponent } from './components/assignment/assignment.component';
 import { ProjectComponent } from './components/project/project.component';
 import { LoginComponent } from './components/assignment/user/login/login.component';
@@ -53,7 +59,12 @@ import { WidgetListComponent } from './components/assignment/widget/widget-list/
     Routing
   ],
   // Client Side services here
-  providers: [ TestService, ProjectService],
+  providers: [ TestService,
+               ProjectService,
+               UserService,
+               WebsiteService,
+               PageService,
+               WidgetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 
 @Injectable()
 
-export class PageService {
+export class WidgetService {
 
   baseUrl = environment.baseUrl;
 
@@ -22,11 +22,11 @@ export class PageService {
   ]
 
   api = {
-    'createPage'   : this.createPage,
-    'findPageByWebsiteId' : this.findPageByWebsiteId,
-    'findPageById' : this.findPageById,
-    'updatePage' : this.updatePage,
-    'deletePage' : this.deletePage
+    'createWidget'   : this.createWidget,
+    'findWidgetsByPageId' : this.findWidgetsByPageId,
+    'findWidgetById' : this.findWidgetById,
+    'updateWidget' : this.updateWidget,
+    'deleteWidget' : this.deleteWidget
   };
 
   constructor(private _http: Http) {
@@ -42,6 +42,7 @@ export class PageService {
     this.widgets.push(widget);
     return widget;
   }
+
   findWidgetsByPageId(pageId) {
     /*
     retrieves the widgets in local widgets array whose
@@ -55,6 +56,7 @@ export class PageService {
     }
     return widgets;
   }
+
   findWidgetById(widgetId) {
     /*
     retrieves the widget in local widgets array whose
@@ -66,6 +68,7 @@ export class PageService {
       }
     }
   }
+
   updateWidget(widgetId, widget) {
     /*
     updates the widget in local widgets array whose
@@ -77,6 +80,7 @@ export class PageService {
       }
     }
   }
+
   deleteWidget(widgetId) {
     /*
     removes the widget from local widgets array whose
