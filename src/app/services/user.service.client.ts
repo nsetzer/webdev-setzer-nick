@@ -22,6 +22,9 @@ export class UserService {
   api = {
     'createUser'   : this.createUser,
     'findUserById' : this.findUserById
+    'findUserByUsername' : this.findUserByUsername
+    'updateUser' : this.updateUser
+    'deleteUser' : this.deleteUser
   };
 
   constructor(private _http: Http) {
@@ -63,7 +66,6 @@ export class UserService {
         this.users.splice(x, 1)
       }
     }
-
   }
 
 
