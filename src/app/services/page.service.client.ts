@@ -34,7 +34,7 @@ export class PageService {
     The new page's websiteId is set to the websiteId parameter
     */
     page._id = Math.random();
-    page.websiteId = userId;
+    page.websiteId = websiteId;
     this.pages.push(website);
     return page;
   }
