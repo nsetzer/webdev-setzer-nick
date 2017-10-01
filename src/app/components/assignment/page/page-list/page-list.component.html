@@ -4,7 +4,7 @@
 
     <!--back mark-->
     <p class="navbar-text pull-left glyph-margin">
-      <a href="../website/website-list.html"
+      <a [routerLink]="['/user/'+uid + '/website/']"
          class="navbar-link navbar-chevron-link">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
@@ -19,7 +19,8 @@
 
     <!--tick mark-->
     <p class="navbar-text pull-right glyph-margin">
-      <a href="page-new.html" class="navbar-link">
+      <a [routerLink]="['/user/'+uid+'/website/'+wid+'/page/new']"
+         class="navbar-link">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
     </p>
@@ -27,51 +28,21 @@
   </div>
 </nav>
 
-
-
 <div class="container-fluid content-body">
 
   <ul class="list-group">
-    <li class="list-group-item list-item-borderless">
+    <li *ngFor="let page of pages"
+        class="list-group-item list-item-borderless">
 
-        <a href="../widget/widget-list.html">Blog Post</a>
+        <a [routerLink]="['/user/'+uid+'/website/'+ wid + '/page/' + page._id + '/widget']"
+           >{{page.name}}</a>
 
-        <a href="page-edit.html" class="pull-right">
+        <a [routerLink]="['/user/'+uid+'/website/'+ wid + '/page/' + page._id]"
+           class="pull-right">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
     </li>
-    <li class="list-group-item list-item-borderless">
 
-        <a href="../widget/widget-list.html">Blogs</a>
-
-        <a href="page-edit.html" class="pull-right">
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
-    </li>
-    <li class="list-group-item list-item-borderless">
-
-        <a href="../widget/widget-list.html">Home</a>
-
-        <a href="page-edit.html" class="pull-right">
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
-    </li>
-    <li class="list-group-item list-item-borderless">
-
-        <a href="../widget/widget-list.html">About</a>
-
-        <a href="page-edit.html" class="pull-right">
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
-    </li>
-    <li class="list-group-item list-item-borderless">
-
-        <a href="../widget/widget-list.html">Contact Us</a>
-
-        <a href="page-edit.html" class="pull-right">
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
-    </li>
   </ul>
 
 </div>
@@ -80,7 +51,8 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid">
   <p class="navbar-text pull-right glyph-margin">
-    <a href="../user/profile.html" class="navbar-link">
+    <a [routerLink]="['/user/'+uid]"
+       class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>

@@ -11,15 +11,36 @@ export class PageService {
 
   baseUrl = environment.baseUrl;
 
+  nextId : number = 1000;
+
   pages = [
-    { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-    { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-    { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
+    { "_id": "321", "name": "Post 1", "websiteId": "456", "title": "Post 1", "description": "Lorem" },
+    { "_id": "432", "name": "Post 2", "websiteId": "456", "title": "Post 2", "description": "Lorem" },
+    { "_id": "543", "name": "Post 3", "websiteId": "456", "title": "Post 3", "description": "Lorem" },
+    { "_id": "100", "name": "Post 1", "websiteId": "123", "title": "Post 1", "description": "Lorem" },
+    { "_id": "101", "name": "Post 2", "websiteId": "123", "title": "Post 2", "description": "Lorem" },
+    { "_id": "102", "name": "Post 3", "websiteId": "123", "title": "Post 3", "description": "Lorem" },
+    { "_id": "110", "name": "Post 1", "websiteId": "234", "title": "Post 1", "description": "Lorem" },
+    { "_id": "111", "name": "Post 2", "websiteId": "234", "title": "Post 2", "description": "Lorem" },
+    { "_id": "112", "name": "Post 3", "websiteId": "234", "title": "Post 3", "description": "Lorem" },
+    { "_id": "120", "name": "Lang"  , "websiteId": "890", "title": "Post 1", "description": "Lorem" },
+    { "_id": "121", "name": "Game", "websiteId": "890", "title": "Post 2", "description": "Lorem" },
+    { "_id": "122", "name": "Home" , "websiteId": "890", "title": "Post 3", "description": "Lorem" },
+    { "_id": "130", "name": "Easy", "websiteId": "567", "title": "Post 1", "description": "Lorem" },
+    { "_id": "131", "name": "Medium", "websiteId": "567", "title": "Post 2", "description": "Lorem" },
+    { "_id": "132", "name": "Hard", "websiteId": "567", "title": "Post 3", "description": "Lorem" },
+    { "_id": "140", "name": "Post 1", "websiteId": "678", "title": "Post 1", "description": "Lorem" },
+    { "_id": "141", "name": "Post 2", "websiteId": "678", "title": "Post 2", "description": "Lorem" },
+    { "_id": "142", "name": "Post 3", "websiteId": "678", "title": "Post 3", "description": "Lorem" },
+    { "_id": "150", "name": "Post 1", "websiteId": "789", "title": "Post 1", "description": "Lorem" },
+    { "_id": "151", "name": "Post 2", "websiteId": "789", "title": "Post 2", "description": "Lorem" },
+    { "_id": "152", "name": "Post 3", "websiteId": "789", "title": "Post 3", "description": "Lorem" }
+
   ]
 
   api = {
     'createPage'   : this.createPage,
-    'findPageByWebsiteId' : this.findPageByWebsiteId,
+    'findPagesByWebsiteId' : this.findPagesByWebsiteId,
     'findPageById' : this.findPageById,
     'updatePage' : this.updatePage,
     'deletePage' : this.deletePage
@@ -33,13 +54,14 @@ export class PageService {
     adds the page parameter instance to the local pages array.
     The new page's websiteId is set to the websiteId parameter
     */
-    page._id = Math.random();
+    page._id = "" + this.nextId;
+    this.nextId = this.nextId + 1;
     page.websiteId = websiteId;
     this.pages.push(page);
     return page;
   }
 
-  findPageByWebsiteId(websiteId) {
+  findPagesByWebsiteId(websiteId) {
     /*
     retrieves the pages in local pages array whose
     websiteId matches the parameter websiteId

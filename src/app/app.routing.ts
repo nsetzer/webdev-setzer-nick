@@ -57,4 +57,4 @@ const APP_ROUTES: Routes = [
 ];
 
 // Export the routes as module providers
-export const Routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES, { enableTracing: true });
+export const Routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES, { enableTracing: false });

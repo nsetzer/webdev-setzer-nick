@@ -1,19 +1,8 @@
 
-/*
-.navbar {
-    color: #FFFFFF;
-    background-color: #5555CC;
-}
-*/
-
-.navbar {
-  opacity:.4;
-}
-
-.navbar-brand,
-.navbar-brand:hover,
-.navbar-link,
-.navbar-text {
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-brand:hover,
+.navbar-dark .navbar-link,
+.navbar-dark .navbar-text {
   color: white;
 }
 
