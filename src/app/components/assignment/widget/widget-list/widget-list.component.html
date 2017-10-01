@@ -26,104 +26,36 @@
   </div>
 </nav>
 
-<div class="container-fluid container-margin content-body">
+<div *ngFor="let widget of widgets">
 
-  <ul class="list-group">
+ <div [ngSwitch]="widget.type">
 
-    <li class="list-group-item list-item-user-widget">
-      <div class="user-widget">
-        <div class="user-widget-toolbar">
-          <a href="widget-heading.html" class="navbar-link">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </div>
-        <h1>GIZMODO</h1>
-      </div>
-    </li>
+     <div *ngSwitchCase="'Header'">
+     </div>
 
-    <li class="list-group-item list-item-user-widget">
-      <div class="user-widget">
-        <div class="user-widget-toolbar">
-          <a href="widget-heading.html" class="navbar-link">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </div>
-        <h2>US Senate reaches Compromise On Emergency Zika Funding</h2>
-      </div>
-    </li>
+     <div *ngSwitchCase="'YouTube'">
+     </div>
 
-    <li class="list-group-item list-item-user-widget">
-      <div class="user-widget">
-        <div class="user-widget-toolbar">
-          <a href="widget-image.html" class="navbar-link">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </div>
-        <div class="user-widget-proportional">
-        <img width="100%"
-             src="http://lorempixel.com/480/270/nature" />
-        </div>
-      </div>
-    </li>
+     <div *ngSwitchCase="'Image'">
+     </div>
 
-    <li class="list-group-item list-item-user-widget">
-      <div class="user-widget">
-        <div class="user-widget-toolbar">
-          <a href="widget-heading.html" class="navbar-link">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </div>
-        The above image is an image courtesy of Lorem Pixel.
-        Placeholder Images for every case. It is a randomly
-        selected picture depicting a nature scene.
-      </div>
-    </li>
+     <!--
+     heading
+     label
+     html
+     text
+     link
+     button
+     image
+     youtube
+     table
+     repeater
+     -->
 
-    <li class="list-group-item list-item-user-widget">
-      <div class="user-widget">
-        <div class="user-widget-toolbar">
-          <a href="widget-youtube.html" class="navbar-link">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </div>
-
-        <div class="user-widget-proportional">
-        <iframe class="user-widget-proportional"
-                src="https://www.youtube.com/embed/sNh-iw7gsuI"
-                frameborder="0" allowfullscreen>
-        </iframe>
-        </div>
-
-      </div>
-    </li>
-
-    <li class="list-group-item list-item-user-widget">
-      <div class="user-widget">
-        <div class="user-widget-toolbar">
-          <a href="widget-heading.html" class="navbar-link">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-          <span class="glyphicon glyphicon-menu-hamburger"></span>
-        </div>
-        "Outshined" is a song by the American rock band Soundgarden.
-        Written by frontman Chris Cornell,
-        "Outshined" was released in 1991 as the second single
-        from the band's third studio album, Badmotorfinger (1991).
-        The song was included on Soundgarden's 1997 greatest hits album,
-        A-Sides, the 2010 compilation album, Telephantasm and the
-        live album Live on I-5.
-      </div>
-    </li>
-
-
-  </ul>
+ </div>
 
 </div>
+
 
 <!-- Footer -->
 <nav class="navbar navbar-default navbar-fixed-bottom">

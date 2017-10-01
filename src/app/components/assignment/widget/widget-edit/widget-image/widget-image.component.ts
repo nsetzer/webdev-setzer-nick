@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-widget-image',
   templateUrl: './widget-image.component.html',
-  styleUrls: ['./widget-image.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./widget-image.component.css']
 })
 export class WidgetImageComponent implements OnInit {
 

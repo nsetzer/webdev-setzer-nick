@@ -29,9 +29,11 @@ import { WebsiteListComponent } from './components/assignment/website/website-li
 import { WebsiteNewComponent } from './components/assignment/website/website-new/website-new.component';
 import { WidgetChooseComponent } from './components/assignment/widget/widget-choose/widget-choose.component';
 import { WidgetListComponent } from './components/assignment/widget/widget-list/widget-list.component';
-//import { WidgetHeadingComponent } from './components/assignment/widget/widget-heading/widget-heading.component';
-//import { WidgetImageComponent } from './components/assignment/widget/widget-image/widget-image.component';
-//import { WidgetYoutubeComponent } from './components/assignment/widget/widget-youtube/widget-youtube.component';
+import { WidgetEditComponent } from './components/assignment/widget/widget-edit/widget-edit.component';
+
+import { WidgetHeaderComponent } from './components/assignment/widget/widget-edit/widget-header/widget-header.component';
+import { WidgetYoutubeComponent } from './components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component';
+import { WidgetImageComponent } from './components/assignment/widget/widget-edit/widget-image/widget-image.component';
 
 @NgModule({
   // Declare components here
@@ -52,6 +54,10 @@ import { WidgetListComponent } from './components/assignment/widget/widget-list/
     WebsiteNewComponent,
     WidgetChooseComponent,
     WidgetListComponent,
+    WidgetEditComponent,
+    WidgetHeaderComponent,
+    WidgetYoutubeComponent,
+    WidgetImageComponent,
   ],
   imports: [
     BrowserModule,
