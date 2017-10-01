@@ -30,6 +30,7 @@ import {WebsiteNewComponent}  from './components/assignment/website/website-new/
 
 import {WidgetListComponent} from './components/assignment/widget/widget-list/widget-list.component';
 import {WidgetChooseComponent} from './components/assignment/widget/widget-choose/widget-choose.component';
+import {WidgetEditComponent} from './components/assignment/widget/widget-edit/widget-edit.component';
 
 const APP_ROUTES: Routes = [
   {path: '', component : HomeComponent},
@@ -51,7 +52,7 @@ const APP_ROUTES: Routes = [
 
   {path: 'user/:uid/website/:wid/page/:pid/widget',    component: WidgetListComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new',    component: WidgetChooseComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid',    component: WidgetEditComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid',    component: WidgetEditComponent}
 
 
 ];

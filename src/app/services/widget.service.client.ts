@@ -11,7 +11,9 @@ export class WidgetService {
 
   baseUrl = environment.baseUrl;
 
-  widgets = [
+  nextId : number = 1000;
+
+  widgets : any = [
     { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
     { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
     { "_id": "345", "widgetType": "IMAGE",   "pageId": "321", "width": "100%", "url": "http://lorempixel.com/400/200/"},
@@ -30,6 +32,58 @@ export class WidgetService {
   };
 
   constructor(private _http: Http) {
+
+
+    var pages = [432,543,
+                 100,101,102,
+                 110,111,112,
+                 120,121,122,
+                 130,131,132,
+                 140,141,142,
+                 150,151,152 ]
+    for (let i=0; i < pages.length; i++) {
+
+      this.widgets.push({
+        _id: "" + this.nextId,
+        name: "Widget " + this.nextId,
+        pageId: "" + pages[i],
+        widgetType: "HEADING",
+        size: 2,
+        text: "HEADING " + this.nextId
+      });
+      this.nextId = this.nextId + 1;
+
+      this.widgets.push({
+        _id: "" + this.nextId,
+        name: "Widget " + this.nextId,
+        pageId: "" + pages[i],
+        widgetType: "IMAGE",
+        width: "100%",
+        url: "http://lorempixel.com/400/200/"
+      });
+      this.nextId = this.nextId + 1;
+
+      this.widgets.push({
+        _id: "" + this.nextId,
+        name: "Widget " + this.nextId,
+        pageId: "" + pages[i],
+        widgetType: "YOUTUBE",
+        width: "100%",
+        url: "https://youtu.be/AM2Ivdi9c4E"
+      });
+      this.nextId = this.nextId + 1;
+
+      this.widgets.push({
+        _id: "" + this.nextId,
+        name: "Widget " + this.nextId,
+        pageId: "" + pages[i],
+        widgetType: "HTML",
+        text: "<b>Lorem</b> <i>ipsum</i>"
+      });
+      this.nextId = this.nextId + 1;
+    }
+
+
   }
 
   createWidget(pageId, widget) {
@@ -37,7 +91,8 @@ export class WidgetService {
     adds the widget parameter instance to the local widgets array.
     The new widget's pageId is set to the pageId parameter
     */
-    widget._id = Math.random();
+    widget._id = "" + this.nextId;
+    this.nextId = this.nextId + 1;
     widget.pageId = pageId;
     this.widgets.push(widget);
     return widget;

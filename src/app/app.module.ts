@@ -31,9 +31,9 @@ import { WidgetChooseComponent } from './components/assignment/widget/widget-cho
 import { WidgetListComponent } from './components/assignment/widget/widget-list/widget-list.component';
 import { WidgetEditComponent } from './components/assignment/widget/widget-edit/widget-edit.component';
 
-import { WidgetHeaderComponent } from './components/assignment/widget/widget-edit/widget-header/widget-header.component';
-import { WidgetYoutubeComponent } from './components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component';
-import { WidgetImageComponent } from './components/assignment/widget/widget-edit/widget-image/widget-image.component';
+//import { WidgetHeaderComponent } from './components/assignment/widget/widget-edit/widget-header/widget-header.component';
+//import { WidgetYoutubeComponent } from './components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component';
+//import { WidgetImageComponent } from './components/assignment/widget/widget-edit/widget-image/widget-image.component';
 
 @NgModule({
   // Declare components here
@@ -54,10 +54,10 @@ import { WidgetImageComponent } from './components/assignment/widget/widget-edit
     WebsiteNewComponent,
     WidgetChooseComponent,
     WidgetListComponent,
-    WidgetEditComponent,
-    WidgetHeaderComponent,
-    WidgetYoutubeComponent,
-    WidgetImageComponent,
+    WidgetEditComponent
+    //WidgetHeaderComponent,
+    //WidgetYoutubeComponent,
+    //WidgetImageComponent
   ],
   imports: [
     BrowserModule,

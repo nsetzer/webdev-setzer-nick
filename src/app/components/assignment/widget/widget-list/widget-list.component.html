@@ -26,36 +26,57 @@
   </div>
 </nav>
 
-<div *ngFor="let widget of widgets">
+<div class="content-body">
+<ul>
 
- <div [ngSwitch]="widget.type">
 
-     <div *ngSwitchCase="'Header'">
-     </div>
+    <li *ngFor="let widget of widgets"
+        class="list-group-item list-item-user-widget">
+        <div class="user-widget">
+            <div class="user-widget-toolbar">
+                <a href="widget-heading.html" class="navbar-link">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </div>
 
-     <div *ngSwitchCase="'YouTube'">
-     </div>
+            <!--
+             heading
+             label
+             html
+             text
+             link
+             button
+             image
+             youtube
+             table
+             repeater
+             -->
 
-     <div *ngSwitchCase="'Image'">
-     </div>
+            <div [ngSwitch]="widget.widgetType">
+                <div *ngSwitchCase="'HEADING'">
+                    <h1>HEADER</h1>
+                </div>
 
-     <!--
-     heading
-     label
-     html
-     text
-     link
-     button
-     image
-     youtube
-     table
-     repeater
-     -->
+                <div *ngSwitchCase="'YOUTUBE'">
+                    <h1>YOUTUBE</h1>
+                </div>
 
- </div>
+                <div *ngSwitchCase="'IMAGE'">
+                    <h1>IMAGE</h1>
+                </div>
 
+                <div *ngSwitchCase="'HTML'">
+                    <h1>HTML</h1>
+                </div>
+            </div>
+
+      </div>
+    </li>
+
+
+</ul>
 </div>
-
 
 <!-- Footer -->
 <nav class="navbar navbar-default navbar-fixed-bottom">

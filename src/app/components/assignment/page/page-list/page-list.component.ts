@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class PageListComponent implements OnInit {
 
-  uid : string ="";
+  uid : string = "";
   wid : string = "";
   pages : any = [];
   private sub: any;
@@ -30,9 +30,7 @@ export class PageListComponent implements OnInit {
   }
 
   reload() {
-    //
     this.pages = this._service.findPagesByWebsiteId(this.wid)
-    console.log(this.pages)
   }
 
 }
