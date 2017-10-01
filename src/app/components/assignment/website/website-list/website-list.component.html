@@ -27,40 +27,16 @@
   </div>
 </nav>
 
-
-
-<div class="container-fluid">
+<div class="container-fluid content-body">
 
   <ul class="list-group">
-    <li class="list-group-item list-item-borderless">
+    <li *ngFor="let website of websites"
+        class="list-group-item list-item-borderless">
 
-        <a href="../page/page-list.html">Address Book App</a>
+        <a [routerLink]="['/user/'+uid+'/website/'+website._id + '/page']">{{website.name}}</a>
 
-        <a href="website-edit.html" class="pull-right">
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
-    </li>
-    <li class="list-group-item list-item-borderless">
-
-        <a href="../page/page-list.html">Blogger</a>
-
-        <a href="website-edit.html" class="pull-right">
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
-    </li>
-    <li class="list-group-item list-item-borderless">
-
-        <a href="../page/page-list.html">Blogging App</a>
-
-        <a href="website-edit.html" class="pull-right">
-          <span class="glyphicon glyphicon-cog"></span>
-        </a>
-    </li>
-    <li class="list-group-item list-item-borderless">
-
-        <a href="../page/page-list.html">Script Testing App</a>
-
-        <a href="website-edit.html" class="pull-right">
+        <a [routerLink]="['/user/'+uid+'/website/'+website._id]"
+           class="pull-right">
           <span class="glyphicon glyphicon-cog"></span>
         </a>
     </li>
