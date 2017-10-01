@@ -3,24 +3,30 @@
 
     <h1>Login</h1>
 
-    <input type="text"
-           name="username"
-           placeholder="username"
-           class="form-control"
-           ngModel
-           required
-           #username="ngModel"/>
+    <!--
+    jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
+    -->
+    <form name="form" (ngSubmit)="login()">
+      <input type="text"
+             [(ngModel)]="username"
+             name="username"
+             placeholder="username"
+             class="form-control"
+             required/>
+      <div *ngIf="invalid_username" class="help-block">Username not Found</div>
+      <input type="password"
+             [(ngModel)]="password"
+             name="password"
+             placeholder="password"
+             class="form-control"
+             required/>
+      <div *ngIf="invalid_password" class="help-block">Password is required</div>
 
-    <input type="password"
-           name="password"
-           placeholder="password"
-           class="form-control"
-           ngModel
-           required
-           #username="ngModel"/>
+      <button (click)="login()"
+              class="btn btn-primary btn-block">Login</button>
 
-    <a class="btn btn-primary btn-block"
-       [routerLink]="['/user/0']">Login</a>
+    </form>
+
     <a class="btn btn-success btn-block"
        [routerLink]="['/register']">Register</a>
 
