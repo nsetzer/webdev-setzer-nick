@@ -33,6 +33,12 @@ export class WebsiteEditComponent implements OnInit {
     this.websites = this._service.findWebsitesByUser(this.uid)
     this.current_site = this._service.findWebsiteById(this.wid)
 
+    if (!this.current_site) {
+        //this.current_site  = {name:"ERROR",description:"ERROR"}
+        console.log("no site found")
+        this.router.navigate(["/user/" + this.uid + "/website"]);
+    }
+
   }
 
   saveChanges() {

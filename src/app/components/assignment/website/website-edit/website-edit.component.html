@@ -25,10 +25,10 @@
           </a>
         </p>
 
-      </div> <!-- end lhs column-->
-      <!-- end lhs column-->
+      </div> 
+	  <!-- end lhs column-->
 
-      <!-- rhs (normal) column-->
+      <!-- rhs (small) column-->
       <div class="col-sm-8 hidden-xs padding-left-default padding-right-none">
 
         <!--heading on the nav bar-->
@@ -42,17 +42,22 @@
             <span class="glyphicon glyphicon-ok padding-right-default"></span>
           </a>
         </p>
-      </div> <!-- end rhs column-->
+      </div> 
+	  <!-- end rhs column-->
       <!-- rhs (normal) column-->
       <div class="col-xs-12 hidden-sm padding-left-default padding-right-none">
+        <!--back mark-->
         <p class="navbar-text pull-left glyph-margin">
           <a href="website-list.html" class="navbar-link  navbar-chevron-link">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
         </p>
+
+        <!--heading on the nav bar-->
         <a class="navbar-brand thick">
           <b>Edit Website</b>
         </a>
+        <!--tick mark-->
         <p class="navbar-text pull-right glyph-margin">
           <a class="navbar-link"
              (click)="saveChanges()">
@@ -68,7 +73,7 @@
 <div class="container-fluid container-margin content-body">
   <div class="row">
     <div class="col-sm-4 hidden-xs padding-none">
-      <ul class="list-group">
+
 
         <ul class="list-group">
           <li *ngFor="let website of websites"
@@ -80,10 +85,9 @@
                  class="pull-right">
                 <span class="glyphicon glyphicon-cog"></span>
               </a>
-          </li>
+        </li>
         </ul>
 
-      </ul>
     </div>
     <div class="col-xs-12 col-sm-8 padding-content">
       <form>

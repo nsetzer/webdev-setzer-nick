@@ -11,6 +11,8 @@ export class WebsiteService {
 
   baseUrl = environment.baseUrl;
 
+  nextId : number = 1000;
+
   sites = [
     { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
     { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
@@ -37,9 +39,11 @@ export class WebsiteService {
     adds the website parameter instance to the local websites array.
     The new website's developerId is set to the userId parameter
     */
-    website._id = Math.random();
+    website._id = "" + this.nextId;
+    this.nextId = this.nextId + 1;
     website.developerId = userId;
     this.sites.push(website);
+    console.log("creating a website" + website)
     return website;
   }
 
