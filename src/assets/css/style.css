@@ -6,7 +6,9 @@
 }
 */
 
-
+.navbar {
+  opacity:.4;
+}
 
 .navbar-brand,
 .navbar-brand:hover,

@@ -25,47 +25,46 @@
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text"
+             [(ngModel)]="user.username"
+             name="username"
+             placeholder="username"
              class="form-control"
-             id="username"
-             value="alice"
-             placeholder="username">
+             required/>
     </div>
-  </form>
 
-  <form>
     <div class="form-group">
       <label for="email">Email address</label>
       <input type="email"
+             [(ngModel)]="user.email"
+             name="email"
+             placeholder="email"
              class="form-control"
-             id="email"
-             value="alice.wonderland@unicorn.com"
-             placeholder="email address">
+             required/>
     </div>
-  </form>
 
-  <form>
     <div class="form-group">
       <label for="first-name">First Name</label>
       <input type="text"
+             [(ngModel)]="user.firstName"
+             name="firstName"
              class="form-control"
-             id="first-name"
-             value="Alice"
-             placeholder="First Name">
+             placeholder="First Name"
+             required/>
     </div>
-  </form>
 
-  <form>
     <div class="form-group">
       <label for="last-name">Last Name</label>
       <input type="text"
+             [(ngModel)]="user.lastName"
+             name="lastName"
              class="form-control"
-             id="last-name"
-             value="Wonderland"
-             placeholder="Last Name">
+             placeholder="Last Name"
+             required/>
     </div>
   </form>
+
   <a class="btn btn-primary btn-block"
-     href="../website/website-list.html">Websites</a>
+     (click)="openWebsiteList()">Websites</a>
   <a class="btn btn-danger btn-block "
      href="login.html" >Logout</a>
 
