@@ -18,19 +18,23 @@ import { WidgetService } from './services/widget.service.client';
 
 import { AssignmentComponent } from './components/assignment/assignment.component';
 import { ProjectComponent } from './components/project/project.component';
+
 import { LoginComponent } from './components/assignment/user/login/login.component';
 import { ProfileComponent } from './components/assignment/user/profile/profile.component';
 import { RegisterComponent } from './components/assignment/user/register/register.component';
+
 import { PageEditComponent } from './components/assignment/page/page-edit/page-edit.component';
 import { PageListComponent } from './components/assignment/page/page-list/page-list.component';
 import { PageNewComponent } from './components/assignment/page/page-new/page-new.component';
+
 import { WebsiteEditComponent } from './components/assignment/website/website-edit/website-edit.component';
 import { WebsiteListComponent } from './components/assignment/website/website-list/website-list.component';
 import { WebsiteNewComponent } from './components/assignment/website/website-new/website-new.component';
+
 import { WidgetChooseComponent } from './components/assignment/widget/widget-choose/widget-choose.component';
 import { WidgetListComponent } from './components/assignment/widget/widget-list/widget-list.component';
-import { WidgetEditComponent } from './components/assignment/widget/widget-edit/widget-edit.component';
 
+import { WidgetEditComponent } from './components/assignment/widget/widget-edit/widget-edit.component';
 import { WidgetHeaderComponent } from './components/assignment/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetYoutubeComponent } from './components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component';
 import { WidgetImageComponent } from './components/assignment/widget/widget-edit/widget-image/widget-image.component';

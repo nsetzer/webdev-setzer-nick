@@ -14,16 +14,17 @@ export class WidgetService {
   nextId : number = 1000;
 
   widgets : any = [
-    { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
-    { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-    { "_id": "345", "widgetType": "IMAGE",   "pageId": "321", "width": "100%", "url": "http://lorempixel.com/400/200/"},
-    { "_id": "456", "widgetType": "HTML",    "pageId": "321", "text": "<p>Lorem ipsum</p>"},
-    { "_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-    { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%", "url": "https://www.youtube.com/embed/AM2Ivdi9c4E" },
-    { "_id": "789", "widgetType": "HTML",    "pageId": "321", "text": "<p>Lorem ipsum</p>"}
+    { "_id": "123", "widgetType": "HEADING", "name": "", pageId: "321", "size": 2, "text": "GIZMODO"},
+    { "_id": "234", "widgetType": "HEADING", "name": "", pageId: "321", "size": 4, "text": "Lorem ipsum"},
+    { "_id": "345", "widgetType": "IMAGE",   "name": "", pageId: "321", "width": "100%", "url": "http://lorempixel.com/400/200/"},
+    { "_id": "456", "widgetType": "HTML",    "name": "", pageId: "321", "text": "<p>Lorem ipsum</p>"},
+    { "_id": "567", "widgetType": "HEADING", "name": "", pageId: "321", "size": 4, "text": "Lorem ipsum"},
+    { "_id": "678", "widgetType": "YOUTUBE", "name": "", pageId: "321", "width": "100%", "url": "https://www.youtube.com/embed/AM2Ivdi9c4E" },
+    { "_id": "789", "widgetType": "HTML",    "name": "", pageId: "321", "text": "<p>Lorem ipsum</p>"}
   ]
 
   api = {
+    'widgetFactory'   : this.widgetFactory,
     'createWidget'   : this.createWidget,
     'findWidgetsByPageId' : this.findWidgetsByPageId,
     'findWidgetById' : this.findWidgetById,
@@ -86,6 +87,35 @@ export class WidgetService {
 
   }
 
+  widgetFactory(pageId, type: string) {
+    /*
+    creates and returns a new widget given the type of widget to create
+    The new widget's pageId is set to the pageId parameter
+    */
+    let widget = {
+        _id : "" + this.nextId,
+        pageId: pageId,
+        name: "",
+    }
+    if (type == "IMAGE" || type == "YOUTUBE") {
+      widget["width"] = "";
+      widget["url"] = "";
+    }
+    if (type == "HEADING" || type == "HTML") {
+      widget["text"] = "";
+    }
+    if (type == "HEADING") {
+      widget["size"] = 2;
+    }
+
+    this.nextId = this.nextId + 1;
+
+    this.widgets.push(widget);
+
+    return widget;
+  }
+
+
   createWidget(pageId, widget) {
     /*
     adds the widget parameter instance to the local widgets array.
@@ -129,6 +159,8 @@ export class WidgetService {
     updates the widget in local widgets array whose
     _id matches the widgetId parameter
     */
+    console.log(typeof(widgetId))
+    console.log(widget)
     for (let x = 0; x < this.widgets.length; x++) {
       if (this.widgets[x]._id === widgetId) {
         this.widgets[x] = widget// todo ?

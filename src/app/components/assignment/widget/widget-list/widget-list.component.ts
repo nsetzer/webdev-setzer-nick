@@ -36,9 +36,7 @@ export class WidgetListComponent implements OnInit {
   }
 
   reload() {
-    console.log("lookup:" + this.uid + " " + this.wid + " " + this.pid)
     this.widgets = this._service.findWidgetsByPageId(this.pid)
-    console.log("found:" + this.widgets)
   }
 
   makeSafe(url) {
