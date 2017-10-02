@@ -92,13 +92,15 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
   <div class="container-fluid">
   <p class="navbar-text pull-left glyph-margin">
-    <a href="../user/profile.html" class="navbar-link">
+    <a [routerLink]="['/user/'+uid]"
+       class="navbar-link">
       <span class="glyphicon glyphicon-play"></span>
     </a>
 
   </p>
   <p class="navbar-text pull-left glyph-margin">
-    <a href="../user/profile.html" class="navbar-link">
+    <a [routerLink]="['/user/'+uid]"
+       class="navbar-link">
       <span class="glyphicon glyphicon-eye-open"></span>
     </a>
 

@@ -11,7 +11,7 @@
 
     <!--tick mark-->
     <p class="navbar-text pull-right glyph-margin">
-      <a href="profile.html" class="navbar-link">
+      <a (click)="saveChanges()" class="navbar-link">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
     </p>
@@ -21,6 +21,10 @@
 
 
 <div class="container-fluid container-margin content-body">
+
+  <div *ngIf="changes_saved" class="help-block">Changes Saved</div>
+
+
   <form>
     <div class="form-group">
       <label for="username">Username</label>
@@ -29,6 +33,7 @@
              name="username"
              placeholder="username"
              class="form-control"
+             (ngModelChange)="changes_saved=false"
              required/>
     </div>
 
@@ -39,6 +44,7 @@
              name="email"
              placeholder="email"
              class="form-control"
+             (ngModelChange)="changes_saved=false"
              required/>
     </div>
 
@@ -49,6 +55,7 @@
              name="firstName"
              class="form-control"
              placeholder="First Name"
+             (ngModelChange)="changes_saved=false"
              required/>
     </div>
 
@@ -59,12 +66,13 @@
              name="lastName"
              class="form-control"
              placeholder="Last Name"
+             (ngModelChange)="changes_saved=false"
              required/>
     </div>
   </form>
 
   <a class="btn btn-primary btn-block"
-     (click)="openWebsiteList()">Websites</a>
+     [routerLink]="['/user/'+ uid + '/website']">Websites</a>
   <a class="btn btn-danger btn-block "
      (click)="logout()">Logout</a>
 
@@ -74,7 +82,8 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <div class="container-fluid">
   <p class="navbar-text pull-right glyph-margin">
-    <a href="../user/profile.html" class="navbar-link">
+    <a [routerLink]="['/user/'+uid]"
+       class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>

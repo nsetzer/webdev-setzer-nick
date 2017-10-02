@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   uid : string;
   user : any;
   private sub: any;
+  changes_saved : boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -30,15 +31,13 @@ export class ProfileComponent implements OnInit {
     this.user = this._service.findUserById(this.uid)
   }
 
-
-  openWebsiteList() {
-
-    var url = "/user/" + this.uid + "/website";
-    this.router.navigate([url]);
-  }
-
   logout() {
     this.router.navigate(["/login"]);
+  }
+
+  saveChanges() {
+    this._service.updateUser(this.uid, this.user);
+    this.changes_saved = true;
   }
 
 }

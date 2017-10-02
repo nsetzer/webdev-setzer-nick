@@ -33,12 +33,14 @@
            placeholder="email"
            class="form-control"
            required/>
+
     <input type="password"
            [(ngModel)]="password"
            name="password"
            placeholder="password"
            class="form-control"
            required/>
+
     <input type="password"
            [(ngModel)]="password_check"
            name="password_check"
@@ -47,7 +49,6 @@
            required/>
 
     <div *ngIf="password!=password_check" class="help-block">Passwords do not match</div>
-
 
   <button (click)="register()"
           class="btn btn-primary btn-block">Register</button>
