@@ -1,23 +1,58 @@
 
 <div class="container-fluid container-margin">
   <h1>Register</h1>
-  <input name="username"
-         placeholder="username"
-         type="text"
-         class="form-control"
-         required/>
-  <input name="password"
-         placeholder="password"
-         type="password"
-         class="form-control"
-         required/>
-  <input name="password2"
-         placeholder="verify password"
-         type="password"
-         class="form-control"
-         required/>
-  <a class="btn btn-primary btn-block"
-     [routerLink]="['/user/0']">Register</a>
+
+  <form name="form" (ngSubmit)="register()" #f="ngForm">
+
+    <input type="text"
+           [(ngModel)]="firstName"
+           name="firstName"
+           placeholder="First Name"
+           class="form-control"
+           required/>
+
+    <input type="text"
+           [(ngModel)]="lastName"
+           name="lastName"
+           placeholder="Last Name"
+           class="form-control"
+           required/>
+
+    <input type="text"
+           [(ngModel)]="username"
+           name="username"
+           placeholder="username"
+           class="form-control"
+           required/>
+
+    <div *ngIf="invalid_username" class="help-block">Username Already Exists</div>
+
+    <input type="email"
+           [(ngModel)]="email"
+           name="email"
+           placeholder="email"
+           class="form-control"
+           required/>
+    <input type="password"
+           [(ngModel)]="password"
+           name="password"
+           placeholder="password"
+           class="form-control"
+           required/>
+    <input type="password"
+           [(ngModel)]="password_check"
+           name="password_check"
+           placeholder="retype password"
+           class="form-control"
+           required/>
+
+    <div *ngIf="password!=password_check" class="help-block">Passwords do not match</div>
+
+
+  <button (click)="register()"
+          class="btn btn-primary btn-block">Register</button>
+  </form>
+
   <a class="btn btn-danger btn-block"
      [routerLink]="['/login']">Cancel</a>
 

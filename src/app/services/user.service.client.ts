@@ -12,6 +12,8 @@ export class UserService {
 
   baseUrl = environment.baseUrl;
 
+  nextId: number = 1000;
+
   users = [
         {_id:      "123",
          username: "alice",
@@ -51,7 +53,8 @@ export class UserService {
   }
 
   createUser(user: any) {
-    user._id = Math.random();
+    user._id = "" + this.nextId;
+    this.nextId = this.nextId + 1;
     this.users.push(user);
     return user;
   }
