@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WidgetService } from '../../../../services/widget.service.client';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-widget-list',
@@ -21,7 +22,8 @@ export class WidgetListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: WidgetService) { }
+              private _service: WidgetService,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -37,6 +39,10 @@ export class WidgetListComponent implements OnInit {
     console.log("lookup:" + this.uid + " " + this.wid + " " + this.pid)
     this.widgets = this._service.findWidgetsByPageId(this.pid)
     console.log("found:" + this.widgets)
+  }
+
+  makeSafe(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
 }

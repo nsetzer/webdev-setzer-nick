@@ -26,9 +26,8 @@
   </div>
 </nav>
 
-<div class="content-body">
-<ul>
-
+<div class="container-fluid content-body">
+<ul class="list-group">
 
     <li *ngFor="let widget of widgets"
         class="list-group-item list-item-user-widget">
@@ -59,15 +58,23 @@
                 </div>
 
                 <div *ngSwitchCase="'YOUTUBE'">
-                    <h1>YOUTUBE</h1>
+                    <div class="user-widget-proportional">
+                        <iframe class="user-widget-proportional"
+                                [src]="makeSafe(widget.url)"
+                                frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
 
                 <div *ngSwitchCase="'IMAGE'">
-                    <h1>IMAGE</h1>
+                    <div class="user-widget-proportional">
+                        <img width="100%"
+                             [src]="makeSafe(widget.url)" />
+                    </div>
                 </div>
 
                 <div *ngSwitchCase="'HTML'">
-                    <h1>HTML</h1>
+                    <div [innerHTML]="widget.text"></div>
                 </div>
             </div>
 
