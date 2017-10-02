@@ -62,16 +62,18 @@
 
                 <div *ngSwitchCase="'YOUTUBE'">
                     <div class="user-widget-proportional">
-                        <iframe class="user-widget-proportional"
+                        <iframe class="user-widget-proportional centered"
                                 [src]="makeSafe(widget.url)"
-                                frameborder="0" allowfullscreen>
+                                width="50%"
+                                frameborder="0"
+                                allowfullscreen>
                         </iframe>
                     </div>
                 </div>
 
                 <div *ngSwitchCase="'IMAGE'">
                     <div class="user-widget-proportional">
-                        <img width="100%"
+                        <img width="50%" class="centered"
                              [src]="makeSafe(widget.url)" />
                     </div>
                 </div>
