@@ -12,6 +12,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 
 export class WidgetImageComponent implements OnInit {
 
+
   uid : string = "";
   wid : string = "";
   pid : string = "";

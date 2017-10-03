@@ -61,22 +61,31 @@
                 </div>
 
                 <div *ngSwitchCase="'YOUTUBE'">
-                    <div class="user-widget-proportional">
-                        <iframe class="user-widget-proportional centered"
-                                [src]="makeSafe(widget.url)"
+                    <div class="video-container-outer"
+                         [style.width]="widget.width">
+                      <div class="video-container-inner">
+                          <iframe class="video-container"
+                                  [src]="makeSafe(widget.url)"
+                                  frameborder="0" allowfullscreen>
+                          </iframe>
+                      </div>
+                    </div>
+
+                <!--
+                        <iframe style="display:block; margin:auto;"
                                 width="50%"
+                                [src]="makeSafe(widget.url)"
                                 frameborder="0"
                                 allowfullscreen>
                         </iframe>
-                    </div>
+                -->
                 </div>
 
                 <div *ngSwitchCase="'IMAGE'">
-                    <div style="position: relative; width:100%;">
-                        {{widget.width}}
+                    <div class="image-container">
                         <img [src]="makeSafe(widget.url)"
                              [style.width]="widget.width"
-                             style="display: block; margin-left:auto; margin-right:auto;"
+                             class="image-container"
                              />
                     </div>
                 </div>

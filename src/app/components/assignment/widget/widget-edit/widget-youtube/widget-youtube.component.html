@@ -59,6 +59,9 @@
              placeholder="Width (percentage)"
              class="form-control"
              required/>
+
+    <div *ngIf="invalid_width" class="help-block">Width must be in the form of "100px" or "100%"</div>
+
     </div>
   </form>
 
