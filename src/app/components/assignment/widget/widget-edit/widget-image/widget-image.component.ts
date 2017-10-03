@@ -16,7 +16,9 @@ export class WidgetImageComponent implements OnInit {
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : {widgetType:"None"};
+  widget : {widgetType:"None", width:"100%"};
+
+  invalid_width: boolean = false;
 
   private sub: any;
 
@@ -41,6 +43,12 @@ export class WidgetImageComponent implements OnInit {
   }
 
   saveChanges() {
+
+    if (!this.widget.width.endsWith("px") &&
+        !this.widget.width.endsWith("%")) {
+        this.invalid_width = true;
+        return
+    }
     this._service.updateWidget(this.wgid, this.widget);
     let url = "/user/" + this.uid +
               "/website/" + this.wid +

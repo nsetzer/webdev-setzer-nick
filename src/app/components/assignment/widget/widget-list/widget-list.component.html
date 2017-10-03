@@ -72,9 +72,12 @@
                 </div>
 
                 <div *ngSwitchCase="'IMAGE'">
-                    <div class="user-widget-proportional">
-                        <img width="50%" class="centered"
-                             [src]="makeSafe(widget.url)" />
+                    <div style="position: relative; width:100%;">
+                        {{widget.width}}
+                        <img [src]="makeSafe(widget.url)"
+                             [style.width]="widget.width"
+                             style="display: block; margin-left:auto; margin-right:auto;"
+                             />
                     </div>
                 </div>
 
