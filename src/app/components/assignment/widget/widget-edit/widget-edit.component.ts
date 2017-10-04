@@ -39,6 +39,13 @@ export class WidgetEditComponent implements OnInit {
 
   reload() {
     this.widget = this._service.findWidgetById(this.wgid);
+
+    if (!this.widget) {
+      this.widget = {widgetType:"None"};
+      console.log("no widget found")
+    } else {
+      console.log(this.widget)
+    }
   }
 
 }

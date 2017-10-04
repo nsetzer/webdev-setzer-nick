@@ -92,24 +92,27 @@ export class WidgetService {
     creates and returns a new widget given the type of widget to create
     The new widget's pageId is set to the pageId parameter
     */
+    console.log("creating widget of type " + type)
     let widget = {
         _id : "" + this.nextId,
+        widgetType: type,
         pageId: pageId,
         name: "",
     }
-    if (type == "IMAGE" || type == "YOUTUBE") {
+    if (type === "IMAGE" || type === "YOUTUBE") {
       widget["width"] = "";
       widget["url"] = "";
     }
-    if (type == "HEADING" || type == "HTML") {
+    if (type === "HEADING" || type === "HTML") {
       widget["text"] = "";
     }
-    if (type == "HEADING") {
+    if (type === "HEADING") {
       widget["size"] = 2;
     }
 
     this.nextId = this.nextId + 1;
 
+    console.log(widget)
     this.widgets.push(widget);
 
     return widget;
