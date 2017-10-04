@@ -39,6 +39,10 @@ import { WidgetHeaderComponent } from './components/assignment/widget/widget-edi
 import { WidgetYoutubeComponent } from './components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component';
 import { WidgetImageComponent } from './components/assignment/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetHtmlComponent } from './components/assignment/widget/widget-edit/widget-html/widget-html.component';
+import { ProjectRegisterComponent } from './components/project/user/project-register/project-register.component';
+import { ProjectLoginComponent } from './components/project/user/project-login/project-login.component';
+import { ProjectProfileComponent } from './components/project/user/project-profile/project-profile.component';
+import { ProjectProfilePublicComponent } from './components/project/user/project-profile-public/project-profile-public.component';
 
 @NgModule({
   // Declare components here
@@ -64,7 +68,11 @@ import { WidgetHtmlComponent } from './components/assignment/widget/widget-edit/
     WidgetHeaderComponent,
     WidgetYoutubeComponent,
     WidgetImageComponent,
-    WidgetHtmlComponent
+    WidgetHtmlComponent,
+    ProjectRegisterComponent,
+    ProjectLoginComponent,
+    ProjectProfileComponent,
+    ProjectProfilePublicComponent
   ],
   imports: [
     BrowserModule,

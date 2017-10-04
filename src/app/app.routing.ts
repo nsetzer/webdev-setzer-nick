@@ -32,6 +32,11 @@ import {WidgetListComponent} from './components/assignment/widget/widget-list/wi
 import {WidgetChooseComponent} from './components/assignment/widget/widget-choose/widget-choose.component';
 import {WidgetEditComponent} from './components/assignment/widget/widget-edit/widget-edit.component';
 
+import {ProjectLoginComponent} from './components/project/user/project-login/project-login.component';
+import {ProjectRegisterComponent} from './components/project/user/project-register/project-register.component';
+import {ProjectProfileComponent} from './components/project/user/project-profile/project-profile.component';
+import {ProjectProfilePublicComponent} from './components/project/user/project-profile-public/project-profile-public.component';
+
 const APP_ROUTES: Routes = [
   {path: '', component : HomeComponent},
   {path: 'test',       component: TestComponent},
@@ -52,8 +57,13 @@ const APP_ROUTES: Routes = [
 
   {path: 'user/:uid/website/:wid/page/:pid/widget',    component: WidgetListComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new',    component: WidgetChooseComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid',    component: WidgetEditComponent}
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid',    component: WidgetEditComponent},
 
+
+  {path: 'project/login',     component: ProjectLoginComponent},
+  {path: 'project/register',  component: ProjectRegisterComponent},
+  {path: 'project/user/:uid', component: ProjectProfileComponent},
+  {path: 'project/user/:uid/profile', component: ProjectProfilePublicComponent}
 
 ];
 
