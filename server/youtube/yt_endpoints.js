@@ -2,6 +2,7 @@ module.exports = function(app)
 {
     var youtubeStream = require('youtube-audio-stream-2');
     var youtube = require("./youtube.js");
+    var winston = require("winston");
 
     app.get('/api/youtube/:videoId', function (req, res) {
         var requestUrl = 'http://youtube.com/watch?v=' + req.params.videoId
@@ -17,7 +18,6 @@ module.exports = function(app)
      * to consume by the frontend
      */
     app.get('/api/youtube/query/:searchterm', function (req, res) {
-        console.log("received query request: " + req.params.searchterm);
 
         youtube.keywordSearch(req.params.searchterm, function(code, ytres) {
             if (code != 200) {
@@ -39,6 +39,6 @@ module.exports = function(app)
         });
     })
 
-    console.log("youtube endpoints registered");
+    winston.info("youtube endpoints registered");
     // localhost:3100/api/youtube/query/searchterm
 };

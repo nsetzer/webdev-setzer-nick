@@ -35,7 +35,6 @@ export class WebsiteEditComponent implements OnInit {
 
     if (!this.current_site) {
         //this.current_site  = {name:"ERROR",description:"ERROR"}
-        console.log("no site found")
         this.router.navigate(["/user/" + this.uid + "/website"]);
     }
 

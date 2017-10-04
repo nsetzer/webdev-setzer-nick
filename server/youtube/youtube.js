@@ -8,6 +8,7 @@
 //npm install google-auth-library --save
 //
 
+var winston = require("winston");
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 
@@ -17,10 +18,10 @@ var https = require("https");
 // get the youtube APIKEY from the environment
 var APIKEY = ""
 if (process.env.YOUTUBE_APIKEY) {
-    console.log(`key:${process.env.YOUTUBE_APIKEY}:`)
+    winston.warn(`key:${process.env.YOUTUBE_APIKEY}:`)
     var APIKEY = process.env.YOUTUBE_APIKEY;
 } else {
-    console.log("YOUTUBE_APIKEY not specified by environment")
+    winston.warn("YOUTUBE_APIKEY not specified by environment")
 }
 
 // load a set of cached outputs from the API calls,
@@ -31,13 +32,11 @@ var sample = require("./yt_api_sample.js")
 function sendRequest(options, onResult)
 {
     //https://nodejs.org/api/http.html#http_http_request_options_callback
-    console.log(options)
 
     var port = options.port == 443 ? https : http;
     var req = port.get(options, function(res)
     {
         var output = '';
-        console.log(options.host + ':' + res.statusCode);
         res.setEncoding('utf8');
 
         res.on('data', function (chunk) {
@@ -51,7 +50,7 @@ function sendRequest(options, onResult)
     });
 
     req.on('error', function(err) {
-        console.log(err);
+        winston.error(err);
     });
 
     req.end();
@@ -109,8 +108,6 @@ Example Usage
 var jsonfile = require('jsonfile')
 
 keywordSearch("stone temple pilots wicked garden", function(code,obj) {
-    console.log(code);
-    console.log(obj);
     var file = 'search-payload.json'
     jsonfile.writeFile(file, obj, function (err) {
         console.error(err)
@@ -118,8 +115,6 @@ keywordSearch("stone temple pilots wicked garden", function(code,obj) {
 });
 
 getRelated("5rOiW_xY-kc", function(code,obj) {
-    console.log(code);
-    console.log(obj);
     var file = 'related-payload.json'
     jsonfile.writeFile(file, obj, function (err) {
         console.error(err)

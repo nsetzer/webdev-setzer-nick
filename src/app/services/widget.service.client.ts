@@ -92,7 +92,6 @@ export class WidgetService {
     creates and returns a new widget given the type of widget to create
     The new widget's pageId is set to the pageId parameter
     */
-    console.log("creating widget of type " + type)
     let widget = {
         _id : "" + this.nextId,
         widgetType: type,
@@ -112,7 +111,6 @@ export class WidgetService {
 
     this.nextId = this.nextId + 1;
 
-    console.log(widget)
     this.widgets.push(widget);
 
     return widget;
@@ -162,8 +160,6 @@ export class WidgetService {
     updates the widget in local widgets array whose
     _id matches the widgetId parameter
     */
-    console.log(typeof(widgetId))
-    console.log(widget)
     for (let x = 0; x < this.widgets.length; x++) {
       if (this.widgets[x]._id === widgetId) {
         this.widgets[x] = widget// todo ?

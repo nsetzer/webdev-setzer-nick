@@ -52,7 +52,6 @@ export class WidgetChooseComponent implements OnInit {
 
   newWidget(kind:string) {
     kind = kind.toUpperCase();
-    console.log(kind)
 
     if (kind == "HEADING" ||
         kind == "HTML" ||
@@ -63,7 +62,6 @@ export class WidgetChooseComponent implements OnInit {
                   "/website/" + this.wid +
                   "/page/" + this.pid +
                   "/widget/" + widget._id;
-        console.log(url)
         this.router.navigate([url]);
     }
 

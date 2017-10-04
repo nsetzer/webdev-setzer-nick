@@ -29,7 +29,6 @@ export class ProjectComponent implements OnInit {
                 this.successMessage = true;
                 this.searchTerm = null;
                 this.searchResults = data;
-                console.log(data)
             }
         );
 

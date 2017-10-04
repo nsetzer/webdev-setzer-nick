@@ -32,6 +32,7 @@
     "parse-glob": "^3.0.4",
     "path": "^0.12.7",
     "rxjs": "^5.1.0",
+    "winston": "^2.4.0",
     "youtube-audio-stream-2": "0.0.13",
     "zone.js": "^0.8.4"
   },

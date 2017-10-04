@@ -43,7 +43,6 @@ export class WebsiteService {
     this.nextId = this.nextId + 1;
     website.developerId = userId;
     this.sites.push(website);
-    console.log("creating a website" + website)
     return website;
   }
 
