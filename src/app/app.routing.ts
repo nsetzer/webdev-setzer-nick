@@ -38,6 +38,13 @@ import { ProjectProfilePublicComponent } from './components/project/user/project
 
 import {ApiTestComponent} from './components/project/test/api-test/api-test.component';
 
+import { PlaylistListComponent } from './components/project/playlist/playlist-list/playlist-list.component';
+import { PlaylistSongsComponent } from './components/project/playlist/playlist-songs/playlist-songs.component';
+import { PlaylistSearchComponent } from './components/project/playlist/playlist-search/playlist-search.component';
+import { PlaylistNewComponent } from './components/project/playlist/playlist-new/playlist-new.component';
+import { PlaylistEditComponent } from './components/project/playlist/playlist-edit/playlist-edit.component';
+
+
 const APP_ROUTES: Routes = [
   {path: '', component : HomeComponent},
   {path: 'test',       component: TestComponent},
@@ -73,6 +80,11 @@ const APP_ROUTES: Routes = [
     children: [
      { path: 'user/:uid', component: ProjectProfileComponent, outlet: 'project' },
      { path: 'user/:uid/profile/:puid', component: ProjectProfilePublicComponent, outlet: 'project' },
+     { path: 'user/:uid/list', component: PlaylistListComponent, outlet: 'project' },
+     { path: 'user/:uid/list/new', component: PlaylistNewComponent, outlet: 'project' },
+     { path: 'user/:uid/list/search', component: PlaylistSearchComponent, outlet: 'project' },
+     { path: 'user/:uid/list/:plid', component: PlaylistEditComponent, outlet: 'project' },
+     { path: 'user/:uid/list/:plid/songs', component: PlaylistSongsComponent, outlet: 'project' },
     ]}
 ];
 

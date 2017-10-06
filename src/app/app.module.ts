@@ -43,6 +43,11 @@ import { ProjectProfileComponent } from './components/project/user/project-profi
 import { ProjectProfilePublicComponent } from './components/project/user/project-profile-public/project-profile-public.component';
 import { ApiTestComponent } from './components/project/test/api-test/api-test.component';
 import { ProjectHomeComponent } from './components/project/user/project-home/project-home.component';
+import { PlaylistListComponent } from './components/project/playlist/playlist-list/playlist-list.component';
+import { PlaylistSongsComponent } from './components/project/playlist/playlist-songs/playlist-songs.component';
+import { PlaylistSearchComponent } from './components/project/playlist/playlist-search/playlist-search.component';
+import { PlaylistNewComponent } from './components/project/playlist/playlist-new/playlist-new.component';
+import { PlaylistEditComponent } from './components/project/playlist/playlist-edit/playlist-edit.component';
 
 @NgModule({
   // Declare components here
@@ -72,7 +77,12 @@ import { ProjectHomeComponent } from './components/project/user/project-home/pro
     ProjectProfileComponent,
     ProjectProfilePublicComponent,
     ApiTestComponent,
-    ProjectHomeComponent
+    ProjectHomeComponent,
+    PlaylistListComponent,
+    PlaylistSongsComponent,
+    PlaylistSearchComponent,
+    PlaylistNewComponent,
+    PlaylistEditComponent
   ],
   imports: [
     BrowserModule,
