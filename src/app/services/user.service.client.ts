@@ -4,42 +4,17 @@ import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 
+import { User } from '../objects/user.object';
 
 @Injectable()
 
 export class UserService {
 
-
   baseUrl = environment.baseUrl;
 
   nextId: number = 1000;
 
-  users = [
-        {_id:      "123",
-         username: "alice",
-         password: "alice",
-         firstName:"Alice",
-         lastName: "Wonder",
-         email:    "alice@example.com" },
-        {_id:       "234",
-         username:  "bob",
-         password:  "bob",
-         firstName: "Bob",
-         lastName:  "Marley",
-         email:     "bob@example.com" },
-        {_id:      "345",
-         username: "charly",
-         password: "charly",
-         firstName: "Charly",
-         lastName: "Garcia",
-         email:    "charly@example.com"  },
-        {_id:       "456",
-         username:  "jannunzi",
-         password:  "jannunzi",
-         firstName: "Jose",
-         lastName:  "Annunzi",
-         email:     "jannunzi@example.com"}
-    ]
+  users = User.getDefaultUsers();
 
   api = {
     'createUser'   : this.createUser,
