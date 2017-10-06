@@ -1,1 +1,209 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-brand:hover,
+.navbar-dark .navbar-link,
+.navbar-dark .navbar-text {
+  color: white;
+}
+
+.navbar-chevron-link {
+  margin-right: 15px;
+}
+
+/*rule to center a div*/
+.centered-content {
+    width: 600px;
+    margin: auto;
+    text-align: justify;
+}
+
+img.centered {
+  margin: auto;
+  text-align: justify;
+}
+
+.navbar-default,
+.navbar-dark {
+  height: 60px;
+}
+
+body,
+.content-body {
+   /*navbar height (60) + padding*/
+    padding-top: 65px;
+    padding-bottom: 60px;
+}
+
+input{
+  margin-bottom: 8px;
+}
+
+.user-widget {
+    position: relative;
+    z-index: 1;
+}
+
+li.list-item-user-widget {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: none;
+  margin: 0px;
+}
+.user-widget .user-widget-toolbar {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color: rgba(192, 192, 192, 0.4) ;
+    padding: 3px;
+    border-bottom-left-radius: 8px;
+    z-index: 3;
+}
+
+/**
+ * user-widget-proportional allows for proportional images and iframes
+ * to be rendered centered on the page.
+ */
+div.user-widget-proportional {
+  position: relative;
+  width:50%;
+  height: 0px;
+  padding-bottom: 60%;
+
+   z-index: 2;
+}
+
+iframe.user-widget-proportional {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  margin:auto;
+
+   z-index: 2;
+}
+
+li.list-item-borderless {
+  border: none;
+  margin: 0px;
+}
+
+ul.list-group {
+  margin: 0px;
+  padding: 0px;
+}
+
+.border-line-right {
+  border-right: thin gray solid;
+  height: 100%;
+}
+
+
+.padding-rhs {
+  padding-right:10px;
+}
+
+.padding-none {
+  padding-right:0px;
+  padding-left:0px;
+}
+
+.padding-left-none {
+  padding-left:0px;
+}
+
+.padding-right-none {
+  padding-right:0px;
+}
+
+
+.padding-left-default {
+  padding-left:15px;
+}
+
+.padding-right-default {
+  padding-right:15px;
+}
+
+.padding-right-double {
+  padding-right:30px;
+  padding-left:0px;
+}
+
+.padding-default {
+  padding-left:15px;
+  padding-right:15px;
+}
+
+.padding-content {
+  padding-left:15px;
+  padding-right:30px;
+}
+
+/*
+sed -i s="class\=\"navbar-text pull-left\""="class\=\"navbar-text pull-left glyph-margin\""=g
+sed -i s="class\=\"navbar-text pull-right\""="class\=\"navbar-text pull-right glyph-margin\""=g
+*/
+p.glyph-margin {
+  margin-left:15px;
+  margin-right:15px;
+}
+
+p.glyph-padding-short {
+  padding-right:10px;
+}
+
+div.container-margin {
+  margin-left:15px;
+  margin-right:15px;
+}
+
+input {
+  margin-bottom: 5px;
+}
+
+/*create a div with some width, centered
+  this width can be set programatically
+  [style.width]="attribute"
+*/
+div.video-container-outer {
+    width: 50%;
+    margin: auto;
+}
+
+/*inside a centered div, another div creates a
+  proportional space to embed a video
+*/
+div.video-container-inner {
+    position:relative;
+    padding-bottom:56.25%;
+    padding-top:30px;
+
+    height:0;
+    overflow:hidden;
+}
+
+/* a video container expands to take up all of the area inside
+   of the div. in this case, that area is specified by video-container-inner
+*/
+iframe.video-container {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
+div.image-container {
+  position: relative;
+  width:100%;
+}
+
+img.image-container {
+  display: block;
+  margin:auto;
+}

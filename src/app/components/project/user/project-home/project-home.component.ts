@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
 import { Router, ActivatedRoute } from '@angular/router';
 
-@Component({
-  selector: 'app-project-profile-public',
-  templateUrl: './project-profile-public.component.html',
-  styleUrls: ['./project-profile-public.component.css']
-})
-export class ProjectProfilePublicComponent implements OnInit {
 
+@Component({
+  selector: 'app-project-home',
+  templateUrl: './project-home.component.html',
+  styleUrls: ['./project-home.component.css']
+})
+export class ProjectHomeComponent implements OnInit {
 
   uid : string;
   user : any;
@@ -21,12 +21,10 @@ export class ProjectProfilePublicComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-       //this.uid = params['puid']; // (+) converts string 'id' to a number
-       this.uid = "123"
-       console.log(params);
-       console.log(this.route);
+       this.uid = params['uid']; // (+) converts string 'id' to a number
 
-
+       console.log("home:" + params)
+       console.log(params)
        this.reload();
     });
   }
@@ -36,12 +34,7 @@ export class ProjectProfilePublicComponent implements OnInit {
   }
 
   logout() {
-    // this.router.navigate(['/speakers', {outlets: {'bio': [id]}}]);
     this.router.navigate(["/login"]);
   }
 
-  saveChanges() {
-    this._service.updateUser(this.uid, this.user);
-    this.changes_saved = true;
-  }
 }

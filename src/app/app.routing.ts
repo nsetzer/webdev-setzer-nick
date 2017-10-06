@@ -30,10 +30,11 @@ import {WidgetListComponent} from './components/assignment/widget/widget-list/wi
 import {WidgetChooseComponent} from './components/assignment/widget/widget-choose/widget-choose.component';
 import {WidgetEditComponent} from './components/assignment/widget/widget-edit/widget-edit.component';
 
-import {ProjectLoginComponent} from './components/project/user/project-login/project-login.component';
-import {ProjectRegisterComponent} from './components/project/user/project-register/project-register.component';
-import {ProjectProfileComponent} from './components/project/user/project-profile/project-profile.component';
-import {ProjectProfilePublicComponent} from './components/project/user/project-profile-public/project-profile-public.component';
+import { ProjectLoginComponent } from './components/project/user/project-login/project-login.component';
+import { ProjectRegisterComponent } from './components/project/user/project-register/project-register.component';
+import { ProjectHomeComponent } from './components/project/user/project-home/project-home.component';
+import { ProjectProfileComponent } from './components/project/user/project-profile/project-profile.component';
+import { ProjectProfilePublicComponent } from './components/project/user/project-profile-public/project-profile-public.component';
 
 import {ApiTestComponent} from './components/project/test/api-test/api-test.component';
 
@@ -60,9 +61,19 @@ const APP_ROUTES: Routes = [
   {path: 'project/test',              component: ApiTestComponent},
   {path: 'project/login',             component: ProjectLoginComponent},
   {path: 'project/register',          component: ProjectRegisterComponent},
-  {path: 'project/user/:uid',         component: ProjectProfileComponent},
-  {path: 'project/user/:uid/profile', component: ProjectProfilePublicComponent}
+  //{path: 'project/user/:uid',         component: ProjectProfileComponent},
+  //{path: 'project/user/:uid/profile', component: ProjectProfilePublicComponent},
 
+
+  //http://onehungrymind.com/named-router-outlets-in-angular-2/
+  //http://localhost:4200/project/(project:login)
+  //http://localhost:4200/project/(project:user/123)
+  //http://localhost:4200/project/(project:user/123/profile/123)
+  {path: 'project',         component: ProjectHomeComponent,
+    children: [
+     { path: 'user/:uid', component: ProjectProfileComponent, outlet: 'project' },
+     { path: 'user/:uid/profile/:puid', component: ProjectProfilePublicComponent, outlet: 'project' },
+    ]}
 ];
 
 // Export the routes as module providers

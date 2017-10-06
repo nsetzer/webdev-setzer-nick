@@ -41,6 +41,7 @@ import { ProjectLoginComponent } from './components/project/user/project-login/p
 import { ProjectProfileComponent } from './components/project/user/project-profile/project-profile.component';
 import { ProjectProfilePublicComponent } from './components/project/user/project-profile-public/project-profile-public.component';
 import { ApiTestComponent } from './components/project/test/api-test/api-test.component';
+import { ProjectHomeComponent } from './components/project/user/project-home/project-home.component';
 
 @NgModule({
   // Declare components here
@@ -48,8 +49,6 @@ import { ApiTestComponent } from './components/project/test/api-test/api-test.co
     AppComponent,
     HomeComponent,
     TestComponent,
-    AssignmentComponent,
-    ProjectComponent,
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
@@ -71,7 +70,8 @@ import { ApiTestComponent } from './components/project/test/api-test/api-test.co
     ProjectLoginComponent,
     ProjectProfileComponent,
     ProjectProfilePublicComponent,
-    ApiTestComponent
+    ApiTestComponent,
+    ProjectHomeComponent
   ],
   imports: [
     BrowserModule,

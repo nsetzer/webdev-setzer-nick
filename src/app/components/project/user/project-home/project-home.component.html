@@ -1,0 +1,17 @@
+
+<div>
+    <router-outlet name="project"></router-outlet>
+</div>
+
+<!-- Footer -->
+<nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+  <div class="container-fluid">
+  <p class="navbar-text pull-right glyph-margin">
+
+    <a [routerLink]="['/project/user/'+uid]"
+       class="navbar-link">
+      <span class="glyphicon glyphicon-user"></span>
+    </a>
+  </p>
+  </div>
+</nav>
