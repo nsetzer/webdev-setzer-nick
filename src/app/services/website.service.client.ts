@@ -90,7 +90,7 @@ export class WebsiteService {
      removes the website from local websites array
      whose _id matches the websiteId parameter
      */
-     for (let x = 0; x < this.sites.length; x++) {
+    for (let x = 0; x < this.sites.length; x++) {
       if (this.sites[x]._id === websiteId) {
         this.sites.splice(x, 1)
       }

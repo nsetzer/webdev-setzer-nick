@@ -35,10 +35,12 @@ export class ProjectProfileComponent implements OnInit {
     this.user = this._service.findUserById(this.uid)
 
     this.playlists = this._plservice.findPlaylistsByUser(this.uid);
+
+    console.log(this.playlists)
   }
 
   logout() {
-    this.router.navigate(["/login"]);
+    this.router.navigateByUrl("/project/login");
   }
 
   saveChanges() {

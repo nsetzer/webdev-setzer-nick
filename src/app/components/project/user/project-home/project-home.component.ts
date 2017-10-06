@@ -10,6 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ProjectHomeComponent implements OnInit {
 
+  /*
+
+  inject/call parent component methods
+  https://stackoverflow.com/questions/35940984/angular2-call-function-of-parent-component
+
+  */
   //uid : string;
   private sub: any;
 

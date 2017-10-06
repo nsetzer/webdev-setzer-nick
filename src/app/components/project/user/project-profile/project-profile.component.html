@@ -101,5 +101,23 @@
   <a class="btn btn-danger btn-block "
      (click)="logout()">Logout</a>
 
+
+    <ul class="list-group">
+        <li *ngFor="let lst of playlists"
+             class="list-group-item list-item-borderless">
+
+            {{lst.name}}<br>
+            <ol class="list-group">
+                <li *ngFor="let sng of lst.songs"
+                    class="list-group-item list-item-borderless">
+                {{sng.videoId}} -- {{sng.title}}
+                </li>
+            </ol>
+        </li>
+    </ul>
+
+
+
+
 </div>
 

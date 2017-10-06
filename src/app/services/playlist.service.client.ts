@@ -30,6 +30,7 @@ export class PlaylistService {
   }
 
   findPlaylistsByUser(userid: string) {
+    console.log(this.playlists)
     return this.playlists.filter( lst => lst.userid === userid );
   }
 

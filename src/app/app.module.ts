@@ -10,11 +10,12 @@ import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 
 import { TestService } from './services/test.service.client';
-import { ProjectService } from './services/project.service.client';
 import { UserService } from './services/user.service.client';
 import { WebsiteService } from './services/website.service.client';
 import { PageService } from './services/page.service.client';
 import { WidgetService } from './services/widget.service.client';
+import { ProjectService } from './services/project.service.client';
+import { PlaylistService } from './services/playlist.service.client';
 
 import { LoginComponent } from './components/assignment/user/login/login.component';
 import { ProfileComponent } from './components/assignment/user/profile/profile.component';
@@ -81,11 +82,12 @@ import { ProjectHomeComponent } from './components/project/user/project-home/pro
   ],
   // Client Side services here
   providers: [ TestService,
-               ProjectService,
                UserService,
                WebsiteService,
                PageService,
-               WidgetService],
+               WidgetService,
+               ProjectService,
+               PlaylistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

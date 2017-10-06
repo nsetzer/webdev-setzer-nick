@@ -24,13 +24,13 @@ export class Song {
     }
 
     static getDefaultSongs() {
-        var songs = [ new Song("123",
+        var songs = [ new Song("song:123",
                        "2oPeZFOpPAM",
                        "2006 WMG Wicked Garden (Video)",
                        "Wicked Garden",
                        "Stone Temple Pilots",
                        "https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
-                      new Song("123",
+                      new Song("song:234",
                        "9lZgHdOU-ko",
                        "",
                        "Wicked Garden (live)",
