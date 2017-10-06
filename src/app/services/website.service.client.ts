@@ -79,8 +79,8 @@ export class WebsiteService {
     */
     for (let x = 0; x < this.sites.length; x++) {
       if (this.sites[x]._id === websiteId) {
-        this.sites[x].name = website.name;
-        this.sites[x].description = website.description;
+        website._id = this.sites[x]._id;
+        this.sites[x] = website;
       }
     }
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../../services/user.service.client';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../../../services/user.service.client';
+import { PlaylistService } from '../../../../services/playlist.service.client';
 
 @Component({
   selector: 'app-project-profile',
@@ -15,9 +16,12 @@ export class ProjectProfileComponent implements OnInit {
   private sub: any;
   changes_saved : boolean = false;
 
+  playlists : any = [];
+
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: UserService) { }
+              private _service: UserService,
+              private _plservice: PlaylistService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -29,6 +33,8 @@ export class ProjectProfileComponent implements OnInit {
 
   reload() {
     this.user = this._service.findUserById(this.uid)
+
+    this.playlists = this._plservice.findPlaylistsByUser(this.uid);
   }
 
   logout() {
