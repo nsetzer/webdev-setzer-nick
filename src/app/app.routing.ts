@@ -43,6 +43,7 @@ import { PlaylistSongsComponent } from './components/project/playlist/playlist-s
 import { PlaylistSearchComponent } from './components/project/playlist/playlist-search/playlist-search.component';
 import { PlaylistNewComponent } from './components/project/playlist/playlist-new/playlist-new.component';
 import { PlaylistEditComponent } from './components/project/playlist/playlist-edit/playlist-edit.component';
+import { PlaylistAddComponent } from './components/project/playlist/playlist-add/playlist-add.component';
 
 
 const APP_ROUTES: Routes = [
@@ -73,18 +74,16 @@ const APP_ROUTES: Routes = [
 
 
   //http://onehungrymind.com/named-router-outlets-in-angular-2/
-  //http://localhost:4200/project/(project:login)
-  //http://localhost:4200/project/(project:user/123)
-  //http://localhost:4200/project/(project:user/123/profile/123)
-  {path: 'project',         component: ProjectHomeComponent,
+  {path: 'project',  component: ProjectHomeComponent,
     children: [
-     { path: 'user/:uid', component: ProjectProfileComponent, outlet: 'project' },
-     { path: 'user/:uid/profile/:puid', component: ProjectProfilePublicComponent, outlet: 'project' },
-     { path: 'user/:uid/list', component: PlaylistListComponent, outlet: 'project' },
-     { path: 'user/:uid/list/new', component: PlaylistNewComponent, outlet: 'project' },
-     { path: 'user/:uid/list/search', component: PlaylistSearchComponent, outlet: 'project' },
-     { path: 'user/:uid/list/:plid', component: PlaylistEditComponent, outlet: 'project' },
-     { path: 'user/:uid/list/:plid/songs', component: PlaylistSongsComponent, outlet: 'project' },
+     { path: 'user/:uid',                  component: ProjectProfileComponent,       outlet: 'project' },
+     { path: 'user/:uid/profile/:puid',    component: ProjectProfilePublicComponent, outlet: 'project' },
+     { path: 'user/:uid/list',             component: PlaylistListComponent,         outlet: 'project' },
+     { path: 'user/:uid/list/new',         component: PlaylistNewComponent,          outlet: 'project' },
+     { path: 'user/:uid/list/search',      component: PlaylistSearchComponent,       outlet: 'project' },
+     { path: 'user/:uid/list/:plid',       component: PlaylistEditComponent,         outlet: 'project' },
+     { path: 'user/:uid/list/:plid/songs', component: PlaylistSongsComponent,        outlet: 'project' },
+     { path: 'user/:uid/list/:plid/add',   component: PlaylistAddComponent,          outlet: 'project' },
     ]}
 ];
 

@@ -40,6 +40,7 @@ export class PlaylistService {
         return this.playlists[x];
       }
     }
+    console.log("no playlist found for: " + plid)
   }
 
   updatePlaylist(plid: string, lst: Playlist) {

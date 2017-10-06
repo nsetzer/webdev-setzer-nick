@@ -48,6 +48,7 @@ import { PlaylistSongsComponent } from './components/project/playlist/playlist-s
 import { PlaylistSearchComponent } from './components/project/playlist/playlist-search/playlist-search.component';
 import { PlaylistNewComponent } from './components/project/playlist/playlist-new/playlist-new.component';
 import { PlaylistEditComponent } from './components/project/playlist/playlist-edit/playlist-edit.component';
+import { PlaylistAddComponent } from './components/project/playlist/playlist-add/playlist-add.component';
 
 @NgModule({
   // Declare components here
@@ -82,7 +83,8 @@ import { PlaylistEditComponent } from './components/project/playlist/playlist-ed
     PlaylistSongsComponent,
     PlaylistSearchComponent,
     PlaylistNewComponent,
-    PlaylistEditComponent
+    PlaylistEditComponent,
+    PlaylistAddComponent
   ],
   imports: [
     BrowserModule,
