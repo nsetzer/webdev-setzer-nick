@@ -30,19 +30,6 @@ export class ProjectLoginComponent implements OnInit {
 
     var user = this._service.findUserByUsername(this.username)
 
-    //let outlet = {'project': ["user/123"]};
-    //let route = ['/project', {outlets: outlet}];
-    //let route = ['/project'];
-    //this.router.navigate(route);
-
-    //let outlet = {'project': ["user/123"]};
-    //let route = ['/project', {outlets: outlet}];
-    //this.router.navigate(route);
-
-    //this.router.navigate(["/project/(project:user/123)"]);
-    //this.router.navigate(["/project/user/" + user._id + "(project:)"]);
-
-    console.log(this.username,this.password);
     if (user) {
         this.invalid_username = false
         if (user.password == this.password) {

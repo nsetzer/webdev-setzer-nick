@@ -72,7 +72,32 @@
   </form>
 
   <a class="btn btn-primary btn-block"
-     [routerLink]="['/user/'+ uid + '/website']">Websites</a>
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', '123']}}]">
+     view public 123</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', '234']}}]">
+     view public 234</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', '345']}}]">
+     view public 345</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', '456']}}]">
+     view public 456</a>
+
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', '123' , 'profile', '123']}}]">
+     view as 123</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', '234' , 'profile', '234']}}]">
+     view as 234</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', '345' , 'profile', '345']}}]">
+     view as 345</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', '456' , 'profile', '456']}}]">
+     view as 456</a>
+
+
   <a class="btn btn-danger btn-block "
      (click)="logout()">Logout</a>
 

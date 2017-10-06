@@ -10,31 +10,26 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ProjectHomeComponent implements OnInit {
 
-  uid : string;
-  user : any;
+  //uid : string;
   private sub: any;
-  changes_saved : boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _service: UserService) { }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-       this.uid = params['uid']; // (+) converts string 'id' to a number
-
-       console.log("home:" + params)
-       console.log(params)
-       this.reload();
-    });
   }
 
   reload() {
-    this.user = this._service.findUserById(this.uid)
   }
 
-  logout() {
-    this.router.navigate(["/login"]);
+  openProfileHome() {
+    let uid = this.route.snapshot.firstChild.url[1].path;
+
+    if (uid) {
+        let url = "/project/(project:user/" + uid + ")"
+        this.router.navigateByUrl(url);
+    }
   }
 
 }

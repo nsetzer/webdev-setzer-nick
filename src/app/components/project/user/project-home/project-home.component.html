@@ -6,9 +6,15 @@
 <!-- Footer -->
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <div class="container-fluid">
-  <p class="navbar-text pull-right glyph-margin">
 
-    <a [routerLink]="['/project/user/'+uid]"
+  <p class="navbar-text pull-left glyph-margin">
+    <audio controls>
+      <source src="http://localhost:3100/api/youtube/2oPeZFOpPAM" type="audio/mp3">
+    </audio>
+  </p>
+
+  <p class="navbar-text pull-right glyph-margin">
+    <a (click)="openProfileHome()"
        class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>
     </a>

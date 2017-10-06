@@ -24,52 +24,36 @@
 
   <div *ngIf="changes_saved" class="help-block">Changes Saved</div>
 
+      User Name: {{user.username}}<br>
+      Name: {{user.firstName}} {{user.lastName}}<br>
+      Email: {{user.email}}<br>
 
-  <form>
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text"
-             [(ngModel)]="user.username"
-             name="username"
-             placeholder="username"
-             class="form-control"
-             (ngModelChange)="changes_saved=false"
-             required/>
-    </div>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', '123']}}]">
+     test 123</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', '234']}}]">
+     test 234</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', '345']}}]">
+     test 456</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', '456']}}]">
+     test 567</a>
 
-    <div class="form-group">
-      <label for="email">Email address</label>
-      <input type="email"
-             [(ngModel)]="user.email"
-             name="email"
-             placeholder="email"
-             class="form-control"
-             (ngModelChange)="changes_saved=false"
-             required/>
-    </div>
 
-    <div class="form-group">
-      <label for="first-name">First Name</label>
-      <input type="text"
-             [(ngModel)]="user.firstName"
-             name="firstName"
-             class="form-control"
-             placeholder="First Name"
-             (ngModelChange)="changes_saved=false"
-             required/>
-    </div>
-
-    <div class="form-group">
-      <label for="last-name">Last Name</label>
-      <input type="text"
-             [(ngModel)]="user.lastName"
-             name="lastName"
-             class="form-control"
-             placeholder="Last Name"
-             (ngModelChange)="changes_saved=false"
-             required/>
-    </div>
-  </form>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', '123' , 'profile', '123']}}]">
+     view as 123</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', '234' , 'profile', '234']}}]">
+     view as 234</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', '345' , 'profile', '345']}}]">
+     view as 345</a>
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', '456' , 'profile', '456']}}]">
+     view as 456</a>
 
 </div>
 

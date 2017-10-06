@@ -21,12 +21,7 @@ export class ProjectProfilePublicComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-       //this.uid = params['puid']; // (+) converts string 'id' to a number
-       this.uid = "123"
-       console.log(params);
-       console.log(this.route);
-
-
+       this.uid = params['puid']; // (+) converts string 'id' to a number
        this.reload();
     });
   }
