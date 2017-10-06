@@ -13,8 +13,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
 import {ModuleWithProviders} from '@angular/core';
 import {TestComponent} from './components/test/test.component';
-import {AssignmentComponent} from './components/assignment/assignment.component';
-import {ProjectComponent} from './components/project/project.component';
 
 import {LoginComponent} from './components/assignment/user/login/login.component';
 import {RegisterComponent} from './components/assignment/user/register/register.component';
@@ -42,8 +40,6 @@ import {ApiTestComponent} from './components/project/test/api-test/api-test.comp
 const APP_ROUTES: Routes = [
   {path: '', component : HomeComponent},
   {path: 'test',       component: TestComponent},
-  {path: 'assignment', component: AssignmentComponent},
-  {path: 'project',    component: ProjectComponent},
 
   {path: 'login',     component: LoginComponent},
   {path: 'register',  component: RegisterComponent},

@@ -16,9 +16,6 @@ import { WebsiteService } from './services/website.service.client';
 import { PageService } from './services/page.service.client';
 import { WidgetService } from './services/widget.service.client';
 
-import { AssignmentComponent } from './components/assignment/assignment.component';
-import { ProjectComponent } from './components/project/project.component';
-
 import { LoginComponent } from './components/assignment/user/login/login.component';
 import { ProfileComponent } from './components/assignment/user/profile/profile.component';
 import { RegisterComponent } from './components/assignment/user/register/register.component';
