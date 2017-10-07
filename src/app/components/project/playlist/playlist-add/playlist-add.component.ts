@@ -52,11 +52,9 @@ export class PlaylistAddComponent implements OnInit {
   }
 
   runSearch() {
-
     let term = this.searchTerm.replace(/^\s+|\s+$/g, '');
     if (term.startsWith("related:")) {
         let videoId = term.replace(/related:/,'');
-
         return this._service.relatedSearch(videoId)
             .subscribe(
                 (data: any[]) => {
@@ -64,7 +62,6 @@ export class PlaylistAddComponent implements OnInit {
                     this.searchResults = data;
                 }
             );
-
     } else {
         return this._service.keywordSearch(this.searchTerm)
             .subscribe(
@@ -74,6 +71,15 @@ export class PlaylistAddComponent implements OnInit {
                 }
             );
     }
-
   }
+
+  addIndexToPlaylist(index) {
+
+    if (0 <= index && index < this.searchResults.length) {
+        this._plservice.addSongToPlaylist(this.plid, this.searchResults[index]);
+        this.searchResults.splice(index,1);
+    }
+  }
+
+
 }

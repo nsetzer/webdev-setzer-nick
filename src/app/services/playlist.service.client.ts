@@ -60,5 +60,12 @@ export class PlaylistService {
     }
   }
 
+  addSongToPlaylist(plid: string, song : any) {
+    let pl = this.findPlaylistById(plid)
+    pl.songs.push(song);
+    console.log(pl.songs.length)
+    this.updatePlaylist(plid, pl);
+  }
+
 }
 

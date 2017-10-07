@@ -40,7 +40,6 @@
       <th>&nbsp;</th>
     </tr>
 
-
     <tr>
       <td>
         <input [(ngModel)]="searchTerm"
@@ -75,6 +74,11 @@
         No Results to display
       </div>
 
+        <div class ="pull-right">
+            <a (click)="addIndexToPlaylist(0)">
+            <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
 
 
       </td>
