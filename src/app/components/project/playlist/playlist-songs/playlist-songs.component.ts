@@ -34,17 +34,15 @@ export class PlaylistSongsComponent implements OnInit {
   reload() {
     this.user = this._service.findUserById(this.uid)
 
-    console.log(this.uid + " " + this.plid)
     this.playlist = this._plservice.findPlaylistById(this.plid);
-
-    console.log(this.playlist)
-
-    if (!this.playlist) {
-        this.playlist = [];
-    }
-
-    console.log(this.playlist)
-
   }
+
+  saveChanges() {
+    this._plservice.updatePlaylist(this.plid, this.playlist);
+    let url = "/project/(project:user/" + this.uid + "/list)"
+    this.router.navigateByUrl(url);
+  }
+
+
 
 }

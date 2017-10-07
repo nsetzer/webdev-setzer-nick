@@ -76,14 +76,15 @@ const APP_ROUTES: Routes = [
   //http://onehungrymind.com/named-router-outlets-in-angular-2/
   {path: 'project',  component: ProjectHomeComponent,
     children: [
-     { path: 'user/:uid',                  component: ProjectProfileComponent,       outlet: 'project' },
-     { path: 'user/:uid/profile/:puid',    component: ProjectProfilePublicComponent, outlet: 'project' },
-     { path: 'user/:uid/list',             component: PlaylistListComponent,         outlet: 'project' },
-     { path: 'user/:uid/list/new',         component: PlaylistNewComponent,          outlet: 'project' },
-     { path: 'user/:uid/list/search',      component: PlaylistSearchComponent,       outlet: 'project' },
-     { path: 'user/:uid/list/:plid',       component: PlaylistEditComponent,         outlet: 'project' },
-     { path: 'user/:uid/list/:plid/songs', component: PlaylistSongsComponent,        outlet: 'project' },
-     { path: 'user/:uid/list/:plid/add',   component: PlaylistAddComponent,          outlet: 'project' },
+     { path: 'user/:uid',                           component: ProjectProfileComponent,       outlet: 'project' },
+     { path: 'user/:uid/profile/:puid',             component: ProjectProfilePublicComponent, outlet: 'project' },
+     { path: 'user/:uid/list',                      component: PlaylistListComponent,         outlet: 'project' },
+     { path: 'user/:uid/list/new',                  component: PlaylistNewComponent,          outlet: 'project' },
+     { path: 'user/:uid/list/search',               component: PlaylistSearchComponent,       outlet: 'project' },
+     { path: 'user/:uid/list/:plid',                component: PlaylistEditComponent,         outlet: 'project' },
+     { path: 'user/:uid/list/:plid/songs',          component: PlaylistSongsComponent,        outlet: 'project' },
+     { path: 'user/:uid/list/:plid/add',            component: PlaylistAddComponent,          outlet: 'project' },
+     { path: 'user/:uid/list/:plid/add/:videoId',   component: PlaylistAddComponent,          outlet: 'project' },
     ]}
 ];
 

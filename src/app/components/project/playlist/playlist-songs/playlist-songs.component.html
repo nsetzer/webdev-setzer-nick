@@ -40,11 +40,18 @@
 
         {{song.title}}
 
-        <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]"
-           class="pull-right">
-          <span class="glyphicon glyphicon-info-sign"></span>
-        </a>
 
+
+        <div class ="pull-right">
+            <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]">
+            <span class="glyphicon glyphicon-search"></span>
+            </a>
+
+
+            <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            </a>
+        </div>
 
     </li>
 </ul>

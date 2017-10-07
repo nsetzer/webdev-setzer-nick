@@ -82,7 +82,7 @@ exports.keywordSearch = function(searchterm, onResult) {
 
     // return a default value when the APIKEY is not provided
     if (APIKEY==="") {
-        onResult(200,sample.yt_related_example);
+        onResult(200,sample.yt_search_example);
         return;
     }
 

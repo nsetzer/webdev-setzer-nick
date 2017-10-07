@@ -20,6 +20,69 @@
   </div>
 </nav>
 
+<div class="container">
 
-<h1>TODO</h1>
+  <div *ngIf="alertMessage"
+       class="alert alert-danger">
+    "Failed to create"
+  </div>
 
+  <div *ngIf="successMessage"
+       class="alert alert-success">
+    "Succesfully executed query"
+  </div>
+
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Enter a search term and press the search button</th>
+      <th>&nbsp;</th>
+    </tr>
+
+
+    <tr>
+      <td>
+        <input [(ngModel)]="searchTerm"
+               placeholder="search term"
+               class="form-control"/>
+      </td>
+
+
+      <td>
+        <button (click)="runSearch()"
+                class="btn btn-primary pull-right">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let result of searchResults">
+
+
+      <td>
+      <div *ngIf=result>
+          {{result.title}}
+        <br>
+
+        <audio controls *ngIf=result>
+          <source src="{{result.url}}" type="audio/mp3">
+        </audio>
+      </div>
+      <div *ngIf=!result>
+        No Results to display
+      </div>
+
+
+
+      </td>
+    </tr>
+    </tbody>
+
+  </table>
+
+
+
+</div>

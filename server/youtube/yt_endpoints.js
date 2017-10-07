@@ -13,10 +13,6 @@ module.exports = function(app)
         }
     })
 
-    /**
-     * convert the search results into something easier
-     * to consume by the frontend
-     */
     app.get('/api/youtube/query/:searchterm', function (req, res) {
 
         youtube.keywordSearch(req.params.searchterm, function(code, ytres) {
@@ -31,7 +27,29 @@ module.exports = function(app)
                     videoId: item.id.videoId,
                     description: item.snippet.description,
                     title: item.snippet.title,
-                    artist: "",
+                    artist: "Unkown Artist",
+                    thumbnail: item.snippet.thumbnails.high
+                });
+            }
+            res.json(items);
+        });
+    })
+
+    app.get('/api/youtube/related/:videoId', function (req, res) {
+
+        youtube.getRelated(req.params.searchterm, function(code, ytres) {
+            if (code != 200) {
+                res.status(400).json([])
+            }
+            var items = []
+
+            for (i = 0; i < ytres.items.length; ++i) {
+                var item = ytres.items[i];
+                items.push({
+                    videoId: item.id.videoId,
+                    description: item.snippet.description,
+                    title: item.snippet.title,
+                    artist: "Unknown Artist",
                     thumbnail: item.snippet.thumbnails.high
                 });
             }

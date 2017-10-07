@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../../services/user.service.client';
 import { PlaylistService } from '../../../../services/playlist.service.client';
+import { ProjectService } from '../../../../services/project.service.client';
 
 
 @Component({
@@ -14,32 +14,66 @@ export class PlaylistAddComponent implements OnInit {
 
   uid : string;
   plid : string;
-  user : any;
-  playlist : any;
+  videoId : any = null;
   private sub: any;
+
+  searchTerm: String;
+  searchResults: any[] = [];
+
+  alertMessage: Boolean = false;
+  successMessage: Boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: UserService,
+              private _service: ProjectService,
               private _plservice: PlaylistService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        this.uid = params['uid'];
        this.plid = params['plid'];
+
+       if (params["videoId"]) {
+         this.videoId = params['videoId'];
+         this.searchTerm = "related:" + this.videoId
+
+         this.runSearch();
+       } else {
+         this.videoId = null;
+         this.searchTerm = "";
+       }
+
        this.reload();
     });
   }
 
   reload() {
-    this.user = this._service.findUserById(this.uid)
 
-    this.playlist = this._plservice.findPlaylistById(this.plid);
+  }
 
-    if (!this.playlist) {
-        this.playlist = [];
+  runSearch() {
+
+    let term = this.searchTerm.replace(/^\s+|\s+$/g, '');
+    if (term.startsWith("related:")) {
+        let videoId = term.replace(/related:/,'');
+
+        return this._service.relatedSearch(videoId)
+            .subscribe(
+                (data: any[]) => {
+                    this.successMessage = true;
+                    this.searchResults = data;
+                }
+            );
+
+    } else {
+        return this._service.keywordSearch(this.searchTerm)
+            .subscribe(
+                (data: any[]) => {
+                    this.successMessage = true;
+                    this.searchResults = data;
+                }
+            );
     }
-
 
   }
 }
