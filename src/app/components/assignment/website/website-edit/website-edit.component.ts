@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-website-edit',
   templateUrl: './website-edit.component.html',
-  styleUrls: ['./website-edit.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./website-edit.component.css']
 })
 export class WebsiteEditComponent implements OnInit {
 

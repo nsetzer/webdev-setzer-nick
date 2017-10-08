@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-page-new',
   templateUrl: './page-new.component.html',
-  styleUrls: ['./page-new.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./page-new.component.css']
 })
 
 export class PageNewComponent implements OnInit {

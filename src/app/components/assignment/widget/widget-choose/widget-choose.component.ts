@@ -6,8 +6,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 @Component({
   selector: 'app-widget-choose',
   templateUrl: './widget-choose.component.html',
-  styleUrls: ['./widget-choose.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./widget-choose.component.css']
 })
 export class WidgetChooseComponent implements OnInit {
 

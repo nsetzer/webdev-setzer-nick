@@ -6,8 +6,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 @Component({
   selector: 'app-widget-header',
   templateUrl: './widget-header.component.html',
-  styleUrls: ['./widget-header.component.css',
-              '../../../../../../assets/css/style.css']
+  styleUrls: ['./widget-header.component.css']
 })
 export class WidgetHeaderComponent implements OnInit {
 

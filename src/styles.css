@@ -32,12 +32,16 @@ img.centered {
 body,
 .content-body {
    /*navbar height (60) + padding*/
-    padding-top: 65px;
+    padding-top: 35px;
     padding-bottom: 60px;
 }
 
 input{
   margin-bottom: 8px;
+}
+
+.btn {
+  margin-bottom: 5px;
 }
 
 .user-widget {

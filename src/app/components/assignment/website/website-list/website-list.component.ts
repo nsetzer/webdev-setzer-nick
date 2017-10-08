@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-website-list',
   templateUrl: './website-list.component.html',
-  styleUrls: ['./website-list.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./website-list.component.css']
 })
 
 export class WebsiteListComponent implements OnInit {

@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./register.component.css']
 })
 
 export class RegisterComponent implements OnInit {
@@ -18,6 +17,7 @@ export class RegisterComponent implements OnInit {
   password: string = ""
   password_check: string = ""
   invalid_username: boolean = false
+  invalid_password: boolean = false
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -28,11 +28,17 @@ export class RegisterComponent implements OnInit {
 
   register() {
 
+    this.invalid_username = false
+    this.invalid_password = false
+
+    if (this.password != this.password_check) {
+        this.invalid_password = true
+        return
+    }
+
     if (this._service.findUserByUsername(this.username)) {
         this.invalid_username = true
         return
-    } else {
-        this.invalid_username = false
     }
 
     let user = this._service.createUser({

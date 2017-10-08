@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-page-list',
   templateUrl: './page-list.component.html',
-  styleUrls: ['./page-list.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./page-list.component.css']
 })
 
 export class PageListComponent implements OnInit {

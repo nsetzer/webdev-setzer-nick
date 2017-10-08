@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-page-edit',
   templateUrl: './page-edit.component.html',
-  styleUrls: ['./page-edit.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./page-edit.component.css']
 })
 
 export class PageEditComponent implements OnInit {

@@ -7,8 +7,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 @Component({
   selector: 'app-widget-edit',
   templateUrl: './widget-edit.component.html',
-  styleUrls: ['./widget-edit.component.css',
-              '../../../../../assets/css/style.css']
+  styleUrls: ['./widget-edit.component.css']
 })
 
 export class WidgetEditComponent implements OnInit {
