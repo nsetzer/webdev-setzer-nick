@@ -1,15 +1,8 @@
 
-/*
-.navbar {
-    color: #FFFFFF;
-    background-color: #5555CC;
-}
-*/
-
-.navbar-brand,
-.navbar-brand:hover,
-.navbar-link,
-.navbar-text{
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-brand:hover,
+.navbar-dark .navbar-link,
+.navbar-dark .navbar-text {
   color: white;
 }
 
@@ -24,13 +17,18 @@
     text-align: justify;
 }
 
+img.centered {
+  margin: auto;
+  text-align: justify;
+}
 
 .navbar-default,
 .navbar-dark {
   height: 60px;
 }
 
-body {
+body,
+.content-body {
    /*navbar height (60) + padding*/
     padding-top: 65px;
     padding-bottom: 60px;
@@ -69,7 +67,7 @@ li.list-item-user-widget {
  */
 div.user-widget-proportional {
   position: relative;
-  width: 100%;
+  width:50%;
   height: 0px;
   padding-bottom: 60%;
 
@@ -82,6 +80,7 @@ iframe.user-widget-proportional {
   top: 0px;
   width: 100%;
   height: 100%;
+  margin:auto;
 
    z-index: 2;
 }
@@ -159,4 +158,50 @@ p.glyph-padding-short {
 div.container-margin {
   margin-left:15px;
   margin-right:15px;
+}
+
+input {
+  margin-bottom: 5px;
+}
+
+/*create a div with some width, centered
+  this width can be set programatically
+  [style.width]="attribute"
+*/
+div.video-container-outer {
+    width: 50%;
+    margin: auto;
+}
+
+/*inside a centered div, another div creates a
+  proportional space to embed a video
+*/
+div.video-container-inner {
+    position:relative;
+    padding-bottom:56.25%;
+    padding-top:30px;
+
+    height:0;
+    overflow:hidden;
+}
+
+/* a video container expands to take up all of the area inside
+   of the div. in this case, that area is specified by video-container-inner
+*/
+iframe.video-container {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
+div.image-container {
+  position: relative;
+  width:100%;
+}
+
+img.image-container {
+  display: block;
+  margin:auto;
 }
