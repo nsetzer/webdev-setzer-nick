@@ -4,6 +4,7 @@ import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 
+import { Page } from '../objects/page.object'
 
 @Injectable()
 
@@ -13,30 +14,7 @@ export class PageService {
 
   nextId : number = 1000;
 
-  pages = [
-    { "_id": "321", "name": "Post 1", "websiteId": "456", "title": "Post 1", "description": "Lorem" },
-    { "_id": "432", "name": "Post 2", "websiteId": "456", "title": "Post 2", "description": "Lorem" },
-    { "_id": "543", "name": "Post 3", "websiteId": "456", "title": "Post 3", "description": "Lorem" },
-    { "_id": "100", "name": "Post 1", "websiteId": "123", "title": "Post 1", "description": "Lorem" },
-    { "_id": "101", "name": "Post 2", "websiteId": "123", "title": "Post 2", "description": "Lorem" },
-    { "_id": "102", "name": "Post 3", "websiteId": "123", "title": "Post 3", "description": "Lorem" },
-    { "_id": "110", "name": "Post 1", "websiteId": "234", "title": "Post 1", "description": "Lorem" },
-    { "_id": "111", "name": "Post 2", "websiteId": "234", "title": "Post 2", "description": "Lorem" },
-    { "_id": "112", "name": "Post 3", "websiteId": "234", "title": "Post 3", "description": "Lorem" },
-    { "_id": "120", "name": "Lang"  , "websiteId": "890", "title": "Post 1", "description": "Lorem" },
-    { "_id": "121", "name": "Game", "websiteId": "890", "title": "Post 2", "description": "Lorem" },
-    { "_id": "122", "name": "Home" , "websiteId": "890", "title": "Post 3", "description": "Lorem" },
-    { "_id": "130", "name": "Easy", "websiteId": "567", "title": "Post 1", "description": "Lorem" },
-    { "_id": "131", "name": "Medium", "websiteId": "567", "title": "Post 2", "description": "Lorem" },
-    { "_id": "132", "name": "Hard", "websiteId": "567", "title": "Post 3", "description": "Lorem" },
-    { "_id": "140", "name": "Post 1", "websiteId": "678", "title": "Post 1", "description": "Lorem" },
-    { "_id": "141", "name": "Post 2", "websiteId": "678", "title": "Post 2", "description": "Lorem" },
-    { "_id": "142", "name": "Post 3", "websiteId": "678", "title": "Post 3", "description": "Lorem" },
-    { "_id": "150", "name": "Post 1", "websiteId": "789", "title": "Post 1", "description": "Lorem" },
-    { "_id": "151", "name": "Post 2", "websiteId": "789", "title": "Post 2", "description": "Lorem" },
-    { "_id": "152", "name": "Post 3", "websiteId": "789", "title": "Post 3", "description": "Lorem" }
-
-  ]
+  pages = Page.getDefaultPages();
 
   api = {
     'createPage'   : this.createPage,

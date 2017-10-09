@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WidgetService } from '../../../../../services/widget.service.client';
+import { Widget } from '../../../../../objects/widget.object';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer} from '@angular/platform-browser';
 
@@ -15,7 +16,7 @@ uid : string = "";
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : {widgetType:"None"};
+  widget : Widget;
 
   private sub: any;
 
