@@ -26,7 +26,6 @@ export class ProjectProfileComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        this.uid = params['uid']; // (+) converts string 'id' to a number
-       console.log(params);
        this.reload();
     });
   }
@@ -35,8 +34,6 @@ export class ProjectProfileComponent implements OnInit {
     this.user = this._service.findUserById(this.uid)
 
     this.playlists = this._plservice.findPlaylistsByUser(this.uid);
-
-    console.log(this.playlists)
   }
 
   logout() {

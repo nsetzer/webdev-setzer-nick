@@ -30,7 +30,6 @@ export class PlaylistService {
   }
 
   findPlaylistsByUser(userid: string) {
-    console.log(this.playlists)
     return this.playlists.filter( lst => lst.userid === userid );
   }
 
@@ -40,7 +39,6 @@ export class PlaylistService {
         return this.playlists[x];
       }
     }
-    console.log("no playlist found for: " + plid)
   }
 
   updatePlaylist(plid: string, lst: Playlist) {
@@ -63,7 +61,6 @@ export class PlaylistService {
   addSongToPlaylist(plid: string, song : any) {
     let pl = this.findPlaylistById(plid)
     pl.songs.push(song);
-    console.log(pl.songs.length)
     this.updatePlaylist(plid, pl);
   }
 

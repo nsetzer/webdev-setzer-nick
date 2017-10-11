@@ -47,9 +47,10 @@ import { PlaylistAddComponent } from './components/project/playlist/playlist-add
 
 
 const APP_ROUTES: Routes = [
-  {path: '', component : HomeComponent},
+  {path: 'home', component : HomeComponent},
   {path: 'test',       component: TestComponent},
 
+  {path: '',     component: LoginComponent},
   {path: 'login',     component: LoginComponent},
   {path: 'register',  component: RegisterComponent},
   {path: 'user/:uid', component: ProfileComponent},
