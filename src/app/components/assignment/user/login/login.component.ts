@@ -36,9 +36,9 @@ export class LoginComponent implements OnInit {
       user => this.router.navigate(["/user/" + user._id]));
 
     if (code==2) {
-      this.invalid_password = false;
+      this.invalid_password = true;
     } else if (code==1) {
-      this.invalid_password = false;
+      this.invalid_username = true;
     }
   }
 
