@@ -29,18 +29,17 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    var user = this._service.findUserByUsername(this.username)
+    this.invalid_password = false;
+    this.invalid_username = false;
 
-    if (user) {
-        this.invalid_username = false
-        if (user.password == this.password) {
-            this.router.navigate(["/user/" + user._id]);
-        } else {
-            this.invalid_password = true
-        }
-    } else {
-        this.invalid_username = true
+    var code = this._service.validateUser(this.username, this.password,
+      user => this.router.navigate(["/user/" + user._id]));
+
+    if (code==2) {
+      this.invalid_password = false;
+    } else if (code==1) {
+      this.invalid_password = false;
     }
-
   }
+
 }

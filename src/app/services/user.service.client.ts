@@ -66,6 +66,30 @@ export class UserService {
     }
   }
 
+  /**
+   * fn : a function accepting the validated user object
+   * returns: 0 on success
+   *          1 for invalid username
+   *          2 for invalid password
+   */
+  validateUser(username, password, fn) {
+
+    var user = this.findUserByUsername(username)
+
+    if (user) {
+        if (user.password != password) {
+            return 2;
+        }
+    } else {
+        return 1;
+    }
+
+    fn(user);
+
+    return 0;
+
+  }
+
 }
 
 
