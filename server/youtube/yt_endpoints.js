@@ -4,16 +4,21 @@ module.exports = function(app)
     var youtube = require("./youtube.js");
     var winston = require("winston");
 
-    app.get('/api/youtube/:videoId', function (req, res) {
+    app.get('/api/youtube/:videoId', streamVideo);
+    app.get('/api/youtube/query/:searchterm', keywordSearch);
+    app.get('/api/youtube/related/:videoId', relatedSearch);
+
+    function streamVideo(req, res) {
         var requestUrl = 'http://youtube.com/watch?v=' + req.params.videoId
         try {
             youtubeStream(requestUrl).pipe(res)
         } catch (exception) {
           res.status(500).send(exception)
         }
-    })
+    }
 
-    app.get('/api/youtube/query/:searchterm', function (req, res) {
+
+    function keywordSearch(req, res) {
 
         youtube.keywordSearch(req.params.searchterm, function(code, ytres) {
             if (code != 200) {
@@ -33,9 +38,9 @@ module.exports = function(app)
             }
             res.json(items);
         });
-    })
+    }
 
-    app.get('/api/youtube/related/:videoId', function (req, res) {
+    function relatedSearch(req, res) {
 
         youtube.getRelated(req.params.searchterm, function(code, ytres) {
             if (code != 200) {
@@ -55,7 +60,7 @@ module.exports = function(app)
             }
             res.json(items);
         });
-    })
+    }
 
     winston.info("youtube endpoints registered");
     // localhost:3100/api/youtube/query/searchterm
