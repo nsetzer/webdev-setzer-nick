@@ -23,8 +23,12 @@
              class="form-control"
              required
              />
-      <div *ngIf="invalid_password" class="help-block">
+      <div *ngIf="invalid_password && username.touched" class="help-block">
         Invalid Username or Password
+      </div>
+
+      <div *ngIf="invalid_password && !username.touched" class="help-block">
+        Please enter a password
       </div>
 
       <button (click)="login()"

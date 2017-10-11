@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
          email:     this.email
     });
 
-    this.router.navigate(["/user/" + user._id]);
+    this.router.navigate(["/login"]);
   }
 
 }
