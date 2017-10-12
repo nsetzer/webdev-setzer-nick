@@ -12,10 +12,12 @@
              name="username"
              placeholder="username"
              class="form-control"
-             required/>
+             required
+             autofocus/>
       <div *ngIf="invalid_username" class="help-block">
         Username not Found
       </div>
+
       <input type="password"
              [(ngModel)]="password"
              name="password"
@@ -23,15 +25,11 @@
              class="form-control"
              required
              />
-      <div *ngIf="invalid_password && username.touched" class="help-block">
+      <div *ngIf="invalid_password" class="help-block">
         Invalid Username or Password
       </div>
 
-      <div *ngIf="invalid_password && !username.touched" class="help-block">
-        Please enter a password
-      </div>
-
-      <button (click)="login()"
+      <button type="submit" [disabled]="!f.valid"
               class="btn btn-primary btn-block">Login</button>
 
     </form>

@@ -50,7 +50,7 @@
 
     <div *ngIf="password!=password_check" class="help-block">Passwords do not match</div>
 
-  <button (click)="register()"
+  <button type="submit" [disabled]="!f.valid"
           class="btn btn-primary btn-block">Register</button>
   </form>
 
