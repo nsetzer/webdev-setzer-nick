@@ -8,14 +8,14 @@
 
 module.exports = function (app) {
 
-    require("./server/test-mongodb/app")(app);
+    require("./test-mongodb/app")(app);
 
-    require("./server/assignment/user.service.server")(app);
-    require("./server/assignment/page.service.server")(app);
-    require("./server/assignment/website.service.server")(app);
-    require("./server/assignment/widget.service.server")(app);
+    require("./assignment/user.service.server")(app);
+    require("./assignment/page.service.server")(app);
+    require("./assignment/website.service.server")(app);
+    require("./assignment/widget.service.server")(app);
 
-    require("./server/youtube/yt_endpoints")(app);
+    require("./youtube/yt_endpoints")(app);
 
 
 };
