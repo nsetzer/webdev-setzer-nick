@@ -11,6 +11,12 @@ module.exports = function (app) {
 
     function createUser(req, res) {
 
+        var user = req.body;
+
+        user._id = "000";
+        users.push( user );
+
+        res.status(201).json('')
     }
 
     function getUser(req, res) {
@@ -23,7 +29,7 @@ module.exports = function (app) {
         } else if (username) {
             findUserByUsername(res, username)
         } else {
-            res.status(400).json([])
+            res.status(400).json('')
         }
     }
 
@@ -35,7 +41,7 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).json([])
+        res.status(400).json('')
     }
 
     function findUserByCredentials(res, username,password) {
@@ -47,7 +53,7 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).json([])
+        res.status(400).json('')
     }
 
     function findUserById(req, res) {
