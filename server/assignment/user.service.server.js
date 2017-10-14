@@ -6,6 +6,7 @@ module.exports = function (app) {
 
     app.post('/api/user', createUser);
     app.get('/api/user', getUser);
+    app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
 
@@ -16,7 +17,7 @@ module.exports = function (app) {
         user._id = "000";
         users.push( user );
 
-        res.status(201).json('')
+        res.status(201).send('created')
     }
 
     function getUser(req, res) {
@@ -29,7 +30,7 @@ module.exports = function (app) {
         } else if (username) {
             findUserByUsername(res, username)
         } else {
-            res.status(400).json('')
+            res.status(400).send('Error: user not found')
         }
     }
 
@@ -41,7 +42,7 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).json('')
+        res.status(400).send('Error: user not found')
     }
 
     function findUserByCredentials(res, username,password) {
@@ -53,19 +54,45 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).json('')
+        res.status(400).send('Error: user not found')
     }
 
     function findUserById(req, res) {
+        for (let x = 0; x < users.length; x++) {
+          if (users[x]._id === req.params.uid) {
+            res.json(users[x]);
+            return;
+          }
+        }
 
+        res.status(400).send('Error: user not found')
     }
 
     function updateUser(req, res) {
 
+        var user = req.body;
+        for (let x = 0; x < users.length; x++) {
+          if (users[x]._id === req.params.uid) {
+            user._id = req.params.uid;
+            users[x] = user;
+            res.status(200).send("OK");
+            return;
+          }
+        }
+
+        res.status(400).send('Error: user not found')
     }
 
     function deleteUser(req, res) {
+        for (let x = 0; x < this.users.length; x++) {
+            if (this.users[x]._id === req.params.uid) {
+                this.users.splice(x, 1)
+                res.status(200).send("OK");
+                return;
+            }
+        }
 
+        res.status(400).send('Error: user not found')
     }
 
     winston.info("user endpoints registered (" + users.length + " users)");

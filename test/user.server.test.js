@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 describe('App', function() {
 
-  describe('/api/user error', function() {
+  describe('/api/user api error', function() {
     it('responds with status 200', function(done) {
       chai.request(server)
         .get('/api/user')
@@ -22,7 +22,7 @@ describe('App', function() {
     });
   });
 
-  describe('/api/user username', function() {
+  describe('/api/user by username', function() {
     it('responds with status 200', function(done) {
       chai.request(server)
         .get('/api/user')
@@ -36,7 +36,7 @@ describe('App', function() {
     });
   });
 
-  describe('/api/user username + password', function() {
+  describe('/api/user by username and password', function() {
     it('responds with status 200', function(done) {
       chai.request(server)
         .get('/api/user')
@@ -71,6 +71,64 @@ describe('App', function() {
               expect(res).to.have.status(200);
               expect(JSON.parse(res.text))
                 .to.include({"username":"david"});
+              done();
+          });
+        });
+    });
+  });
+
+  describe('/api/user find by id', function() {
+    it('responds with status 200', function(done) {
+      chai.request(server)
+        .get('/api/user/123')
+        .end(function(err, res) {
+          expect(res).to.have.status(200);
+          expect(JSON.parse(res.text))
+            .to.include({"username":"alice"});
+          done();
+        });
+    });
+  });
+
+  describe('/api/user update', function() {
+    it('responds with status 200', function(done) {
+      var data = {
+        'username' : 'alice',
+        'password' : 'alice',
+        'firstName' : 'Alice',
+        'lastName'  : 'TEST',
+        'email' : 'alice@example.com'
+      };
+      chai.request(server)
+        .put('/api/user/123')
+        .send(data)
+        .end(function(err, res) {
+          expect(res).to.have.status(200);
+          chai.request(server)
+            .get('/api/user')
+            .query({'username':'alice'})
+            .end(function(err, res) {
+              expect(res).to.have.status(200);
+              expect(JSON.parse(res.text))
+                .to.include({"lastName":"TEST"});
+              done();
+          });
+        });
+    });
+  });
+
+
+    describe('/api/user delete', function() {
+    it('responds with status 200', function(done) {
+      chai.request(server)
+        .delete('/api/user/123')
+        .end(function(err, res) {
+          expect(res).to.have.status(200);
+          chai.request(server)
+            .get('/api/user')
+            .query({'username':'alice'})
+            .end(function(err, res) {
+              expect(res).to.have.status(400);
               done();
           });
         });
