@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "test": "node_modules/mocha/bin/mocha"
   },
   "private": true,
   "dependencies": {
@@ -22,12 +23,15 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "body-parser": "^1.17.2",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "core-js": "^2.4.1",
     "express": "^4.15.3",
     "google-auth-library": "^0.11.0",
     "googleapis": "^21.3.0",
     "http": "0.0.0",
     "jsonfile": "^4.0.0",
+    "mocha": "^4.0.1",
     "mongoose": "^4.11.4",
     "parse-glob": "^3.0.4",
     "path": "^0.12.7",

@@ -40,3 +40,5 @@ app.get('*', function (req, res) {
 });
 
 server.listen( port , () => console.log('Running on port ' + port));
+
+module.exports = server
