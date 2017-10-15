@@ -29,24 +29,49 @@ export class WebsiteEditComponent implements OnInit {
   }
 
   reload() {
-    this.websites = this._service.findWebsitesByUser(this.uid)
-    this.current_site = this._service.findWebsiteById(this.wid)
+    this._service.findWebsitesByUser(this.uid).subscribe(
+      (sites) => { this.websites = sites},
+      (err) => {}
+    );
 
-    if (!this.current_site) {
-        //this.current_site  = {name:"ERROR",description:"ERROR"}
-        this.router.navigate(["/user/" + this.uid + "/website"]);
-    }
+    this._service.findWebsiteById(this.wid).subscribe(
+      (site) => {
+        this.current_site = site
+        if (!this.current_site) {
+          //this.current_site  = {name:"ERROR",description:"ERROR"}
+          this.router.navigate(["/user/" + this.uid + "/website"]);
+        }
+      },
+      (err) => {
+
+      }
+    );
 
   }
 
   saveChanges() {
-    this._service.updateWebsite(this.wid, this.current_site);
-    this.router.navigate(["/user/" + this.uid + "/website"]);
+
+    this._service.updateWebsite(this.wid, this.current_site).subscribe(
+      (res) => {
+        this.router.navigate(["/user/" + this.uid + "/website"]);
+      },
+      (err) => {
+
+      }
+    );
+
   }
 
   delete() {
-    this._service.deleteWebsite(this.wid);
-    this.router.navigate(["/user/" + this.uid + "/website"]);
+    this._service.deleteWebsite(this.wid).subscribe(
+      (res) => {
+        this.router.navigate(["/user/" + this.uid + "/website"]);
+      },
+      (err) => {
+
+      }
+    );
+
   }
 
 }
