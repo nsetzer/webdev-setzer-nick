@@ -32,17 +32,30 @@ export class PageEditComponent implements OnInit {
 
   reload() {
 
-    this.current_page = this._service.findPageById(this.pid)
+    this._service.findPageById(this.pid).subscribe(
+      (page) => { this.current_page = page },
+      (err) => {}
+    );
 
   }
 
   saveChanges() {
-    this._service.updatePage(this.pid, this.current_page);
-    this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
+    this._service.updatePage(this.pid, this.current_page).subscribe(
+      (res) => {
+        this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
+      },
+      (err) => {
+      }
+    );
   }
 
   delete() {
-    this._service.deletePage(this.pid);
-    this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
+    this._service.deletePage(this.pid).subscribe(
+      (res) => {
+        this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
+      },
+      (err) => {
+      }
+    );
   }
 }

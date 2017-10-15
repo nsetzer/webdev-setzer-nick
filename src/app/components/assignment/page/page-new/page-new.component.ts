@@ -31,17 +31,20 @@ export class PageNewComponent implements OnInit {
   }
 
   reload() {
-
     this.current_page = {
         name: "New Page",
         title: "New Page"
     }
-
   }
 
   saveChanges() {
-    this._service.createPage(this.wid, this.current_page);
-    this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
+    this._service.createPage(this.wid, this.current_page).subscribe(
+      (res) => {
+        this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
+      },
+      (err) => {
+      }
+    );
   }
 
 }
