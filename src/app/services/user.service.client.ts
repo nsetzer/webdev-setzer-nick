@@ -12,10 +12,6 @@ export class UserService {
 
   baseUrl = environment.baseUrl;
 
-  nextId: number = 1000;
-
-  users = User.getDefaultUsers();
-
   api = {
     'createUser'   : this.createUser,
     'findUserById' : this.findUserById,
@@ -28,42 +24,56 @@ export class UserService {
   }
 
   createUser(user: any) {
-    user._id = "" + this.nextId;
-    this.nextId = this.nextId + 1;
-    this.users.push(user);
-    return user;
+    return this._http.post(this.baseUrl + '/api/user/', user)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   findUserById(userId: string) {
-    for (let x = 0; x < this.users.length; x++) {
-      if (this.users[x]._id === userId) {
-        return this.users[x];
-      }
-    }
+    return this._http.get(this.baseUrl + '/api/user/' + userId)
+     .map(
+       (res: Response) => {
+         const data : User = res.json();
+         return data;
+       }
+     );
   }
 
   findUserByUsername(username: string) {
-    for (let x = 0; x < this.users.length; x++) {
-      if (this.users[x].username === username) {
-        return this.users[x];
-      }
-    }
+    return this._http.get(this.baseUrl + "/api/user?username=${username}" )
+     .map(
+       (res: Response) => {
+        if (res.ok) {
+          const data : User = res.json();
+          return data;
+        } else {
+          return;
+        }
+
+       }
+     );
   }
 
   updateUser(userId, user) {
-    for (let x = 0; x < this.users.length; x++) {
-      if (this.users[x]._id === userId) {
-        this.users[x] = user
-      }
-    }
+    return this._http.put(this.baseUrl + "/api/user/" + userId, user)
+     .map(
+       (res: Response) => {
+         return;
+       }
+     );
   }
 
   deleteUser(userId) {
-    for (let x = 0; x < this.users.length; x++) {
-      if (this.users[x]._id === userId) {
-        this.users.splice(x, 1)
-      }
-    }
+    return this._http.delete(this.baseUrl + "/api/user/" + userId)
+     .map(
+       (res: Response) => {
+         return;
+       }
+     );
   }
 
   /**
@@ -74,14 +84,17 @@ export class UserService {
    */
   validateUser(username, password, fn) {
 
-    var user = this.findUserByUsername(username)
+    var user = this._http.get(
+      this.baseUrl + "/api/user?username=${username}&password=${password}" )
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
 
-    if (user) {
-        if (user.password != password) {
-            return 2;
-        }
-    } else {
-        return 1;
+    if (!user) {
+      return 1;
     }
 
     fn(user);
