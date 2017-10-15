@@ -3,6 +3,7 @@ module.exports = function (app) {
     var _user = require('./user.data.server');
 
     users = _user.getDefaultUsers();
+    nextId = 1000;
 
     app.post('/api/user', createUser);
     app.get('/api/user', getUser);
@@ -14,10 +15,12 @@ module.exports = function (app) {
 
         var user = req.body;
 
-        user._id = "000";
+        user._id = "" + nextId;
+        nextId = nextId + 1;
+
         users.push( user );
 
-        res.status(201).send('created')
+        res.status(201).json(user)
     }
 
     function getUser(req, res) {
@@ -30,7 +33,7 @@ module.exports = function (app) {
         } else if (username) {
             findUserByUsername(res, username)
         } else {
-            res.status(400).send('Error: user not found')
+            res.status(400).send('Error: missing query parameters')
         }
     }
 
@@ -54,7 +57,7 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).send('Error: user not found')
+        res.status(404).send('Error: user not found')
     }
 
     function findUserById(req, res) {
@@ -65,7 +68,7 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).send('Error: user not found')
+        res.status(404).send('Error: user not found')
     }
 
     function updateUser(req, res) {
@@ -80,7 +83,7 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).send('Error: user not found')
+        res.status(404).send('Error: user not found')
     }
 
     function deleteUser(req, res) {
@@ -92,7 +95,7 @@ module.exports = function (app) {
             }
         }
 
-        res.status(400).send('Error: user not found')
+        res.status(404).send('Error: user not found')
     }
 
     winston.info("user endpoints registered (" + users.length + " users)");
