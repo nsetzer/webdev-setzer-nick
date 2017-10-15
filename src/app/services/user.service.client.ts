@@ -44,7 +44,7 @@ export class UserService {
   }
 
   findUserByUsername(username: string) {
-    return this._http.get(this.baseUrl + "/api/user?username=${username}" )
+    return this._http.get(this.baseUrl + `/api/user?username=${username}` )
      .map(
        (res: Response) => {
         if (res.ok) {
@@ -84,23 +84,19 @@ export class UserService {
    */
   validateUser(username, password, fn) {
 
-    var user = this._http.get(
-      this.baseUrl + "/api/user?username=${username}&password=${password}" )
+    return this._http.get(
+      this.baseUrl + `/api/user?username=${username}&password=${password}` )
      .map(
        (res: Response) => {
-         const data = res.json();
-         return data;
+         const user = res.json();
+         if (!user) {
+            return 1;
+         } else {
+            fn(user);
+            return 0;
+         }
        }
      );
-
-    if (!user) {
-      return 1;
-    }
-
-    fn(user);
-
-    return 0;
-
   }
 
 }

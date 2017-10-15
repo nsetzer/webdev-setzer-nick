@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
+import { User } from '../../../../objects/user.object';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ProfileComponent implements OnInit {
 
   uid : string;
-  user : any;
+  user : User = new User("","","","","","");
   private sub: any;
   changes_saved : boolean = false;
 
@@ -27,7 +28,10 @@ export class ProfileComponent implements OnInit {
   }
 
   reload() {
-    this.user = this._service.findUserById(this.uid)
+    this._service.findUserById(this.uid).subscribe(
+      (user : User) => {this.user = user;},
+      (err : any) => {}
+      );
   }
 
   logout() {

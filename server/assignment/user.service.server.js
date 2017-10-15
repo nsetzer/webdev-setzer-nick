@@ -45,7 +45,7 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).send('Error: user not found')
+        res.status(400).send('Error: user `' + username + '`not found by name')
     }
 
     function findUserByCredentials(res, username,password) {
@@ -57,7 +57,7 @@ module.exports = function (app) {
           }
         }
 
-        res.status(404).send('Error: user not found')
+        res.status(404).send('Error: user `' + username + '` not found for given credentials')
     }
 
     function findUserById(req, res) {
