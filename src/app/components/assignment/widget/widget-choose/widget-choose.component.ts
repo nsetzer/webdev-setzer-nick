@@ -66,9 +66,9 @@ export class WidgetChooseComponent implements OnInit {
         this._service.createWidget(this.pid,widget).subscribe(
           (res) => {
             let url = "/user/" + this.uid +
-                  "/website/" + this.wid +
-                  "/page/" + this.pid +
-                  "/widget/" + widget._id;
+                      "/website/" + this.wid +
+                      "/page/" + this.pid +
+                     "/widget/" + widget._id;
             this.router.navigate([url]);
           },
           (err) => {

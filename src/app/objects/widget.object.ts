@@ -54,9 +54,10 @@ export class Widget {
       The new widget's pageId is set to the pageId parameter
       */
       let widget = new Widget(wgid, "", pageId);
+      widget.widgetType = type;
 
       if (type === "IMAGE" || type === "YOUTUBE") {
-        widget.width = "";
+        widget.width = "100%";
         widget.url = "";
       }
       if (type === "HEADING" || type === "HTML") {

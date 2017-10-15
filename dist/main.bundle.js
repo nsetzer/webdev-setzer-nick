@@ -295,8 +295,9 @@ AppModule = __decorate([
 
 
 var APP_ROUTES = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__components_home_home_component__["a" /* HomeComponent */] },
+    { path: 'home', component: __WEBPACK_IMPORTED_MODULE_1__components_home_home_component__["a" /* HomeComponent */] },
     { path: 'test', component: __WEBPACK_IMPORTED_MODULE_2__components_test_test_component__["a" /* TestComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_3__components_assignment_user_login_login_component__["a" /* LoginComponent */] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_3__components_assignment_user_login_login_component__["a" /* LoginComponent */] },
     { path: 'register', component: __WEBPACK_IMPORTED_MODULE_4__components_assignment_user_register_register_component__["a" /* RegisterComponent */] },
     { path: 'user/:uid', component: __WEBPACK_IMPORTED_MODULE_5__components_assignment_user_profile_profile_component__["a" /* ProfileComponent */] },
@@ -615,7 +616,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/user/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container\">\n\n    <h1>Login</h1>\n\n    <!--\n    jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial\n    -->\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required/>\n      <div *ngIf=\"invalid_username\" class=\"help-block\">Username not Found</div>\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required/>\n      <div *ngIf=\"invalid_password\" class=\"help-block\">Password is required</div>\n\n      <button (click)=\"login()\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['/register']\">Register</a>\n\n\n</div>"
+module.exports = "\n<div class=\"container\">\n\n    <h1>Login</h1>\n\n    <!--\n    jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial\n    -->\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required\n             autofocus/>\n      <div *ngIf=\"invalid_username\" class=\"help-block\">\n        Username not Found\n      </div>\n\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required\n             />\n      <div *ngIf=\"invalid_password\" class=\"help-block\">\n        Invalid Username or Password\n      </div>\n\n      <button type=\"submit\" [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['/register']\">Register</a>\n\n\n</div>"
 
 /***/ }),
 
@@ -652,17 +653,14 @@ var LoginComponent = (function () {
         this.invalid_password = false;
     };
     LoginComponent.prototype.login = function () {
-        var user = this._service.findUserByUsername(this.username);
-        if (user) {
-            this.invalid_username = false;
-            if (user.password == this.password) {
-                this.router.navigate(["/user/" + user._id]);
-            }
-            else {
-                this.invalid_password = true;
-            }
+        var _this = this;
+        this.invalid_password = false;
+        this.invalid_username = false;
+        var code = this._service.validateUser(this.username, this.password, function (user) { return _this.router.navigate(["/user/" + user._id]); });
+        if (code == 2) {
+            this.invalid_password = true;
         }
-        else {
+        else if (code == 1) {
             this.invalid_username = true;
         }
     };
@@ -788,7 +786,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/user/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container-fluid container-margin\">\n  <h1>Register</h1>\n\n  <form name=\"form\" (ngSubmit)=\"register()\" #f=\"ngForm\">\n\n    <input type=\"text\"\n           [(ngModel)]=\"firstName\"\n           name=\"firstName\"\n           placeholder=\"First Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"lastName\"\n           name=\"lastName\"\n           placeholder=\"Last Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"username\"\n           name=\"username\"\n           placeholder=\"username\"\n           class=\"form-control\"\n           required/>\n\n    <div *ngIf=\"invalid_username\" class=\"help-block\">Username Already Exists</div>\n\n    <input type=\"email\"\n           [(ngModel)]=\"email\"\n           name=\"email\"\n           placeholder=\"email\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password\"\n           name=\"password\"\n           placeholder=\"password\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password_check\"\n           name=\"password_check\"\n           placeholder=\"retype password\"\n           class=\"form-control\"\n           required/>\n\n    <div *ngIf=\"password!=password_check\" class=\"help-block\">Passwords do not match</div>\n\n  <button (click)=\"register()\"\n          class=\"btn btn-primary btn-block\">Register</button>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n     [routerLink]=\"['/login']\">Cancel</a>\n\n</div>"
+module.exports = "\n<div class=\"container-fluid container-margin\">\n  <h1>Register</h1>\n\n  <form name=\"form\" (ngSubmit)=\"register()\" #f=\"ngForm\">\n\n    <input type=\"text\"\n           [(ngModel)]=\"firstName\"\n           name=\"firstName\"\n           placeholder=\"First Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"lastName\"\n           name=\"lastName\"\n           placeholder=\"Last Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"username\"\n           name=\"username\"\n           placeholder=\"username\"\n           class=\"form-control\"\n           required/>\n\n    <div *ngIf=\"invalid_username\" class=\"help-block\">Username Already Exists</div>\n\n    <input type=\"email\"\n           [(ngModel)]=\"email\"\n           name=\"email\"\n           placeholder=\"email\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password\"\n           name=\"password\"\n           placeholder=\"password\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password_check\"\n           name=\"password_check\"\n           placeholder=\"retype password\"\n           class=\"form-control\"\n           required/>\n\n    <div *ngIf=\"password!=password_check\" class=\"help-block\">Passwords do not match</div>\n\n  <button type=\"submit\" [disabled]=\"!f.valid\"\n          class=\"btn btn-primary btn-block\">Register</button>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n     [routerLink]=\"['/login']\">Cancel</a>\n\n</div>"
 
 /***/ }),
 
@@ -846,7 +844,7 @@ var RegisterComponent = (function () {
             lastName: this.lastName,
             email: this.email
         });
-        this.router.navigate(["/user/" + user._id]);
+        this.router.navigate(["/login"]);
     };
     return RegisterComponent;
 }());
@@ -1546,7 +1544,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-image/widget-image.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -1655,7 +1653,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -2815,14 +2813,12 @@ var ProjectProfileComponent = (function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             _this.uid = params['uid']; // (+) converts string 'id' to a number
-            console.log(params);
             _this.reload();
         });
     };
     ProjectProfileComponent.prototype.reload = function () {
         this.user = this._service.findUserById(this.uid);
         this.playlists = this._plservice.findPlaylistsByUser(this.uid);
-        console.log(this.playlists);
     };
     ProjectProfileComponent.prototype.logout = function () {
         this.router.navigateByUrl("/project/login");
@@ -3001,6 +2997,52 @@ var _a;
 
 /***/ }),
 
+/***/ "../../../../../src/app/objects/page.object.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Page; });
+var Page = (function () {
+    function Page(_id, name, websiteId, title, description) {
+        this._id = _id;
+        this.name = name;
+        this.websiteId = websiteId;
+        this.title = title;
+        this.description = description;
+    }
+    Page.getDefaultPages = function () {
+        var pages = [
+            new Page("321", "Post 1", "456", "Post 1", "Lorem"),
+            new Page("432", "Post 2", "456", "Post 2", "Lorem"),
+            new Page("543", "Post 3", "456", "Post 3", "Lorem"),
+            new Page("100", "Post 1", "123", "Post 1", "Lorem"),
+            new Page("101", "Post 2", "123", "Post 2", "Lorem"),
+            new Page("102", "Post 3", "123", "Post 3", "Lorem"),
+            new Page("110", "Post 1", "234", "Post 1", "Lorem"),
+            new Page("111", "Post 2", "234", "Post 2", "Lorem"),
+            new Page("112", "Post 3", "234", "Post 3", "Lorem"),
+            new Page("120", "Lang", "890", "Post 1", "Lorem"),
+            new Page("121", "Game", "890", "Post 2", "Lorem"),
+            new Page("122", "Home", "890", "Post 3", "Lorem"),
+            new Page("130", "Easy", "567", "Post 1", "Lorem"),
+            new Page("131", "Medium", "567", "Post 2", "Lorem"),
+            new Page("132", "Hard", "567", "Post 3", "Lorem"),
+            new Page("140", "Post 1", "678", "Post 1", "Lorem"),
+            new Page("141", "Post 2", "678", "Post 2", "Lorem"),
+            new Page("142", "Post 3", "678", "Post 3", "Lorem"),
+            new Page("150", "Post 1", "789", "Post 1", "Lorem"),
+            new Page("151", "Post 2", "789", "Post 2", "Lorem"),
+            new Page("152", "Post 3", "789", "Post 3", "Lorem")
+        ];
+        return pages;
+    };
+    return Page;
+}());
+
+//# sourceMappingURL=page.object.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/objects/playlist.object.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3086,6 +3128,130 @@ var User = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/objects/website.object.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Website; });
+var Website = (function () {
+    function Website(_id, name, developerId, description) {
+        this._id = _id;
+        this.name = name;
+        this.developerId = developerId;
+        this.description = description;
+    }
+    Website.getDefaultSites = function () {
+        var sites = [
+            new Website("123", "Facebook", "456", "Lorem"),
+            new Website("234", "Tweeter", "456", "Lorem"),
+            new Website("456", "Gizmodo", "456", "Lorem"),
+            new Website("890", "Go", "123", "Lorem"),
+            new Website("567", "Tic Tac Toe", "123", "Lorem"),
+            new Website("678", "Checkers", "123", "Lorem"),
+            new Website("789", "Chess", "234", "Lorem")
+        ];
+        return sites;
+    };
+    return Website;
+}());
+
+//# sourceMappingURL=website.object.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/objects/widget.object.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Widget; });
+var Widget = (function () {
+    function Widget(_id, name, pageId) {
+        this._id = _id;
+        this.name = name;
+        this.pageId = pageId;
+    }
+    Widget.newHeadingWidget = function (_id, name, pageId, size, text) {
+        var widget = new Widget(_id, name, pageId);
+        widget.widgetType = "HEADING";
+        widget.size = size;
+        widget.text = text;
+        return widget;
+    };
+    Widget.newImageWidget = function (_id, name, pageId, width, url) {
+        var widget = new Widget(_id, name, pageId);
+        widget.widgetType = "IMAGE";
+        widget.width = width;
+        widget.url = url;
+        return widget;
+    };
+    Widget.newYoutubeWidget = function (_id, name, pageId, width, url) {
+        var widget = new Widget(_id, name, pageId);
+        widget.widgetType = "YOUTUBE";
+        widget.width = width;
+        widget.url = url;
+        return widget;
+    };
+    Widget.newHTMLWidget = function (_id, name, pageId, text) {
+        var widget = new Widget(_id, name, pageId);
+        widget.widgetType = "HTML";
+        widget.text = text;
+        return widget;
+    };
+    Widget.widgetFactory = function (wgid, pageId, type) {
+        /*
+        creates and returns a new widget given the type of widget to create
+        The new widget's pageId is set to the pageId parameter
+        */
+        var widget = new Widget(wgid, "", pageId);
+        if (type === "IMAGE" || type === "YOUTUBE") {
+            widget.width = "";
+            widget.url = "";
+        }
+        if (type === "HEADING" || type === "HTML") {
+            widget.text = "";
+        }
+        if (type === "HEADING") {
+            widget.size = 2;
+        }
+        return widget;
+    };
+    Widget.getDefaultWidgets = function () {
+        var widgets = [
+            Widget.newHeadingWidget("123", "", "321", 2, "GIZMODO"),
+            Widget.newHeadingWidget("234", "", "321", 4, "Lorem ipsum"),
+            Widget.newHeadingWidget("567", "", "321", 4, "Lorem ipsum"),
+            Widget.newImageWidget("345", "", "321", "100%", "http://lorempixel.com/400/200/"),
+            Widget.newYoutubeWidget("678", "", "321", "100%", "https://www.youtube.com/embed/AM2Ivdi9c4E"),
+            Widget.newHTMLWidget("456", "", "321", "<p>Lorem ipsum</p>"),
+            Widget.newHTMLWidget("789", "", "321", "<p>Lorem ipsum</p>")
+        ];
+        var pages = [432, 543,
+            100, 101, 102,
+            110, 111, 112,
+            120, 121, 122,
+            130, 131, 132,
+            140, 141, 142,
+            150, 151, 152];
+        var nextId = 800;
+        for (var i = 0; i < pages.length; i++) {
+            widgets.push(Widget.newHeadingWidget("" + nextId, "", "" + pages[i], 2, "HEADING " + nextId));
+            nextId = nextId + 1;
+            widgets.push(Widget.newImageWidget("" + nextId, "", "" + pages[i], "100%", "http://lorempixel.com/400/200/"));
+            nextId = nextId + 1;
+            widgets.push(Widget.newYoutubeWidget("" + nextId, "", "" + pages[i], "100%", "https://www.youtube.com/embed/AM2Ivdi9c4E"));
+            nextId = nextId + 1;
+            widgets.push(Widget.newHTMLWidget("" + nextId, "", "" + pages[i], "<b>Lorem</b> <i>ipsum</i>"));
+            nextId = nextId + 1;
+        }
+        return widgets;
+    };
+    return Widget;
+}());
+
+//# sourceMappingURL=widget.object.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/services/page.service.client.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3096,6 +3262,7 @@ var User = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_page_object__ = __webpack_require__("../../../../../src/app/objects/page.object.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3109,34 +3276,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var PageService = (function () {
     function PageService(_http) {
         this._http = _http;
         this.baseUrl = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseUrl;
         this.nextId = 1000;
-        this.pages = [
-            { "_id": "321", "name": "Post 1", "websiteId": "456", "title": "Post 1", "description": "Lorem" },
-            { "_id": "432", "name": "Post 2", "websiteId": "456", "title": "Post 2", "description": "Lorem" },
-            { "_id": "543", "name": "Post 3", "websiteId": "456", "title": "Post 3", "description": "Lorem" },
-            { "_id": "100", "name": "Post 1", "websiteId": "123", "title": "Post 1", "description": "Lorem" },
-            { "_id": "101", "name": "Post 2", "websiteId": "123", "title": "Post 2", "description": "Lorem" },
-            { "_id": "102", "name": "Post 3", "websiteId": "123", "title": "Post 3", "description": "Lorem" },
-            { "_id": "110", "name": "Post 1", "websiteId": "234", "title": "Post 1", "description": "Lorem" },
-            { "_id": "111", "name": "Post 2", "websiteId": "234", "title": "Post 2", "description": "Lorem" },
-            { "_id": "112", "name": "Post 3", "websiteId": "234", "title": "Post 3", "description": "Lorem" },
-            { "_id": "120", "name": "Lang", "websiteId": "890", "title": "Post 1", "description": "Lorem" },
-            { "_id": "121", "name": "Game", "websiteId": "890", "title": "Post 2", "description": "Lorem" },
-            { "_id": "122", "name": "Home", "websiteId": "890", "title": "Post 3", "description": "Lorem" },
-            { "_id": "130", "name": "Easy", "websiteId": "567", "title": "Post 1", "description": "Lorem" },
-            { "_id": "131", "name": "Medium", "websiteId": "567", "title": "Post 2", "description": "Lorem" },
-            { "_id": "132", "name": "Hard", "websiteId": "567", "title": "Post 3", "description": "Lorem" },
-            { "_id": "140", "name": "Post 1", "websiteId": "678", "title": "Post 1", "description": "Lorem" },
-            { "_id": "141", "name": "Post 2", "websiteId": "678", "title": "Post 2", "description": "Lorem" },
-            { "_id": "142", "name": "Post 3", "websiteId": "678", "title": "Post 3", "description": "Lorem" },
-            { "_id": "150", "name": "Post 1", "websiteId": "789", "title": "Post 1", "description": "Lorem" },
-            { "_id": "151", "name": "Post 2", "websiteId": "789", "title": "Post 2", "description": "Lorem" },
-            { "_id": "152", "name": "Post 3", "websiteId": "789", "title": "Post 3", "description": "Lorem" }
-        ];
+        this.pages = __WEBPACK_IMPORTED_MODULE_4__objects_page_object__["a" /* Page */].getDefaultPages();
         this.api = {
             'createPage': this.createPage,
             'findPagesByWebsiteId': this.findPagesByWebsiteId,
@@ -3261,7 +3407,6 @@ var PlaylistService = (function () {
         return lst;
     };
     PlaylistService.prototype.findPlaylistsByUser = function (userid) {
-        console.log(this.playlists);
         return this.playlists.filter(function (lst) { return lst.userid === userid; });
     };
     PlaylistService.prototype.findPlaylistById = function (plid) {
@@ -3270,7 +3415,6 @@ var PlaylistService = (function () {
                 return this.playlists[x];
             }
         }
-        console.log("no playlist found for: " + plid);
     };
     PlaylistService.prototype.updatePlaylist = function (plid, lst) {
         for (var x = 0; x < this.playlists.length; x++) {
@@ -3290,7 +3434,6 @@ var PlaylistService = (function () {
     PlaylistService.prototype.addSongToPlaylist = function (plid, song) {
         var pl = this.findPlaylistById(plid);
         pl.songs.push(song);
-        console.log(pl.songs.length);
         this.updatePlaylist(plid, pl);
     };
     return PlaylistService;
@@ -3510,6 +3653,25 @@ var UserService = (function () {
             }
         }
     };
+    /**
+     * fn : a function accepting the validated user object
+     * returns: 0 on success
+     *          1 for invalid username
+     *          2 for invalid password
+     */
+    UserService.prototype.validateUser = function (username, password, fn) {
+        var user = this.findUserByUsername(username);
+        if (user) {
+            if (user.password != password) {
+                return 2;
+            }
+        }
+        else {
+            return 1;
+        }
+        fn(user);
+        return 0;
+    };
     return UserService;
 }());
 UserService = __decorate([
@@ -3532,6 +3694,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_website_object__ = __webpack_require__("../../../../../src/app/objects/website.object.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3545,20 +3708,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var WebsiteService = (function () {
     function WebsiteService(_http) {
         this._http = _http;
         this.baseUrl = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseUrl;
         this.nextId = 1000;
-        this.sites = [
-            { "_id": "123", "name": "Facebook", "developerId": "456", "description": "Lorem" },
-            { "_id": "234", "name": "Tweeter", "developerId": "456", "description": "Lorem" },
-            { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": "Lorem" },
-            { "_id": "890", "name": "Go", "developerId": "123", "description": "Lorem" },
-            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-            { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
-            { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem" }
-        ];
+        this.sites = __WEBPACK_IMPORTED_MODULE_4__objects_website_object__["a" /* Website */].getDefaultSites();
         this.api = {
             'createWebsite': this.createWebsite,
             'findWebsitesByUser': this.findWebsitesByUser,
@@ -3647,6 +3803,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_widget_object__ = __webpack_require__("../../../../../src/app/objects/widget.object.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3660,94 +3817,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var WidgetService = (function () {
     function WidgetService(_http) {
         this._http = _http;
         this.baseUrl = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseUrl;
         this.nextId = 1000;
-        this.widgets = [
-            { "_id": "123", "widgetType": "HEADING", "name": "", pageId: "321", "size": 2, "text": "GIZMODO" },
-            { "_id": "234", "widgetType": "HEADING", "name": "", pageId: "321", "size": 4, "text": "Lorem ipsum" },
-            { "_id": "345", "widgetType": "IMAGE", "name": "", pageId: "321", "width": "100%", "url": "http://lorempixel.com/400/200/" },
-            { "_id": "456", "widgetType": "HTML", "name": "", pageId: "321", "text": "<p>Lorem ipsum</p>" },
-            { "_id": "567", "widgetType": "HEADING", "name": "", pageId: "321", "size": 4, "text": "Lorem ipsum" },
-            { "_id": "678", "widgetType": "YOUTUBE", "name": "", pageId: "321", "width": "100%", "url": "https://www.youtube.com/embed/AM2Ivdi9c4E" },
-            { "_id": "789", "widgetType": "HTML", "name": "", pageId: "321", "text": "<p>Lorem ipsum</p>" }
-        ];
+        this.widgets = __WEBPACK_IMPORTED_MODULE_4__objects_widget_object__["a" /* Widget */].getDefaultWidgets();
         this.api = {
-            'widgetFactory': this.widgetFactory,
             'createWidget': this.createWidget,
             'findWidgetsByPageId': this.findWidgetsByPageId,
             'findWidgetById': this.findWidgetById,
             'updateWidget': this.updateWidget,
             'deleteWidget': this.deleteWidget
         };
-        var pages = [432, 543,
-            100, 101, 102,
-            110, 111, 112,
-            120, 121, 122,
-            130, 131, 132,
-            140, 141, 142,
-            150, 151, 152];
-        for (var i = 0; i < pages.length; i++) {
-            this.widgets.push({
-                _id: "" + this.nextId,
-                name: "Widget " + this.nextId,
-                pageId: "" + pages[i],
-                widgetType: "HEADING",
-                size: 2,
-                text: "HEADING " + this.nextId
-            });
-            this.nextId = this.nextId + 1;
-            this.widgets.push({
-                _id: "" + this.nextId,
-                name: "Widget " + this.nextId,
-                pageId: "" + pages[i],
-                widgetType: "IMAGE",
-                width: "100%",
-                url: "http://lorempixel.com/400/200/"
-            });
-            this.nextId = this.nextId + 1;
-            this.widgets.push({
-                _id: "" + this.nextId,
-                name: "Widget " + this.nextId,
-                pageId: "" + pages[i],
-                widgetType: "YOUTUBE",
-                width: "100%",
-                url: "https://www.youtube.com/embed/AM2Ivdi9c4E"
-            });
-            this.nextId = this.nextId + 1;
-            this.widgets.push({
-                _id: "" + this.nextId,
-                name: "Widget " + this.nextId,
-                pageId: "" + pages[i],
-                widgetType: "HTML",
-                text: "<b>Lorem</b> <i>ipsum</i>"
-            });
-            this.nextId = this.nextId + 1;
-        }
     }
     WidgetService.prototype.widgetFactory = function (pageId, type) {
-        /*
-        creates and returns a new widget given the type of widget to create
-        The new widget's pageId is set to the pageId parameter
-        */
-        var widget = {
-            _id: "" + this.nextId,
-            widgetType: type,
-            pageId: pageId,
-            name: "",
-        };
-        if (type === "IMAGE" || type === "YOUTUBE") {
-            widget["width"] = "";
-            widget["url"] = "";
-        }
-        if (type === "HEADING" || type === "HTML") {
-            widget["text"] = "";
-        }
-        if (type === "HEADING") {
-            widget["size"] = 2;
-        }
+        var widget = __WEBPACK_IMPORTED_MODULE_4__objects_widget_object__["a" /* Widget */].widgetFactory("" + this.nextId, pageId, type);
         this.nextId = this.nextId + 1;
         this.widgets.push(widget);
         return widget;
@@ -3844,9 +3930,14 @@ module.exports = module.exports.toString();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
+// The file contents for the current environment will overwrite these during build.
 var environment = {
-    production: true,
-    baseUrl: ''
+    production: false,
+    baseUrl: 'http://localhost:3100'
 };
 //# sourceMappingURL=environment.js.map
 

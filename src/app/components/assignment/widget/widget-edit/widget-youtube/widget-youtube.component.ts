@@ -20,6 +20,7 @@ export class WidgetYoutubeComponent implements OnInit {
   widget : Widget;
 
   invalid_width: boolean = false;
+  invalid_link: boolean = false;
 
   private sub: any;
 
@@ -48,11 +49,20 @@ export class WidgetYoutubeComponent implements OnInit {
 
   saveChanges() {
 
+    this.invalid_width = false;
+    this.invalid_link = false;
+
     if (!this.widget.width.endsWith("px") &&
         !this.widget.width.endsWith("%")) {
         this.invalid_width = true;
         return
     }
+
+    if (!this.widget.url) {
+      this.invalid_link = true;
+      return;
+    }
+
     this._service.updateWidget(this.wgid, this.widget).subscribe(
       (widget) => {
         let url = "/user/" + this.uid +
