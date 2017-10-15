@@ -5,18 +5,18 @@ let server = require('../server');
 let should = chai.should();
 chai.use(chaiHttp);
 
-var _website = require('../server/assignment/website.data.server');
+var _page = require('../server/assignment/page.data.server');
 
 var expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Website', function() {
+describe('Page', function() {
 
-  describe('/api/website find all', function() {
-    it('should return the default set of 3 websites', function(done) {
+  describe('/api/page find all', function() {
+    it('should return the default set of 3 pages', function(done) {
       chai.request(server)
-        .get('/api/user/123/website')
+        .get('/api/website/123/page')
         .end(function(err, res) {
           res.should.have.status(200);
           res.body.should.be.a('array');
@@ -27,17 +27,18 @@ describe('Website', function() {
   });
 
 
-  describe('/api/website create', function() {
-    it('creates and returns the website', function(done) {
-      var site = _website.Website('',"Test","123",'')
+
+  describe('/api/page create', function() {
+    it('creates and returns the page', function(done) {
+      var site = _page.Page('',"Test","123",'page','lorem')
       chai.request(server)
-        .post('/api/user/123/website')
+        .post('/api/website/123/page')
         .send(site)
         .end(function(err, res) {
           expect(res).to.have.status(201);
-          var new_site = JSON.parse(res.text);
+          var new_site = res.body;
           chai.request(server)
-            .get('/api/website/' + new_site._id)
+            .get('/api/page/' + new_site._id)
             .end(function(err, res) {
               expect(res).to.have.status(200);
               expect(JSON.parse(res.text))
@@ -48,20 +49,21 @@ describe('Website', function() {
     });
   });
 
+
   describe('/api/website update', function() {
-    it('update the website', function(done) {
-      var site = _website.Website('',"Test","123",'')
+    it('update the page', function(done) {
+      var site = _page.Page('',"Test","123",'page','lorem')
       chai.request(server)
-        .put('/api/website/123')
+        .put('/api/page/100')
         .send(site)
         .end(function(err, res) {
           expect(res).to.have.status(200);
           chai.request(server)
-            .get('/api/website/123')
+            .get('/api/page/100')
             .end(function(err, res) {
               expect(res).to.have.status(200);
               expect(JSON.parse(res.text))
-                .to.include({"name":"Test"});
+                .to.include({"title":"page"});
               done();
           });
         });
@@ -69,13 +71,13 @@ describe('Website', function() {
   });
 
   describe('/api/website delete', function() {
-    it('deletes the website', function(done) {
+    it('deletes the page', function(done) {
       chai.request(server)
-        .delete('/api/website/123')
+        .delete('/api/page/100')
         .end(function(err, res) {
           expect(res).to.have.status(200);
           chai.request(server)
-            .get('/api/website/123')
+            .get('/api/page/100')
             .end(function(err, res) {
               expect(res).to.have.status(404);
               done();
@@ -83,5 +85,4 @@ describe('Website', function() {
         });
     });
   });
-
 });
