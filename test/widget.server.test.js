@@ -11,36 +11,56 @@ var expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Website', function() {
+describe('Widget', function() {
 
-/*
-  describe('/api/website find all', function() {
+
+  describe('/api/widget find all', function() {
     it('should return the default set of 3 websites', function(done) {
-      var site = _website.Website('',"Test","123",'')
       chai.request(server)
-        .get('/api/user/123/website')
-        .send(site)
+        .get('/api/page/121/widget')
         .end(function(err, res) {
           res.should.have.status(200);
           res.body.should.be.a('array');
-          res.body.length.should.eql(3)
+          res.body.length.should.eql(4)
           done();
         });
     });
   });
 
 
-  describe('/api/website create', function() {
+  describe('/api/widget create', function() {
     it('creates and returns the website', function(done) {
-      var site = _website.Website('',"Test","123",'')
+      var widget = _widget.newHeadingWidget('',"Test","123",'','')
       chai.request(server)
-        .post('/api/user/123/website')
-        .send(site)
+        .post('/api/page/121/widget')
+        .send(widget)
         .end(function(err, res) {
           expect(res).to.have.status(201);
-          var new_site = JSON.parse(res.text);
+          var new_widget = JSON.parse(res.text);
           chai.request(server)
-            .get('/api/website/' + new_site._id)
+            .get('/api/widget/' + new_widget._id)
+            .end(function(err, res) {
+              expect(res).to.have.status(200);
+              expect(res.body)
+                .to.include({"name":"Test",
+                             "widgetType": "HEADING",
+                             "pageId":"121"});
+              done();
+          });
+        });
+    });
+  });
+
+  describe('/api/widget update', function() {
+    it('update the widget', function(done) {
+      var widget = _widget.newHeadingWidget('',"Test","123",'','')
+      chai.request(server)
+        .put('/api/widget/123')
+        .send(widget)
+        .end(function(err, res) {
+          expect(res).to.have.status(200);
+          chai.request(server)
+            .get('/api/widget/123')
             .end(function(err, res) {
               expect(res).to.have.status(200);
               expect(JSON.parse(res.text))
@@ -51,34 +71,14 @@ describe('Website', function() {
     });
   });
 
-  describe('/api/website update', function() {
-    it('update the website', function(done) {
-      var site = _website.Website('',"Test","123",'')
+  describe('/api/widget delete', function() {
+    it('deletes the widget', function(done) {
       chai.request(server)
-        .put('/api/website/123')
-        .send(site)
+        .delete('/api/widget/123')
         .end(function(err, res) {
           expect(res).to.have.status(200);
           chai.request(server)
-            .get('/api/website/123')
-            .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"name":"Test"});
-              done();
-          });
-        });
-    });
-  });
-
-  describe('/api/website delete', function() {
-    it('deletes the website', function(done) {
-      chai.request(server)
-        .delete('/api/website/123')
-        .end(function(err, res) {
-          expect(res).to.have.status(200);
-          chai.request(server)
-            .get('/api/website/123')
+            .get('/api/widget/123')
             .end(function(err, res) {
               expect(res).to.have.status(404);
               done();
@@ -87,105 +87,4 @@ describe('Website', function() {
     });
   });
 
-  /*
-  describe('/api/user by username and password', function() {
-    it('responds with status 200', function(done) {
-      chai.request(server)
-        .get('/api/user')
-        .query({"username":"alice", "password":"alice"})
-        .end(function(err, res) {
-          expect(res).to.have.status(200);
-          expect(JSON.parse(res.text))
-            .to.include({"username":"alice"});
-          done();
-        });
-    });
-  });
-
-  describe('/api/user create', function() {
-    it('responds with status 200', function(done) {
-      var data = {
-        'username' : 'david',
-        'password' : 'david',
-        'firstName' : 'David',
-        'lastName'  : 'Jones',
-        'email' : 'david@example.com'
-      };
-      chai.request(server)
-        .post('/api/user')
-        .send(data)
-        .end(function(err, res) {
-          expect(res).to.have.status(201);
-          chai.request(server)
-            .get('/api/user')
-            .query({'username':'david'})
-            .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"username":"david"});
-              done();
-          });
-        });
-    });
-  });
-
-  describe('/api/user find by id', function() {
-    it('responds with status 200', function(done) {
-      chai.request(server)
-        .get('/api/user/123')
-        .end(function(err, res) {
-          expect(res).to.have.status(200);
-          expect(JSON.parse(res.text))
-            .to.include({"username":"alice"});
-          done();
-        });
-    });
-  });
-
-  describe('/api/user update', function() {
-    it('responds with status 200', function(done) {
-      var data = {
-        'username' : 'alice',
-        'password' : 'alice',
-        'firstName' : 'Alice',
-        'lastName'  : 'TEST',
-        'email' : 'alice@example.com'
-      };
-      chai.request(server)
-        .put('/api/user/123')
-        .send(data)
-        .end(function(err, res) {
-          expect(res).to.have.status(200);
-          chai.request(server)
-            .get('/api/user')
-            .query({'username':'alice'})
-            .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"lastName":"TEST"});
-              done();
-          });
-        });
-    });
-  });
-
-
-    describe('/api/user delete', function() {
-    it('responds with status 200', function(done) {
-      chai.request(server)
-        .delete('/api/user/123')
-        .end(function(err, res) {
-          expect(res).to.have.status(200);
-          chai.request(server)
-            .get('/api/user')
-            .query({'username':'alice'})
-            .end(function(err, res) {
-              expect(res).to.have.status(400);
-              done();
-          });
-        });
-    });
-  });
-
-  */
 });

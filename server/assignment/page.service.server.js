@@ -61,7 +61,7 @@ module.exports = function (app) {
                 return;
             }
         }
-        res.status(404).send("Error: website not found")
+        res.status(404).send("Error: page not found")
     }
 
     winston.info("page endpoints registered");
