@@ -1207,8 +1207,7 @@ var WidgetChooseComponent = (function () {
             kind == "IMAGE" ||
             kind == "YOUTUBE") {
             var widget = this._service.widgetFactory(this.pid, kind);
-            console.log(widget);
-            this._service.createWidget(this.pid, widget);
+            //this._service.createWidget(this.pid, widget);
             var url = "/user/" + this.uid +
                 "/website/" + this.wid +
                 "/page/" + this.pid +
@@ -1389,7 +1388,6 @@ var WidgetHeaderComponent = (function () {
     };
     WidgetHeaderComponent.prototype.reload = function () {
         this.widget = this._service.findWidgetById(this.wgid);
-        console.log(this.widget);
     };
     WidgetHeaderComponent.prototype.saveChanges = function () {
         this._service.updateWidget(this.wgid, this.widget);

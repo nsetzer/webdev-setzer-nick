@@ -37,7 +37,6 @@ export class WidgetHeaderComponent implements OnInit {
 
   reload() {
     this.widget = this._service.findWidgetById(this.wgid);
-    console.log(this.widget)
   }
 
   saveChanges() {

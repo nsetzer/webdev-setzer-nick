@@ -58,8 +58,7 @@ export class WidgetChooseComponent implements OnInit {
         kind == "YOUTUBE") {
         let widget = this._service.widgetFactory(this.pid,kind)
 
-        console.log(widget)
-        this._service.createWidget(this.pid, widget);
+        //this._service.createWidget(this.pid, widget);
 
         let url = "/user/" + this.uid +
                   "/website/" + this.wid +
