@@ -35,7 +35,10 @@ export class WidgetListComponent implements OnInit {
   }
 
   reload() {
-    this.widgets = this._service.findWidgetsByPageId(this.pid)
+    this._service.findWidgetsByPageId(this.pid).subscribe(
+      (widgets) => { this.widgets = widgets },
+      (err) => {}
+    );
   }
 
   makeSafe(url) {

@@ -32,7 +32,7 @@ export class PageService {
     adds the page parameter instance to the local pages array.
     The new page's websiteId is set to the websiteId parameter
     */
-    return this._http.post(this.baseUrl + `/api/website/${websiteId}/page`, website)
+    return this._http.post(this.baseUrl + `/api/website/${websiteId}/page`, page)
      .map(
        (res: Response) => {
          const data = res.json();

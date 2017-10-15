@@ -39,11 +39,13 @@ export class WidgetService {
     adds the widget parameter instance to the local widgets array.
     The new widget's pageId is set to the pageId parameter
     */
-    widget._id = "" + this.nextId;
-    this.nextId = this.nextId + 1;
-    widget.pageId = pageId;
-    this.widgets.push(widget);
-    return widget;
+    return this._http.post(this.baseUrl + `/api/page/${pageId}/widget`, widget)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   findWidgetsByPageId(pageId) {
@@ -51,13 +53,13 @@ export class WidgetService {
     retrieves the widgets in local widgets array whose
     pageId matches the parameter pageId
     */
-    var widgets = [];
-    for (let x = 0; x < this.widgets.length; x++) {
-      if (this.widgets[x].pageId === pageId) {
-        widgets.push(this.widgets[x]);
-      }
-    }
-    return widgets;
+    return this._http.get(this.baseUrl + `/api/page/${pageId}/widget`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   findWidgetById(widgetId) {
@@ -65,11 +67,13 @@ export class WidgetService {
     retrieves the widget in local widgets array whose
     _id matches the widgetId parameter
     */
-    for (let x = 0; x < this.widgets.length; x++) {
-      if (this.widgets[x]._id === widgetId) {
-        return this.widgets[x];
-      }
-    }
+    return this._http.get(this.baseUrl + `/api/widget/${widgetId}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   updateWidget(widgetId, widget) {
@@ -77,11 +81,13 @@ export class WidgetService {
     updates the widget in local widgets array whose
     _id matches the widgetId parameter
     */
-    for (let x = 0; x < this.widgets.length; x++) {
-      if (this.widgets[x]._id === widgetId) {
-        this.widgets[x] = widget// todo ?
-      }
-    }
+    return this._http.put(this.baseUrl + `/api/widget/${widget}`, widget)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   deleteWidget(widgetId) {
@@ -89,11 +95,13 @@ export class WidgetService {
     removes the widget from local widgets array whose
     _id matches the widgetId parameter
     */
-    for (let x = 0; x < this.widgets.length; x++) {
-      if (this.widgets[x]._id === widgetId) {
-        this.widgets.splice(x, 1)
-      }
-    }
+    return this._http.delete(this.baseUrl + `/api/widget/${widgetId}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
 }

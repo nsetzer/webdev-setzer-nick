@@ -38,8 +38,10 @@ export class WidgetEditComponent implements OnInit {
   }
 
   reload() {
-    this.widget = this._service.findWidgetById(this.wgid);
-
+    this._service.findWidgetById(this.wgid).subscribe(
+      (widget) => { this.widget = widget },
+      (err) => {}
+    );
   }
 
 }
