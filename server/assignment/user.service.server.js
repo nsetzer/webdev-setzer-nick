@@ -15,11 +15,16 @@ module.exports = function (app) {
 
         var user = req.body;
 
+        for (let x = 0; x < users.length; x++) {
+          if (users[x].username === user.username) {
+            res.status(400).send("Error: User already exists.");
+            return;
+          }
+        }
+
         user._id = "" + nextId;
         nextId = nextId + 1;
-
         users.push( user );
-
         res.status(201).json(user)
     }
 

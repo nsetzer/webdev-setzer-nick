@@ -77,6 +77,25 @@ describe('User', function() {
     });
   });
 
+  describe('/api/user create exists', function() {
+    it('should fail', function(done) {
+      var data = {
+        'username' : 'alice',
+        'password' : 'alice',
+        'firstName' : 'Alice',
+        'lastName'  : 'Alice',
+        'email' : 'alice@example.com'
+      };
+      chai.request(server)
+        .post('/api/user')
+        .send(data)
+        .end(function(err, res) {
+          expect(res).to.have.status(400);
+          done();
+      });
+    });
+  });
+
   describe('/api/user find by id', function() {
     it('returns the correct user', function(done) {
       chai.request(server)
