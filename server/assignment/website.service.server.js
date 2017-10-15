@@ -14,6 +14,7 @@ module.exports = function (app) {
     function createWebsite(req, res) {
         var website = req.body;
         website._id = "" + nextId;
+        website.developerId = req.params.uid;
         nextId = nextId + 1;
         websites.push( website );
         res.status(201).json(website)

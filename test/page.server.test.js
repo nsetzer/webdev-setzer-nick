@@ -30,10 +30,10 @@ describe('Page', function() {
 
   describe('/api/page create', function() {
     it('creates and returns the page', function(done) {
-      var site = _page.Page('',"Test","123",'page','lorem')
+      var page = _page.Page('',"Test","123",'page','lorem')
       chai.request(server)
-        .post('/api/website/123/page')
-        .send(site)
+        .post('/api/website/2020/page')
+        .send(page)
         .end(function(err, res) {
           expect(res).to.have.status(201);
           var new_site = res.body;
@@ -41,8 +41,9 @@ describe('Page', function() {
             .get('/api/page/' + new_site._id)
             .end(function(err, res) {
               expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"name":"Test"});
+              expect(res.body)
+                .to.include({"name":"Test",
+                             "websiteId":"2020"});
               done();
           });
         });
@@ -50,12 +51,12 @@ describe('Page', function() {
   });
 
 
-  describe('/api/website update', function() {
+  describe('/api/page update', function() {
     it('update the page', function(done) {
-      var site = _page.Page('',"Test","123",'page','lorem')
+      var page = _page.Page('',"Test","123",'page','lorem')
       chai.request(server)
         .put('/api/page/100')
-        .send(site)
+        .send(page)
         .end(function(err, res) {
           expect(res).to.have.status(200);
           chai.request(server)
@@ -70,7 +71,7 @@ describe('Page', function() {
     });
   });
 
-  describe('/api/website delete', function() {
+  describe('/api/page delete', function() {
     it('deletes the page', function(done) {
       chai.request(server)
         .delete('/api/page/100')

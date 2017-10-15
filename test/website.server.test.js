@@ -31,7 +31,7 @@ describe('Website', function() {
     it('creates and returns the website', function(done) {
       var site = _website.Website('',"Test","123",'')
       chai.request(server)
-        .post('/api/user/123/website')
+        .post('/api/user/2020/website')
         .send(site)
         .end(function(err, res) {
           expect(res).to.have.status(201);
@@ -41,7 +41,8 @@ describe('Website', function() {
             .end(function(err, res) {
               expect(res).to.have.status(200);
               expect(JSON.parse(res.text))
-                .to.include({"name":"Test"});
+                .to.include({"name":"Test",
+                             "developerId":"2020"});
               done();
           });
         });
