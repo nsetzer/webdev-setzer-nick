@@ -3,17 +3,20 @@
 module.exports = (app) => {
 
     var winston = require("winston");
-
     var _widget = require('./widget.data.server');
 
     var widgets = _widget.getDefaultWidgets();
     var nextId = 1000;
+
+    var multer = require('multer'); //
+    var upload = multer({ dest: __dirname+'/../../public/uploads' });
 
     app.post('/api/page/:pid/widget', createWidget);
     app.get('/api/page/:pid/widget', findAllWidgetsForPage);
     app.get('/api/widget/:wgid', findWidgetById);
     app.put('/api/widget/:wgid', updateWidget);
     app.delete('/api/widget/:wgid', deleteWidget);
+    app.post("/api/upload", upload.single('myFile'), uploadImage);
 
     function createWidget(req, res) {
         var widget = req.body;
@@ -34,28 +37,41 @@ module.exports = (app) => {
         res.json(items)
     }
 
-    function findWidgetById(req, res) {
+    function _findWidgetById(wgid) {
         for (let x = 0; x < widgets.length; x++) {
-            if (widgets[x]._id === req.params.wgid) {
-                res.json(widgets[x]);
-                return;
+            if (widgets[x]._id === wgid) {
+                return widgets[x];
             }
         }
-        res.status(404).send("Error: widget not found")
+        return;
     }
 
-    function updateWidget(req, res) {
-        var widget  = req.body;
-        winston.info("update widget " + req.params.wgid);
+    function findWidgetById(req, res) {
+        var widget = _findWidgetById(req.params.wgid);
+        if (widget) {
+            res.json(widget);
+        } else {
+            res.status(404).send("Error: widget not found")
+        }
+    }
+
+    function _updateWidget(wgid, widget) {
         for (let x = 0; x < widgets.length; x++) {
             if (widgets[x]._id === req.params.wgid) {
                 widget._id = widgets[x]._id;
                 widgets[x] = widget;
-                res.status(200).send("OK");
-                return;
+                return true;
             }
         }
-        res.status(404).send("Error: widget not found")
+        return false;
+    }
+
+    function updateWidget(req, res) {
+        if (_updateWidget(req.params.wgid, req.body)) {
+            res.status(200).send("OK");
+        } else {
+            res.status(404).send("Error: widget not found")
+        }
     }
 
     function deleteWidget(req, res) {
@@ -69,6 +85,35 @@ module.exports = (app) => {
         }
         res.status(404).send("Error: widget not found")
     }
+
+    function uploadImage(req, res) {
+
+        var userId    = req.body.userId;
+        var websiteId = req.body.websiteId;
+        var pageId    = req.body.pageId;
+        var widgetId  = req.body.widgetId;
+
+        var myFile    = req.file;
+
+        var originalname  = myFile.originalname; // file name on user's computer
+        var filename      = myFile.filename;     // new file name in upload folder
+        var path          = myFile.path;         // full path of uploaded file
+        var destination   = myFile.destination;  // folder where file is saved to
+        var size          = myFile.size;
+        var mimetype      = myFile.mimetype;
+
+        widget = _findWidgetById(widgetId);
+        widget.url = '/uploads/'+filename;
+        _updateWidget(widgetId,widget);
+
+        var callbackUrl = "/user/" + userId +
+                          "/website/" + websiteId +
+                          "/page/" + pageId;
+                          "/widget/" + widgetId;
+
+        res.redirect(callbackUrl);
+    }
+
 
     winston.info("widget endpoints registered");
 };
