@@ -1207,6 +1207,7 @@ var WidgetChooseComponent = (function () {
             kind == "IMAGE" ||
             kind == "YOUTUBE") {
             var widget = this._service.widgetFactory(this.pid, kind);
+            //this._service.createWidget(this.pid, widget);
             var url = "/user/" + this.uid +
                 "/website/" + this.wid +
                 "/page/" + this.pid +
@@ -1544,7 +1545,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-image/widget-image.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_link\" class=\"help-block\">You must supply an image link</div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -1581,6 +1582,7 @@ var WidgetImageComponent = (function () {
         this.pid = "";
         this.wgid = "";
         this.invalid_width = false;
+        this.invalid_link = false;
     }
     WidgetImageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1596,9 +1598,15 @@ var WidgetImageComponent = (function () {
         this.widget = this._service.findWidgetById(this.wgid);
     };
     WidgetImageComponent.prototype.saveChanges = function () {
+        this.invalid_width = false;
+        this.invalid_link = false;
         if (!this.widget.width.endsWith("px") &&
             !this.widget.width.endsWith("%")) {
             this.invalid_width = true;
+            return;
+        }
+        if (!this.widget.url) {
+            this.invalid_link = true;
             return;
         }
         this._service.updateWidget(this.wgid, this.widget);
@@ -1653,7 +1661,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_link\" class=\"help-block\">You must supply a youtube link</div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -1690,6 +1698,7 @@ var WidgetYoutubeComponent = (function () {
         this.pid = "";
         this.wgid = "";
         this.invalid_width = false;
+        this.invalid_link = false;
     }
     WidgetYoutubeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1705,9 +1714,15 @@ var WidgetYoutubeComponent = (function () {
         this.widget = this._service.findWidgetById(this.wgid);
     };
     WidgetYoutubeComponent.prototype.saveChanges = function () {
+        this.invalid_width = false;
+        this.invalid_link = false;
         if (!this.widget.width.endsWith("px") &&
             !this.widget.width.endsWith("%")) {
             this.invalid_width = true;
+            return;
+        }
+        if (!this.widget.url) {
+            this.invalid_link = true;
             return;
         }
         this._service.updateWidget(this.wgid, this.widget);
@@ -3203,8 +3218,9 @@ var Widget = (function () {
         The new widget's pageId is set to the pageId parameter
         */
         var widget = new Widget(wgid, "", pageId);
+        widget.widgetType = type;
         if (type === "IMAGE" || type === "YOUTUBE") {
-            widget.width = "";
+            widget.width = "100%";
             widget.url = "";
         }
         if (type === "HEADING" || type === "HTML") {
@@ -3930,14 +3946,9 @@ module.exports = module.exports.toString();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `.angular-cli.json`.
-// The file contents for the current environment will overwrite these during build.
 var environment = {
-    production: false,
-    baseUrl: 'http://localhost:3100'
+    production: true,
+    baseUrl: ''
 };
 //# sourceMappingURL=environment.js.map
 

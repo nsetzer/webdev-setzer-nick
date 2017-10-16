@@ -28,10 +28,7 @@ export class WidgetService {
   }
 
   widgetFactory(pageId: string, type: string) {
-    let widget = Widget.widgetFactory("" + this.nextId, pageId, type);
-    this.nextId = this.nextId + 1;
-    this.widgets.push(widget);
-    return widget;
+    return Widget.widgetFactory("" + this.nextId, pageId, type);
   }
 
   createWidget(pageId, widget) {
