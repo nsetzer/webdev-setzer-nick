@@ -17,7 +17,7 @@ export class WidgetEditComponent implements OnInit {
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : Widget;
+  widget : Widget = new Widget('','','');
 
   private sub: any;
 

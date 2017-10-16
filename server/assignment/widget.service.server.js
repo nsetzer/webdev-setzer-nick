@@ -46,6 +46,7 @@ module.exports = (app) => {
 
     function updateWidget(req, res) {
         var widget  = req.body;
+        winston.info("update widget " + req.params.wgid);
         for (let x = 0; x < widgets.length; x++) {
             if (widgets[x]._id === req.params.wgid) {
                 widget._id = widgets[x]._id;
@@ -58,6 +59,7 @@ module.exports = (app) => {
     }
 
     function deleteWidget(req, res) {
+        winston.info("delete widget " + req.params.wgid);
         for (let x = 0; x < widgets.length; x++) {
             if (widgets[x]._id === req.params.wgid) {
                 widgets.splice(x,1);

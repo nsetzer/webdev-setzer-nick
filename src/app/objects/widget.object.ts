@@ -15,6 +15,7 @@ export class Widget {
         this._id = _id;
         this.name = name;
         this.pageId = pageId;
+        this.widgetType = "NONE";
     }
 
     static newHeadingWidget(_id: string, name: string, pageId: string, size: number, text: string) {

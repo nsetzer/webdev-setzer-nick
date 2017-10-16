@@ -17,7 +17,7 @@ export class WidgetYoutubeComponent implements OnInit {
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : Widget;
+  widget : Widget = new Widget('','','');
 
   invalid_width: boolean = false;
   invalid_link: boolean = false;

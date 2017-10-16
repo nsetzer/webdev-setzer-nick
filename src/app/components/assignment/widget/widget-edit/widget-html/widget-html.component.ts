@@ -16,7 +16,7 @@ uid : string = "";
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : Widget;
+  widget : Widget = new Widget('','','');
 
   private sub: any;
 

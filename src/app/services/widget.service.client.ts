@@ -78,11 +78,10 @@ export class WidgetService {
     updates the widget in local widgets array whose
     _id matches the widgetId parameter
     */
-    return this._http.put(this.baseUrl + `/api/widget/${widget}`, widget)
+    return this._http.put(this.baseUrl + `/api/widget/${widgetId}`, widget)
      .map(
        (res: Response) => {
-         const data = res.json();
-         return data;
+         return;
        }
      );
   }
@@ -95,8 +94,7 @@ export class WidgetService {
     return this._http.delete(this.baseUrl + `/api/widget/${widgetId}`)
      .map(
        (res: Response) => {
-         const data = res.json();
-         return data;
+         return;
        }
      );
   }
