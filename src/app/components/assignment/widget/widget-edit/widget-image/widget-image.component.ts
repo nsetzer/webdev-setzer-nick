@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WidgetService } from '../../../../../services/widget.service.client';
 import { Widget } from '../../../../../objects/widget.object';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../../../../../environments/environment'
 
 @Component({
   selector: 'app-widget-image',
@@ -12,6 +13,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 
 export class WidgetImageComponent implements OnInit {
 
+  baseUrl = environment.baseUrl;
 
   uid : string = "";
   wid : string = "";

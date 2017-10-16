@@ -57,7 +57,7 @@ module.exports = (app) => {
 
     function _updateWidget(wgid, widget) {
         for (let x = 0; x < widgets.length; x++) {
-            if (widgets[x]._id === req.params.wgid) {
+            if (widgets[x]._id === wgid) {
                 widget._id = widgets[x]._id;
                 widgets[x] = widget;
                 return true;
@@ -106,10 +106,16 @@ module.exports = (app) => {
         widget.url = '/uploads/'+filename;
         _updateWidget(widgetId,widget);
 
-        var callbackUrl = "/user/" + userId +
+        var callbackUrl = "http://localhost:4200/user/" + userId +
                           "/website/" + websiteId +
-                          "/page/" + pageId;
+                          "/page/" + pageId +
                           "/widget/" + widgetId;
+
+        console.log("originalname: " + originalname);
+        console.log("filename    : " + filename);
+        console.log("destination : " + destination);
+        console.log("widget.url  : " + widget.url);
+        console.log(callbackUrl);
 
         res.redirect(callbackUrl);
     }
