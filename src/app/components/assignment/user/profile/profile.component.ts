@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
+  error_message : string = ""
   uid : string;
   user : User = new User("","","","","","");
   private sub: any;
@@ -30,7 +31,7 @@ export class ProfileComponent implements OnInit {
   reload() {
     this._service.findUserById(this.uid).subscribe(
       (user : User) => {this.user = user;},
-      (err : any) => {}
+      (err : any) => { error_message = "unexpected api error" }
       );
   }
 

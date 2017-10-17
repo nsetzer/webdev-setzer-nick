@@ -22,6 +22,10 @@
 
 <div class="container-fluid container-margin content-body">
 
+  <div *ngIf="error_message" class="help-block">
+        {{error_message}}
+  </div>
+
   <div *ngIf="changes_saved" class="help-block">Changes Saved</div>
 
 

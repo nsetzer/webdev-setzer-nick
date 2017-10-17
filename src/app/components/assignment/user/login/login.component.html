@@ -3,9 +3,10 @@
 
     <h1>Login</h1>
 
-    <!--
-    jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
-    -->
+    <div *ngIf="error_message" class="help-block">
+        {{error_message}}
+    </div>
+
     <form name="form" (ngSubmit)="login()" #f="ngForm">
       <input type="text"
              [(ngModel)]="username"
