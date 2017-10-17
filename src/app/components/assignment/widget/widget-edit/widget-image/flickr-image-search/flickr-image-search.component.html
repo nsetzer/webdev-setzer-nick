@@ -9,11 +9,11 @@
 </div>
 
 <div class="row">
- <div *ngFor = "let pic of photos['photo']"
+ <div *ngFor = "let photo of photos"
       class="col-xs-4">
-   <img    (click)="selectPhoto(pic)"
+   <img    (click)="selectPhoto(photo)"
            width="100%"
-           [src] = "['https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' +   pic.id + '_' + pic.secret + '_s.jpg']"/>
+           [src] = "photo.url"/>
 
    <p></p>
  </div>

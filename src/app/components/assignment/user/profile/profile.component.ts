@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   reload() {
     this._service.findUserById(this.uid).subscribe(
       (user : User) => {this.user = user;},
-      (err : any) => { error_message = "unexpected api error" }
+      (err : any) => { this.error_message = "unexpected api error" }
       );
   }
 

@@ -16,6 +16,7 @@ import { PageService } from './services/page.service.client';
 import { WidgetService } from './services/widget.service.client';
 import { ProjectService } from './services/project.service.client';
 import { PlaylistService } from './services/playlist.service.client';
+import { FlickrService } from './services/flickr.service.client';
 
 import { LoginComponent } from './components/assignment/user/login/login.component';
 import { ProfileComponent } from './components/assignment/user/profile/profile.component';
@@ -101,6 +102,7 @@ import { FlickrImageSearchComponent } from './components/assignment/widget/widge
                PageService,
                WidgetService,
                ProjectService,
+               FlickrService,
                PlaylistService],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,8 @@ import { FlickrService } from '../../../../../../services/flickr.service.client'
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../../../../../environments/environment'
+import { WidgetService } from '../../../../../../services/widget.service.client';
+import { Widget } from '../../../../../../objects/widget.object';
 
 @Component({
   selector: 'app-flickr-image-search',
@@ -18,11 +20,13 @@ export class FlickrImageSearchComponent implements OnInit {
   pid : string = "";
   wgid : string = "";
   widget : Widget = new Widget('','','');
+  photos : any = []
 
   private sub: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private _wservice: WidgetService,
               private _service: FlickrService,
               private sanitizer: DomSanitizer) { }
 
@@ -34,12 +38,15 @@ export class FlickrImageSearchComponent implements OnInit {
        this.pid = params['pid'];
        this.wgid = params['wgid'];
 
+       // TODO: if wgid is not a image widget, redirect
+
        this.reload();
     });
   }
 
   reload() {
-    this._service.findWidgetById(this.wgid).subscribe(
+
+    this._wservice.findWidgetById(this.wgid).subscribe(
       (widget) => { this.widget = widget },
       (err) => {}
     );
@@ -47,7 +54,7 @@ export class FlickrImageSearchComponent implements OnInit {
 
   searchPhotos() {
 
-    if (!searchText) {
+    if (!this.searchText) {
         // todo errors
         return;
     }
@@ -56,26 +63,29 @@ export class FlickrImageSearchComponent implements OnInit {
       .searchPhotos(this.searchText)
       .subscribe(
         (data: any) => {
-          console.log(data);
-          let val = data._body;
-          val = val.replace('jsonFlickrApi(', '');
-          val = val.substring(0, val.length - 1);
-          val = JSON.parse(val);
-          console.log(val);
-          this.photos = val.photos;
-          console.log(this.photos);
-        }
+          this.photos = data;
+        },
         (err) => {
         }
       );
   }
 
   selectPhoto(photo) {
-    console.log(photo);
-    let url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server;
-    url += '/' + photo.id + '_' + photo.secret + '_b.jpg';
-    this.widget.url = url;
-    // TODO update widget
+
+    this.widget.url = photo.url;
+
+    this._wservice.updateWidget(this.wgid, this.widget).subscribe(
+      (widget) => {
+        let url = "/user/" + this.uid +
+                  "/website/" + this.wid +
+                  "/page/" + this.pid +
+                  "/widget";
+        this.router.navigate([url]);
+      },
+      (err) => {
+      }
+    );
+
   }
 
 }
