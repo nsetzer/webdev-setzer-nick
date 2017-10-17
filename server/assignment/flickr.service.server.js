@@ -10,6 +10,7 @@ module.exports = (app) => {
     var http = require("http");
     var https = require("https");
 
+    var flikr_data = require('./flickr.data.server');
 
     var APIKEY = ""
     if (process.env.FLICKR_APIKEY) {
@@ -29,13 +30,12 @@ module.exports = (app) => {
 
     urlBase = "/services/rest/" +
               "?method=flickr.photos.search&format=json" +
-              "&api_key=" + APIKEY
+              "&api_key=" + APIKEY +
               "&text=";
 
-
-
-    function sendRequest(options, onResult)
+    function _sendRequest(options, onResult)
     {
+        console.log(options)
         var port = options.port == 443 ? https : http;
         var req = port.get(options, function(res)
         {
@@ -47,6 +47,8 @@ module.exports = (app) => {
             });
 
             res.on('end', function() {
+                output = output.replace("jsonFlickrApi(","");
+                output = output.substring(0,output.length-1)
                 var obj = JSON.parse(output);
                 onResult(res.statusCode, obj);
             });
@@ -68,10 +70,31 @@ module.exports = (app) => {
             path: path
         }
 
-        sendRequest(options, onResult);
+        _sendRequest(options, onResult);
     }
 
+    function _convertPhoto(photo) {
+        return { url: 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg',
+                 owner: photo.owner,
+                 title: photo.title }
+    }
+    function _convertResponse(data) {
+        return data.photos.photo.map( _convertPhoto );
+    }
+
+    /*
+     * returns a json responce, a list of photos
+     *         each photo is a json object with the following fields
+     *           - owner
+     *           - title
+     *           - url
+     */
     function searchPhotos(req, res) {
+
+        if (!APIKEY) {
+            res.json(_convertResponse(flikr_data.FLICKR_API_SAMPLE))
+            return;
+        }
 
         var searchTerm = req.query.text;
 
@@ -82,7 +105,7 @@ module.exports = (app) => {
             }
 
             // todo filter results, using the secret
-            res.json(f_res);
+            res.json(_convertResponse(f_res));
         });
     }
 

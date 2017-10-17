@@ -14,6 +14,7 @@ module.exports = function (app) {
     require("./assignment/page.service.server")(app);
     require("./assignment/website.service.server")(app);
     require("./assignment/widget.service.server")(app);
+    require("./assignment/flickr.service.server")(app);
 
     require("./youtube/yt_endpoints")(app);
 
