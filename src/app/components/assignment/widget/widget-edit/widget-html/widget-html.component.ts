@@ -12,7 +12,9 @@ import { DomSanitizer} from '@angular/platform-browser';
 
 export class WidgetHtmlComponent implements OnInit {
 
-uid : string = "";
+  error_message : string = ""
+
+  uid : string = "";
   wid : string = "";
   pid : string = "";
   wgid : string = "";
@@ -39,7 +41,7 @@ uid : string = "";
   reload() {
     this._service.findWidgetById(this.wgid).subscribe(
       (widget) => { this.widget = widget },
-      (err) => {}
+      (err) => { error_message = "unexpected api error" }
     );
   }
 
@@ -53,6 +55,7 @@ uid : string = "";
         this.router.navigate([url]);
       },
       (err) => {
+        error_message = "unexpected api error"
       }
     );
   }
@@ -67,6 +70,7 @@ uid : string = "";
         this.router.navigate([url]);
       },
       (err) => {
+        error_message = "unexpected api error"
       }
     );
   }
