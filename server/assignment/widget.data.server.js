@@ -3,7 +3,8 @@ function Widget(_id, name, pageId) {
     return {
         "_id": _id,
         "name": name,
-        "pageId": pageId
+        "pageId": pageId,
+        "index" : 0
     };
 }
 
@@ -87,6 +88,18 @@ function getDefaultWidgets() {
       "" + nextId, "", "" + pages[i], 2, "HEADING " + nextId));
     nextId = nextId + 1;
 
+    widgets.push(newHTMLWidget(
+      "" + nextId, "", "" + pages[i], "<b>Lorem</b> <i>ipsum</i>"));
+    nextId = nextId + 1;
+
+    widgets.push(newHeadingWidget(
+      "" + nextId, "", "" + pages[i], 2, "HEADING " + nextId));
+    nextId = nextId + 1;
+
+    widgets.push(newHTMLWidget(
+      "" + nextId, "", "" + pages[i], "<b>Lorem</b> <i>dolar</i>"));
+    nextId = nextId + 1;
+
     widgets.push(newImageWidget(
       "" + nextId, "", "" + pages[i], "100%",
       "http://lorempixel.com/400/200/"));
@@ -97,9 +110,7 @@ function getDefaultWidgets() {
       "https://www.youtube.com/embed/AM2Ivdi9c4E"));
     nextId = nextId + 1;
 
-    widgets.push(newHTMLWidget(
-      "" + nextId, "", "" + pages[i], "<b>Lorem</b> <i>ipsum</i>"));
-    nextId = nextId + 1;
+
 
   }
 

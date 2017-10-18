@@ -99,6 +99,25 @@ export class WidgetService {
      );
   }
 
+  sortWidget(event) {
+    var from = event.startIndex;
+    var to = event.endIndex;
+    var pid = event.pid;
+
+    console.log("reorder page " + pid + " from index " + from + " to " + to );
+
+    return this._http.put(this.baseUrl + `/api/page/${pid}/widget?from=${from}&to=${to}`, {})
+     .map(
+       (res: Response) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return;
+        }
+       }
+     );
+  }
+
 }
 
 

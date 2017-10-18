@@ -29,7 +29,9 @@
 </nav>
 
 <div class="container-fluid content-body">
-<ul class="list-group">
+<ul class="list-group" *ngIf="widgets"
+    appSortable
+    (newIndexes)="sortWidget($event)">
 
     <li *ngFor="let widget of widgets"
         class="list-group-item list-item-user-widget">

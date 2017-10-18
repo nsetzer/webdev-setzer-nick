@@ -13,6 +13,7 @@ module.exports = (app) => {
 
     app.post('/api/page/:pid/widget', createWidget);
     app.get('/api/page/:pid/widget', findAllWidgetsForPage);
+    app.put('/api/page/:pid/widget', reorderWidget)
     app.get('/api/widget/:wgid', findWidgetById);
     app.put('/api/widget/:wgid', updateWidget);
     app.delete('/api/widget/:wgid', deleteWidget);
@@ -27,13 +28,19 @@ module.exports = (app) => {
         res.status(201).json(widget)
     }
 
-    function findAllWidgetsForPage(req, res) {
+    function _findAllWidgetsForPage(pid) {
         var items = [];
         for (let x = 0; x < widgets.length; x++) {
-            if (widgets[x].pageId === req.params.pid) {
+            if (widgets[x].pageId === pid) {
                 items.push(widgets[x]);
             }
         }
+        items.sort( (a,b) => (a.index-b.index))
+        console.log("find   " + items.map(x => x.index))
+        return items;
+    }
+    function findAllWidgetsForPage(req, res) {
+        var items = _findAllWidgetsForPage(req.params.pid);
         res.json(items)
     }
 
@@ -84,6 +91,38 @@ module.exports = (app) => {
             }
         }
         res.status(404).send("Error: widget not found")
+    }
+
+    function _reorderWidget(pid, from, to) {
+        winston.info("pid " + pid + " move " + from + " to " + to);
+        var items = _findAllWidgetsForPage(pid);
+
+        if ( from < 0 || from >= items.length) {
+            return false;
+        }
+
+        if ( to < 0 || to >= items.length) {
+            return false;
+        }
+
+        var widget = items.splice(from, 1)[0]
+        widget.index = -1
+        items.splice(to, 0, widget);
+
+        for (let x=0; x < items.length; x++) {
+            items[x].index = x;
+            _updateWidget(items[x]._id,items[x]);
+        }
+
+        return true;
+    }
+
+    function reorderWidget(req,res) {
+        if (_reorderWidget( req.params.pid, req.query.from, req.query.to)) {
+            res.status(200).send([]);
+        } else {
+            res.status(400).send([]);
+        }
     }
 
     function uploadImage(req, res) {

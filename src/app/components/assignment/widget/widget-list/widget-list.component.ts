@@ -45,4 +45,14 @@ export class WidgetListComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+  sortWidget(event) {
+    event.uid = this.uid
+    event.wid = this.wid
+    event.pid = this.pid
+    this._service.sortWidget(event).subscribe(
+        (res) => {},
+        (err) => {}
+    );
+  }
+
 }
