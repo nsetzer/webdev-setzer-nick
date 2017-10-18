@@ -51,6 +51,7 @@ import { PlaylistNewComponent } from './components/project/playlist/playlist-new
 import { PlaylistEditComponent } from './components/project/playlist/playlist-edit/playlist-edit.component';
 import { PlaylistAddComponent } from './components/project/playlist/playlist-add/playlist-add.component';
 import { FlickrImageSearchComponent } from './components/assignment/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import { SortableDirective } from './directives/sortable.directive';
 
 @NgModule({
   // Declare components here
@@ -87,7 +88,8 @@ import { FlickrImageSearchComponent } from './components/assignment/widget/widge
     PlaylistNewComponent,
     PlaylistEditComponent,
     PlaylistAddComponent,
-    FlickrImageSearchComponent
+    FlickrImageSearchComponent,
+    SortableDirective
   ],
   imports: [
     BrowserModule,

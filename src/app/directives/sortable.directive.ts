@@ -4,9 +4,9 @@ import {AfterViewInit} from '@angular/core';
 declare var jQuery: any;
 
 @Directive({
- selector: '[appSortable]'
+  selector: '[appSortable]'
 })
-export class SortableDirective implements AfterViewInit {
+export class SortableDirective {
 
  @Output() newIndexes = new EventEmitter(); // this will emit an event for the parent                                             component or the directive calling component
 
