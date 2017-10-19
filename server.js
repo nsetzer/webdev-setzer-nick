@@ -26,6 +26,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.get('/public/uploads/*', function(req, res) {
+  res.sendFile(path.join(__dirname, req.path));
+});
+
 const port = process.env.PORT || '3100';
 app.set('port', port);
 

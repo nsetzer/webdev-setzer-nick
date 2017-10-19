@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { WidgetService } from '../../../../../services/widget.service.client';
 import { Widget } from '../../../../../objects/widget.object';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,6 +20,8 @@ export class WidgetImageComponent implements OnInit {
   pid : string = "";
   wgid : string = "";
   widget : Widget = new Widget('','','');
+
+  @ViewChild('myFile') myFile;
 
   invalid_width: boolean = false;
   invalid_link: boolean = false;
@@ -90,6 +92,25 @@ export class WidgetImageComponent implements OnInit {
       (err) => {
       }
     );
+  }
+
+  uploadImage() {
+    const myFile = this.myFile.nativeElement;
+    if (myFile.files && myFile.files[0]) {
+      const formData = new FormData();
+      var name = "" + this.uid + "-" + myFile.files[0].name.replace(new RegExp(" ", 'g'),"_")
+      //formData.append('image', myFile.files[0]);
+      formData.append('image', myFile.files[0], name);
+      formData.append('uid', this.uid);
+      formData.append('wid', this.wid);
+      formData.append('pid', this.pid);
+      formData.append('wgid', this.wgid);
+
+      this._service.uploadImage(formData).subscribe(
+         (res) => { console.log("ok") },
+         (err) => { console.log("error") }
+        );
+    }
   }
 
 }

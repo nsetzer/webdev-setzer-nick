@@ -21,7 +21,9 @@ export class WidgetService {
     'findWidgetsByPageId' : this.findWidgetsByPageId,
     'findWidgetById' : this.findWidgetById,
     'updateWidget' : this.updateWidget,
-    'deleteWidget' : this.deleteWidget
+    'deleteWidget' : this.deleteWidget,
+    'uploadImage' : this.uploadImage,
+    'sortWidget' : this.sortWidget
   };
 
   constructor(private _http: Http) {
@@ -95,6 +97,16 @@ export class WidgetService {
      .map(
        (res: Response) => {
          return;
+       }
+     );
+  }
+
+  uploadImage(form) {
+
+    return this._http.post("/api/upload", form).map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
        }
      );
   }

@@ -127,6 +127,8 @@ module.exports = (app) => {
 
     function uploadImage(req, res) {
 
+        console.log("got here")
+
         var userId    = req.body.userId;
         var websiteId = req.body.websiteId;
         var pageId    = req.body.pageId;
@@ -142,7 +144,7 @@ module.exports = (app) => {
         var mimetype      = myFile.mimetype;
 
         widget = _findWidgetById(widgetId);
-        widget.url = '/uploads/'+filename;
+        widget.url = 'http://localhost:3100' + '/public/uploads/'+filename;
         _updateWidget(widgetId,widget);
 
         var callbackUrl = "http://localhost:4200/user/" + userId +
@@ -150,6 +152,8 @@ module.exports = (app) => {
                           "/page/" + pageId +
                           "/widget/" + widgetId;
 
+        ///home/nsetzer/projects/webdev-setzer-nick/public/uploads/3c180dffaf9808e08ee0ba9d5ffecdf5
+        console.log("path        : " + path);
         console.log("originalname: " + originalname);
         console.log("filename    : " + filename);
         console.log("destination : " + destination);
