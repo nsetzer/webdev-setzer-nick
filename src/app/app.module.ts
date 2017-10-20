@@ -16,6 +16,7 @@ import { PageService } from './services/page.service.client';
 import { WidgetService } from './services/widget.service.client';
 import { ProjectService } from './services/project.service.client';
 import { PlaylistService } from './services/playlist.service.client';
+import { QueueService } from './services/queue.service.client';
 import { FlickrService } from './services/flickr.service.client';
 
 import { LoginComponent } from './components/assignment/user/login/login.component';
@@ -50,6 +51,9 @@ import { PlaylistSearchComponent } from './components/project/playlist/playlist-
 import { PlaylistNewComponent } from './components/project/playlist/playlist-new/playlist-new.component';
 import { PlaylistEditComponent } from './components/project/playlist/playlist-edit/playlist-edit.component';
 import { PlaylistAddComponent } from './components/project/playlist/playlist-add/playlist-add.component';
+import { SongQueueComponent } from './components/project/queue/song-queue/song-queue.component';
+
+
 import { FlickrImageSearchComponent } from './components/assignment/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 import { SortableDirective } from './directives/sortable.directive';
 
@@ -89,7 +93,8 @@ import { SortableDirective } from './directives/sortable.directive';
     PlaylistEditComponent,
     PlaylistAddComponent,
     FlickrImageSearchComponent,
-    SortableDirective
+    SortableDirective,
+    SongQueueComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +110,7 @@ import { SortableDirective } from './directives/sortable.directive';
                WidgetService,
                ProjectService,
                FlickrService,
+               QueueService,
                PlaylistService],
   bootstrap: [AppComponent]
 })

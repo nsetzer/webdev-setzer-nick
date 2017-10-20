@@ -47,7 +47,17 @@ export class PlaylistSearchComponent implements OnInit {
             this.searchResults = data;
         }
     );
+  }
 
+  copyPlaylist(lst) {
+    lst.name = "Copy of " + lst.name
+    this._plservice.createPlaylist(this.uid, lst)
+    .subscribe(
+        (new_lst) => {
+            let url = "/project/(project:user/" + this.uid + "/list/"+new_lst._id+")"
+            this.router.navigateByUrl(url);
+        }
+    );
   }
 
 }
