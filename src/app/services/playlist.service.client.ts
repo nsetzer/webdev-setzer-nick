@@ -82,5 +82,16 @@ export class PlaylistService {
      );
   }
 
+  keywordSearch(keyword:string) {
+    var keyword = encodeURIComponent(keyword);
+    return this._http.get(this.baseUrl + `/api/playlist?term=${keyword}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
+
 }
 

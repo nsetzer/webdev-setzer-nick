@@ -13,6 +13,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// youtube streaming can cause unhandled exceptions
+// which take down the server
+process.on('uncaughtException', function (err) {
+  console.error(err);
+});
 
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'dist')));

@@ -99,4 +99,21 @@ describe('Playlist', function() {
     });
   });
 
+  describe('/api/playlist search', function() {
+    it('should return default playlists', function(done) {
+      chai.request(server)
+        .get('/api/playlist?term=default')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          // this should equal the number of default users
+          // with a maximum of 10 users
+          res.body.length.should.eql(4)
+          res.body[0].relevance.should.eql(1)
+          done();
+        });
+    });
+  });
+
+
 });

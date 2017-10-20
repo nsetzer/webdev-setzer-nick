@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../../../services/user.service.client';
+import { ProjectService } from '../../../../services/project.service.client';
+import { PlaylistService } from '../../../../services/playlist.service.client';
+import { Playlist } from '../../../../objects/playlist.object';
 
 @Component({
   selector: 'app-playlist-search',
@@ -7,9 +12,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlaylistSearchComponent implements OnInit {
 
-  constructor() { }
+  uid : string = "";
+  private sub: any;
+
+  searchTerm: string = "";
+  searchResults: any[] = [];
+
+  alertMessage: Boolean = false;
+  successMessage: Boolean = false;
+
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private _service: ProjectService,
+              private _plservice: PlaylistService) { }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+       this.uid = params['uid'];
+
+       this.reload();
+    });
+  }
+
+  reload() {
+
+  }
+
+
+  runSearch() {
+    this._plservice.keywordSearch(this.searchTerm)
+    .subscribe(
+        (data: any[]) => {
+            this.successMessage = true;
+            this.searchResults = data;
+        }
+    );
+
   }
 
 }

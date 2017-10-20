@@ -7,6 +7,7 @@ function Playlist(_id, uid, name) {
         _id: _id,
         uid: uid,
         name: name,
+        description: "",
         songs: []
     };
 }

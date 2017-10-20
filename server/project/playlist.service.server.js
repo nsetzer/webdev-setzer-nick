@@ -7,6 +7,7 @@ module.exports = function (app) {
 
     app.post('/api/user/:uid/playlist', createPlaylist);
     app.get('/api/user/:uid/playlist', findAllPlaylistsForUser);
+    app.get('/api/playlist', findPlaylistsByTerm);
     app.get('/api/playlist/:plid', findPlaylistById);
     app.put('/api/playlist/:plid', updatePlaylist);
     app.delete('/api/playlist/:plid', deletePlaylist);
@@ -50,6 +51,48 @@ module.exports = function (app) {
         winston.error("no playlist found with id " + req.params.plid);
         res.status(404).json({message:"Error: playlist not found"})
     }
+
+    function findPlaylistsByTerm(req, res) {
+
+        var term = req.query.term.toLowerCase();
+        var parts = term.split(" ");
+        var lists = []
+        for (let x = 0; x < playlists.length; x++) {
+            let relevance = 0;
+            let name = playlists[x].name.toLowerCase();
+            let desc = playlists[x].description.toLowerCase();
+
+            for (let y=0; y < parts.length; y++) {
+                let part = parts[y]
+                if (name.indexOf(part) !== -1 ||
+                    desc.indexOf(part) !== -1) {
+                    relevance = relevance + 1
+                }
+            }
+            // push a copy of the list if it is relevant
+            if (relevance > 0) {
+                var lst = playlists[x];
+                var tmp = _playlist.Playlist(lst._id,lst.uid,lst.name)
+                tmp.description = lst.description
+                tmp.songs = lst.songs
+                tmp.relevance = relevance
+                lists.push(tmp)
+            }
+        }
+
+        if (lists.length == 0) {
+            winston.warn("no playlists found for term `" + term + "`")
+            res.status(200).json([])
+            return
+        }
+
+        // sort matching sites by relevance
+        lists.sort((a,b)=>(b.relevance - a.relevance));
+        lists = lists.slice(0,10);
+        winston.info("found " + lists.length + " playlists for term `" + term + "`")
+        res.status(200).json(lists)
+    }
+
 
     function updatePlaylist(req, res) {
         var playlist = req.body;
