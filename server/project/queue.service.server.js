@@ -1,107 +1,71 @@
 module.exports = function (app) {
     var winston = require("winston");
-    var _user = require('./user.data.server');
+    var _playlist = require('./playlist.data.server');
 
-    users = _user.getDefaultUsers();
-    nextId = 1000;
+    queues = []
 
-    app.post('/api/user', createUser);
-    app.get('/api/user', getUser);
-    app.get('/api/user/:uid', findUserById);
-    app.put('/api/user/:uid', updateUser);
-    app.delete('/api/user/:uid', deleteUser);
+    app.put('/api/user/:uid/queue', setSongQueue);
+    app.get('/api/user/:uid/queue', getSongQueue);
+    app.get('/api/user/:uid/queue/head', getSongQueueHead);
+    app.delete('/api/user/:uid/queue/head', deleteSongQueueHead);
 
-    function createUser(req, res) {
-
-        var user = req.body;
-
-        for (let x = 0; x < users.length; x++) {
-          if (users[x].username === user.username) {
-            res.status(400).send("Error: User already exists.");
+    function setSongQueue(req, res) {
+        var playlist = req.body;
+        playlist.uid = req.params.uid;
+        for (let x = 0; x < queues.length; x++) {
+          if (queues[x].uid === playlist.uid) {
+            queues[x] = playlist
+            res.status(200).json(playlist)
             return;
           }
         }
-
-        user._id = "" + nextId;
-        nextId = nextId + 1;
-        users.push( user );
-        res.status(201).json(user)
+        queues.push( playlist );
+        res.status(200).json(playlist)
     }
 
-    function getUser(req, res) {
-
-        var username = req.query.username;
-        var password = req.query.password;
-
-        if (username && password) {
-            findUserByCredentials(res, username,password)
-        } else if (username) {
-            findUserByUsername(res, username)
-        } else {
-            res.status(400).send('Error: missing query parameters')
-        }
-    }
-
-    function findUserByUsername(res, username) {
-        for (let x = 0; x < users.length; x++) {
-          if (users[x].username === username) {
-            res.json(users[x]);
+    function getSongQueue(req, res) {
+        for (let x = 0; x < queues.length; x++) {
+          if (queues[x].uid === req.params.uid) {
+            res.status(200).json(queues[x])
             return;
           }
         }
-
-        res.status(400).send('Error: user `' + username + '`not found by name')
+        // default always return an empty list
+        var playlist = _playlist.createDefaultPlaylist(req.params.uid,"");
+        res.status(200).json(playlist);
     }
 
-    function findUserByCredentials(res, username,password) {
-        for (let x = 0; x < users.length; x++) {
-          if (users[x].username === username &&
-              users[x].password === password) {
-            res.json(users[x]);
-            return;
-          }
-        }
-
-        res.status(404).send('Error: user `' + username + '` not found for given credentials')
-    }
-
-    function findUserById(req, res) {
-        for (let x = 0; x < users.length; x++) {
-          if (users[x]._id === req.params.uid) {
-            res.json(users[x]);
-            return;
-          }
-        }
-
-        res.status(404).send('Error: user not found')
-    }
-
-    function updateUser(req, res) {
-
-        var user = req.body;
-        for (let x = 0; x < users.length; x++) {
-          if (users[x]._id === req.params.uid) {
-            user._id = req.params.uid;
-            users[x] = user;
-            res.status(200).send("OK");
-            return;
-          }
-        }
-
-        res.status(404).send('Error: user not found')
-    }
-
-    function deleteUser(req, res) {
-        for (let x = 0; x < this.users.length; x++) {
-            if (this.users[x]._id === req.params.uid) {
-                this.users.splice(x, 1)
-                res.status(200).send("OK");
+    function getSongQueueHead(req, res) {
+        for (let x = 0; x < queues.length; x++) {
+          if (queues[x].uid === req.params.uid) {
+            // return the head of the queue
+            if (queues[x].songs.length > 0) {
+                res.status(200).json(queues[x].songs[0])
                 return;
             }
+          }
         }
-
-        res.status(404).send('Error: user not found')
+        // default return a null object
+        res.status(200).json(null)
     }
 
-    winston.info("user endpoints registered (" + users.length + " users)");
+    function deleteSongQueueHead(req, res) {
+        for (let x = 0; x < queues.length; x++) {
+          if (queues[x].uid === req.params.uid) {
+            // remove the song at index 0
+            queues[x].songs.splice(0,1);
+            // return the new head of the queue
+            if (queues[x].songs.length > 0) {
+                console.log("queue length" + queues[x].songs.length)
+                res.status(200).json(queues[x].songs[0])
+                return;
+            }
+          }
+        }
+        // default return a null object
+        res.status(200).json(null)
+    }
+
+
+    winston.info("song queue endpoints registered");
 };
