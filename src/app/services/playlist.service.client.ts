@@ -21,47 +21,65 @@ export class PlaylistService {
   constructor(private _http: Http) {
   }
 
-  createPlaylist(userId, lst : any) {
-    lst._id = "" + this.nextId;
-    this.nextId = this.nextId + 1;
-    lst.userId = userId;
-    this.playlists.push(lst);
-    return lst;
+  createPlaylist(userid, lst : any) {
+    return this._http.post(this.baseUrl + `/api/user/${userid}/playlist`, lst)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+
   }
 
   findPlaylistsByUser(userid: string) {
-    return this.playlists.filter( lst => lst.userid === userid );
+    return this._http.get(this.baseUrl + `/api/user/${userid}/playlist`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   findPlaylistById(plid: string) {
-    for (let x = 0; x < this.playlists.length; x++) {
-      if (this.playlists[x]._id === plid) {
-        return this.playlists[x];
-      }
-    }
+    return this._http.get(this.baseUrl + `/api/playlist/${plid}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   updatePlaylist(plid: string, lst: Playlist) {
-    for (let x = 0; x < this.playlists.length; x++) {
-      if (this.playlists[x]._id === plid) {
-        lst._id = this.playlists[x]._id;
-        this.playlists[x] = lst;
-      }
-    }
+    return this._http.put(this.baseUrl + `/api/playlist/${plid}`, lst)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   deletePlaylist(plid : string) {
-    for (let x = 0; x < this.playlists.length; x++) {
-      if (this.playlists[x]._id === plid) {
-        this.playlists.splice(x, 1)
-      }
-    }
+    return this._http.delete(this.baseUrl + `/api/playlist/${plid}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   addSongToPlaylist(plid: string, song : any) {
-    let pl = this.findPlaylistById(plid)
-    pl.songs.push(song);
-    this.updatePlaylist(plid, pl);
+    return this._http.put(this.baseUrl + `/api/playlist/${plid}/append`, song)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
 }

@@ -10,6 +10,7 @@ module.exports = function(app)
 
     function streamVideo(req, res) {
         var requestUrl = 'http://youtube.com/watch?v=' + req.params.videoId
+        winston.info("requesting stream: " + requestUrl)
         try {
             youtubeStream(requestUrl).pipe(res)
         } catch (exception) {

@@ -28,7 +28,9 @@
   </div>
 </nav>
 
-<ul class="list-group">
+<div class="container-fluid content-body">
+
+<ul class="list-group" *ngIf="playlists">
     <li *ngFor="let lst of playlists"
          class="list-group-item list-item-borderless">
 
@@ -43,6 +45,7 @@
     </li>
 </ul>
 
+</div>
 
 <!--
 <ol class="list-group">

@@ -76,8 +76,13 @@ export class PlaylistAddComponent implements OnInit {
   addIndexToPlaylist(index) {
 
     if (0 <= index && index < this.searchResults.length) {
-        this._plservice.addSongToPlaylist(this.plid, this.searchResults[index]);
-        this.searchResults.splice(index,1);
+        this._plservice.addSongToPlaylist(this.plid, this.searchResults[index]).subscribe(
+          (res) => {
+            this.searchResults.splice(index,1);
+          },
+          (err) => {console.log("error")},
+        );
+
     }
   }
 

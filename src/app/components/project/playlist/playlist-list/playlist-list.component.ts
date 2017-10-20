@@ -30,9 +30,19 @@ export class PlaylistListComponent implements OnInit {
   }
 
   reload() {
-    this.user = this._service.findUserById(this.uid)
+    this.user = this._service.findUserById(this.uid).subscribe(
+      (user) => {
+        this.user = user;
+      },
+      (err) => {}
+    )
 
-    this.playlists = this._plservice.findPlaylistsByUser(this.uid);
+    this._plservice.findPlaylistsByUser(this.uid).subscribe(
+      (playlists) => {
+        this.playlists = playlists;
+      },
+      (err) => {}
+    )
 
   }
 

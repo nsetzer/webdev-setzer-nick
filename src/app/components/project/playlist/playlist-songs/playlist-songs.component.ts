@@ -14,7 +14,7 @@ export class PlaylistSongsComponent implements OnInit {
   uid : string;
   plid : string;
   user : any;
-  playlist : any;
+  playlist : any = {songs:[]};
   private sub: any;
 
 
@@ -32,17 +32,39 @@ export class PlaylistSongsComponent implements OnInit {
   }
 
   reload() {
-    this.user = this._service.findUserById(this.uid)
+    this.user = this._service.findUserById(this.uid).subscribe(
+      (user) => {
+        this.user = user;
+      },
+      (err) => {}
+    )
 
-    this.playlist = this._plservice.findPlaylistById(this.plid);
+    this._plservice.findPlaylistById(this.plid).subscribe(
+      (playlist) => {
+        this.playlist = playlist;
+      },
+      (err) => {}
+    )
   }
 
   saveChanges() {
-    this._plservice.updatePlaylist(this.plid, this.playlist);
-    let url = "/project/(project:user/" + this.uid + "/list)"
-    this.router.navigateByUrl(url);
+    this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(
+      (res) => {
+        let url = "/project/(project:user/" + this.uid + "/list)"
+        this.router.navigateByUrl(url);
+      }
+    );
+
   }
 
+  reorderList(event) {
 
+    // drag and drop does not upadte the internal list, only the view
+    var song = this.playlist.songs.splice(event.startIndex, 1)[0]
+    this.playlist.songs.splice(event.endIndex, 0, song);
+
+    // this.playlist.songs.map( x => x._id )
+
+  }
 
 }

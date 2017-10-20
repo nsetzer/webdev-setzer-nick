@@ -34,7 +34,12 @@
   </div>
 </nav>
 
-<ul class="list-group">
+<div class="container-fluid content-body">
+
+<ul class="list-group"
+    *ngIf="playlist && playlist.songs"
+    appSortable
+    (newIndexes)="reorderList($event)">
     <li *ngFor="let song of playlist.songs"
          class="list-group-item list-item-borderless">
 
@@ -56,3 +61,4 @@
     </li>
 </ul>
 
+</div>

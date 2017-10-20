@@ -31,9 +31,8 @@ export class ProjectLoginComponent implements OnInit {
 
     this.invalid_password = false;
     this.invalid_username = false;
-
     this._service.validateUser(this.username, this.password,
-      (user) => this.router.navigate(["/user/" + user._id]))
+      (user) => this.router.navigateByUrl("/project/(project:user/" + user.uid + ")"))
       .subscribe(
         (code : number) => {
           if (code==2) {
