@@ -5,64 +5,60 @@ let server = require('../server');
 let should = chai.should();
 chai.use(chaiHttp);
 
-var _widget = require('../server/assignment/widget.data.server');
+var _playlist = require('../server/project/playlist.data.server');
 
 var expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Widget', function() {
+describe('Playlist', function() {
 
-
-  describe('/api/widget find all', function() {
-    it('should return the default set of 3 websites', function(done) {
+  describe('/api/playlist find all', function() {
+    it('should return the default set of 3 playlists', function(done) {
       chai.request(server)
-        .get('/api/page/121/widget')
+        .get('/api/user/123/playlist')
         .end(function(err, res) {
           res.should.have.status(200);
           res.body.should.be.a('array');
-          // if the default number of widgets changes
-          // then this number needs to be updated
-          res.body.length.should.eql(6)
+          res.body.length.should.eql(1)
           done();
         });
     });
   });
 
 
-  describe('/api/widget create', function() {
-    it('creates and returns the website', function(done) {
-      var widget = _widget.newHeadingWidget('',"Test","123",'','')
+  describe('/api/playlist create', function() {
+    it('creates and returns the playlist', function(done) {
+      var list = _playlist.Playlist('',"123","Test")
       chai.request(server)
-        .post('/api/page/121/widget')
-        .send(widget)
+        .post('/api/user/2020/playlist')
+        .send(list)
         .end(function(err, res) {
           expect(res).to.have.status(201);
-          var new_widget = JSON.parse(res.text);
+          var new_list = JSON.parse(res.text);
           chai.request(server)
-            .get('/api/widget/' + new_widget._id)
+            .get('/api/playlist/' + new_list._id)
             .end(function(err, res) {
               expect(res).to.have.status(200);
-              expect(res.body)
+              expect(JSON.parse(res.text))
                 .to.include({"name":"Test",
-                             "widgetType": "HEADING",
-                             "pageId":"121"});
+                             "uid":"2020"});
               done();
           });
         });
     });
   });
 
-  describe('/api/widget update', function() {
-    it('update the widget', function(done) {
-      var widget = _widget.newHeadingWidget('',"Test","123",'','')
+  describe('/api/playlist update', function() {
+    it('update the playlist', function(done) {
+      var list = _playlist.Playlist('',"123","Test")
       chai.request(server)
-        .put('/api/widget/123')
-        .send(widget)
+        .put('/api/playlist/123')
+        .send(list)
         .end(function(err, res) {
           expect(res).to.have.status(200);
           chai.request(server)
-            .get('/api/widget/123')
+            .get('/api/playlist/123')
             .end(function(err, res) {
               expect(res).to.have.status(200);
               expect(JSON.parse(res.text))
@@ -73,14 +69,14 @@ describe('Widget', function() {
     });
   });
 
-  describe('/api/widget delete', function() {
-    it('deletes the widget', function(done) {
+  describe('/api/playlist delete', function() {
+    it('deletes the playlist', function(done) {
       chai.request(server)
-        .delete('/api/widget/123')
+        .delete('/api/playlist/123')
         .end(function(err, res) {
           expect(res).to.have.status(200);
           chai.request(server)
-            .get('/api/widget/123')
+            .get('/api/playlist/123')
             .end(function(err, res) {
               expect(res).to.have.status(404);
               done();
