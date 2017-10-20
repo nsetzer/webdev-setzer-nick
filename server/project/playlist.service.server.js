@@ -27,7 +27,7 @@ module.exports = function (app) {
         var lists = [];
         for (let x = 0; x < playlists.length; x++) {
             if (playlists[x].uid === req.params.uid) {
-                lists.push(playlists[x]);
+                lists.push(_playlist.scrub(playlists[x]));
             }
         }
         if (lists.length==0) {
@@ -72,9 +72,7 @@ module.exports = function (app) {
             // push a copy of the list if it is relevant
             if (relevance > 0) {
                 var lst = playlists[x];
-                var tmp = _playlist.Playlist(lst._id,lst.uid,lst.name)
-                tmp.description = lst.description
-                tmp.songs = lst.songs
+                var tmp = _playlist.scrub(lst)
                 tmp.relevance = relevance
                 lists.push(tmp)
             }

@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
@@ -22,10 +24,19 @@ export class QueueService {
     constructor(private _http: Http) {
     }
 
+    private queueUpdatedSource = new Subject<any>();
+
+    queueChangedEvent = this.queueUpdatedSource.asObservable();
+
+    queueChanged() {
+        this.queueUpdatedSource.next(null);
+    }
+
     setQueue(uid,playlist) {
       return this._http.put(this.baseUrl + `/api/user/${uid}/queue`, playlist)
         .map(
           (res: Response) => {
+            this.queueChanged();
             const data = res.json();
             return data;
           }

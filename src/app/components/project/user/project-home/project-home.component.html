@@ -8,12 +8,23 @@
   <div class="container-fluid">
 
   <p class="navbar-text pull-left glyph-margin">
-    <audio controls>
+    <audio
+       name="audioPlayer"
+       #audioPlayer>
       <source src="http://localhost:3100/api/youtube/2oPeZFOpPAM" type="audio/mp3">
     </audio>
   </p>
 
+
   <p class="navbar-text pull-right glyph-margin">
+    <a (click)="playPauseClicked()"
+       class="navbar-link">
+
+      <span class="glyphicon glyphicon-play" *ngIf="!audioPlayer.error && audioPlayer.paused"></span>
+      <span class="glyphicon glyphicon-pause" *ngIf="!audioPlayer.error && !audioPlayer.paused"></span>
+      <span class="glyphicon glyphicon-stop" *ngIf="audioPlayer.error"></span>
+    </a>
+
     <a (click)="openProfileHome()"
        class="navbar-link">
       <span class="glyphicon glyphicon-user"></span>

@@ -12,6 +12,19 @@ function Playlist(_id, uid, name) {
     };
 }
 
+// some api calls may return many playlists --
+// which each may contain many songs. this returns
+// a copy of a playlist with songs removed to save on bandwidth
+function scrub( lst ) {
+    return {
+        _id: lst._id,
+        uid: lst.uid,
+        name: lst.name,
+        description: lst.description,
+        songs: []
+    };
+}
+
 function createDefaultPlaylist(uid, plid) {
     var lst = new Playlist(plid, uid, "Default Playlist");
     lst.songs = _song.getDefaultSongs();
@@ -24,5 +37,6 @@ function getDefaultPlaylists() {
 }
 
 exports.Playlist = Playlist;
+exports.scrub = scrub;
 exports.createDefaultPlaylist = createDefaultPlaylist;
 exports.getDefaultPlaylists = getDefaultPlaylists;

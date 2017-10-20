@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user.service.client';
 import { PlaylistService } from '../../../../services/playlist.service.client';
+import { QueueService } from '../../../../services/queue.service.client';
 
 @Component({
   selector: 'app-playlist-list',
@@ -20,7 +21,8 @@ export class PlaylistListComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _service: UserService,
-              private _plservice: PlaylistService) { }
+              private _plservice: PlaylistService,
+              private _qservice: QueueService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -44,6 +46,27 @@ export class PlaylistListComponent implements OnInit {
       (err) => {}
     )
 
+  }
+
+  queuePlaylist(lst) {
+    console.log("eneueue playlist")
+
+    // TODO this should be done on the server side
+    this._plservice.findPlaylistById(lst._id).subscribe(
+      (true_lst) => {
+        this._qservice.setQueue(this.uid, true_lst).subscribe(
+          (res) => {
+            console.log("lst set")
+          },
+          (err) => {
+            console.log("error setting lst")
+          }
+        )
+      },
+      (err) => {
+        console.log("error retreiving lst")
+      }
+    );
   }
 
 }
