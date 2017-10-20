@@ -19,7 +19,7 @@ function createDefaultPlaylist(uid, plid) {
 
 function getDefaultPlaylists() {
     return _user.getDefaultUsers().map(user =>
-        createDefaultPlaylist(user._id,""+user._id));
+        createDefaultPlaylist(user._id,user._id));
 }
 
 exports.Playlist = Playlist;

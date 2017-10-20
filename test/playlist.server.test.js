@@ -5,6 +5,7 @@ let server = require('../server');
 let should = chai.should();
 chai.use(chaiHttp);
 
+var _song = require('../server/project/song.data.server');
 var _playlist = require('../server/project/playlist.data.server');
 
 var expect = chai.expect;
@@ -81,6 +82,19 @@ describe('Playlist', function() {
               expect(res).to.have.status(404);
               done();
           });
+        });
+    });
+  });
+
+  describe('/api/playlist add song', function() {
+    it('should add a song to the playlist', function(done) {
+      var song = _song.getDefaultSongs()[0];
+      chai.request(server)
+        .put('/api/playlist/456/append')
+        .send(song)
+        .end(function(err, res) {
+          expect(res).to.have.status(200);
+          done();
         });
     });
   });

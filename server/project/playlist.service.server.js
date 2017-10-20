@@ -10,6 +10,7 @@ module.exports = function (app) {
     app.get('/api/playlist/:plid', findPlaylistById);
     app.put('/api/playlist/:plid', updatePlaylist);
     app.delete('/api/playlist/:plid', deletePlaylist);
+    app.put('/api/playlist/:plid/append', addSongToPlaylist);
 
     function createPlaylist(req, res) {
         var playlist = req.body;
@@ -58,6 +59,18 @@ module.exports = function (app) {
         for (let x = 0; x < playlists.length; x++) {
             if (playlists[x]._id === req.params.plid) {
                 playlists.splice(x,1);
+                res.status(200).send("OK");
+                return;
+            }
+        }
+        res.status(404).send("Error: playlist not found")
+    }
+
+    function addSongToPlaylist(req,res) {
+        var song  = req.body;
+        for (let x = 0; x < playlists.length; x++) {
+            if (playlists[x]._id === req.params.plid) {
+                playlists[x].songs.push(song);
                 res.status(200).send("OK");
                 return;
             }
