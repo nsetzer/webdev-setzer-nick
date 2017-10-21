@@ -46,6 +46,7 @@ import { PlaylistNewComponent } from './components/project/playlist/playlist-new
 import { PlaylistEditComponent } from './components/project/playlist/playlist-edit/playlist-edit.component';
 import { PlaylistAddComponent } from './components/project/playlist/playlist-add/playlist-add.component';
 import { SongQueueComponent } from './components/project/queue/song-queue/song-queue.component';
+import { PlaylistAddSongDetailsComponent } from './components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component';
 
 
 const APP_ROUTES: Routes = [
@@ -89,7 +90,9 @@ const APP_ROUTES: Routes = [
      { path: 'user/:uid/list/:plid/songs',          component: PlaylistSongsComponent,        outlet: 'project' },
      { path: 'user/:uid/list/:plid/add',            component: PlaylistAddComponent,          outlet: 'project' },
      { path: 'user/:uid/list/:plid/add/:videoId',   component: PlaylistAddComponent,          outlet: 'project' },
-     { path: 'user/:uid/queue',                     component: SongQueueComponent,          outlet: 'project' },
+     { path: 'user/:uid/list/:plid/add/details/:idx',          component: PlaylistAddSongDetailsComponent, outlet: 'project' },
+     { path: 'user/:uid/list/:plid/add/:videoId/details/:idx', component: PlaylistAddSongDetailsComponent, outlet: 'project' },
+     { path: 'user/:uid/queue',                     component: SongQueueComponent,            outlet: 'project' },
     ]}
 ];
 

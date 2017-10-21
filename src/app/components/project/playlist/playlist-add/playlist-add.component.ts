@@ -42,7 +42,9 @@ export class PlaylistAddComponent implements OnInit {
          this.runSearch();
        } else {
          this.videoId = null;
-         this.searchTerm = "";
+         let state = this._service.getPreviousKeywordSearch();
+         this.searchTerm = state.searchTerm;
+         this.searchResults = state.results;
        }
 
        this.reload();
@@ -57,31 +59,40 @@ export class PlaylistAddComponent implements OnInit {
     let term = this.searchTerm.replace(/^\s+|\s+$/g, '');
     if (term.startsWith("related:")) {
         let videoId = term.replace(/related:/,'');
-        return this._service.relatedSearch(videoId)
-            .subscribe(
-                (data: any[]) => {
-                    this.successMessage = true;
-                    for (let x=0; x < data.length; x++) {
-                      data[x].index = x;
-                      data[x].state = "paused"
-                    }
-                    this.searchResults = data;
-
-
-                }
-            );
+        // used cached search results if available
+        let res = this._service.getPreviousRelatedSearch()
+        if (res.searchTerm==videoId) {
+          this.searchResults = res.results;
+        } else {
+          this._service.relatedSearch(videoId)
+              .subscribe(
+                  (data: any[]) => {
+                      this.successMessage = true;
+                      for (let x=0; x < data.length; x++) {
+                        data[x].index = x;
+                        data[x].state = "paused"
+                      }
+                      this.searchResults = data;
+                  }
+              );
+        }
     } else {
-        return this._service.keywordSearch(this.searchTerm)
-            .subscribe(
-                (data: any[]) => {
-                    this.successMessage = true;
-                    for (let x=0; x < data.length; x++) {
-                      data[x].index = x;
-                      data[x].state = "paused"
-                    }
-                    this.searchResults = data;
-                }
-            );
+      let res = this._service.getPreviousKeywordSearch()
+      if (res.searchTerm == this.searchTerm) {
+        this.searchResults = res.results;
+      } else {
+        this._service.keywordSearch(this.searchTerm)
+          .subscribe(
+            (data: any[]) => {
+              this.successMessage = true;
+              for (let x=0; x < data.length; x++) {
+                data[x].index = x;
+                data[x].state = "paused"
+              }
+              this.searchResults = data;
+            }
+          );
+      }
     }
   }
 
@@ -135,6 +146,16 @@ export class PlaylistAddComponent implements OnInit {
       console.log(audio.error);
       this.searchResults[index].state="error"
     }
+  }
+
+  viewDetails(index) {
+    let url = "/project/(project:user/" + this.uid + "/list/" + this.plid
+    if (this.videoId) {
+      url += "/add/" + this.videoId + "/details/" + index
+    } else {
+      url += "/add/details/" + index
+    }
+    this.router.navigateByUrl(url);
   }
 
 }

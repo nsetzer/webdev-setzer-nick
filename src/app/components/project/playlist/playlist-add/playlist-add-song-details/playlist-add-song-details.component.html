@@ -1,0 +1,27 @@
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+    <!--back mark-->
+    <p class="navbar-text pull-left glyph-margin">
+      <a (click)="return()"
+         class="navbar-link  navbar-chevron-link">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+    </p>
+
+    <!--heading on the nav bar-->
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b>Add Songs</b>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+<div class="container-fluid content-body">
+
+{{song.title}}<br>
+{{song.description}}<br>
+{{song.thumbnail}}
+</div>

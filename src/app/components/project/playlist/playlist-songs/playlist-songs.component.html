@@ -18,8 +18,7 @@
     </p>
 
     <p class="navbar-text pull-right glyph-margin">
-      <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', plid, 'add']}}]"
-         class="navbar-link">
+      <a (click)="addSongs()" class="navbar-link">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
     </p>

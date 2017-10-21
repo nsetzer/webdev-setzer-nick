@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user.service.client';
 import { PlaylistService } from '../../../../services/playlist.service.client';
+import { ProjectService } from '../../../../services/project.service.client';
 
 @Component({
   selector: 'app-playlist-songs',
@@ -21,7 +22,8 @@ export class PlaylistSongsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _service: UserService,
-              private _plservice: PlaylistService) { }
+              private _plservice: PlaylistService,
+              private _pservice: ProjectService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -55,6 +57,12 @@ export class PlaylistSongsComponent implements OnInit {
       }
     );
 
+  }
+
+  addSongs() {
+    this._pservice.clearPreviousKeywordSearch();
+    let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)"
+    this.router.navigateByUrl(url);
   }
 
   reorderList(event) {
