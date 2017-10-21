@@ -1,3 +1,9 @@
-<p>
-  widget-list-youtube works!
-</p>
+<div class="video-container-outer"
+     [style.width]="widget.width">
+  <div class="video-container-inner">
+      <iframe class="video-container"
+              [src]="makeSafe(widget.url)"
+              frameborder="0" allowfullscreen>
+      </iframe>
+  </div>
+</div>
