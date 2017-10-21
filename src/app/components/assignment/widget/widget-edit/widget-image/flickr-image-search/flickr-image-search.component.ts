@@ -79,7 +79,7 @@ export class FlickrImageSearchComponent implements OnInit {
         let url = "/user/" + this.uid +
                   "/website/" + this.wid +
                   "/page/" + this.pid +
-                  "/widget";
+                  "/widget/" + this.wgid;
         this.router.navigate([url]);
       },
       (err) => {

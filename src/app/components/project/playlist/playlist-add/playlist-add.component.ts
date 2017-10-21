@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlaylistService } from '../../../../services/playlist.service.client';
 import { ProjectService } from '../../../../services/project.service.client';
@@ -22,6 +22,8 @@ export class PlaylistAddComponent implements OnInit {
 
   alertMessage: Boolean = false;
   successMessage: Boolean = false;
+
+  @ViewChildren('audioPlayer') audioPlayer;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -59,7 +61,13 @@ export class PlaylistAddComponent implements OnInit {
             .subscribe(
                 (data: any[]) => {
                     this.successMessage = true;
+                    for (let x=0; x < data.length; x++) {
+                      data[x].index = x;
+                      data[x].state = "paused"
+                    }
                     this.searchResults = data;
+
+
                 }
             );
     } else {
@@ -67,6 +75,10 @@ export class PlaylistAddComponent implements OnInit {
             .subscribe(
                 (data: any[]) => {
                     this.successMessage = true;
+                    for (let x=0; x < data.length; x++) {
+                      data[x].index = x;
+                      data[x].state = "paused"
+                    }
                     this.searchResults = data;
                 }
             );
@@ -86,5 +98,25 @@ export class PlaylistAddComponent implements OnInit {
     }
   }
 
+  playPauseIndex(index) {
+
+    let audio = this.audioPlayer._results[index].nativeElement;
+
+    if (!audio.error) {
+      if (audio.paused) {
+        audio.play()
+        this.searchResults[index].state="playing"
+      } else {
+        audio.pause()
+        this.searchResults[index].state="paused"
+      }
+    } else {
+      console.log(audio.error);
+      this.searchResults[index].state="error"
+    }
+
+
+    console.log(audio)
+  }
 
 }

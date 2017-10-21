@@ -119,4 +119,12 @@ export class WidgetImageComponent implements OnInit {
     }
   }
 
+  searchFlickr() {
+    let url = "/user/" + this.uid +
+              "/website/" + this.wid +
+              "/page/" + this.pid +
+              "/widget/" + this.wgid + "/search";
+    this.router.navigate([url]);
+  }
+
 }

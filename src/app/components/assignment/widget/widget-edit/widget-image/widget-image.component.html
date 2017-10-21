@@ -67,6 +67,7 @@
     </div>
   </form>
 
+
   <form name="myForm" #myForm
         method="post" enctype="multipart/form-data">
      <input  name="myFile" #myFile type="file"     class="form-control"/>
@@ -75,6 +76,9 @@
      <span class="small text-danger ml-2"
             *ngIf="invalid_file">Please Select a File to Upload</span>
   </form>
+
+  <a class="btn btn-primary btn-block"
+         (click)="searchFlickr()">Search Flickr</a>
 
   <a class="btn btn-danger btn-block"
          (click)="delete()">Delete</a>

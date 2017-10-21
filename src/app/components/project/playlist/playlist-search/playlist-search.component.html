@@ -24,6 +24,8 @@
 
 <div class="container-fluid content-body">
 
+<!--
+
   <div *ngIf="alertMessage"
        class="alert alert-danger">
     "Failed to create"
@@ -33,56 +35,34 @@
        class="alert alert-success">
     "Succesfully executed query"
   </div>
+-->
 
+<div class="input-group">
+ <input [(ngModel)]="searchTerm" type="text" class="form-control"
+        placeholder="Enter Search Term">
+ <span class="input-group-btn">
+         <a (click)="runSearch()" class="btn btn-default" type="button">
+             <span class="glyphicon glyphicon-search"></span>
+         </a>
+ </span>
+</div>
 
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Enter a search term and press the search button</th>
-      <th>&nbsp;</th>
-    </tr>
-
-    <tr>
-      <td>
-        <input [(ngModel)]="searchTerm"
-               placeholder="search term"
-               class="form-control"/>
-      </td>
-
-
-      <td>
-        <button (click)="runSearch()"
-                class="btn btn-primary pull-right">
-          <span class="glyphicon glyphicon-search"></span>
-        </button>
-      </td>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr *ngFor="let result of searchResults">
-
-
-      <td>
-      <div *ngIf=result>
-          {{result.name}}
-      </div>
-      <div *ngIf=!result>
-        No Results to display
-      </div>
+<div *ngIf="searchResults.length>0">
+ <div *ngFor="let result of searchResults">
+       {{result.name}}
 
         <div class ="pull-right">
             <a (click)="copyPlaylist(result)">
             <span class="glyphicon glyphicon-copy"></span>
             </a>
         </div>
+ </div>
 
+</div>
 
-      </td>
-    </tr>
-    </tbody>
-
-  </table>
+<div *ngIf="searchResults.length===0">
+No results to display
+</div>
 
 
 
