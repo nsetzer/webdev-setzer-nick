@@ -57,7 +57,8 @@ export class QueueService {
       return this._http.get(this.baseUrl + `/api/user/${uid}/queue/head`)
         .map(
           (res: Response) => {
-            const data = res.json();
+            let data = res.json();
+            data.url = this.baseUrl + "/api/youtube/" + data.videoId
             return data;
           }
         );
@@ -67,7 +68,8 @@ export class QueueService {
       return this._http.delete(this.baseUrl + `/api/user/${uid}/queue/head`)
         .map(
           (res: Response) => {
-            const data = res.json();
+            let data = res.json();
+            data.url = this.baseUrl + "/api/youtube/" + data.videoId
             return data;
           }
         );

@@ -29,6 +29,8 @@ export class ProjectHomeComponent implements OnInit {
               private _qservice: QueueService) {
     _qservice.queueChangedEvent.subscribe(res => {
       this.onQueueChanged();
+
+
     });
 
     this.router.events.subscribe(event => {
@@ -42,6 +44,10 @@ export class ProjectHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    var aud = this.audioPlayer.nativeElement;
+    aud.onended = () => { this.onPlaybackEnd() }
+    console.log(aud)
+
   }
 
   reload() {
@@ -63,7 +69,7 @@ export class ProjectHomeComponent implements OnInit {
   onQueueChanged() {
     let uid = this.route.snapshot.firstChild.url[1].path;
     if (uid) {
-      console.log("(home) queue changed for " + uid);
+      this.loadCurrentSong();
     }
   }
 
@@ -78,9 +84,49 @@ export class ProjectHomeComponent implements OnInit {
         aud.pause()
       }
     } else {
-      console.log(aud.error);
+      console.error(aud.error);
     }
 
+  }
+
+  loadCurrentSong(){
+    let uid = this.route.snapshot.firstChild.url[1].path;
+    var aud = this.audioPlayer.nativeElement;
+
+    if (uid) {
+      this._qservice.currentSong(uid).subscribe(
+          (song) => {
+            console.log(song);
+            aud.src = song.url
+            aud.play();
+          },
+          (err) => {
+            console.log("error loading next song")
+          }
+        );
+    }
+  }
+
+  loadNextSong(){
+    let uid = this.route.snapshot.firstChild.url[1].path;
+    var aud = this.audioPlayer.nativeElement;
+
+    if (uid) {
+      this._qservice.nextSong(uid).subscribe(
+          (song) => {
+            console.log(song);
+            aud.src = song.url
+            aud.play();
+          },
+          (err) => {
+            console.log("error loading next song")
+          }
+        );
+    }
+  }
+
+  onPlaybackEnd() {
+    this.loadNextSong();
   }
 
 
