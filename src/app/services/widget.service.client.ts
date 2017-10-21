@@ -101,9 +101,8 @@ export class WidgetService {
      );
   }
 
-  uploadImage(form) {
-
-    return this._http.post("/api/upload", form).map(
+  uploadImage(form: FormData) {
+    return this._http.post(this.baseUrl + "/api/upload2", form).map(
        (res: Response) => {
          const data = res.json();
          return data;

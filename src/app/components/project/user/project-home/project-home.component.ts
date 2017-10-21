@@ -36,6 +36,7 @@ export class ProjectHomeComponent implements OnInit {
         // this._activatedRoute.snapshot is up to date
         var uid = this.route.snapshot.firstChild.url[1].path
         this.onRouteChanged(uid);
+        console.log(event)
       }
     });
   }
@@ -76,6 +77,8 @@ export class ProjectHomeComponent implements OnInit {
       } else {
         aud.pause()
       }
+    } else {
+      console.log(aud.error);
     }
 
   }

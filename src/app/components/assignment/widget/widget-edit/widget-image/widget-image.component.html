@@ -70,11 +70,12 @@
   begin form {{wgid}}/{{wid}}/{{pid}}/{{uid}}/<br/>
   <form ngNoForm action="{{baseUrl}}/api/upload"
         method="post" enctype="multipart/form-data">
-     <input  name="myFile"   type="file" class="form-control"/>
+     <input  name="myFile" #myFile   type="file" class="form-control"/>
      <input  name="widgetId"  value="{{wgid}}"   style="display: none"/>
      <input  name="websiteId" value="{{wid}}"   style="display: none"/>
      <input  name="pageId"    value="{{pid}}"   style="display: none"/>
      <input  name="userId"    value="{{uid}}"   style="display: none"/>
+     <button type="button" (click)="uploadImage()" class="btn btn-block btn-primary">Upload Image 2</button>
      <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
      <br/>
   </form>

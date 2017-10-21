@@ -18,6 +18,7 @@ module.exports = (app) => {
     app.put('/api/widget/:wgid', updateWidget);
     app.delete('/api/widget/:wgid', deleteWidget);
     app.post("/api/upload", upload.single('myFile'), uploadImage);
+    app.post("/api/upload2", upload.single('myFile'), uploadImage2);
 
     function createWidget(req, res) {
         var widget = req.body;
@@ -163,6 +164,10 @@ module.exports = (app) => {
         res.redirect(callbackUrl);
     }
 
+    function uploadImage2(req, res) {
+        var url = 'http://localhost:3100' + '/public/uploads/'+req.file.filename;
+        res.status(200).json({url:url});
+    }
 
     winston.info("widget endpoints registered");
 };
