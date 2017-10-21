@@ -32,13 +32,26 @@ import { WebsiteListComponent } from './components/assignment/website/website-li
 import { WebsiteNewComponent } from './components/assignment/website/website-new/website-new.component';
 
 import { WidgetChooseComponent } from './components/assignment/widget/widget-choose/widget-choose.component';
-import { WidgetListComponent } from './components/assignment/widget/widget-list/widget-list.component';
 
+// edit components
 import { WidgetEditComponent } from './components/assignment/widget/widget-edit/widget-edit.component';
 import { WidgetHeaderComponent } from './components/assignment/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetYoutubeComponent } from './components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component';
 import { WidgetImageComponent } from './components/assignment/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetHtmlComponent } from './components/assignment/widget/widget-edit/widget-html/widget-html.component';
+
+// list components
+import { WidgetListComponent } from './components/assignment/widget/widget-list/widget-list.component';
+import { WidgetListHeaderComponent } from './components/assignment/widget/widget-list/widget-list-header/widget-list-header.component';
+import { WidgetListImageComponent } from './components/assignment/widget/widget-list/widget-list-image/widget-list-image.component';
+import { WidgetListHtmlComponent } from './components/assignment/widget/widget-list/widget-list-html/widget-list-html.component';
+import { WidgetListYoutubeComponent } from './components/assignment/widget/widget-list/widget-list-youtube/widget-list-youtube.component';
+
+// other
+import { FlickrImageSearchComponent } from './components/assignment/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import { SortableDirective } from './directives/sortable.directive';
+
+// project components
 import { ProjectRegisterComponent } from './components/project/user/project-register/project-register.component';
 import { ProjectLoginComponent } from './components/project/user/project-login/project-login.component';
 import { ProjectProfileComponent } from './components/project/user/project-profile/project-profile.component';
@@ -54,8 +67,6 @@ import { PlaylistAddComponent } from './components/project/playlist/playlist-add
 import { SongQueueComponent } from './components/project/queue/song-queue/song-queue.component';
 
 
-import { FlickrImageSearchComponent } from './components/assignment/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
-import { SortableDirective } from './directives/sortable.directive';
 
 @NgModule({
   // Declare components here
@@ -94,7 +105,11 @@ import { SortableDirective } from './directives/sortable.directive';
     PlaylistAddComponent,
     FlickrImageSearchComponent,
     SortableDirective,
-    SongQueueComponent
+    SongQueueComponent,
+    WidgetListHeaderComponent,
+    WidgetListImageComponent,
+    WidgetListHtmlComponent,
+    WidgetListYoutubeComponent
   ],
   imports: [
     BrowserModule,
