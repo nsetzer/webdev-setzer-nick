@@ -18,7 +18,6 @@ module.exports = (app) => {
     app.put('/api/widget/:wgid', updateWidget);
     app.delete('/api/widget/:wgid', deleteWidget);
     app.post("/api/upload", upload.single('myFile'), uploadImage);
-    app.post("/api/upload2", upload.single('myFile'), uploadImage2);
 
     function createWidget(req, res) {
         var widget = req.body;
@@ -127,46 +126,8 @@ module.exports = (app) => {
     }
 
     function uploadImage(req, res) {
-
-        console.log("got here")
-
-        var userId    = req.body.userId;
-        var websiteId = req.body.websiteId;
-        var pageId    = req.body.pageId;
-        var widgetId  = req.body.widgetId;
-
-        var myFile    = req.file;
-
-        var originalname  = myFile.originalname; // file name on user's computer
-        var filename      = myFile.filename;     // new file name in upload folder
-        var path          = myFile.path;         // full path of uploaded file
-        var destination   = myFile.destination;  // folder where file is saved to
-        var size          = myFile.size;
-        var mimetype      = myFile.mimetype;
-
-        widget = _findWidgetById(widgetId);
-        widget.url = 'http://localhost:3100' + '/public/uploads/'+filename;
-        _updateWidget(widgetId,widget);
-
-        var callbackUrl = "http://localhost:4200/user/" + userId +
-                          "/website/" + websiteId +
-                          "/page/" + pageId +
-                          "/widget/" + widgetId;
-
-        ///home/nsetzer/projects/webdev-setzer-nick/public/uploads/3c180dffaf9808e08ee0ba9d5ffecdf5
-        console.log("path        : " + path);
-        console.log("originalname: " + originalname);
-        console.log("filename    : " + filename);
-        console.log("destination : " + destination);
-        console.log("widget.url  : " + widget.url);
-        console.log(callbackUrl);
-
-        res.redirect(callbackUrl);
-    }
-
-    function uploadImage2(req, res) {
-        var url = 'http://localhost:3100' + '/public/uploads/'+req.file.filename;
-        res.status(200).json({url:url});
+        var url = '/public/uploads/' + req.file.filename;
+        res.status(200).json({"url":url});
     }
 
     winston.info("widget endpoints registered");

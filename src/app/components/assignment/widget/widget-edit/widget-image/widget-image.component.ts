@@ -22,9 +22,11 @@ export class WidgetImageComponent implements OnInit {
   widget : Widget = new Widget('','','');
 
   @ViewChild('myFile') myFile;
+  @ViewChild('myForm') myForm;
 
   invalid_width: boolean = false;
   invalid_link: boolean = false;
+  invalid_file: boolean = false;
 
   private sub: any;
 
@@ -96,23 +98,24 @@ export class WidgetImageComponent implements OnInit {
 
   uploadImage() {
     const myFile = this.myFile.nativeElement;
+    const myForm = this.myForm.nativeElement;
     if (myFile.files && myFile.files[0]) {
       const formData = new FormData();
-      //var name = "" + this.uid + "-" + myFile.files[0].name.replace(new RegExp(" ", 'g'),"_")
-      //formData.append('image', myFile.files[0], name);
-
       formData.append('myFile', myFile.files[0]);
-      formData.append('uid', this.uid);
-      formData.append('wid', this.wid);
-      formData.append('pid', this.pid);
-      formData.append('wgid', this.wgid);
-
-      console.log(formData)
-
       this._service.uploadImage(formData).subscribe(
-         (res) => { console.log("ok") },
-         (err) => { console.log("error") }
-        );
+         (url : string) => {
+          console.log(url);
+          this.widget.url = url;
+          myForm.reset();
+          this.invalid_file = false;
+         },
+         (err) => {
+          this.invalid_file = true
+          myForm.reset();
+         }
+      );
+    } else {
+      this.invalid_file = true;
     }
   }
 

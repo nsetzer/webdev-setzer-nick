@@ -102,10 +102,11 @@ export class WidgetService {
   }
 
   uploadImage(form: FormData) {
-    return this._http.post(this.baseUrl + "/api/upload2", form).map(
+    return this._http.post(this.baseUrl + "/api/upload", form).map(
        (res: Response) => {
          const data = res.json();
-         return data;
+         var url = this.baseUrl + data.url;
+         return url;
        }
      );
   }
