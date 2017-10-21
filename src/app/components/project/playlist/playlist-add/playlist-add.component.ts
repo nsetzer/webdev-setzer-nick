@@ -98,14 +98,35 @@ export class PlaylistAddComponent implements OnInit {
     }
   }
 
+  play(index) {
+    // play an indx and pause others
+    for (let x=0; x < this.searchResults.length; x++) {
+      let res = this.searchResults[x];
+      if (res.state == "playing" && x!==index) {
+        let audio = this.audioPlayer._results[x].nativeElement;
+        audio.pause()
+        this.searchResults[x].state="paused"
+      } else if (res.state == "paused" && x===index) {
+        let audio = this.audioPlayer._results[x].nativeElement;
+        audio.play()
+        this.searchResults[x].state="playing"
+      }
+    }
+  }
+
+  pause(index) {
+    let audio = this.audioPlayer._results[index].nativeElement;
+    audio.pause()
+    this.searchResults[index].state="paused"
+  }
+
   playPauseIndex(index) {
 
     let audio = this.audioPlayer._results[index].nativeElement;
 
     if (!audio.error) {
       if (audio.paused) {
-        audio.play()
-        this.searchResults[index].state="playing"
+        this.play(index);
       } else {
         audio.pause()
         this.searchResults[index].state="paused"
@@ -114,9 +135,6 @@ export class PlaylistAddComponent implements OnInit {
       console.log(audio.error);
       this.searchResults[index].state="error"
     }
-
-
-    console.log(audio)
   }
 
 }
