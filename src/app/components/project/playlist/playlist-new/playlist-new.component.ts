@@ -38,9 +38,12 @@ export class PlaylistNewComponent implements OnInit {
   }
 
   saveChanges() {
-    this._plservice.createPlaylist(this.uid, this.playlist);
-    let url = "/project/(project:user/" + this.uid + "/list)"
-    this.router.navigateByUrl(url);
+    this._plservice.createPlaylist(this.uid, this.playlist).subscribe(
+      (res) => {
+        let url = "/project/(project:user/" + this.uid + "/list)"
+        this.router.navigateByUrl(url);
+      }
+    );
   }
 
 

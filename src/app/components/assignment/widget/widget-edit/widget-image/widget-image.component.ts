@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { WidgetService } from '../../../../../services/widget.service.client';
 import { Widget } from '../../../../../objects/widget.object';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../../../../../environments/environment'
 
 @Component({
   selector: 'app-widget-image',
@@ -12,15 +13,20 @@ import { DomSanitizer} from '@angular/platform-browser';
 
 export class WidgetImageComponent implements OnInit {
 
+  baseUrl = environment.baseUrl;
 
   uid : string = "";
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : Widget;
+  widget : Widget = new Widget('','','');
+
+  @ViewChild('myFile') myFile;
+  @ViewChild('myForm') myForm;
 
   invalid_width: boolean = false;
   invalid_link: boolean = false;
+  invalid_file: boolean = false;
 
   private sub: any;
 
@@ -41,7 +47,10 @@ export class WidgetImageComponent implements OnInit {
   }
 
   reload() {
-    this.widget = this._service.findWidgetById(this.wgid);
+    this._service.findWidgetById(this.wgid).subscribe(
+      (widget) => { this.widget = widget },
+      (err) => {}
+    );
   }
 
   saveChanges() {
@@ -60,20 +69,61 @@ export class WidgetImageComponent implements OnInit {
       return;
     }
 
-    this._service.updateWidget(this.wgid, this.widget);
-    let url = "/user/" + this.uid +
-              "/website/" + this.wid +
-              "/page/" + this.pid +
-              "/widget";
-    this.router.navigate([url]);
+    this._service.updateWidget(this.wgid, this.widget).subscribe(
+      (widget) => {
+        let url = "/user/" + this.uid +
+                  "/website/" + this.wid +
+                  "/page/" + this.pid +
+                  "/widget";
+        this.router.navigate([url]);
+      },
+      (err) => {
+      }
+    );
   }
 
   delete() {
-    this._service.deleteWidget(this.wgid);
+    this._service.deleteWidget(this.wgid).subscribe(
+      (widget) => {
+        let url = "/user/" + this.uid +
+                  "/website/" + this.wid +
+                  "/page/" + this.pid +
+                  "/widget";
+        this.router.navigate([url]);
+      },
+      (err) => {
+      }
+    );
+  }
+
+  uploadImage() {
+    const myFile = this.myFile.nativeElement;
+    const myForm = this.myForm.nativeElement;
+    if (myFile.files && myFile.files[0]) {
+      const formData = new FormData();
+      formData.append('myFile', myFile.files[0]);
+      this._service.uploadImage(formData).subscribe(
+         (url : string) => {
+          console.log(url);
+          this.widget.url = url;
+          myForm.reset();
+          this.invalid_file = false;
+         },
+         (err) => {
+          this.invalid_file = true
+          myForm.reset();
+         }
+      );
+    } else {
+      this.invalid_file = true;
+    }
+  }
+
+  searchFlickr() {
     let url = "/user/" + this.uid +
               "/website/" + this.wid +
               "/page/" + this.pid +
-              "/widget";
+              "/widget/" + this.wgid + "/search";
     this.router.navigate([url]);
   }
 

@@ -8,5 +8,24 @@
 
 module.exports = function (app) {
 
+    var winston = require("winston");
+
+    winston.info("current environment: " + process.env.NODE_ENV);
+
+    require("./test-mongodb/app")(app);
+
+    require("./assignment/user.service.server")(app);
+    require("./assignment/page.service.server")(app);
+    require("./assignment/website.service.server")(app);
+    require("./assignment/widget.service.server")(app);
+    require("./assignment/flickr.service.server")(app);
+
+    require("./project/playlist.service.server")(app);
+    require("./project/social.service.server")(app);
+    require("./project/queue.service.server")(app);
+
+    require("./youtube/yt_endpoints")(app);
+
+
 };
 

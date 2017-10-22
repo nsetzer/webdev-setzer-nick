@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
+import { User } from '../../../../objects/user.object';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -28,19 +29,20 @@ export class ProjectLoginComponent implements OnInit {
 
   login() {
 
-    var user = this._service.findUserByUsername(this.username)
-
-    if (user) {
-        this.invalid_username = false
-        if (user.password == this.password) {
-            let url = "/project/(project:user/" + user._id + ")"
-            this.router.navigateByUrl(url);
-        } else {
-            this.invalid_password = true
-        }
-    } else {
-        this.invalid_username = true
-    }
+    this.invalid_password = false;
+    this.invalid_username = false;
+    this._service.validateUser(this.username, this.password,
+      (user) => this.router.navigateByUrl("/project/(project:user/" + user._id + ")"))
+      .subscribe(
+        (code : number) => {
+          if (code==2) {
+            this.invalid_password = true;
+          } else if (code==1) {
+            this.invalid_username = true;
+          }
+        },
+        (err: any) => {}
+        );
 
   }
 

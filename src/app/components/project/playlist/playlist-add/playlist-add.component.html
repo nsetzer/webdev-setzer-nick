@@ -2,25 +2,64 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
   <div class="container-fluid">
 
-    <!--back mark-->
-    <p class="navbar-text pull-left glyph-margin">
-      <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]"
-         class="navbar-link  navbar-chevron-link">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-      </a>
-    </p>
+    <div class="row" *ngIf="uid">
+      <!--back mark-->
+      <p class="navbar-text pull-left glyph-margin">
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]"
+           class="navbar-link  navbar-chevron-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
 
-    <!--heading on the nav bar-->
-    <p class="navbar-header pull-left">
-      <a class="navbar-brand thick">
-        <b>Add Songs</b>
-      </a>
-    </p>
+      <!--heading on the nav bar-->
+      <p class="navbar-header pull-left">
+        <a class="navbar-brand thick">
+          <b>Add Songs</b>
+        </a>
+      </p>
+    </div>
+
+    <div class="row" *ngIf="!uid">
+      <div class="col-xs-8">
+        <p class="navbar-header pull-left">
+          <a class="navbar-brand thick">
+            <b>Project Title Here</b>
+          </a>
+        </p>
+      </div>
+
+      <div class="col-xs-2" style="padding:15px">
+        <a [routerLink]="['/project/login']"
+           class="btn btn-default btn-block">Login</a>
+      </div>
+
+      <div class="col-xs-2" style="padding:15px">
+        <a [routerLink]="['/project/register']"
+           class="btn btn-danger btn-block">Register</a>
+      </div>
+    </div>
 
   </div>
 </nav>
 
-<div class="container">
+<div class="container-fluid content-body">
+
+<div class="row" *ngIf="!uid">
+  <div class="col-xs-3" style="padding:15px">
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  <a [routerLink]="['/project/search/pl']"
+     class="btn btn-success btn-block">Search for Playlists</a>
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  <p disabled="true"
+     class="btn btn-success btn-block">Search for Songs</p>
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  </div>
+</div>
+
+<!--
 
   <div *ngIf="alertMessage"
        class="alert alert-danger">
@@ -31,62 +70,57 @@
        class="alert alert-success">
     "Succesfully executed query"
   </div>
+-->
 
+<div class="input-group">
+ <input [(ngModel)]="searchTerm" type="text" class="form-control"
+        placeholder="Enter Search Term">
+ <span class="input-group-btn">
+         <a (click)="runSearch()" class="btn btn-default" type="button">
+             <span class="glyphicon glyphicon-search"></span>
+         </a>
+ </span>
+</div>
 
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Enter a search term and press the search button</th>
-      <th>&nbsp;</th>
-    </tr>
+<div *ngIf="searchResults.length>0">
+ <div *ngFor="let result of searchResults">
+       {{result.title}}
 
-    <tr>
-      <td>
-        <input [(ngModel)]="searchTerm"
-               placeholder="search term"
-               class="form-control"/>
-      </td>
-
-
-      <td>
-        <button (click)="runSearch()"
-                class="btn btn-primary pull-right">
-          <span class="glyphicon glyphicon-search"></span>
-        </button>
-      </td>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr *ngFor="let result of searchResults">
-
-
-      <td>
-      <div *ngIf=result>
-          {{result.title}}
-        <br>
-
-        <audio controls *ngIf=result>
+       <audio name="audioPlayer" #audioPlayer>
           <source src="{{result.url}}" type="audio/mp3">
-        </audio>
-      </div>
-      <div *ngIf=!result>
-        No Results to display
-      </div>
+       </audio>
 
         <div class ="pull-right">
-            <a (click)="addIndexToPlaylist(0)">
+            <!-- TODO: after POC hide this behind user role -->
+            <a (click)="playPauseIndex(result.index)">
+            <span class="glyphicon glyphicon-play"  *ngIf="result.state==='paused'"></span>
+            <span class="glyphicon glyphicon-pause" *ngIf="result.state==='playing'"></span>
+            <span class="glyphicon glyphicon-stop"  *ngIf="result.state==='error'"></span>
+            </a>
+
+            <a *ngIf="uid"
+               (click)="addIndexToPlaylist(result.index)">
             <span class="glyphicon glyphicon-plus"></span>
             </a>
+            <a (click)="viewDetails(result.index)">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            </a>
         </div>
+ </div>
 
+</div>
 
-      </td>
-    </tr>
-    </tbody>
-
-  </table>
-
+<div *ngIf="searchWasRun && !searchResults.length">
+No results to display
+</div>
 
 
 </div>
+
+<!-- Footer -->
+<nav *ngIf="!uid"
+  class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+  <div class="container-fluid">
+
+  </div>
+</nav>

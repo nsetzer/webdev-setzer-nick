@@ -32,11 +32,13 @@ export class WebsiteService {
     adds the website parameter instance to the local websites array.
     The new website's developerId is set to the userId parameter
     */
-    website._id = "" + this.nextId;
-    this.nextId = this.nextId + 1;
-    website.developerId = userId;
-    this.sites.push(website);
-    return website;
+    return this._http.post(this.baseUrl + `/api/user/${userId}/website`, website)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   findWebsitesByUser(userId) {
@@ -44,13 +46,13 @@ export class WebsiteService {
     retrieves the websites in local websites array whose
     developerId matches the parameter userId
     */
-    var sites = [];
-    for (let x = 0; x < this.sites.length; x++) {
-      if (this.sites[x].developerId === userId) {
-        sites.push(this.sites[x]);
-      }
-    }
-    return sites;
+    return this._http.get(this.baseUrl + `/api/user/${userId}/website`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   findWebsiteById(websiteId) {
@@ -58,11 +60,13 @@ export class WebsiteService {
     retrieves the website in local websites array
     whose _id matches the websiteId parameter
     */
-    for (let x = 0; x < this.sites.length; x++) {
-      if (this.sites[x]._id === websiteId) {
-        return this.sites[x];
-      }
-    }
+    return this._http.get(this.baseUrl + `/api/website/${websiteId}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   updateWebsite(websiteId, website) {
@@ -70,12 +74,13 @@ export class WebsiteService {
     updates the website in local websites array
     whose _id matches the websiteId parameter
     */
-    for (let x = 0; x < this.sites.length; x++) {
-      if (this.sites[x]._id === websiteId) {
-        website._id = this.sites[x]._id;
-        this.sites[x] = website;
-      }
-    }
+    return this._http.put(this.baseUrl + `/api/website/${websiteId}`, website)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   deleteWebsite(websiteId) {
@@ -83,11 +88,13 @@ export class WebsiteService {
      removes the website from local websites array
      whose _id matches the websiteId parameter
      */
-    for (let x = 0; x < this.sites.length; x++) {
-      if (this.sites[x]._id === websiteId) {
-        this.sites.splice(x, 1)
-      }
-    }
+    return this._http.delete(this.baseUrl + `/api/website/${websiteId}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
 }

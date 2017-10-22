@@ -13,6 +13,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// youtube streaming can cause unhandled exceptions
+// which take down the server
+process.on('uncaughtException', function (err) {
+  console.error(err);
+});
 
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -26,26 +31,24 @@ app.use(function(req, res, next) {
   next();
 });
 
-
-
+app.get('/public/uploads/*', function(req, res) {
+  res.sendFile(path.join(__dirname, req.path));
+});
 
 const port = process.env.PORT || '3100';
 app.set('port', port);
 
-
 // Create HTTP server
 const server = http.createServer(app);
 
-var serverSide = require("./server/test-mongodb/app");
-serverSide(app);
-
-var yt_endpoints = require("./server/youtube/yt_endpoints.js");
-yt_endpoints(app);
+require("./server/app")(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-
 server.listen( port , () => console.log('Running on port ' + port));
+
+// for testing
+module.exports = server

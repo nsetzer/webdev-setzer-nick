@@ -1,0 +1,74 @@
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+    <div class="row" *ngIf="uid">
+        <!--back mark-->
+        <p class="navbar-text pull-left glyph-margin">
+          <a (click)="return()"
+             class="navbar-link  navbar-chevron-link">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        </p>
+
+        <!--heading on the nav bar-->
+        <p class="navbar-header pull-left">
+          <a class="navbar-brand thick">
+            <b>Playlist Info</b>
+          </a>
+        </p>
+    </div>
+
+    <div class="row" *ngIf="!uid">
+
+
+      <div class="col-xs-8">
+        <!--back mark-->
+        <p class="navbar-text pull-left glyph-margin">
+          <a (click)="return()"
+             class="navbar-link  navbar-chevron-link">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        </p>
+
+        <p class="navbar-header pull-left">
+          <a class="navbar-brand thick">
+            <b>Project Title Here</b>
+          </a>
+        </p>
+      </div>
+
+      <div class="col-xs-2" style="padding:15px">
+        <a [routerLink]="['/project/login']"
+           class="btn btn-default btn-block">Login</a>
+      </div>
+
+      <div class="col-xs-2" style="padding:15px">
+        <a [routerLink]="['/project/register']"
+           class="btn btn-danger btn-block">Register</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container-fluid content-body">
+
+{{song.title}}<br>
+{{song.description}}<br>
+
+<div class="image-container">
+    <img [src]="makeSafe(song.thumbnail)"
+         width="33%"
+         class="image-container"
+         />
+</div>
+
+</div>
+
+<!-- Footer -->
+<nav *ngIf="!uid"
+  class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+  <div class="container-fluid">
+
+  </div>
+</nav>

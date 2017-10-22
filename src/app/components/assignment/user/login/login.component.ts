@@ -33,14 +33,19 @@ export class LoginComponent implements OnInit {
     this.invalid_password = false;
     this.invalid_username = false;
 
-    var code = this._service.validateUser(this.username, this.password,
-      user => this.router.navigate(["/user/" + user._id]));
+    this._service.validateUser(this.username, this.password,
+      (user) => this.router.navigate(["/user/" + user._id]))
+      .subscribe(
+        (code : number) => {
+          if (code==2) {
+            this.invalid_password = true;
+          } else if (code==1) {
+            this.invalid_username = true;
+          }
+        },
+        (err: any) => {}
+        );
 
-    if (code==2) {
-      this.invalid_password = true;
-    } else if (code==1) {
-      this.invalid_username = true;
-    }
   }
 
 }

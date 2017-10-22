@@ -10,10 +10,14 @@ export class ProjectService {
 
   baseUrl = environment.baseUrl;
 
+  keyword_state = {results:[],searchTerm:""};
+  related_state = {results:[],searchTerm:""};
+
   constructor(private _http: Http) {
   }
 
   keywordSearch(searchTerm) {
+    this.keyword_state.searchTerm = searchTerm;
     var encTerm = encodeURIComponent(searchTerm);
     var path = this.baseUrl + '/api/youtube/query/' + encTerm;
     return this._http.get(path)
@@ -24,13 +28,23 @@ export class ProjectService {
           for (var i = 0; i < data.length; ++i) {
             data[i].url = this.baseUrl + "/api/youtube/" + data[i].videoId
           }
+          this.keyword_state.results = data;
           return data;
         }
       );
   }
 
+  getPreviousKeywordSearch() {
+    return this.keyword_state;
+  }
+
+  clearPreviousKeywordSearch() {
+    this.keyword_state = {results:[],searchTerm:""};
+  }
+
   relatedSearch(videoId) {
     //var encTerm = encodeURIComponent(videoId);
+    this.related_state.searchTerm = videoId;
     var path = this.baseUrl + '/api/youtube/related/' + videoId;
     return this._http.get(path)
       .map(
@@ -40,9 +54,18 @@ export class ProjectService {
           for (var i = 0; i < data.length; ++i) {
             data[i].url = this.baseUrl + "/api/youtube/" + data[i].videoId
           }
+          this.related_state.results = data;
           return data;
         }
       );
+  }
+
+  getPreviousRelatedSearch() {
+    return this.related_state;
+  }
+
+  clearPreviousRelatedSearch() {
+    this.related_state = {results:[],searchTerm:""};
   }
 
 }

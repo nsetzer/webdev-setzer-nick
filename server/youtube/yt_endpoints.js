@@ -10,6 +10,7 @@ module.exports = function(app)
 
     function streamVideo(req, res) {
         var requestUrl = 'http://youtube.com/watch?v=' + req.params.videoId
+        winston.info("requesting stream: " + requestUrl)
         try {
             youtubeStream(requestUrl).pipe(res)
         } catch (exception) {
@@ -33,7 +34,7 @@ module.exports = function(app)
                     description: item.snippet.description,
                     title: item.snippet.title,
                     artist: "Unkown Artist",
-                    thumbnail: item.snippet.thumbnails.high
+                    thumbnail: item.snippet.thumbnails.high.url
                 });
             }
             res.json(items);
@@ -55,7 +56,7 @@ module.exports = function(app)
                     description: item.snippet.description,
                     title: item.snippet.title,
                     artist: "Unknown Artist",
-                    thumbnail: item.snippet.thumbnails.high
+                    thumbnail: item.snippet.thumbnails.high.url
                 });
             }
             res.json(items);

@@ -31,9 +31,12 @@ export class ProjectProfileComponent implements OnInit {
   }
 
   reload() {
-    this.user = this._service.findUserById(this.uid)
-
-    this.playlists = this._plservice.findPlaylistsByUser(this.uid);
+    this.user = this._service.findUserById(this.uid).subscribe(
+      (user) => {
+        this.user = user;
+      },
+      (err) => {}
+    )
   }
 
   logout() {

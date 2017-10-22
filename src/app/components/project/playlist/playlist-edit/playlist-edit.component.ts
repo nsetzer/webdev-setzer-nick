@@ -14,7 +14,7 @@ export class PlaylistEditComponent implements OnInit {
   uid : string = "";
   plid : string = "";
   pid : string = "";
-  playlist : any;
+  playlist : any = {name:""};
   private sub: any;
 
   constructor(private route: ActivatedRoute,
@@ -33,20 +33,31 @@ export class PlaylistEditComponent implements OnInit {
 
   reload() {
 
-    this.playlist = this._plservice.findPlaylistById(this.plid)
-
+    this._plservice.findPlaylistById(this.plid).subscribe(
+      (playlist) => {
+        this.playlist = playlist;
+      },
+      (err) => {}
+    )
   }
 
   saveChanges() {
-    this._plservice.updatePlaylist(this.plid, this.playlist);
-    let url = "/project/(project:user/" + this.uid + "/list)"
-    this.router.navigateByUrl(url);
+    this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(
+      (res) => {
+        let url = "/project/(project:user/" + this.uid + "/list)"
+        this.router.navigateByUrl(url);
+      }
+    );
+
   }
 
   delete() {
-    this._plservice.deletePlaylist(this.plid);
-    let url = "/project/(project:user/" + this.uid + "/list)"
-    this.router.navigateByUrl(url);
+    this._plservice.deletePlaylist(this.plid).subscribe(
+      (res) => {
+        let url = "/project/(project:user/" + this.uid + "/list)"
+        this.router.navigateByUrl(url);
+      }
+    );
   }
 
 }

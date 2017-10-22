@@ -17,7 +17,7 @@ export class WidgetEditComponent implements OnInit {
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : Widget;
+  widget : Widget = new Widget('','','');
 
   private sub: any;
 
@@ -38,8 +38,10 @@ export class WidgetEditComponent implements OnInit {
   }
 
   reload() {
-    this.widget = this._service.findWidgetById(this.wgid);
-
+    this._service.findWidgetById(this.wgid).subscribe(
+      (widget) => { this.widget = widget },
+      (err) => {}
+    );
   }
 
 }

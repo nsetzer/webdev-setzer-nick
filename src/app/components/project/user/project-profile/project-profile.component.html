@@ -19,11 +19,9 @@
   </div>
 </nav>
 
-
 <div class="container-fluid container-margin content-body">
 
   <div *ngIf="changes_saved" class="help-block">Changes Saved</div>
-
 
   <form>
     <div class="form-group">
@@ -75,12 +73,16 @@
      [routerLink]="['/project', {outlets: {'project': ['user', uid , 'list']}}]">
      My Playlists</a>
 
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'queue']}}]">
+     My Song Queue</a>
+
+  <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'list', 'search']}}]">
+     Search Public Playlists</a>
+
   <a class="btn btn-danger btn-block "
      (click)="logout()">Logout</a>
-
-
-
-
 
 </div>
 

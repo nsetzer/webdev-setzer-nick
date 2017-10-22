@@ -29,16 +29,26 @@ export class WebsiteNewComponent implements OnInit {
   }
 
   reload() {
-    this.websites = this._service.findWebsitesByUser(this.uid)
+
+    this._service.findWebsitesByUser(this.uid).subscribe(
+      (sites) => { this.websites = sites},
+      (err) => {}
+    );
+
     this.current_site = {
         name:"New Website",
         description:"",
         };
-
   }
 
   saveChanges() {
-    this._service.createWebsite(this.uid, this.current_site);
-    this.router.navigate(["/user/" + this.uid + "/website"]);
+    this._service.createWebsite(this.uid, this.current_site).subscribe(
+      (res) => {
+        this.router.navigate(["/user/" + this.uid + "/website"]);
+      },
+      (err) => {
+
+      }
+    );
   }
 }

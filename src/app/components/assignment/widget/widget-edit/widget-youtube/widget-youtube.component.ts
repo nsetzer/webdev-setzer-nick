@@ -17,7 +17,7 @@ export class WidgetYoutubeComponent implements OnInit {
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : Widget;
+  widget : Widget = new Widget('','','');
 
   invalid_width: boolean = false;
   invalid_link: boolean = false;
@@ -41,7 +41,10 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   reload() {
-    this.widget = this._service.findWidgetById(this.wgid);
+    this._service.findWidgetById(this.wgid).subscribe(
+      (widget) => { this.widget = widget },
+      (err) => {}
+    );
   }
 
   saveChanges() {
@@ -60,21 +63,31 @@ export class WidgetYoutubeComponent implements OnInit {
       return;
     }
 
-    this._service.updateWidget(this.wgid, this.widget);
-    let url = "/user/" + this.uid +
-              "/website/" + this.wid +
-              "/page/" + this.pid +
-              "/widget";
-    this.router.navigate([url]);
+    this._service.updateWidget(this.wgid, this.widget).subscribe(
+      (widget) => {
+        let url = "/user/" + this.uid +
+                  "/website/" + this.wid +
+                  "/page/" + this.pid +
+                  "/widget";
+        this.router.navigate([url]);
+      },
+      (err) => {
+      }
+    );
   }
 
   delete() {
-    this._service.deleteWidget(this.wgid);
-    let url = "/user/" + this.uid +
-              "/website/" + this.wid +
-              "/page/" + this.pid +
-              "/widget";
-    this.router.navigate([url]);
+    this._service.deleteWidget(this.wgid).subscribe(
+      (widget) => {
+        let url = "/user/" + this.uid +
+                  "/website/" + this.wid +
+                  "/page/" + this.pid +
+                  "/widget";
+        this.router.navigate([url]);
+      },
+      (err) => {
+      }
+    );
   }
 
 }

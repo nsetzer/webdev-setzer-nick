@@ -1,3 +1,117 @@
-<p>
-  playlist-search works!
-</p>
+
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+    <div class="row" *ngIf="uid">
+      <!--back mark-->
+      <p class="navbar-text pull-left glyph-margin">
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]"
+           class="navbar-link  navbar-chevron-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
+
+      <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b>Search Playlists</b>
+      </a>
+      </p>
+    </div>
+
+
+
+    <div class="row" *ngIf="!uid">
+      <div class="col-xs-8">
+        <p class="navbar-header pull-left">
+          <a class="navbar-brand thick">
+            <b>Project Title Here</b>
+          </a>
+        </p>
+      </div>
+
+      <div class="col-xs-2" style="padding:15px">
+        <a [routerLink]="['/project/login']"
+           class="btn btn-default btn-block">Login</a>
+      </div>
+
+      <div class="col-xs-2" style="padding:15px">
+        <a [routerLink]="['/project/register']"
+           class="btn btn-danger btn-block">Register</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container-fluid content-body">
+
+<div class="row" *ngIf="!uid">
+  <div class="col-xs-3" style="padding:15px">
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  <p disabled="true"
+     class="btn btn-success btn-block">Search for Playlists</p>
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  <a [routerLink]="['/project/search/s']"
+     class="btn btn-success btn-block">Search for Songs</a>
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  </div>
+</div>
+<!--
+
+  <div *ngIf="alertMessage"
+       class="alert alert-danger">
+    "Failed to create"
+  </div>
+
+  <div *ngIf="successMessage"
+       class="alert alert-success">
+    "Succesfully executed query"
+  </div>
+-->
+
+<div class="input-group">
+ <input [(ngModel)]="searchTerm" type="text" class="form-control"
+        placeholder="Enter Search Term">
+ <span class="input-group-btn">
+         <a (click)="runSearch()" class="btn btn-default" type="button">
+             <span class="glyphicon glyphicon-search"></span>
+         </a>
+ </span>
+</div>
+
+<div *ngIf="searchResults.length>0">
+ <div *ngFor="let result of searchResults">
+       {{result.name}}
+
+        <div class ="pull-right">
+            <a *ngIf="uid"
+               (click)="copyPlaylist(result)">
+            <span class="glyphicon glyphicon-copy"></span>
+            </a>
+
+            <a (click)="viewPlaylist(result)">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            </a>
+        </div>
+ </div>
+
+</div>
+
+<div *ngIf="searchWasRun && !searchResults.length">
+No results to display
+</div>
+
+</div>
+
+
+
+<!-- Footer -->
+<nav *ngIf="!uid"
+  class="navbar navbar-dark bg-primary navbar-fixed-bottom">
+  <div class="container-fluid">
+
+  </div>
+</nav>

@@ -29,7 +29,9 @@
 </nav>
 
 <div class="container-fluid content-body">
-<ul class="list-group">
+<ul class="list-group" *ngIf="widgets"
+    appSortable
+    (newIndexes)="sortWidget($event)">
 
     <li *ngFor="let widget of widgets"
         class="list-group-item list-item-user-widget">
@@ -57,57 +59,16 @@
 
             <div [ngSwitch]="widget.widgetType">
                 <div *ngSwitchCase="'HEADING'">
-                  <div [ngSwitch]="widget.size">
-
-                    <div *ngSwitchCase="1">
-                      <h1>{{widget.text}}</h1>
-                    </div>
-
-                    <div *ngSwitchCase="2">
-                      <h2>{{widget.text}}</h2>
-                    </div>
-
-                    <div *ngSwitchCase="3">
-                      <h3>{{widget.text}}</h3>
-                    </div>
-
-                    <div *ngSwitchCase="4">
-                      <h4>{{widget.text}}</h4>
-                    </div>
-
-                    <div *ngSwitchCase="5">
-                      <h5>{{widget.text}}</h5>
-                    </div>
-
-                    <div *ngSwitchDefault>
-                      error -- widget.size = {{widget.size}} invalid
-                    </div>
-                  </div>
+                  <app-widget-list-header [widget]="widget"></app-widget-list-header>
                 </div>
-
                 <div *ngSwitchCase="'YOUTUBE'">
-                    <div class="video-container-outer"
-                         [style.width]="widget.width">
-                      <div class="video-container-inner">
-                          <iframe class="video-container"
-                                  [src]="makeSafe(widget.url)"
-                                  frameborder="0" allowfullscreen>
-                          </iframe>
-                      </div>
-                    </div>
+                  <app-widget-list-youtube [widget]="widget"></app-widget-list-youtube>
                 </div>
-
                 <div *ngSwitchCase="'IMAGE'">
-                    <div class="image-container">
-                        <img [src]="makeSafe(widget.url)"
-                             [style.width]="widget.width"
-                             class="image-container"
-                             />
-                    </div>
+                  <app-widget-list-image [widget]="widget"></app-widget-list-image>
                 </div>
-
                 <div *ngSwitchCase="'HTML'">
-                    <div [innerHTML]="widget.text"></div>
+                  <app-widget-list-html [widget]="widget"></app-widget-list-html>
                 </div>
             </div>
 

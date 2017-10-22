@@ -29,6 +29,7 @@ import {WebsiteNewComponent}  from './components/assignment/website/website-new/
 import {WidgetListComponent} from './components/assignment/widget/widget-list/widget-list.component';
 import {WidgetChooseComponent} from './components/assignment/widget/widget-choose/widget-choose.component';
 import {WidgetEditComponent} from './components/assignment/widget/widget-edit/widget-edit.component';
+import {FlickrImageSearchComponent} from './components/assignment/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 
 import { ProjectLoginComponent } from './components/project/user/project-login/project-login.component';
 import { ProjectRegisterComponent } from './components/project/user/project-register/project-register.component';
@@ -44,6 +45,10 @@ import { PlaylistSearchComponent } from './components/project/playlist/playlist-
 import { PlaylistNewComponent } from './components/project/playlist/playlist-new/playlist-new.component';
 import { PlaylistEditComponent } from './components/project/playlist/playlist-edit/playlist-edit.component';
 import { PlaylistAddComponent } from './components/project/playlist/playlist-add/playlist-add.component';
+import { SongQueueComponent } from './components/project/queue/song-queue/song-queue.component';
+import { PlaylistAddSongDetailsComponent } from './components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component';
+import { PlaylistSearchSongDetailsComponent } from './components/project/playlist/playlist-search/playlist-search-song-details/playlist-search-song-details.component';
+import { PlaylistSearchViewComponent } from './components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component';
 
 
 const APP_ROUTES: Routes = [
@@ -66,6 +71,7 @@ const APP_ROUTES: Routes = [
   {path: 'user/:uid/website/:wid/page/:pid/widget',       component: WidgetListComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new',   component: WidgetChooseComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/search', component: FlickrImageSearchComponent},
 
   {path: 'project/test',              component: ApiTestComponent},
   {path: 'project/login',             component: ProjectLoginComponent},
@@ -79,14 +85,26 @@ const APP_ROUTES: Routes = [
     children: [
      { path: 'user/:uid',                           component: ProjectProfileComponent,       outlet: 'project' },
      { path: 'user/:uid/profile/:puid',             component: ProjectProfilePublicComponent, outlet: 'project' },
+     { path: 'user/:uid/queue',                     component: SongQueueComponent,            outlet: 'project' },
+
      { path: 'user/:uid/list',                      component: PlaylistListComponent,         outlet: 'project' },
+     { path: 'user/:uid/list/search',                          component: PlaylistSearchComponent,           outlet: 'project' },
+     { path: 'user/:uid/list/search/:plid',                    component: PlaylistSearchViewComponent,       outlet: 'project' },
+     { path: 'user/:uid/list/search/:plid/:idx',               component: PlaylistSearchSongDetailsComponent,outlet: 'project' },
      { path: 'user/:uid/list/new',                  component: PlaylistNewComponent,          outlet: 'project' },
-     { path: 'user/:uid/list/search',               component: PlaylistSearchComponent,       outlet: 'project' },
      { path: 'user/:uid/list/:plid',                component: PlaylistEditComponent,         outlet: 'project' },
      { path: 'user/:uid/list/:plid/songs',          component: PlaylistSongsComponent,        outlet: 'project' },
      { path: 'user/:uid/list/:plid/add',            component: PlaylistAddComponent,          outlet: 'project' },
      { path: 'user/:uid/list/:plid/add/:videoId',   component: PlaylistAddComponent,          outlet: 'project' },
-    ]}
+     { path: 'user/:uid/list/:plid/add/details/:idx',          component: PlaylistAddSongDetailsComponent,   outlet: 'project' },
+     { path: 'user/:uid/list/:plid/add/:videoId/details/:idx', component: PlaylistAddSongDetailsComponent,   outlet: 'project' },
+
+    ]},
+  { path: 'project/search/pl',              component: PlaylistSearchComponent },
+  { path: 'project/search/pl/:plid',        component: PlaylistSearchViewComponent },
+  { path: 'project/search/pl/:plid/:idx',   component: PlaylistSearchSongDetailsComponent },
+  { path: 'project/search/s',               component: PlaylistAddComponent },
+  { path: 'project/search/s/details/:idx',  component: PlaylistAddSongDetailsComponent },
 ];
 
 // Export the routes as module providers

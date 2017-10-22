@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   lastName: string = ""
   password: string = ""
   password_check: string = ""
+  error_message: string = ""
   invalid_username: boolean = false
   invalid_password: boolean = false
 
@@ -36,20 +37,22 @@ export class RegisterComponent implements OnInit {
         return
     }
 
-    if (this._service.findUserByUsername(this.username)) {
-        this.invalid_username = true
-        return
-    }
-
-    let user = this._service.createUser({
+    this._service.createUser({
          username:  this.username,
          password:  this.password,
          firstName: this.firstName,
          lastName:  this.lastName,
          email:     this.email
-    });
+    }).subscribe(
+     (user) => {
+      this.router.navigate(["/login"]);
+     },
+     (err) => {
+      this.error_message = "unexpected api error";
+     }
+    );
 
-    this.router.navigate(["/login"]);
+
   }
 
 }

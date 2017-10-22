@@ -35,11 +35,24 @@ export class WidgetListComponent implements OnInit {
   }
 
   reload() {
-    this.widgets = this._service.findWidgetsByPageId(this.pid)
+    this._service.findWidgetsByPageId(this.pid).subscribe(
+      (widgets) => { this.widgets = widgets },
+      (err) => {}
+    );
   }
 
   makeSafe(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  sortWidget(event) {
+    event.uid = this.uid
+    event.wid = this.wid
+    event.pid = this.pid
+    this._service.sortWidget(event).subscribe(
+        (res) => {},
+        (err) => {}
+    );
   }
 
 }

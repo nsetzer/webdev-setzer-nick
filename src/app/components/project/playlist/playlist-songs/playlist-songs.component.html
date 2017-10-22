@@ -18,8 +18,7 @@
     </p>
 
     <p class="navbar-text pull-right glyph-margin">
-      <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', plid, 'add']}}]"
-         class="navbar-link">
+      <a (click)="addSongs()" class="navbar-link">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
     </p>
@@ -34,7 +33,12 @@
   </div>
 </nav>
 
-<ul class="list-group">
+<div class="container-fluid content-body">
+
+<ul class="list-group"
+    *ngIf="playlist && playlist.songs"
+    appSortable
+    (newIndexes)="reorderList($event)">
     <li *ngFor="let song of playlist.songs"
          class="list-group-item list-item-borderless">
 
@@ -56,3 +60,4 @@
     </li>
 </ul>
 
+</div>

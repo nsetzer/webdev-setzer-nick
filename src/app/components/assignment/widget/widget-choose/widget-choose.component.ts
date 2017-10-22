@@ -50,6 +50,11 @@ export class WidgetChooseComponent implements OnInit {
   }
 
   newWidget(kind:string) {
+    /*
+    todo: can I move the factory into the server?
+          use a request with pageid and kind?
+    */
+
     kind = kind.toUpperCase();
 
     if (kind == "HEADING" ||
@@ -58,15 +63,19 @@ export class WidgetChooseComponent implements OnInit {
         kind == "YOUTUBE") {
         let widget = this._service.widgetFactory(this.pid,kind)
 
-        //this._service.createWidget(this.pid, widget);
+        this._service.createWidget(this.pid,widget).subscribe(
+          (res) => {
+            let url = "/user/" + this.uid +
+                      "/website/" + this.wid +
+                      "/page/" + this.pid +
+                     "/widget/" + widget._id;
+            this.router.navigate([url]);
+          },
+          (err) => {
 
-        let url = "/user/" + this.uid +
-                  "/website/" + this.wid +
-                  "/page/" + this.pid +
-                  "/widget/" + widget._id;
-        this.router.navigate([url]);
+          }
+        );
     }
-
   }
 
 }

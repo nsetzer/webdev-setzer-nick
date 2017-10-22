@@ -12,11 +12,13 @@ import { DomSanitizer} from '@angular/platform-browser';
 
 export class WidgetHtmlComponent implements OnInit {
 
-uid : string = "";
+  error_message : string = ""
+
+  uid : string = "";
   wid : string = "";
   pid : string = "";
   wgid : string = "";
-  widget : Widget;
+  widget : Widget = new Widget('','','');
 
   private sub: any;
 
@@ -37,25 +39,40 @@ uid : string = "";
   }
 
   reload() {
-    this.widget = this._service.findWidgetById(this.wgid);
+    this._service.findWidgetById(this.wgid).subscribe(
+      (widget) => { this.widget = widget },
+      (err) => { this.error_message = "unexpected api error" }
+    );
   }
 
   saveChanges() {
-    this._service.updateWidget(this.wgid, this.widget);
-    let url = "/user/" + this.uid +
-              "/website/" + this.wid +
-              "/page/" + this.pid +
-              "/widget";
-    this.router.navigate([url]);
+    this._service.updateWidget(this.wgid, this.widget).subscribe(
+      (widget) => {
+        let url = "/user/" + this.uid +
+                  "/website/" + this.wid +
+                  "/page/" + this.pid +
+                  "/widget";
+        this.router.navigate([url]);
+      },
+      (err) => {
+        this.error_message = "unexpected api error"
+      }
+    );
   }
 
   delete() {
-    this._service.deleteWidget(this.wgid);
-    let url = "/user/" + this.uid +
-              "/website/" + this.wid +
-              "/page/" + this.pid +
-              "/widget";
-    this.router.navigate([url]);
+    this._service.deleteWidget(this.wgid).subscribe(
+      (widget) => {
+        let url = "/user/" + this.uid +
+                  "/website/" + this.wid +
+                  "/page/" + this.pid +
+                  "/widget";
+        this.router.navigate([url]);
+      },
+      (err) => {
+        this.error_message = "unexpected api error"
+      }
+    );
   }
 
 }

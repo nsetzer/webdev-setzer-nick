@@ -10,11 +10,13 @@
     </p>
 
     <!--tick mark-->
+    <!--
     <p class="navbar-text pull-right glyph-margin">
-      <a (click)="saveChanges()" class="navbar-link">
+      <a class="navbar-link">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
     </p>
+    -->
 
   </div>
 </nav>
@@ -23,6 +25,12 @@
 <div class="container-fluid container-margin content-body">
 
   <div *ngIf="changes_saved" class="help-block">Changes Saved</div>
+
+      User Name: {{user_public.username}}<br>
+      Name: {{user_public.firstName}} {{user_public.lastName}}<br>
+      Email: {{user_public.email}}<br>
+
+      <br>
 
       User Name: {{user.username}}<br>
       Name: {{user.firstName}} {{user.lastName}}<br>

@@ -29,7 +29,10 @@ export class PageListComponent implements OnInit {
   }
 
   reload() {
-    this.pages = this._service.findPagesByWebsiteId(this.wid)
+    this._service.findPagesByWebsiteId(this.wid).subscribe(
+      (pages) => {this.pages = pages},
+      (err) => {}
+    );
   }
 
 }

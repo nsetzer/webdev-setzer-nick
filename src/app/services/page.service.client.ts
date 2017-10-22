@@ -32,11 +32,13 @@ export class PageService {
     adds the page parameter instance to the local pages array.
     The new page's websiteId is set to the websiteId parameter
     */
-    page._id = "" + this.nextId;
-    this.nextId = this.nextId + 1;
-    page.websiteId = websiteId;
-    this.pages.push(page);
-    return page;
+    return this._http.post(this.baseUrl + `/api/website/${websiteId}/page`, page)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   findPagesByWebsiteId(websiteId) {
@@ -44,13 +46,13 @@ export class PageService {
     retrieves the pages in local pages array whose
     websiteId matches the parameter websiteId
     */
-    var pages = [];
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x].websiteId === websiteId) {
-        pages.push(this.pages[x]);
-      }
-    }
-    return pages;
+    return this._http.get(this.baseUrl + `/api/website/${websiteId}/page`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   findPageById(pageId) {
@@ -58,11 +60,13 @@ export class PageService {
     retrieves the page in local pages array
     whose _id matches the pageId parameter
     */
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x]._id === pageId) {
-        return this.pages[x];
-      }
-    }
+    return this._http.get(this.baseUrl + `/api/page/${pageId}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   updatePage(pageId, page) {
@@ -70,13 +74,13 @@ export class PageService {
     updates the page in local pages array whose
     _id matches the pageId parameter
     */
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x]._id === pageId) {
-        this.pages[x].name = page.name;
-        this.pages[x].description = page.description;
-        this.pages[x].websiteId = page.websiteId; // todo ?
-      }
-    }
+    return this._http.put(this.baseUrl + `/api/page/${pageId}`, page)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
   deletePage(pageId) {
@@ -84,11 +88,13 @@ export class PageService {
     removes the page from local pages array whose
     _id matches the pageId parameter
     */
-    for (let x = 0; x < this.pages.length; x++) {
-      if (this.pages[x]._id === pageId) {
-        this.pages.splice(x, 1)
-      }
-    }
+    return this._http.delete(this.baseUrl + `/api/page/${pageId}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
   }
 
 

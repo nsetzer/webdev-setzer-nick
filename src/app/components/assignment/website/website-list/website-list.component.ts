@@ -27,7 +27,10 @@ export class WebsiteListComponent implements OnInit {
   }
 
   reload() {
-    this.websites = this._service.findWebsitesByUser(this.uid)
+    this._service.findWebsitesByUser(this.uid).subscribe(
+      (sites) => { this.websites = sites },
+      (err) => {}
+    );
   }
 
 }

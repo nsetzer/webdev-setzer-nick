@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user.service.client';
 import { PlaylistService } from '../../../../services/playlist.service.client';
+import { ProjectService } from '../../../../services/project.service.client';
 
 @Component({
   selector: 'app-playlist-songs',
@@ -14,14 +15,15 @@ export class PlaylistSongsComponent implements OnInit {
   uid : string;
   plid : string;
   user : any;
-  playlist : any;
+  playlist : any = {songs:[]};
   private sub: any;
 
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _service: UserService,
-              private _plservice: PlaylistService) { }
+              private _plservice: PlaylistService,
+              private _pservice: ProjectService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -32,17 +34,45 @@ export class PlaylistSongsComponent implements OnInit {
   }
 
   reload() {
-    this.user = this._service.findUserById(this.uid)
+    this.user = this._service.findUserById(this.uid).subscribe(
+      (user) => {
+        this.user = user;
+      },
+      (err) => {}
+    )
 
-    this.playlist = this._plservice.findPlaylistById(this.plid);
+    this._plservice.findPlaylistById(this.plid).subscribe(
+      (playlist) => {
+        this.playlist = playlist;
+      },
+      (err) => {}
+    )
   }
 
   saveChanges() {
-    this._plservice.updatePlaylist(this.plid, this.playlist);
-    let url = "/project/(project:user/" + this.uid + "/list)"
+    this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(
+      (res) => {
+        let url = "/project/(project:user/" + this.uid + "/list)"
+        this.router.navigateByUrl(url);
+      }
+    );
+
+  }
+
+  addSongs() {
+    this._pservice.clearPreviousKeywordSearch();
+    let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)"
     this.router.navigateByUrl(url);
   }
 
+  reorderList(event) {
 
+    // drag and drop does not upadte the internal list, only the view
+    var song = this.playlist.songs.splice(event.startIndex, 1)[0]
+    this.playlist.songs.splice(event.endIndex, 0, song);
+
+    // this.playlist.songs.map( x => x._id )
+
+  }
 
 }

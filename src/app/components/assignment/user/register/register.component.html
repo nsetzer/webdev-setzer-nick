@@ -4,6 +4,11 @@
 
   <form name="form" (ngSubmit)="register()" #f="ngForm">
 
+    <div *ngIf="error_message" class="help-block">
+      {{error_message}}
+    </div>
+
+
     <input type="text"
            [(ngModel)]="firstName"
            name="firstName"
