@@ -87,12 +87,13 @@
        {{result.title}}
 
        <audio name="audioPlayer" #audioPlayer>
-          <source src="{{result.url}}" type="audio/mp3">
+          <source type="audio/mp3">
        </audio>
 
         <div class ="pull-right">
             <!-- TODO: after POC hide this behind user role -->
             <a (click)="playPauseIndex(result.index)">
+            <span class="glyphicon glyphicon-play"  *ngIf="result.state==='wait'"></span>
             <span class="glyphicon glyphicon-play"  *ngIf="result.state==='paused'"></span>
             <span class="glyphicon glyphicon-pause" *ngIf="result.state==='playing'"></span>
             <span class="glyphicon glyphicon-stop"  *ngIf="result.state==='error'"></span>
@@ -102,6 +103,11 @@
                (click)="addIndexToPlaylist(result.index)">
             <span class="glyphicon glyphicon-plus"></span>
             </a>
+
+            <a (click)="findRelatedSongs(result.index)">
+            <span class="glyphicon glyphicon-search"></span>
+            </a>
+
             <a (click)="viewDetails(result.index)">
             <span class="glyphicon glyphicon-info-sign"></span>
             </a>

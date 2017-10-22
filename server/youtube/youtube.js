@@ -74,6 +74,7 @@ exports.getRelated = function(vid, onResult) {
         hostname: "www.googleapis.com",
         path: path
     }
+    console.log(options)
 
     sendRequest(options, onResult);
 }

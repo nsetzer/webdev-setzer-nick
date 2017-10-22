@@ -68,7 +68,8 @@ export class PlaylistAddComponent implements OnInit {
         let videoId = term.replace(/related:/,'');
         // used cached search results if available
         let res = this._service.getPreviousRelatedSearch()
-        if (res.searchTerm==videoId) {
+        //res.searchTerm==videoId
+        if (res.searchTerm===videoId) {
           this.searchResults = res.results;
         } else {
           this._service.relatedSearch(videoId)
@@ -77,7 +78,7 @@ export class PlaylistAddComponent implements OnInit {
                       this.successMessage = true;
                       for (let x=0; x < data.length; x++) {
                         data[x].index = x;
-                        data[x].state = "paused"
+                        data[x].state = "wait"
                       }
                       this.searchResults = data;
                       this.searchWasRun = true;
@@ -95,7 +96,7 @@ export class PlaylistAddComponent implements OnInit {
               this.successMessage = true;
               for (let x=0; x < data.length; x++) {
                 data[x].index = x;
-                data[x].state = "paused"
+                data[x].state = "wait"
               }
               this.searchResults = data;
               this.searchWasRun = true;
@@ -103,6 +104,12 @@ export class PlaylistAddComponent implements OnInit {
           );
       }
     }
+  }
+
+  findRelatedSongs(index) {
+    let vid = this.searchResults[index].videoId;
+    this.searchTerm = "related:" + vid;
+    this.runSearch();
   }
 
   addIndexToPlaylist(index) {
@@ -143,6 +150,13 @@ export class PlaylistAddComponent implements OnInit {
   playPauseIndex(index) {
 
     let audio = this.audioPlayer._results[index].nativeElement;
+
+    // delay loading the source until the user requests playback
+    if (this.searchResults[index].state==="wait") {
+      audio.src = this.searchResults[index].url
+      this.searchResults[index].state="paused"
+      audio.load();
+    }
 
     if (!audio.error) {
       if (audio.paused) {

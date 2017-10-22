@@ -43,26 +43,29 @@ module.exports = function(app)
 
     function relatedSearch(req, res) {
 
-        youtube.getRelated(req.params.searchterm, function(code, ytres) {
+        youtube.getRelated(req.params.videoId, function(code, ytres) {
             if (code != 200) {
-                res.status(400).json([])
+                winston.error( ytres );
+                res.status(200).json([])
+                return;
             }
             var items = []
 
-            for (i = 0; i < ytres.items.length; ++i) {
-                var item = ytres.items[i];
-                items.push({
-                    videoId: item.id.videoId,
-                    description: item.snippet.description,
-                    title: item.snippet.title,
-                    artist: "Unknown Artist",
-                    thumbnail: item.snippet.thumbnails.high.url
-                });
+            if (ytres.items && ytres.items.length > 0) {
+                for (i = 0; i < ytres.items.length; ++i) {
+                    var item = ytres.items[i];
+                    items.push({
+                        videoId: item.id.videoId,
+                        description: item.snippet.description,
+                        title: item.snippet.title,
+                        artist: "Unknown Artist",
+                        thumbnail: item.snippet.thumbnails.high.url
+                    });
+                }
             }
             res.json(items);
         });
     }
 
     winston.info("youtube endpoints registered");
-    // localhost:3100/api/youtube/query/searchterm
 };
