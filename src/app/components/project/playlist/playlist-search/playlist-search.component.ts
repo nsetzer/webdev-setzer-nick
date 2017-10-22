@@ -28,7 +28,12 @@ export class PlaylistSearchComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-       this.uid = params['uid'];
+
+       if (params["uid"]) {
+         this.uid = params['uid'];
+       } else {
+         this.uid = null;
+       }
 
        this.reload();
     });

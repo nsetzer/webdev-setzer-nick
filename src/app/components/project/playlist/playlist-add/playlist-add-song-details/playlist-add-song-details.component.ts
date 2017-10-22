@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChildren } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlaylistService } from '../../../../../services/playlist.service.client';
 import { ProjectService } from '../../../../../services/project.service.client';
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-playlist-add-song-details',
@@ -20,7 +21,8 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: ProjectService) { }
+              private _service: ProjectService,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -59,6 +61,10 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
       url += "/add"
     }
     this.router.navigateByUrl(url);
+  }
+
+  makeSafe(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
 }

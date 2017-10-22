@@ -34,7 +34,7 @@ module.exports = function(app)
                     description: item.snippet.description,
                     title: item.snippet.title,
                     artist: "Unkown Artist",
-                    thumbnail: item.snippet.thumbnails.high
+                    thumbnail: item.snippet.thumbnails.high.url
                 });
             }
             res.json(items);
@@ -56,7 +56,7 @@ module.exports = function(app)
                     description: item.snippet.description,
                     title: item.snippet.title,
                     artist: "Unknown Artist",
-                    thumbnail: item.snippet.thumbnails.high
+                    thumbnail: item.snippet.thumbnails.high.url
                 });
             }
             res.json(items);

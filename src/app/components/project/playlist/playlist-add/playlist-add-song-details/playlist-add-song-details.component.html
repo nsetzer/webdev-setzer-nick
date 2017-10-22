@@ -23,5 +23,12 @@
 
 {{song.title}}<br>
 {{song.description}}<br>
-{{song.thumbnail}}
+
+<div class="image-container">
+    <img [src]="makeSafe(song.thumbnail)"
+         width="33%"
+         class="image-container"
+         />
+</div>
+
 </div>

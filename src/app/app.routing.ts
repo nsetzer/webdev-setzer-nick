@@ -93,7 +93,8 @@ const APP_ROUTES: Routes = [
      { path: 'user/:uid/list/:plid/add/details/:idx',          component: PlaylistAddSongDetailsComponent, outlet: 'project' },
      { path: 'user/:uid/list/:plid/add/:videoId/details/:idx', component: PlaylistAddSongDetailsComponent, outlet: 'project' },
      { path: 'user/:uid/queue',                     component: SongQueueComponent,            outlet: 'project' },
-    ]}
+    ]},
+  { path: 'project/search/pl', component: PlaylistSearchComponent },
 ];
 
 // Export the routes as module providers
