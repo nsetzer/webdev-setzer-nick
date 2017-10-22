@@ -2657,7 +2657,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-add/playlist-add.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b>Add Songs</b>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n      <div class=\"col-xs-8\">\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div class=\"row\" *ngIf=\"!uid\">\n  <div class=\"col-xs-3\" style=\"padding:15px\">\n  </div>\n  <div class=\"col-xs-3\" style=\"padding:15px\">\n  <a [routerLink]=\"['/project/search/pl']\"\n     class=\"btn btn-success btn-block\">Search for Playlists</a>\n  </div>\n  <div class=\"col-xs-3\" style=\"padding:15px\">\n  <p disabled=\"true\"\n     class=\"btn btn-success btn-block\">Search for Songs</p>\n  </div>\n  <div class=\"col-xs-3\" style=\"padding:15px\">\n  </div>\n</div>\n\n<!--\n\n  <div *ngIf=\"alertMessage\"\n       class=\"alert alert-danger\">\n    \"Failed to create\"\n  </div>\n\n  <div *ngIf=\"successMessage\"\n       class=\"alert alert-success\">\n    \"Succesfully executed query\"\n  </div>\n-->\n\n<div class=\"input-group\">\n <input [(ngModel)]=\"searchTerm\" type=\"text\" class=\"form-control\"\n        placeholder=\"Enter Search Term\">\n <span class=\"input-group-btn\">\n         <a (click)=\"runSearch()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n </span>\n</div>\n\n<div *ngIf=\"searchResults.length>0\">\n <div *ngFor=\"let result of searchResults\">\n       {{result.title}}\n\n       <audio name=\"audioPlayer\" #audioPlayer>\n          <source src=\"{{result.url}}\" type=\"audio/mp3\">\n       </audio>\n\n        <div class =\"pull-right\">\n            <!-- TODO: after POC hide this behind user role -->\n            <a (click)=\"playPauseIndex(result.index)\">\n            <span class=\"glyphicon glyphicon-play\"  *ngIf=\"result.state==='paused'\"></span>\n            <span class=\"glyphicon glyphicon-pause\" *ngIf=\"result.state==='playing'\"></span>\n            <span class=\"glyphicon glyphicon-stop\"  *ngIf=\"result.state==='error'\"></span>\n            </a>\n\n            <a *ngIf=\"uid\"\n               (click)=\"addIndexToPlaylist(result.index)\">\n            <span class=\"glyphicon glyphicon-plus\"></span>\n            </a>\n            <a (click)=\"viewDetails(result.index)\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n </div>\n\n</div>\n\n<div *ngIf=\"searchWasRun && !searchResults.length\">\nNo results to display\n</div>\n\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b>Add Songs</b>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n      <div class=\"col-xs-8\">\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div class=\"row\" *ngIf=\"!uid\">\n  <div class=\"col-xs-3\" style=\"padding:15px\">\n  </div>\n  <div class=\"col-xs-3\" style=\"padding:15px\">\n  <a [routerLink]=\"['/project/search/pl']\"\n     class=\"btn btn-success btn-block\">Search for Playlists</a>\n  </div>\n  <div class=\"col-xs-3\" style=\"padding:15px\">\n  <p disabled=\"true\"\n     class=\"btn btn-success btn-block\">Search for Songs</p>\n  </div>\n  <div class=\"col-xs-3\" style=\"padding:15px\">\n  </div>\n</div>\n\n<!--\n\n  <div *ngIf=\"alertMessage\"\n       class=\"alert alert-danger\">\n    \"Failed to create\"\n  </div>\n\n  <div *ngIf=\"successMessage\"\n       class=\"alert alert-success\">\n    \"Succesfully executed query\"\n  </div>\n-->\n\n<div class=\"input-group\">\n <input [(ngModel)]=\"searchTerm\" type=\"text\" class=\"form-control\"\n        placeholder=\"Enter Search Term\">\n <span class=\"input-group-btn\">\n         <a (click)=\"runSearch()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n </span>\n</div>\n\n<div *ngIf=\"searchResults.length>0\">\n <div *ngFor=\"let result of searchResults\">\n       {{result.title}}\n\n       <audio name=\"audioPlayer\" #audioPlayer>\n          <source type=\"audio/mp3\">\n       </audio>\n\n        <div class =\"pull-right\">\n            <!-- TODO: after POC hide this behind user role -->\n            <a (click)=\"playPauseIndex(result.index)\">\n            <span class=\"glyphicon glyphicon-play\"  *ngIf=\"result.state==='wait'\"></span>\n            <span class=\"glyphicon glyphicon-play\"  *ngIf=\"result.state==='paused'\"></span>\n            <span class=\"glyphicon glyphicon-pause\" *ngIf=\"result.state==='playing'\"></span>\n            <span class=\"glyphicon glyphicon-stop\"  *ngIf=\"result.state==='error'\"></span>\n            </a>\n\n            <a *ngIf=\"uid\"\n               (click)=\"addIndexToPlaylist(result.index)\">\n            <span class=\"glyphicon glyphicon-plus\"></span>\n            </a>\n\n            <a (click)=\"findRelatedSongs(result.index)\">\n            <span class=\"glyphicon glyphicon-search\"></span>\n            </a>\n\n            <a (click)=\"viewDetails(result.index)\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n </div>\n\n</div>\n\n<div *ngIf=\"searchWasRun && !searchResults.length\">\nNo results to display\n</div>\n\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -2728,7 +2728,8 @@ var PlaylistAddComponent = (function () {
             var videoId = term.replace(/related:/, '');
             // used cached search results if available
             var res = this._service.getPreviousRelatedSearch();
-            if (res.searchTerm == videoId) {
+            //res.searchTerm==videoId
+            if (res.searchTerm === videoId) {
                 this.searchResults = res.results;
             }
             else {
@@ -2737,7 +2738,7 @@ var PlaylistAddComponent = (function () {
                     _this.successMessage = true;
                     for (var x = 0; x < data.length; x++) {
                         data[x].index = x;
-                        data[x].state = "paused";
+                        data[x].state = "wait";
                     }
                     _this.searchResults = data;
                     _this.searchWasRun = true;
@@ -2755,13 +2756,18 @@ var PlaylistAddComponent = (function () {
                     _this.successMessage = true;
                     for (var x = 0; x < data.length; x++) {
                         data[x].index = x;
-                        data[x].state = "paused";
+                        data[x].state = "wait";
                     }
                     _this.searchResults = data;
                     _this.searchWasRun = true;
                 });
             }
         }
+    };
+    PlaylistAddComponent.prototype.findRelatedSongs = function (index) {
+        var vid = this.searchResults[index].videoId;
+        this.searchTerm = "related:" + vid;
+        this.runSearch();
     };
     PlaylistAddComponent.prototype.addIndexToPlaylist = function (index) {
         var _this = this;
@@ -2794,6 +2800,12 @@ var PlaylistAddComponent = (function () {
     };
     PlaylistAddComponent.prototype.playPauseIndex = function (index) {
         var audio = this.audioPlayer._results[index].nativeElement;
+        // delay loading the source until the user requests playback
+        if (this.searchResults[index].state === "wait") {
+            audio.src = this.searchResults[index].url;
+            this.searchResults[index].state = "paused";
+            audio.load();
+        }
         if (!audio.error) {
             if (audio.paused) {
                 this.play(index);
@@ -3787,7 +3799,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-home/project-home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div>\n    <router-outlet name=\"project\"></router-outlet>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  <p class=\"navbar-text pull-left glyph-margin\">\n    <audio\n       name=\"audioPlayer\"\n       #audioPlayer>\n      <!--<source src=\"http://localhost:3100/api/youtube/2oPeZFOpPAM\" type=\"audio/mp3\">-->\n      <source src=\"http://localhost:3100/public/uploads/top.wav\" type=\"audio/mp3\">\n    </audio>\n  </p>\n\n\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a (click)=\"playPauseClicked()\"\n       class=\"navbar-link\">\n\n      <span class=\"glyphicon glyphicon-play\" *ngIf=\"!audioPlayer.error && audioPlayer.paused\"></span>\n      <span class=\"glyphicon glyphicon-pause\" *ngIf=\"!audioPlayer.error && !audioPlayer.paused\"></span>\n      <span class=\"glyphicon glyphicon-stop\" *ngIf=\"audioPlayer.error\"></span>\n    </a>\n\n    <a (click)=\"loadNextSong()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-forward\"></span>\n    </a>\n\n    <a (click)=\"openProfileHome()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
+module.exports = "\n<div>\n    <router-outlet name=\"project\"></router-outlet>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  <p class=\"navbar-text pull-left glyph-margin\">\n    <audio\n       name=\"audioPlayer\"\n       #audioPlayer>\n      <!--<source src=\"http://localhost:3100/api/youtube/2oPeZFOpPAM\" type=\"audio/mp3\">-->\n      <source src=\"http://localhost:3100/public/uploads/top.wav\" type=\"audio/mp3\">\n    </audio>\n  </p>\n\n\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-th-list\"></span>\n    </a>\n\n    <a (click)=\"playPauseClicked()\"\n       class=\"navbar-link\">\n\n      <span class=\"glyphicon glyphicon-play\" *ngIf=\"!audioPlayer.error && audioPlayer.paused\"></span>\n      <span class=\"glyphicon glyphicon-pause\" *ngIf=\"!audioPlayer.error && !audioPlayer.paused\"></span>\n      <span class=\"glyphicon glyphicon-stop\" *ngIf=\"audioPlayer.error\"></span>\n    </a>\n\n    <a (click)=\"loadNextSong()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-forward\"></span>\n    </a>\n\n    <a (click)=\"openProfileHome()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
