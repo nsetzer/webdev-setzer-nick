@@ -22,6 +22,7 @@ export class PlaylistAddComponent implements OnInit {
 
   alertMessage: Boolean = false;
   successMessage: Boolean = false;
+  searchWasRun: Boolean = false;
 
   @ViewChildren('audioPlayer') audioPlayer;
 
@@ -32,7 +33,13 @@ export class PlaylistAddComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-       this.uid = params['uid'];
+
+       if (params["uid"]) {
+         this.uid = params['uid'];
+       } else {
+         this.uid = null;
+       }
+
        this.plid = params['plid'];
 
        if (params["videoId"]) {
@@ -73,6 +80,7 @@ export class PlaylistAddComponent implements OnInit {
                         data[x].state = "paused"
                       }
                       this.searchResults = data;
+                      this.searchWasRun = true;
                   }
               );
         }
@@ -90,6 +98,7 @@ export class PlaylistAddComponent implements OnInit {
                 data[x].state = "paused"
               }
               this.searchResults = data;
+              this.searchWasRun = true;
             }
           );
       }
@@ -149,12 +158,18 @@ export class PlaylistAddComponent implements OnInit {
   }
 
   viewDetails(index) {
-    let url = "/project/(project:user/" + this.uid + "/list/" + this.plid
-    if (this.videoId) {
-      url += "/add/" + this.videoId + "/details/" + index
+    let url = "/project"
+    if (!this.uid) {
+      url += "/search/s/details/" + index
     } else {
-      url += "/add/details/" + index
+      url + "/(project:user/" + this.uid + "/list/" + this.plid
+      if (this.videoId) {
+        url += "/add/" + this.videoId + "/details/" + index
+      } else {
+        url += "/add/details/" + index
+      }
     }
+    console.log(url)
     this.router.navigateByUrl(url);
   }
 

@@ -95,6 +95,8 @@ const APP_ROUTES: Routes = [
      { path: 'user/:uid/queue',                     component: SongQueueComponent,            outlet: 'project' },
     ]},
   { path: 'project/search/pl', component: PlaylistSearchComponent },
+  { path: 'project/search/s',  component: PlaylistAddComponent },
+  { path: 'project/search/s/details/:idx',  component: PlaylistAddSongDetailsComponent },
 ];
 
 // Export the routes as module providers

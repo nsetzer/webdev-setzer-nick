@@ -38,7 +38,6 @@
         <a [routerLink]="['/project/register']"
            class="btn btn-danger btn-block">Register</a>
       </div>
-
     </div>
 
   </div>
@@ -47,22 +46,18 @@
 <div class="container-fluid content-body">
 
 <div class="row" *ngIf="!uid">
-
-<div class="col-xs-3" style="padding:15px">
-</div>
-
-<div class="col-xs-3" style="padding:15px">
-<p disabled="true"
-   class="btn btn-success btn-block">Search for Playlists</p>
-</div>
-
-<div class="col-xs-3" style="padding:15px">
-<a [routerLink]="['/project/search/s']"
-   class="btn btn-success btn-block">Search for Songs</a>
-</div>
-
-<div class="col-xs-3" style="padding:15px">
-</div>
+  <div class="col-xs-3" style="padding:15px">
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  <p disabled="true"
+     class="btn btn-success btn-block">Search for Playlists</p>
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  <a [routerLink]="['/project/search/s']"
+     class="btn btn-success btn-block">Search for Songs</a>
+  </div>
+  <div class="col-xs-3" style="padding:15px">
+  </div>
 </div>
 <!--
 
@@ -100,7 +95,7 @@
 
 </div>
 
-<div *ngIf="searchResults.length===0">
+<div *ngIf="searchWasRun && !searchResults.length">
 No results to display
 </div>
 

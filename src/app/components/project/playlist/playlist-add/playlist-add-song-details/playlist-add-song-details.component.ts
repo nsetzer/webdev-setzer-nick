@@ -26,7 +26,11 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-       this.uid = params['uid'];
+       if (params["uid"]) {
+         this.uid = params['uid'];
+       } else {
+         this.uid = null;
+       }
        this.plid = params['plid'];
        this.idx = +params['idx'];
 
@@ -40,8 +44,13 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
 
        // if the user landed on this page providing invalid arguments, leave
        if (this.idx < 0 || !results || this.idx >= results.length) {
-         let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/songs)"
-         this.router.navigateByUrl(url);
+          let url = ""
+          if (this.uid) {
+            url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/songs)"
+          } else {
+            url = "/project/search/s"
+          }
+          this.router.navigateByUrl(url);
        }
 
        this.reload(results);
@@ -54,11 +63,16 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
   }
 
   return() {
-    let url = "/project/(project:user/" + this.uid + "/list/" + this.plid
-    if (this.videoId) {
-      url += "/add/" + this.videoId
+    let url = ""
+    if (this.uid) {
+        url = "/project/(project:user/" + this.uid + "/list/" + this.plid
+        if (this.videoId) {
+          url += "/add/" + this.videoId
+        } else {
+          url += "/add"
+        }
     } else {
-      url += "/add"
+        url = "/project/search/s"
     }
     this.router.navigateByUrl(url);
   }

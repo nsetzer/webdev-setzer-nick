@@ -20,6 +20,7 @@ export class PlaylistSearchComponent implements OnInit {
 
   alertMessage: Boolean = false;
   successMessage: Boolean = false;
+  searchWasRun: Boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -50,6 +51,7 @@ export class PlaylistSearchComponent implements OnInit {
         (data: any[]) => {
             this.successMessage = true;
             this.searchResults = data;
+            this.searchWasRun = true;
         }
     );
   }
