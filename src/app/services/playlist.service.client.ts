@@ -18,6 +18,8 @@ export class PlaylistService {
 
   baseUrl = environment.baseUrl;
 
+  search_state = {searchTerm:"", results:[]}
+
   constructor(private _http: Http) {
   }
 
@@ -88,10 +90,22 @@ export class PlaylistService {
      .map(
        (res: Response) => {
          const data = res.json();
+         this.search_state = {searchTerm:keyword,results:data};
          return data;
        }
      );
   }
+
+  getPreviousKeywordSearch() {
+    return this.search_state;
+  }
+
+  clearPreviousKeywordSearch() {
+    this.search_state = {results:[],searchTerm:""};
+  }
+
+
+
 
 }
 

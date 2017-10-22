@@ -13,7 +13,7 @@
         <!--heading on the nav bar-->
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
-            <b>Playlist Info</b>
+            <b>{{playlist.name}}</b>
           </a>
         </p>
     </div>
@@ -53,15 +53,17 @@
 
 <div class="container-fluid content-body">
 
-{{song.title}}<br>
-{{song.description}}<br>
+<ol *ngIf="playlist.songs.length>0">
+     <li *ngFor="let song of playlist.songs; let i = index;">
+           {{song.title}}
 
-<div class="image-container">
-    <img [src]="makeSafe(song.thumbnail)"
-         width="33%"
-         class="image-container"
-         />
-</div>
+            <div class ="pull-right">
+                <a (click)="viewDetails(i)">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                </a>
+            </div>
+     </li>
+</ol>
 
 </div>
 

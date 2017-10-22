@@ -41,7 +41,9 @@ export class PlaylistSearchComponent implements OnInit {
   }
 
   reload() {
-
+    let state = this._plservice.getPreviousKeywordSearch();
+    this.searchTerm = state.searchTerm;
+    this.searchResults = state.results;
   }
 
 
@@ -57,14 +59,26 @@ export class PlaylistSearchComponent implements OnInit {
   }
 
   copyPlaylist(lst) {
-    lst.name = "Copy of " + lst.name
-    this._plservice.createPlaylist(this.uid, lst)
-    .subscribe(
-        (new_lst) => {
-            let url = "/project/(project:user/" + this.uid + "/list/"+new_lst._id+")"
-            this.router.navigateByUrl(url);
-        }
-    );
+    if (this.uid) {
+      lst.name = "Copy of " + lst.name
+      this._plservice.createPlaylist(this.uid, lst)
+      .subscribe(
+          (new_lst) => {
+              let url = "/project/(project:user/" + this.uid + "/list/"+new_lst._id+")"
+              this.router.navigateByUrl(url);
+          }
+      );
+    }
+  }
+
+  viewPlaylist(lst) {
+    if (this.uid) {
+      let url = "/project/(project:user/" + this.uid + "/list/search/"+lst._id+")"
+      this.router.navigateByUrl(url);
+    } else {
+      let url = "/project/search/pl/" + lst._id;
+      this.router.navigateByUrl(url);
+    }
   }
 
 }

@@ -33,20 +33,32 @@ export class ProjectHomeComponent implements OnInit {
 
     });
 
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        // this._activatedRoute.snapshot is up to date
-        var uid = this.route.snapshot.firstChild.url[1].path
-        this.onRouteChanged(uid);
-        console.log(event)
-      }
-    });
+
   }
 
   ngOnInit() {
     var aud = this.audioPlayer.nativeElement;
     aud.onended = () => { this.onPlaybackEnd() }
     console.log(aud)
+
+    // redirect the user to the real home page when
+    // an invalid path is given
+    if (!this.route.snapshot.firstChild ||
+        !this.route.snapshot.firstChild.url[1].path) {
+      let url = "/project/search/pl";
+      this.router.navigateByUrl(url);
+    }
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // this._activatedRoute.snapshot is up to date
+        if (this.route.snapshot.firstChild) {
+          var uid = this.route.snapshot.firstChild.url[1].path;
+          this.onRouteChanged(uid);
+          console.log(event);
+        }
+      }
+    });
 
   }
 
@@ -58,18 +70,22 @@ export class ProjectHomeComponent implements OnInit {
   }
 
   openProfileHome() {
-    let uid = this.route.snapshot.firstChild.url[1].path;
 
-    if (uid) {
+    if (this.route.snapshot.firstChild) {
+      let uid = this.route.snapshot.firstChild.url[1].path;
+      if (uid) {
         let url = "/project/(project:user/" + uid + ")"
         this.router.navigateByUrl(url);
+      }
     }
   }
 
   onQueueChanged() {
-    let uid = this.route.snapshot.firstChild.url[1].path;
-    if (uid) {
-      this.loadCurrentSong();
+    if (this.route.snapshot.firstChild) {
+      let uid = this.route.snapshot.firstChild.url[1].path;
+      if (uid) {
+        this.loadCurrentSong();
+      }
     }
   }
 
@@ -90,6 +106,9 @@ export class ProjectHomeComponent implements OnInit {
   }
 
   loadCurrentSong(){
+    if (!this.route.snapshot.firstChild) {
+      return;
+    }
     let uid = this.route.snapshot.firstChild.url[1].path;
     var aud = this.audioPlayer.nativeElement;
 
@@ -108,6 +127,10 @@ export class ProjectHomeComponent implements OnInit {
   }
 
   loadNextSong(){
+    if (!this.route.snapshot.firstChild) {
+      return;
+    }
+
     let uid = this.route.snapshot.firstChild.url[1].path;
     var aud = this.audioPlayer.nativeElement;
 

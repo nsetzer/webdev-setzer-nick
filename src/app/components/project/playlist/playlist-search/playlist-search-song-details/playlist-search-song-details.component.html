@@ -53,14 +53,18 @@
 
 <div class="container-fluid content-body">
 
-{{song.title}}<br>
-{{song.description}}<br>
+<div *ngIf="song">
 
-<div class="image-container">
-    <img [src]="makeSafe(song.thumbnail)"
-         width="33%"
-         class="image-container"
-         />
+    Title: {{song.title}}<br>
+    Description: {{song.description}}<br>
+
+    <div class="image-container">
+        <img [src]="makeSafe(song.thumbnail)"
+             width="33%"
+             class="image-container"
+             />
+    </div>
+
 </div>
 
 </div>

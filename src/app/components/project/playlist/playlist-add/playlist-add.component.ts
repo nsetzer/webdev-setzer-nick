@@ -162,7 +162,7 @@ export class PlaylistAddComponent implements OnInit {
     if (!this.uid) {
       url += "/search/s/details/" + index
     } else {
-      url + "/(project:user/" + this.uid + "/list/" + this.plid
+      url += "/(project:user/" + this.uid + "/list/" + this.plid
       if (this.videoId) {
         url += "/add/" + this.videoId + "/details/" + index
       } else {

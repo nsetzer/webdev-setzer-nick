@@ -66,6 +66,8 @@ import { PlaylistEditComponent } from './components/project/playlist/playlist-ed
 import { PlaylistAddComponent } from './components/project/playlist/playlist-add/playlist-add.component';
 import { SongQueueComponent } from './components/project/queue/song-queue/song-queue.component';
 import { PlaylistAddSongDetailsComponent } from './components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component';
+import { PlaylistSearchSongDetailsComponent } from './components/project/playlist/playlist-search/playlist-search-song-details/playlist-search-song-details.component';
+import { PlaylistSearchViewComponent } from './components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component';
 
 
 
@@ -111,7 +113,9 @@ import { PlaylistAddSongDetailsComponent } from './components/project/playlist/p
     WidgetListImageComponent,
     WidgetListHtmlComponent,
     WidgetListYoutubeComponent,
-    PlaylistAddSongDetailsComponent
+    PlaylistAddSongDetailsComponent,
+    PlaylistSearchSongDetailsComponent,
+    PlaylistSearchViewComponent
   ],
   imports: [
     BrowserModule,
