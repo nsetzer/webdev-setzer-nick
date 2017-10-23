@@ -9,15 +9,19 @@ import {Routing} from './app.routing';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 
+// default services
 import { TestService } from './services/test.service.client';
 import { UserService } from './services/user.service.client';
+// assignment services
 import { WebsiteService } from './services/website.service.client';
 import { PageService } from './services/page.service.client';
 import { WidgetService } from './services/widget.service.client';
+import { FlickrService } from './services/flickr.service.client';
+// project services
 import { ProjectService } from './services/project.service.client';
 import { PlaylistService } from './services/playlist.service.client';
 import { QueueService } from './services/queue.service.client';
-import { FlickrService } from './services/flickr.service.client';
+import { SocialService } from './services/social.service.client';
 
 import { LoginComponent } from './components/assignment/user/login/login.component';
 import { ProfileComponent } from './components/assignment/user/profile/profile.component';
@@ -136,6 +140,7 @@ import { NotificationComposeComponent } from './components/project/user/notifica
                ProjectService,
                FlickrService,
                QueueService,
+               SocialService,
                PlaylistService],
   bootstrap: [AppComponent]
 })

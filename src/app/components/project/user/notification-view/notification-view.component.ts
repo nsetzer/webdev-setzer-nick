@@ -11,6 +11,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 export class NotificationViewComponent implements OnInit {
 
   uid     : string;
+  messages = []
   private sub: any;
 
   constructor(private route: ActivatedRoute,
@@ -26,9 +27,13 @@ export class NotificationViewComponent implements OnInit {
   }
 
   reload() {
-    /*this._service.findPlaylistById(this.plid).subscribe(
-        (lst) => { this.playlist = lst; }
-    );*/
+    this._service.getNotifications(this.uid).subscribe(
+        (messages) => {
+            this.messages = messages;
+            console.log("got msg return")
+            console.log(this.messages)
+        }
+    );
   }
 
 }

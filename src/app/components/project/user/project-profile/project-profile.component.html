@@ -78,6 +78,10 @@
      My Song Queue</a>
 
   <a class="btn btn-primary btn-block"
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'messages']}}]">
+     My Notifications</a>
+
+  <a class="btn btn-primary btn-block"
      [routerLink]="['/project', {outlets: {'project': ['user', uid , 'list', 'search']}}]">
      Search Public Playlists</a>
 

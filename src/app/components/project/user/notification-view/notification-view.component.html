@@ -1,3 +1,44 @@
-<p>
-  notification-view works!
-</p>
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+    <div class="row">
+    <div class="col-xs-8">
+      <!--back mark-->
+      <p class="navbar-text pull-left glyph-margin">
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]"
+           class="navbar-link  navbar-chevron-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
+
+      <!--heading on the nav bar-->
+      <p class="navbar-header pull-left">
+        <a class="navbar-brand thick">
+          <b>Notifications</b>
+        </a>
+      </p>
+    </div>
+
+    <div class="col-xs-4" style="padding:15px">
+        <a [routerLink]="['/project/register']"
+           class="btn btn-danger btn-block">Compose</a>
+    </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<div class="container-fluid content-body">
+
+<div *ngIf="messages.length>0">
+    <div *ngFor="let message of messages">
+        {{message}}
+    </div>
+</div>
+
+<div *ngIf="messages.length===0" class="centered-content">
+No messages to display. Try following other users!
+</div>
+
+</div>
