@@ -87,6 +87,10 @@
        {{result.name}}
 
         <div class ="pull-right">
+            <a (click)="openProfile(result)">
+            <span class="glyphicon glyphicon-user"></span>
+            </a>
+
             <a *ngIf="uid"
                (click)="copyPlaylist(result)">
             <span class="glyphicon glyphicon-copy"></span>

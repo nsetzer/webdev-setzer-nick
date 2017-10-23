@@ -12,6 +12,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 export class PlaylistSearchSongDetailsComponent implements OnInit {
 
   uid     : string;
+  puid     : string;
   plid    : string;
   videoId : any = null;
   idx     : number = 0;
@@ -30,6 +31,11 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
        } else {
          this.uid = null;
        }
+       if (params["puid"]) {
+         this.puid = params['puid'];
+       } else {
+         this.puid = null;
+       }
        this.plid = params['plid'];
        this.idx = +params['idx'];
 
@@ -47,10 +53,19 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
   return() {
     let url = ""
     if (this.uid) {
-        url = "/project/(project:user/" + this.uid +
+        if (this.puid) {
+          url = "/project/(project:user/" + this.uid +
+              "/profile/" + this.puid + "/" + this.plid;
+        } else {
+          url = "/project/(project:user/" + this.uid +
               "/list/search/" + this.plid;
+        }
     } else {
+      if (this.puid) {
+        url = "/project/search/user/" + this.puid + "/" + this.plid;
+      } else {
         url = "/project/search/pl/"+ this.plid;
+      }
     }
     this.router.navigateByUrl(url);
   }
