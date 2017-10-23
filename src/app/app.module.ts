@@ -68,6 +68,8 @@ import { SongQueueComponent } from './components/project/queue/song-queue/song-q
 import { PlaylistAddSongDetailsComponent } from './components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component';
 import { PlaylistSearchSongDetailsComponent } from './components/project/playlist/playlist-search/playlist-search-song-details/playlist-search-song-details.component';
 import { PlaylistSearchViewComponent } from './components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component';
+import { NotificationViewComponent } from './components/project/user/notification-view/notification-view.component';
+import { NotificationComposeComponent } from './components/project/user/notification-compose/notification-compose.component';
 
 
 
@@ -115,7 +117,9 @@ import { PlaylistSearchViewComponent } from './components/project/playlist/playl
     WidgetListYoutubeComponent,
     PlaylistAddSongDetailsComponent,
     PlaylistSearchSongDetailsComponent,
-    PlaylistSearchViewComponent
+    PlaylistSearchViewComponent,
+    NotificationViewComponent,
+    NotificationComposeComponent
   ],
   imports: [
     BrowserModule,

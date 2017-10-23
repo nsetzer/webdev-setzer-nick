@@ -49,6 +49,9 @@ import { SongQueueComponent } from './components/project/queue/song-queue/song-q
 import { PlaylistAddSongDetailsComponent } from './components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component';
 import { PlaylistSearchSongDetailsComponent } from './components/project/playlist/playlist-search/playlist-search-song-details/playlist-search-song-details.component';
 import { PlaylistSearchViewComponent } from './components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component';
+import { NotificationViewComponent } from './components/project/user/notification-view/notification-view.component';
+import { NotificationComposeComponent } from './components/project/user/notification-compose/notification-compose.component';
+
 
 
 const APP_ROUTES: Routes = [
@@ -85,6 +88,8 @@ const APP_ROUTES: Routes = [
      { path: 'user/:uid/profile/:puid/:plid',       component: PlaylistSearchViewComponent,        outlet: 'project' },
      { path: 'user/:uid/profile/:puid/:plid/:idx',  component: PlaylistSearchSongDetailsComponent, outlet: 'project' },
      { path: 'user/:uid/queue',                     component: SongQueueComponent,                 outlet: 'project' },
+     { path: 'user/:uid/messages',                  component: NotificationViewComponent,                 outlet: 'project' },
+     { path: 'user/:uid/messages/compose',          component: NotificationComposeComponent,                 outlet: 'project' },
 
      { path: 'user/:uid/list',                      component: PlaylistListComponent,             outlet: 'project' },
      { path: 'user/:uid/list/search',               component: PlaylistSearchComponent,           outlet: 'project' },
