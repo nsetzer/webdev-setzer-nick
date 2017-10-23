@@ -69,6 +69,16 @@ export class ProjectHomeComponent implements OnInit {
     console.log("route changed " + uid)
   }
 
+  openSongQueue() {
+    if (this.route.snapshot.firstChild) {
+      let uid = this.route.snapshot.firstChild.url[1].path;
+      if (uid) {
+        let url = "/project/(project:user/" + uid + "/queue)"
+        this.router.navigateByUrl(url);
+      }
+    }
+  }
+
   openProfileHome() {
 
     if (this.route.snapshot.firstChild) {
