@@ -9,6 +9,7 @@ module.exports = function (app) {
 
     nextId = 1000;
 
+    app.delete('/api/user/:uid/social/:fid', deleteConnection);
     app.put('/api/user/:uid/social/:fid', addConnection);
     app.get('/api/user/:uid/social/:fid', getUserIsConnected);
     app.get('/api/user/:uid/social', getUserFollowers);
@@ -25,6 +26,21 @@ module.exports = function (app) {
                      " to "+req.params.fid);
         res.status(201).json(null)
     }
+
+    function deleteConnection(req,res) {
+        var uid = req.params.uid;
+        var fid = req.params.fid;
+
+        for (var x=0; x < network.length; x++) {
+            if (network[x].followee === fid && network[x].uid == uid) {
+                network.splice(x,1);
+                break;
+            }
+        }
+
+        res.status(200).json(null);
+    }
+
 
     // return a list of all users following the given uid
     function _getUserFollowers(uid) {

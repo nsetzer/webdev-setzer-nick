@@ -43,10 +43,6 @@ export class PlaylistSearchViewComponent implements OnInit {
     this._plservice.findPlaylistById(this.plid).subscribe(
         (lst) => { this.playlist = lst; }
     );
-    console.log("this route:" + this.route.url)
-    console.log(this.route)
-    console.log(this.route.url)
-    console.log(this.route.url[2])
   }
 
   return() {

@@ -36,6 +36,7 @@ describe('Social', function() {
         .get('/api/user/123/social/234')
         .end(function(err, res) {
           res.should.have.status(200);
+          res.body.should.eql(true);
           done();
         });
     });
@@ -58,8 +59,31 @@ describe('Social', function() {
                 done();
               }); // end get
           }); // end post
-
     }); // end it
   }); // end describe
+
+  describe('/api/social delete', function() {
+    it('should delete the connection', function(done) {
+      chai.request(server)
+        .delete('/api/user/123/social/234')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+
+  describe('/api/social is not connected', function() {
+    it('should return false', function(done) {
+      chai.request(server)
+        .get('/api/user/123/social/234')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          res.body.should.eql(false);
+          done();
+        });
+    });
+  });
+
 
 });
