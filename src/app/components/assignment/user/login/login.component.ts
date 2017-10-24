@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   password: string
   invalid_username: boolean
   invalid_password: boolean
+  error_message: string = ""
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -43,7 +44,10 @@ export class LoginComponent implements OnInit {
             this.invalid_username = true;
           }
         },
-        (err: any) => {}
+        (err : any) => {
+          let msg = JSON.parse(err._body)
+          this.error_message = msg.message;
+        }
         );
 
   }

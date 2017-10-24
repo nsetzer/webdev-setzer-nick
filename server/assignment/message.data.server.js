@@ -1,7 +1,8 @@
-function Message(summary) {
+function Message(message) {
     return {
-        "summary": summary,
+        "message": message,
     };
 }
 exports.Message = Message;
 exports.Error = Message;
+exports.Success = Message;

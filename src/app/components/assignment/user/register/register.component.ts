@@ -48,7 +48,8 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(["/login"]);
      },
      (err) => {
-      this.error_message = "unexpected api error";
+      let msg = JSON.parse(err._body)
+      this.error_message = msg.message;
      }
     );
 

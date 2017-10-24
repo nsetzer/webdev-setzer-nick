@@ -1,6 +1,7 @@
 module.exports = function (app) {
     var winston = require("winston");
     var _user = require('./user.data.server');
+    var _message = require('./message.data.server');
 
     users = _user.getDefaultUsers();
     nextId = 1000;
@@ -17,7 +18,8 @@ module.exports = function (app) {
 
         for (let x = 0; x < users.length; x++) {
           if (users[x].username === user.username) {
-            res.status(400).send("Error: User already exists.");
+            res.status(400).json(
+                _message.Error("User already exists."));
             return;
           }
         }
@@ -38,7 +40,8 @@ module.exports = function (app) {
         } else if (username) {
             findUserByUsername(res, username)
         } else {
-            res.status(400).send('Error: missing query parameters')
+            res.status(400).json(
+                _message.Error('missing query parameters'));
         }
     }
 
@@ -50,7 +53,8 @@ module.exports = function (app) {
           }
         }
 
-        res.status(400).send('Error: user `' + username + '`not found by name')
+        res.status(400).json(
+            _message.Error('User `' + username + '`not found by name'));
     }
 
     function findUserByCredentials(res, username,password) {
@@ -62,7 +66,9 @@ module.exports = function (app) {
           }
         }
 
-        res.status(404).send('Error: user `' + username + '` not found for given credentials')
+        res.status(404).json(
+            _message.Error('User `' + username +
+                '` not found for given credentials'));
     }
 
     function findUserById(req, res) {
@@ -73,7 +79,8 @@ module.exports = function (app) {
           }
         }
 
-        res.status(404).send('Error: user not found')
+        res.status(404).json(
+            _message.Error('Error: user not found'));
     }
 
     function updateUser(req, res) {
@@ -83,24 +90,28 @@ module.exports = function (app) {
           if (users[x]._id === req.params.uid) {
             user._id = req.params.uid;
             users[x] = user;
-            res.status(200).send("OK");
+            res.status(200).json(
+                _message.Success("OK"));
             return;
           }
         }
 
-        res.status(404).send('Error: user not found')
+        res.status(404).json(
+            _message.Error('Error: user not found'));
     }
 
     function deleteUser(req, res) {
         for (let x = 0; x < this.users.length; x++) {
             if (this.users[x]._id === req.params.uid) {
                 this.users.splice(x, 1)
-                res.status(200).send("OK");
+                res.status(200).json(
+                _message.Success("OK"));
                 return;
             }
         }
 
-        res.status(404).send('Error: user not found')
+        res.status(404).json(
+            _message.Error('Error: user not found'));
     }
 
     winston.info("user endpoints registered (" + users.length + " users)");
