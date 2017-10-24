@@ -2,6 +2,9 @@ module.exports = function (app) {
     var winston = require("winston");
     var _playlist = require('./playlist.data.server');
 
+    var multer = require('multer'); //
+    var upload = multer({ dest: __dirname+'/../../public/uploads' });
+
     playlists = _playlist.getDefaultPlaylists();
     nextId = 1000;
 
@@ -12,6 +15,7 @@ module.exports = function (app) {
     app.put('/api/playlist/:plid', updatePlaylist);
     app.delete('/api/playlist/:plid', deletePlaylist);
     app.put('/api/playlist/:plid/append', addSongToPlaylist);
+    app.post("/api/upload/audio", upload.single('myFile'), uploadAudio);
 
     function createPlaylist(req, res) {
         var playlist = req.body;
@@ -139,6 +143,12 @@ module.exports = function (app) {
                       "no playlist found with id " + req.params.plid);
         res.status(404).json({message:"Error: playlist not found"})
     }
+
+    function uploadAudio(req, res) {
+        var url = '/public/uploads/' + req.file.filename;
+        res.status(200).json({"url":url});
+    }
+
 
     winston.info("playlist endpoints registered (" + playlists.length + " playlists)");
 };

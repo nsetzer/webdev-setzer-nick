@@ -104,6 +104,16 @@ export class PlaylistService {
     this.search_state = {results:[],searchTerm:""};
   }
 
+  // upload an audio file and return the url for the new resource
+  uploadAudio(form: FormData) {
+    return this._http.post(this.baseUrl + "/api/upload/audio", form).map(
+       (res: Response) => {
+         const data = res.json();
+         var url = this.baseUrl + data.url;
+         return url;
+       }
+     );
+  }
 
 
 
