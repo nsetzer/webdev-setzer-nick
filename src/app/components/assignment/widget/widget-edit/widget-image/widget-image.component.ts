@@ -104,7 +104,6 @@ export class WidgetImageComponent implements OnInit {
       formData.append('myFile', myFile.files[0]);
       this._service.uploadImage(formData).subscribe(
          (url : string) => {
-          console.log(url);
           this.widget.url = url;
           myForm.reset();
           this.invalid_file = false;

@@ -1,0 +1,47 @@
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+      <!--back mark-->
+      <p class="navbar-text pull-left glyph-margin">
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]"
+           class="navbar-link  navbar-chevron-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
+
+      <!--heading on the nav bar-->
+      <p class="navbar-header pull-left">
+        <a class="navbar-brand thick">
+          <b>Upload Song</b>
+        </a>
+      </p>
+  </div>
+</nav>
+
+<div class="container-fluid container-margin content-body">
+
+  <form name="myForm" #myForm
+        method="post" enctype="multipart/form-data">
+     <label for="artist">Artist</label>
+      <input type="text"
+             [(ngModel)]="artist"
+             name="artist"
+             placeholder="Artist Name"
+             class="form-control"
+             required/>
+     <label for="title">Title</label>
+      <input type="text"
+             [(ngModel)]="title"
+             name="title"
+             placeholder="Song Title"
+             class="form-control"
+             required/>
+
+     <label for="myFile">File Upload</label>
+     <input  name="myFile" #myFile type="file"     class="form-control"/>
+     <button type="button" (click)="uploadAudio()"
+             class="btn btn-block btn-primary">Upload Audio</button>
+     <span class="small text-danger ml-2"
+            *ngIf="invalid_file">Please Select a File to Upload</span>
+  </form>
+
+</div>

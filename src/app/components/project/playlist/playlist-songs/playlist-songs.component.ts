@@ -60,7 +60,8 @@ export class PlaylistSongsComponent implements OnInit {
   }
 
   uploadSong() {
-
+    let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/upload)"
+    this.router.navigateByUrl(url);
   }
 
   addSongs() {

@@ -74,6 +74,7 @@ import { PlaylistSearchSongDetailsComponent } from './components/project/playlis
 import { PlaylistSearchViewComponent } from './components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component';
 import { NotificationViewComponent } from './components/project/user/notification-view/notification-view.component';
 import { NotificationComposeComponent } from './components/project/user/notification-compose/notification-compose.component';
+import { PlaylistUploadComponent } from './components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component';
 
 
 
@@ -123,7 +124,8 @@ import { NotificationComposeComponent } from './components/project/user/notifica
     PlaylistSearchSongDetailsComponent,
     PlaylistSearchViewComponent,
     NotificationViewComponent,
-    NotificationComposeComponent
+    NotificationComposeComponent,
+    PlaylistUploadComponent
   ],
   imports: [
     BrowserModule,

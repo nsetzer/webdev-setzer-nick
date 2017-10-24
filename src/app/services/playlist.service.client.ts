@@ -108,9 +108,8 @@ export class PlaylistService {
   uploadAudio(form: FormData) {
     return this._http.post(this.baseUrl + "/api/upload/audio", form).map(
        (res: Response) => {
-         const data = res.json();
-         var url = this.baseUrl + data.url;
-         return url;
+         const song = res.json();
+         return song;
        }
      );
   }

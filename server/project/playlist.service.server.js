@@ -1,6 +1,7 @@
 module.exports = function (app) {
     var winston = require("winston");
     var _playlist = require('./playlist.data.server');
+    var _song = require('./song.data.server');
 
     var multer = require('multer'); //
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
@@ -128,25 +129,45 @@ module.exports = function (app) {
         res.status(404).json({message:"Error: playlist not found"})
     }
 
-    function addSongToPlaylist(req,res) {
-        var song  = req.body;
+    function _addSongToPlaylist(plid, song) {
         for (let x = 0; x < playlists.length; x++) {
-            if (playlists[x]._id === req.params.plid) {
+            if (playlists[x]._id === plid) {
                 playlists[x].songs.push(song);
-                res.status(200).json(null);
-                winston.info("playlist with id " + req.params.plid +
-                             " updated. contains " + playlists[x].songs.length + " songs");
-                return;
+                winston.info("playlist with id " + plid +
+                         " updated. contains " + playlists[x].songs.length + " songs");
+                return true;
             }
         }
         winston.error("failed to add song to playlist. " +
-                      "no playlist found with id " + req.params.plid);
+                      "no playlist found with id " + plid);
+        return false;
+    }
+    function addSongToPlaylist(req,res) {
+        var song  = req.body;
+        var plid = req.params.plid;
+        if (_addSongToPlaylist(plid, song)) {
+            res.status(200).json(null);
+            return;
+        }
         res.status(404).json({message:"Error: playlist not found"})
     }
 
     function uploadAudio(req, res) {
-        var url = '/public/uploads/' + req.file.filename;
-        res.status(200).json({"url":url});
+        // this should automatically append the song to a given playlist
+        var uid = req.body.uid;
+        var plid = req.body.plid;
+        var url = req.body.baseUrl + '/public/uploads/' + req.file.filename;
+        var song = _song.Song("upload", url, req.body.description,
+                              req.body.title, req.body.artist, "")
+
+        if (_addSongToPlaylist(plid, song)) {
+            res.status(200).json(song);
+
+            return;
+        }
+
+
+        res.status(404).json({message:"Error: playlist not found"})
     }
 
 
