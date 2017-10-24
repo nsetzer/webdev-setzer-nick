@@ -4,6 +4,7 @@ module.exports = (app) => {
 
     var winston = require("winston");
     var _widget = require('./widget.data.server');
+    var _message = require('./message.data.server');
 
     var widgets = _widget.getDefaultWidgets();
     var nextId = 1000;
@@ -36,7 +37,6 @@ module.exports = (app) => {
             }
         }
         items.sort( (a,b) => (a.index-b.index))
-        console.log("find   " + items.map(x => x.index))
         return items;
     }
     function findAllWidgetsForPage(req, res) {
@@ -58,7 +58,8 @@ module.exports = (app) => {
         if (widget) {
             res.json(widget);
         } else {
-            res.status(404).send("Error: widget not found")
+            res.status(404).json(
+                _message.Error("widget not found"));
         }
     }
 
@@ -75,9 +76,11 @@ module.exports = (app) => {
 
     function updateWidget(req, res) {
         if (_updateWidget(req.params.wgid, req.body)) {
-            res.status(200).send("OK");
+            res.status(200).json(
+                _message.Success("OK"));
         } else {
-            res.status(404).send("Error: widget not found")
+            res.status(404).json(
+                _message.Error("widget not found"));
         }
     }
 
@@ -86,11 +89,13 @@ module.exports = (app) => {
         for (let x = 0; x < widgets.length; x++) {
             if (widgets[x]._id === req.params.wgid) {
                 widgets.splice(x,1);
-                res.status(200).send("OK");
+                res.status(200).json(
+                _message.Success("OK"));
                 return;
             }
         }
-        res.status(404).send("Error: widget not found")
+        res.status(404).json(
+                _message.Error("widget not found"));
     }
 
     function _reorderWidget(pid, from, to) {
@@ -119,9 +124,11 @@ module.exports = (app) => {
 
     function reorderWidget(req,res) {
         if (_reorderWidget( req.params.pid, req.query.from, req.query.to)) {
-            res.status(200).send([]);
+            res.status(200).json(
+                _message.Success("OK"));
         } else {
-            res.status(400).send([]);
+            res.status(400).json(
+                _message.Error("widget not found"));
         }
     }
 

@@ -16,6 +16,7 @@ export class WidgetHeaderComponent implements OnInit {
   pid : string = "";
   wgid : string = "";
   widget : Widget = new Widget('','','');
+  error_message: string = ""
 
   private sub: any;
 
@@ -38,7 +39,10 @@ export class WidgetHeaderComponent implements OnInit {
   reload() {
     this._service.findWidgetById(this.wgid).subscribe(
       (widget) => { this.widget = widget },
-      (err) => {}
+      (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
     );
   }
 
@@ -52,6 +56,8 @@ export class WidgetHeaderComponent implements OnInit {
         this.router.navigate([url]);
       },
       (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
   }
@@ -66,6 +72,8 @@ export class WidgetHeaderComponent implements OnInit {
         this.router.navigate([url]);
       },
       (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
   }

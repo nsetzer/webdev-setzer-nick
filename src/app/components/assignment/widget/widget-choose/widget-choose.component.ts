@@ -14,6 +14,7 @@ export class WidgetChooseComponent implements OnInit {
   wid : string = "";
   pid : string = "";
   widgets : any = [];
+  error_message: string = ""
 
   widget_types = [
     "Heading",
@@ -72,7 +73,8 @@ export class WidgetChooseComponent implements OnInit {
             this.router.navigate([url]);
           },
           (err) => {
-
+            let msg = JSON.parse(err._body)
+            this.error_message = msg.message;
           }
         );
     }

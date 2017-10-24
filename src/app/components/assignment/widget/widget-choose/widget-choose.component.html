@@ -23,6 +23,10 @@
 
 <div class="container-fluid container-margin content-body">
 
+  <div *ngIf="error_message" class="help-block">
+        {{error_message}}
+  </div>
+
   <ul class="list-group">
     <li *ngFor="let kind of widget_types"
         class="list-group-item list-item-borderless">

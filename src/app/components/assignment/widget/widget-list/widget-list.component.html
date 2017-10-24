@@ -29,7 +29,12 @@
 </nav>
 
 <div class="container-fluid content-body">
-<ul class="list-group" *ngIf="widgets"
+
+  <div *ngIf="error_message" class="help-block">
+    {{error_message}}
+  </div>
+
+<ul class="list-group" *ngIf="widgets.length > 0"
     appSortable
     (newIndexes)="sortWidget($event)">
 

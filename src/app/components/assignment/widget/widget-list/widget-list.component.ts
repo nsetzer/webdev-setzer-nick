@@ -15,6 +15,7 @@ export class WidgetListComponent implements OnInit {
   wid : string = "";
   pid : string = "";
   widgets : any = [];
+  error_message: string = ""
 
   private sub: any;
 
@@ -37,7 +38,10 @@ export class WidgetListComponent implements OnInit {
   reload() {
     this._service.findWidgetsByPageId(this.pid).subscribe(
       (widgets) => { this.widgets = widgets },
-      (err) => {}
+      (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
     );
   }
 
@@ -51,7 +55,10 @@ export class WidgetListComponent implements OnInit {
     event.pid = this.pid
     this._service.sortWidget(event).subscribe(
         (res) => {},
-        (err) => {}
+        (err) => {
+          let msg = JSON.parse(err._body)
+          this.error_message = msg.message;
+        }
     );
   }
 

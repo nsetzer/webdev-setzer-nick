@@ -41,7 +41,10 @@ export class WidgetHtmlComponent implements OnInit {
   reload() {
     this._service.findWidgetById(this.wgid).subscribe(
       (widget) => { this.widget = widget },
-      (err) => { this.error_message = "unexpected api error" }
+      (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
     );
   }
 
@@ -55,7 +58,8 @@ export class WidgetHtmlComponent implements OnInit {
         this.router.navigate([url]);
       },
       (err) => {
-        this.error_message = "unexpected api error"
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
   }
@@ -70,7 +74,8 @@ export class WidgetHtmlComponent implements OnInit {
         this.router.navigate([url]);
       },
       (err) => {
-        this.error_message = "unexpected api error"
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
   }
