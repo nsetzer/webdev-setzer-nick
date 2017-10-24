@@ -82,6 +82,30 @@ export class SocialService {
      );
   }
 
+  // rate a given playlist for a user on a 5 point scale
+  // any user can rate any playlist
+  rateList(uid,plid,value) {
+    return this._http.put(this.baseUrl +
+     `/api/user/${uid}/rate/${plid}`, {"value":value})
+     .map(
+       (res: Response) => {
+         return;
+       }
+     );
+  }
+
+  // remove a rating for a playlist for a given user
+  unrateList(uid,plid) {
+    return this._http.delete(this.baseUrl +
+     `/api/user/${uid}/rate/${plid}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
+
 
 }
 

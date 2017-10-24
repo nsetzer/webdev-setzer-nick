@@ -85,5 +85,40 @@ describe('Social', function() {
     });
   });
 
+  describe('/api/social rate list', function() {
+    it('should return true', function(done) {
+      chai.request(server)
+        .put('/api/user/123/rate/123')
+        .send({value:5})
+        .end(function(err, res) {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+
+  describe('/api/social re-rate list', function() {
+    it('should return true', function(done) {
+      chai.request(server)
+        .put('/api/user/123/rate/123')
+        .send({value:0})
+        .end(function(err, res) {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+
+  describe('/api/social unrate list', function() {
+    it('should return true', function(done) {
+      chai.request(server)
+        .delete('/api/user/123/rate/123')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+
 
 });

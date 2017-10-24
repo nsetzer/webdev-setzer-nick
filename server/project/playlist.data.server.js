@@ -8,7 +8,9 @@ function Playlist(_id, uid, name) {
         uid: uid,
         name: name,
         description: "",
-        songs: []
+        songs: [],
+        rating: 0  // note: this will be filled in by
+                   // a database query joing the ratings table
     };
 }
 
