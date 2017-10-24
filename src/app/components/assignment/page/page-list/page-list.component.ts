@@ -14,6 +14,7 @@ export class PageListComponent implements OnInit {
   wid : string = "";
   pages : any = [];
   private sub: any;
+  error_message: string = ""
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -31,7 +32,10 @@ export class PageListComponent implements OnInit {
   reload() {
     this._service.findPagesByWebsiteId(this.wid).subscribe(
       (pages) => {this.pages = pages},
-      (err) => {}
+      (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
     );
   }
 

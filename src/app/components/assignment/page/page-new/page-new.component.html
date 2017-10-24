@@ -32,6 +32,10 @@
 
 <div class="container-fluid container-margin content-body">
 
+  <div *ngIf="error_message" class="help-block">
+        {{error_message}}
+  </div>
+
   <form>
     <div class="form-group">
       <label for="pageName">Name</label>

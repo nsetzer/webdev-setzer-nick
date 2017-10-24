@@ -1,6 +1,7 @@
 module.exports = function (app) {
     var winston = require("winston");
     var _page = require('./page.data.server');
+    var _message = require('./message.data.server');
 
     pages = _page.getDefaultPages();
     nextId = 1000;
@@ -37,7 +38,8 @@ module.exports = function (app) {
                 return;
             }
         }
-        res.status(404).send("Error: page not found")
+        res.status(404).json(
+                _message.Error("page not found"));
     }
 
     function updatePage(req, res) {
@@ -46,22 +48,26 @@ module.exports = function (app) {
             if (pages[x]._id === req.params.pid) {
                 page._id = pages[x]._id;
                 pages[x] = page;
-                res.status(200).send("OK");
+                res.status(200).json(
+                _message.Success("OK"));
                 return;
             }
         }
-        res.status(404).send("Error: page not found")
+        res.status(404).json(
+                _message.Error("page not found"));
     }
 
     function deletePage(req, res) {
         for (let x = 0; x < pages.length; x++) {
             if (pages[x]._id === req.params.pid) {
                 pages.splice(x,1);
-                res.status(200).send("OK");
+                res.status(200).json(
+                _message.Success("OK"));
                 return;
             }
         }
-        res.status(404).send("Error: page not found")
+        res.status(404).json(
+                _message.Error("page not found"));
     }
 
     winston.info("page endpoints registered");

@@ -13,8 +13,9 @@ export class PageNewComponent implements OnInit {
   uid : string = "";
   wid : string = "";
   pid : string = "";
-  current_page : any;
+  current_page = {name:"",title:""};
   private sub: any;
+  error_message: string = ""
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -43,6 +44,8 @@ export class PageNewComponent implements OnInit {
         this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
       },
       (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
   }

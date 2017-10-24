@@ -13,8 +13,9 @@ export class PageEditComponent implements OnInit {
   uid : string = "";
   wid : string = "";
   pid : string = "";
-  current_page : any;
+  current_page = {name:"",title:""};
   private sub: any;
+  error_message: string = ""
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -34,7 +35,10 @@ export class PageEditComponent implements OnInit {
 
     this._service.findPageById(this.pid).subscribe(
       (page) => { this.current_page = page },
-      (err) => {}
+      (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
     );
 
   }
@@ -45,6 +49,8 @@ export class PageEditComponent implements OnInit {
         this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
       },
       (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
   }
@@ -55,6 +61,8 @@ export class PageEditComponent implements OnInit {
         this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);
       },
       (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
   }

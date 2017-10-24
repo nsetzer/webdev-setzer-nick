@@ -30,7 +30,16 @@
 
 <div class="container-fluid content-body">
 
-  <ul class="list-group">
+  <div *ngIf="error_message" class="help-block">
+        {{error_message}}
+  </div>
+
+  <div *ngIf="pages.length===0" class="help-block">
+        No Pages to display.
+  </div>
+
+
+  <ul class="list-group" *ngIf="pages.length>0">
     <li *ngFor="let page of pages"
         class="list-group-item list-item-borderless">
 
