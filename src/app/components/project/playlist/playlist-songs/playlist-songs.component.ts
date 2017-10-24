@@ -59,6 +59,10 @@ export class PlaylistSongsComponent implements OnInit {
 
   }
 
+  uploadSong() {
+
+  }
+
   addSongs() {
     this._pservice.clearPreviousKeywordSearch();
     let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)"

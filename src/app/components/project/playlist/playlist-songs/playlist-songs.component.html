@@ -17,14 +17,16 @@
       </a>
     </p>
 
+
     <p class="navbar-text pull-right glyph-margin">
+      <a (click)="uploadSong()" class="navbar-link">
+        <span class="glyphicon glyphicon-cloud-upload"></span>
+      </a>
+
       <a (click)="addSongs()" class="navbar-link">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
-    </p>
 
-    <!--tick mark-->
-    <p class="navbar-text pull-right glyph-margin">
       <a (click)="saveChanges()" class="navbar-link">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
@@ -39,10 +41,10 @@
     *ngIf="playlist && playlist.songs"
     appSortable
     (newIndexes)="reorderList($event)">
-    <li *ngFor="let song of playlist.songs"
+    <li *ngFor="let song of playlist.songs; let i = index"
          class="list-group-item list-item-borderless">
 
-        {{song.title}}
+        {{i+1}}. {{song.title}}
 
 
 

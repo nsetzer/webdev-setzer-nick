@@ -21,7 +21,7 @@ export class NotificationViewComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-        this.uid = params['uid'];
+       this.uid = params['uid'];
        this.reload();
     });
   }

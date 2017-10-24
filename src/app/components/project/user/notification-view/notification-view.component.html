@@ -20,7 +20,7 @@
     </div>
 
     <div class="col-xs-4" style="padding:15px">
-        <a [routerLink]="['/project/register']"
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'messages', 'compose']}}]"
            class="btn btn-danger btn-block">Compose</a>
     </div>
     </div>

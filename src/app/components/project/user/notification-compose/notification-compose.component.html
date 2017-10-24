@@ -1,3 +1,52 @@
-<p>
-  notification-compose works!
-</p>
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+    <div class="row">
+    <div class="col-xs-8">
+      <!--back mark-->
+      <p class="navbar-text pull-left glyph-margin">
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid,'messages']}}]"
+           class="navbar-link  navbar-chevron-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
+
+      <!--heading on the nav bar-->
+      <p class="navbar-header pull-left">
+        <a class="navbar-brand thick">
+          <b>Compose</b>
+        </a>
+      </p>
+    </div>
+
+    <div class="col-xs-4" style="padding:15px">
+        <a (click)="sendMessage()"
+           class="btn btn-primary btn-block">Send</a>
+    </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<div class="container-fluid container-margin content-body">
+
+  <p>
+  you have {{followers.length}} followers
+  </p>
+  <form>
+
+    <div class="form-group">
+      <!--<label for="widgetText">Raw HTML</label>-->
+      <textarea rows="5"
+                maxlength="140"
+                class="form-control"
+                [(ngModel)]="message"
+                name="widgetText"
+                id="widgetText">{{message}}</textarea>
+    </div>
+    {{140 - message.length}}
+
+  </form>
+
+</div>

@@ -56,9 +56,9 @@ export class SocialService {
      );
   }
 
-  sendNotification(userId, message) {
+  sendNotification(userId, messageText) {
     return this._http.post(this.baseUrl +
-     `/api/user/${userId}/notifications`, message)
+     `/api/user/${userId}/notifications`, {"message":messageText})
      .map(
        (res: Response) => {
          const data = res.json();
