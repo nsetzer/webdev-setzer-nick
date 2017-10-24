@@ -12,8 +12,9 @@ export class WebsiteNewComponent implements OnInit {
   uid : string;
   wid : string;
   websites : any = [];
-  current_site : any;
+  current_site = {name:"", description:""};
   private sub: any;
+  error_message: string = ""
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -32,7 +33,10 @@ export class WebsiteNewComponent implements OnInit {
 
     this._service.findWebsitesByUser(this.uid).subscribe(
       (sites) => { this.websites = sites},
-      (err) => {}
+      (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
     );
 
     this.current_site = {
@@ -47,7 +51,8 @@ export class WebsiteNewComponent implements OnInit {
         this.router.navigate(["/user/" + this.uid + "/website"]);
       },
       (err) => {
-
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
   }

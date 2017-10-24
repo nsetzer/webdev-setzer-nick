@@ -12,8 +12,9 @@ export class WebsiteEditComponent implements OnInit {
   uid : string;
   wid : string;
   websites : any = [];
-  current_site : any;
+  current_site = {name:"", description:""};
   private sub: any;
+  error_message: string = ""
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -31,7 +32,10 @@ export class WebsiteEditComponent implements OnInit {
   reload() {
     this._service.findWebsitesByUser(this.uid).subscribe(
       (sites) => { this.websites = sites},
-      (err) => {}
+      (err) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
     );
 
     this._service.findWebsiteById(this.wid).subscribe(
@@ -43,7 +47,8 @@ export class WebsiteEditComponent implements OnInit {
         }
       },
       (err) => {
-
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
 
@@ -56,7 +61,8 @@ export class WebsiteEditComponent implements OnInit {
         this.router.navigate(["/user/" + this.uid + "/website"]);
       },
       (err) => {
-
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
 
@@ -68,7 +74,8 @@ export class WebsiteEditComponent implements OnInit {
         this.router.navigate(["/user/" + this.uid + "/website"]);
       },
       (err) => {
-
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
       }
     );
 

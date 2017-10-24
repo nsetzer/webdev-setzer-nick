@@ -1,6 +1,7 @@
 module.exports = function (app) {
     var winston = require("winston");
     var _website = require('./website.data.server');
+    var _message = require('./message.data.server');
 
     websites = _website.getDefaultWebsites();
     nextId = 1000;
@@ -38,7 +39,8 @@ module.exports = function (app) {
             }
         }
 
-        res.status(404).send("Error: website not found")
+        res.status(404).json(
+                _message.Error("website not found"));
     }
 
     function updateWebsite(req, res) {
@@ -47,22 +49,26 @@ module.exports = function (app) {
             if (websites[x]._id === req.params.wid) {
                 website._id = websites[x]._id;
                 websites[x] = website;
-                res.status(200).send("OK");
+                res.status(200).json(
+                _message.Success("OK"));
                 return;
             }
         }
-        res.status(404).send("Error: website not found")
+        res.status(404).json(
+                _message.Error("website not found"));
     }
 
     function deleteWebsite(req, res) {
         for (let x = 0; x < websites.length; x++) {
             if (websites[x]._id === req.params.wid) {
                 websites.splice(x,1);
-                res.status(200).send("OK");
+                res.status(200).json(
+                _message.Success("OK"));
                 return;
             }
         }
-        res.status(404).send("Error: website not found")
+        res.status(404).json(
+                _message.Error("website not found"));
     }
 
     winston.info("website endpoints registered");

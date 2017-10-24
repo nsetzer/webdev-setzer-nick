@@ -12,6 +12,7 @@ export class WebsiteListComponent implements OnInit {
 
   uid : string;
   websites : any = [];
+  error_message = ""
   private sub: any;
 
   constructor(private route: ActivatedRoute,
@@ -29,7 +30,11 @@ export class WebsiteListComponent implements OnInit {
   reload() {
     this._service.findWebsitesByUser(this.uid).subscribe(
       (sites) => { this.websites = sites },
-      (err) => {}
+      (err) => {
+        console.log(this.uid)
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
     );
   }
 
