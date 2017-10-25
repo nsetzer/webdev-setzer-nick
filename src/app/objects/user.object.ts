@@ -8,6 +8,7 @@ export class User {
     firstName: string;
     lastName: string;
     email: string;
+    role: string;
 
     constructor(_id : string,
                 username: string,
@@ -21,6 +22,7 @@ export class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.role = "user";
     }
 
     static getDefaultUsers() {

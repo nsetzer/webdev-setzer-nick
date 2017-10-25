@@ -1,3 +1,91 @@
-<p>
-  admin-user-edit works!
-</p>
+
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+      <!--back mark-->
+      <p class="navbar-text pull-left glyph-margin">
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'admin']}}]"
+           class="navbar-link  navbar-chevron-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
+
+      <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b>Admin: Edit User</b>
+      </a>
+      </p>
+
+  </div>
+</nav>
+
+
+<div class="container-fluid content-body">
+
+
+  <form>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text"
+             [(ngModel)]="user.username"
+             name="username"
+             placeholder="username"
+             class="form-control"
+             (ngModelChange)="changes_saved=false"
+             required/>
+    </div>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <input type="role"
+             [(ngModel)]="user.role"
+             name="role"
+             placeholder="Role"
+             class="form-control"
+             (ngModelChange)="changes_saved=false"
+             required/>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email"
+             [(ngModel)]="user.email"
+             name="email"
+             placeholder="email"
+             class="form-control"
+             (ngModelChange)="changes_saved=false"
+             required/>
+    </div>
+
+    <div class="form-group">
+      <label for="first-name">First Name</label>
+      <input type="text"
+             [(ngModel)]="user.firstName"
+             name="firstName"
+             class="form-control"
+             placeholder="First Name"
+             (ngModelChange)="changes_saved=false"
+             required/>
+    </div>
+
+    <div class="form-group">
+      <label for="last-name">Last Name</label>
+      <input type="text"
+             [(ngModel)]="user.lastName"
+             name="lastName"
+             class="form-control"
+             placeholder="Last Name"
+             (ngModelChange)="changes_saved=false"
+             required/>
+    </div>
+  </form>
+
+  <a class="btn btn-danger btn-block "
+     (click)="resetPassword()">
+     Delete User</a>
+
+  <a class="btn btn-danger btn-block "
+     (click)="deleteUser()">
+     Delete User</a>
+
+</div>

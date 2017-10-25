@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user.service.client';
+import { User } from '../../../../objects/user.object';
 import { PlaylistService } from '../../../../services/playlist.service.client';
 
 @Component({
@@ -12,7 +13,7 @@ export class ProjectProfileComponent implements OnInit {
 
 
   uid : string;
-  user : any;
+  user : any = new User("","","","","","")
   private sub: any;
   changes_saved : boolean = false;
 
@@ -25,7 +26,7 @@ export class ProjectProfileComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-       this.uid = params['uid']; // (+) converts string 'id' to a number
+       this.uid = params['uid'];
        this.reload();
     });
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../../services/user.service.client';
+import { User } from '../../../../../objects/user.object';
 
 @Component({
   selector: 'app-admin-user-edit',
@@ -11,7 +12,7 @@ export class AdminUserEditComponent implements OnInit {
 
   uid : string  = ""
   puid : string = ""
-  user = {username:""}
+  user = new User("","","","","","")
   private sub: any;
 
   constructor(private route: ActivatedRoute,
@@ -27,13 +28,20 @@ export class AdminUserEditComponent implements OnInit {
   }
 
   reload() {
-
     this._service.findUserById(this.puid).subscribe(
       (user) => {
         this.user = user;
       },
       (err) => {}
     )
+  }
+
+  resetPassword() {
+
+  }
+
+  deleteUser() {
+
   }
 
 }
