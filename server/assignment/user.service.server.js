@@ -8,6 +8,7 @@ module.exports = function (app) {
 
     app.post('/api/user', createUser);
     app.get('/api/user', getUser);
+    app.get('/api/user/find', getUsers);
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
@@ -28,6 +29,11 @@ module.exports = function (app) {
         nextId = nextId + 1;
         users.push( user );
         res.status(201).json(user)
+    }
+
+    function getUsers(req,res) {
+        var username = req.query.username;
+        res.status(200).json(users);
     }
 
     function getUser(req, res) {

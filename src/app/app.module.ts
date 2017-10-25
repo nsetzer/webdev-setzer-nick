@@ -76,6 +76,9 @@ import { NotificationViewComponent } from './components/project/user/notificatio
 import { NotificationComposeComponent } from './components/project/user/notification-compose/notification-compose.component';
 import { PlaylistUploadComponent } from './components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component';
 import { PlaylistSongDetailsComponent } from './components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component';
+import { ProjectAdminComponent } from './components/project/user/project-admin/project-admin.component';
+import { AdminUserNewComponent } from './components/project/user/project-admin/admin-user-new/admin-user-new.component';
+import { AdminUserEditComponent } from './components/project/user/project-admin/admin-user-edit/admin-user-edit.component';
 
 
 
@@ -127,7 +130,10 @@ import { PlaylistSongDetailsComponent } from './components/project/playlist/play
     NotificationViewComponent,
     NotificationComposeComponent,
     PlaylistUploadComponent,
-    PlaylistSongDetailsComponent
+    PlaylistSongDetailsComponent,
+    ProjectAdminComponent,
+    AdminUserNewComponent,
+    AdminUserEditComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,8 @@ export class UserService {
 
   baseUrl = environment.baseUrl;
 
+  state = {searchTerm:"", results:[]}
+
   api = {
     'createUser'   : this.createUser,
     'findUserById' : this.findUserById,
@@ -97,6 +99,28 @@ export class UserService {
        }
      );
   }
+
+  findUsersByName(username : string) {
+    return this._http.get(this.baseUrl + `/api/user/find?username=${username}` )
+     .map(
+       (res: Response) => {
+          const data = res.json();
+          this.state.searchTerm = username;
+          this.state.results = data
+          return data;
+       }
+     );
+  }
+
+  getPreviousUserSearch() {
+    return this.state;
+  }
+
+  clearPreviousUserSearch() {
+    this.state = {results:[],searchTerm:""};
+  }
+
+
 
 }
 

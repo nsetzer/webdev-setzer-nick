@@ -54,6 +54,9 @@ import { NotificationComposeComponent } from './components/project/user/notifica
 import { PlaylistUploadComponent } from './components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component';
 import { PlaylistSongDetailsComponent } from './components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component';
 
+import { ProjectAdminComponent } from './components/project/user/project-admin/project-admin.component';
+import { AdminUserNewComponent } from './components/project/user/project-admin/admin-user-new/admin-user-new.component';
+import { AdminUserEditComponent } from './components/project/user/project-admin/admin-user-edit/admin-user-edit.component';
 
 
 const APP_ROUTES: Routes = [
@@ -90,8 +93,11 @@ const APP_ROUTES: Routes = [
      { path: 'user/:uid/profile/:puid/:plid',       component: PlaylistSearchViewComponent,        outlet: 'project' },
      { path: 'user/:uid/profile/:puid/:plid/:idx',  component: PlaylistSearchSongDetailsComponent, outlet: 'project' },
      { path: 'user/:uid/queue',                     component: SongQueueComponent,                 outlet: 'project' },
-     { path: 'user/:uid/messages',                  component: NotificationViewComponent,                 outlet: 'project' },
-     { path: 'user/:uid/messages/compose',          component: NotificationComposeComponent,                 outlet: 'project' },
+     { path: 'user/:uid/messages',                  component: NotificationViewComponent,          outlet: 'project' },
+     { path: 'user/:uid/messages/compose',          component: NotificationComposeComponent,       outlet: 'project' },
+     { path: 'user/:uid/admin',                     component: ProjectAdminComponent,              outlet: 'project' },
+     { path: 'user/:uid/admin/new',                 component: AdminUserNewComponent,              outlet: 'project' },
+     { path: 'user/:uid/admin/:puid',               component: AdminUserEditComponent,             outlet: 'project' },
 
      { path: 'user/:uid/list',                      component: PlaylistListComponent,             outlet: 'project' },
      { path: 'user/:uid/list/search',               component: PlaylistSearchComponent,           outlet: 'project' },

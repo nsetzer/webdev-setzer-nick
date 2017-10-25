@@ -1,0 +1,57 @@
+
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+      <!--back mark-->
+      <p class="navbar-text pull-left glyph-margin">
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]"
+           class="navbar-link  navbar-chevron-link">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </p>
+
+      <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b>Search Playlists</b>
+      </a>
+      </p>
+
+  </div>
+</nav>
+
+
+<div class="container-fluid content-body">
+
+<a class="btn btn-danger btn-block "
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'admin', 'new']}}]">
+     Create User</a>
+
+<div class="input-group">
+ <input [(ngModel)]="searchTerm" type="text" class="form-control"
+        placeholder="Search For Users">
+ <span class="input-group-btn">
+         <a (click)="runSearch()" class="btn btn-default" type="button">
+             <span class="glyphicon glyphicon-search"></span>
+         </a>
+ </span>
+</div>
+
+<div *ngIf="searchResults.length>0">
+ <div *ngFor="let result of searchResults">
+       {{result.username}}
+
+        <div class ="pull-right">
+            <a [routerLink]="['/project', {outlets: {'project': ['user', uid , 'admin', result._id]}}]">
+            <span class="glyphicon glyphicon-cog"></span>
+            </a>
+        </div>
+ </div>
+
+</div>
+
+<div *ngIf="searchWasRun && !searchResults.length">
+No results to display
+</div>
+
+
+</div>

@@ -86,6 +86,10 @@
      Search Public Playlists</a>
 
   <a class="btn btn-danger btn-block "
+     [routerLink]="['/project', {outlets: {'project': ['user', uid , 'admin']}}]">
+     Admin</a>
+
+  <a class="btn btn-danger btn-block "
      (click)="logout()">Logout</a>
 
 </div>
