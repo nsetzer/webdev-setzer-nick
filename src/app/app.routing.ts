@@ -52,6 +52,7 @@ import { PlaylistSearchViewComponent } from './components/project/playlist/playl
 import { NotificationViewComponent } from './components/project/user/notification-view/notification-view.component';
 import { NotificationComposeComponent } from './components/project/user/notification-compose/notification-compose.component';
 import { PlaylistUploadComponent } from './components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component';
+import { PlaylistSongDetailsComponent } from './components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component';
 
 
 
@@ -99,6 +100,7 @@ const APP_ROUTES: Routes = [
      { path: 'user/:uid/list/new',                  component: PlaylistNewComponent,              outlet: 'project' },
      { path: 'user/:uid/list/:plid',                component: PlaylistEditComponent,             outlet: 'project' },
      { path: 'user/:uid/list/:plid/songs',          component: PlaylistSongsComponent,            outlet: 'project' },
+     { path: 'user/:uid/list/:plid/songs/:idx',     component: PlaylistSongDetailsComponent,            outlet: 'project' },
      { path: 'user/:uid/list/:plid/upload',         component: PlaylistUploadComponent,           outlet: 'project' },
      { path: 'user/:uid/list/:plid/add',            component: PlaylistAddComponent,              outlet: 'project' },
      { path: 'user/:uid/list/:plid/add/:videoId',   component: PlaylistAddComponent,              outlet: 'project' },

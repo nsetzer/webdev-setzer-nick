@@ -58,7 +58,7 @@ export class QueueService {
         .map(
           (res: Response) => {
             let data = res.json();
-            data.url = this.baseUrl + "/api/youtube/" + data.videoId
+            data.url = this.baseUrl + data.url
             return data;
           }
         );
@@ -69,7 +69,7 @@ export class QueueService {
         .map(
           (res: Response) => {
             let data = res.json();
-            data.url = this.baseUrl + "/api/youtube/" + data.videoId
+            data.url = this.baseUrl + data.url
             return data;
           }
         );

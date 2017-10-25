@@ -16,6 +16,25 @@
       <!--<source src="http://localhost:3100/api/youtube/2oPeZFOpPAM" type="audio/mp3">-->
       <source src="http://localhost:3100/public/uploads/top.wav" type="audio/mp3">
     </audio>
+
+    <a (click)="playPauseClicked()"
+       class="navbar-link">
+
+      <span class="glyphicon glyphicon-warning-sign" *ngIf="song_load_error"></span>
+      <span class="glyphicon glyphicon-play" *ngIf="!song_load_error && !audioPlayer.error && audioPlayer.paused"></span>
+      <span class="glyphicon glyphicon-pause" *ngIf="!song_load_error && !audioPlayer.error && !audioPlayer.paused"></span>
+      <span class="glyphicon glyphicon-stop" *ngIf="!song_load_error && audioPlayer.error"></span>
+    </a>
+
+    <a (click)="loadNextSong()"
+       class="navbar-link">
+      <span class="glyphicon glyphicon-forward"></span>
+    </a>
+
+    {{current_song.length}}. {{current_song.title}}
+  </p>
+
+  <p class="navbar-text pull-right glyph-margin">
     <a [routerLink]="['/project', {outlets: {'project': ['user', uid,'messages']}}]"
        class="navbar-link">
       <span class="glyphicon glyphicon-bell"></span>
@@ -25,22 +44,6 @@
        class="navbar-link">
       <span class="glyphicon glyphicon-th-list"></span>
     </a>
-
-    <a (click)="playPauseClicked()"
-       class="navbar-link">
-
-      <span class="glyphicon glyphicon-play" *ngIf="!audioPlayer.error && audioPlayer.paused"></span>
-      <span class="glyphicon glyphicon-pause" *ngIf="!audioPlayer.error && !audioPlayer.paused"></span>
-      <span class="glyphicon glyphicon-stop" *ngIf="audioPlayer.error"></span>
-    </a>
-
-    <a (click)="loadNextSong()"
-       class="navbar-link">
-      <span class="glyphicon glyphicon-forward"></span>
-    </a>
-  </p>
-
-  <p class="navbar-text pull-right glyph-margin">
 
     <a (click)="openProfileHome()"
        class="navbar-link">

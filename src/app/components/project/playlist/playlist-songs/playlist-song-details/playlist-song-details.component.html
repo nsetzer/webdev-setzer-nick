@@ -1,0 +1,69 @@
+
+<nav class="navbar navbar-dark bg-primary navbar-fixed-top">
+  <div class="container-fluid">
+
+    <!--back mark-->
+    <p class="navbar-text pull-left glyph-margin">
+      <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]"
+         class="navbar-link  navbar-chevron-link">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+    </p>
+
+    <!--heading on the nav bar-->
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand thick">
+        <b>Edit Song Details</b>
+      </a>
+    </p>
+
+    <!--tick mark-->
+    <p class="navbar-text pull-right glyph-margin">
+      <a (click)="saveChanges()"
+         class="navbar-link">
+        <span class="glyphicon glyphicon-ok"></span>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+
+<div class="container-fluid content-body">
+
+<div *ngIf="song">
+
+    <!-- TODO this should allow editing -->
+
+    <form>
+    <div class="form-group">
+      <label for="widgetName">Name</label>
+      <input type="text"
+             [(ngModel)]="song.title"
+             name="widgetName"
+             placeholder="Song Title"
+             class="form-control"
+             required/>
+    </div>
+
+    <div class="form-group">
+      <label for="widgetText">Description</label>
+      <textarea rows="5"
+                class="form-control"
+                [(ngModel)]="song.description"
+                name="widgetText"
+                id="widgetText">{{song.description}}</textarea>
+    </div>
+
+    </form>
+
+    <div class="image-container" *ngIf="song.thumbnail">
+        <img [src]="makeSafe(song.thumbnail)"
+             width="33%"
+             class="image-container"
+             />
+    </div>
+
+</div>
+
+</div>

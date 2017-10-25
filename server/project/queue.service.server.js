@@ -35,12 +35,23 @@ module.exports = function (app) {
         res.status(200).json(playlist);
     }
 
+    function _getUrl(song) {
+        if (song.videoId.startsWith("/public")) {
+            return song.videoId;
+        } else {
+            return "/api/youtube/" + song.videoId
+        }
+    }
+
     function getSongQueueHead(req, res) {
         for (let x = 0; x < queues.length; x++) {
           if (queues[x].uid === req.params.uid) {
             // return the head of the queue
             if (queues[x].songs.length > 0) {
-                res.status(200).json(queues[x].songs[0])
+                var song = queues[x].songs[0]
+                song.url = _getUrl(song)
+                song.length = queues[x].length
+                res.status(200).json(song)
                 return;
             }
           }
@@ -56,8 +67,10 @@ module.exports = function (app) {
             queues[x].songs.splice(0,1);
             // return the new head of the queue
             if (queues[x].songs.length > 0) {
-                console.log("queue length" + queues[x].songs.length)
-                res.status(200).json(queues[x].songs[0])
+                var song = queues[x].songs[0]
+                song.url = _getUrl(song)
+                song.length = queues[x].length
+                res.status(200).json(song)
                 return;
             }
           }

@@ -21,6 +21,8 @@ export class ProjectHomeComponent implements OnInit {
   //uid : string;
   @ViewChild('audioPlayer') audioPlayer;
 
+  current_song = {length:0, url:"", title:""}
+  song_load_error = false;
   private sub: any;
 
   constructor(private route: ActivatedRoute,
@@ -125,12 +127,16 @@ export class ProjectHomeComponent implements OnInit {
     if (uid) {
       this._qservice.currentSong(uid).subscribe(
           (song) => {
+            this.song_load_error = false
+            this.current_song = song
             console.log(song);
             aud.src = song.url
             aud.play();
           },
           (err) => {
-            console.log("error loading next song")
+            console.log("error loading current song")
+            this.song_load_error = true;
+            this.current_song = {length:0, url:"", title:""}
           }
         );
     }
@@ -147,12 +153,15 @@ export class ProjectHomeComponent implements OnInit {
     if (uid) {
       this._qservice.nextSong(uid).subscribe(
           (song) => {
-            console.log(song);
+            this.song_load_error = false;
+            this.current_song = song
             aud.src = song.url
             aud.play();
           },
           (err) => {
             console.log("error loading next song")
+            this.song_load_error = true;
+            this.current_song = {length:0, url:"", title:""}
           }
         );
     }

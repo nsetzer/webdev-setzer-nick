@@ -156,7 +156,7 @@ module.exports = function (app) {
         // this should automatically append the song to a given playlist
         var uid = req.body.uid;
         var plid = req.body.plid;
-        var url = req.body.baseUrl + '/public/uploads/' + req.file.filename;
+        var url = '/public/uploads/' + req.file.filename;
         var song = _song.Song("upload", url, req.body.description,
                               req.body.title, req.body.artist, "")
 

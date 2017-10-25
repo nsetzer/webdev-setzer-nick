@@ -61,7 +61,7 @@ module.exports = (app) => {
     };
 
     function _searchPhotos(searchTerm, onResult) {
-        //searchTerm = encodeURIComponent(searchTerm);
+        searchTerm = encodeURIComponent(searchTerm);
         const path = this.urlBase + searchTerm;
 
         var options = {

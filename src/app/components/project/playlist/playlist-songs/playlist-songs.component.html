@@ -46,15 +46,12 @@
 
         {{i+1}}. {{song.title}}
 
-
-
         <div class ="pull-right">
             <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]">
             <span class="glyphicon glyphicon-search"></span>
             </a>
 
-
-            <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]">
+            <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]">
             <span class="glyphicon glyphicon-info-sign"></span>
             </a>
         </div>

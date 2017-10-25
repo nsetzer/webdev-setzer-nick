@@ -58,7 +58,7 @@
     Title: {{song.title}}<br>
     Description: {{song.description}}<br>
 
-    <div class="image-container">
+    <div class="image-container" *ngIf="song.thumbnail">
         <img [src]="makeSafe(song.thumbnail)"
              width="33%"
              class="image-container"
