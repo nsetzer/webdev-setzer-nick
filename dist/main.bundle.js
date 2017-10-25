@@ -130,6 +130,7 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_56__components_project_user_notification_view_notification_view_component__ = __webpack_require__("../../../../../src/app/components/project/user/notification-view/notification-view.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__components_project_user_notification_compose_notification_compose_component__ = __webpack_require__("../../../../../src/app/components/project/user/notification-compose/notification-compose.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__components_project_playlist_playlist_songs_playlist_upload_playlist_upload_component__ = __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_59__components_project_playlist_playlist_songs_playlist_song_details_playlist_song_details_component__ = __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -202,6 +203,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = (function () {
     function AppModule() {
     }
@@ -255,7 +257,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_55__components_project_playlist_playlist_search_playlist_search_view_playlist_search_view_component__["a" /* PlaylistSearchViewComponent */],
             __WEBPACK_IMPORTED_MODULE_56__components_project_user_notification_view_notification_view_component__["a" /* NotificationViewComponent */],
             __WEBPACK_IMPORTED_MODULE_57__components_project_user_notification_compose_notification_compose_component__["a" /* NotificationComposeComponent */],
-            __WEBPACK_IMPORTED_MODULE_58__components_project_playlist_playlist_songs_playlist_upload_playlist_upload_component__["a" /* PlaylistUploadComponent */]
+            __WEBPACK_IMPORTED_MODULE_58__components_project_playlist_playlist_songs_playlist_upload_playlist_upload_component__["a" /* PlaylistUploadComponent */],
+            __WEBPACK_IMPORTED_MODULE_59__components_project_playlist_playlist_songs_playlist_song_details_playlist_song_details_component__["a" /* PlaylistSongDetailsComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -322,6 +325,7 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_project_user_notification_view_notification_view_component__ = __webpack_require__("../../../../../src/app/components/project/user/notification-view/notification-view.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_project_user_notification_compose_notification_compose_component__ = __webpack_require__("../../../../../src/app/components/project/user/notification-compose/notification-compose.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_project_playlist_playlist_songs_playlist_upload_playlist_upload_component__ = __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_project_playlist_playlist_songs_playlist_song_details_playlist_song_details_component__ = __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.ts");
 /**
  * Created by sesha on 7/26/17.
  *
@@ -330,6 +334,7 @@ AppModule = __decorate([
  * update this file for new routing
  * you may need to update import path in app.module.ts
  */
+
 
 
 
@@ -402,6 +407,7 @@ var APP_ROUTES = [
             { path: 'user/:uid/list/new', component: __WEBPACK_IMPORTED_MODULE_25__components_project_playlist_playlist_new_playlist_new_component__["a" /* PlaylistNewComponent */], outlet: 'project' },
             { path: 'user/:uid/list/:plid', component: __WEBPACK_IMPORTED_MODULE_26__components_project_playlist_playlist_edit_playlist_edit_component__["a" /* PlaylistEditComponent */], outlet: 'project' },
             { path: 'user/:uid/list/:plid/songs', component: __WEBPACK_IMPORTED_MODULE_23__components_project_playlist_playlist_songs_playlist_songs_component__["a" /* PlaylistSongsComponent */], outlet: 'project' },
+            { path: 'user/:uid/list/:plid/songs/:idx', component: __WEBPACK_IMPORTED_MODULE_35__components_project_playlist_playlist_songs_playlist_song_details_playlist_song_details_component__["a" /* PlaylistSongDetailsComponent */], outlet: 'project' },
             { path: 'user/:uid/list/:plid/upload', component: __WEBPACK_IMPORTED_MODULE_34__components_project_playlist_playlist_songs_playlist_upload_playlist_upload_component__["a" /* PlaylistUploadComponent */], outlet: 'project' },
             { path: 'user/:uid/list/:plid/add', component: __WEBPACK_IMPORTED_MODULE_27__components_project_playlist_playlist_add_playlist_add_component__["a" /* PlaylistAddComponent */], outlet: 'project' },
             { path: 'user/:uid/list/:plid/add/:videoId', component: __WEBPACK_IMPORTED_MODULE_27__components_project_playlist_playlist_add_playlist_add_component__["a" /* PlaylistAddComponent */], outlet: 'project' },
@@ -3296,7 +3302,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-search/playlist-search-song-details/playlist-search-song-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    Title: {{song.title}}<br>\n    Description: {{song.description}}<br>\n\n    <div class=\"image-container\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    Title: {{song.title}}<br>\n    Description: {{song.description}}<br>\n\n    <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -3666,6 +3672,108 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Song Details</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    <!-- TODO this should allow editing -->\n\n    <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"song.title\"\n             name=\"widgetName\"\n             placeholder=\"Song Title\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetText\">Description</label>\n      <textarea rows=\"5\"\n                class=\"form-control\"\n                [(ngModel)]=\"song.description\"\n                name=\"widgetText\"\n                id=\"widgetText\">{{song.description}}</textarea>\n    </div>\n\n    </form>\n\n    <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n\n</div>\n\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlaylistSongDetailsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__ = __webpack_require__("../../../../../src/app/services/playlist.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PlaylistSongDetailsComponent = (function () {
+    function PlaylistSongDetailsComponent(route, router, _plservice, sanitizer) {
+        this.route = route;
+        this.router = router;
+        this._plservice = _plservice;
+        this.sanitizer = sanitizer;
+        this.videoId = null;
+        this.idx = 0;
+        this.song = { title: "", description: "" };
+        this.playlist = [];
+    }
+    PlaylistSongDetailsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.plid = params['plid'];
+            _this.idx = +params['idx'];
+            _this.reload();
+        });
+    };
+    PlaylistSongDetailsComponent.prototype.reload = function () {
+        var _this = this;
+        // todo make a direct api for this
+        this._plservice.findPlaylistById(this.plid).subscribe(function (lst) {
+            _this.playlist = lst;
+            _this.song = lst.songs[_this.idx];
+        });
+    };
+    PlaylistSongDetailsComponent.prototype.saveChanges = function () {
+        var _this = this;
+        this.playlist[this.idx] = this.song;
+        this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(function (res) {
+            var url = "/project/(project:user/" + _this.uid + "/list/" + _this.plid + "/songs)";
+            _this.router.navigateByUrl(url);
+        });
+    };
+    PlaylistSongDetailsComponent.prototype.makeSafe = function (url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    };
+    return PlaylistSongDetailsComponent;
+}());
+PlaylistSongDetailsComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-playlist-song-details',
+        template: __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["b" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["b" /* DomSanitizer */]) === "function" && _d || Object])
+], PlaylistSongDetailsComponent);
+
+var _a, _b, _c, _d;
+//# sourceMappingURL=playlist-song-details.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-songs.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3687,7 +3795,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-songs.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>{{playlist.name}}</b>\n      </a>\n    </p>\n\n\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"uploadSong()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-cloud-upload\"></span>\n      </a>\n\n      <a (click)=\"addSongs()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-plus\"></span>\n      </a>\n\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && playlist.songs\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of playlist.songs; let i = index\"\n         class=\"list-group-item list-item-borderless\">\n\n        {{i+1}}. {{song.title}}\n\n\n\n        <div class =\"pull-right\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]\">\n            <span class=\"glyphicon glyphicon-search\"></span>\n            </a>\n\n\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n\n    </li>\n</ul>\n\n</div>"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>{{playlist.name}}</b>\n      </a>\n    </p>\n\n\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"uploadSong()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-cloud-upload\"></span>\n      </a>\n\n      <a (click)=\"addSongs()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-plus\"></span>\n      </a>\n\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && playlist.songs\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of playlist.songs; let i = index\"\n         class=\"list-group-item list-item-borderless\">\n\n        {{i+1}}. {{song.title}}\n\n        <div class =\"pull-right\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]\">\n            <span class=\"glyphicon glyphicon-search\"></span>\n            </a>\n\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n\n    </li>\n</ul>\n\n</div>"
 
 /***/ }),
 
@@ -4272,7 +4380,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-home/project-home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div>\n    <router-outlet name=\"project\"></router-outlet>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  <p class=\"navbar-text pull-left glyph-margin\">\n    <audio\n       name=\"audioPlayer\"\n       #audioPlayer\n       width=0px\n       height=0px>\n      <!--<source src=\"http://localhost:3100/api/youtube/2oPeZFOpPAM\" type=\"audio/mp3\">-->\n      <source src=\"http://localhost:3100/public/uploads/top.wav\" type=\"audio/mp3\">\n    </audio>\n    <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid,'messages']}}]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-bell\"></span>\n    </a>\n\n    <a (click)=\"openSongQueue()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-th-list\"></span>\n    </a>\n\n    <a (click)=\"playPauseClicked()\"\n       class=\"navbar-link\">\n\n      <span class=\"glyphicon glyphicon-play\" *ngIf=\"!audioPlayer.error && audioPlayer.paused\"></span>\n      <span class=\"glyphicon glyphicon-pause\" *ngIf=\"!audioPlayer.error && !audioPlayer.paused\"></span>\n      <span class=\"glyphicon glyphicon-stop\" *ngIf=\"audioPlayer.error\"></span>\n    </a>\n\n    <a (click)=\"loadNextSong()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-forward\"></span>\n    </a>\n  </p>\n\n  <p class=\"navbar-text pull-right glyph-margin\">\n\n    <a (click)=\"openProfileHome()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
+module.exports = "\n<div>\n    <router-outlet name=\"project\"></router-outlet>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  <p class=\"navbar-text pull-left glyph-margin\">\n    <audio\n       name=\"audioPlayer\"\n       #audioPlayer\n       width=0px\n       height=0px>\n      <!--<source src=\"http://localhost:3100/api/youtube/2oPeZFOpPAM\" type=\"audio/mp3\">-->\n      <source src=\"http://localhost:3100/public/uploads/top.wav\" type=\"audio/mp3\">\n    </audio>\n\n    <a (click)=\"playPauseClicked()\"\n       class=\"navbar-link\">\n\n      <span class=\"glyphicon glyphicon-warning-sign\" *ngIf=\"song_load_error\"></span>\n      <span class=\"glyphicon glyphicon-play\" *ngIf=\"!song_load_error && !audioPlayer.error && audioPlayer.paused\"></span>\n      <span class=\"glyphicon glyphicon-pause\" *ngIf=\"!song_load_error && !audioPlayer.error && !audioPlayer.paused\"></span>\n      <span class=\"glyphicon glyphicon-stop\" *ngIf=\"!song_load_error && audioPlayer.error\"></span>\n    </a>\n\n    <a (click)=\"loadNextSong()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-forward\"></span>\n    </a>\n\n    {{current_song.length}}. {{current_song.title}}\n  </p>\n\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid,'messages']}}]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-bell\"></span>\n    </a>\n\n    <a (click)=\"openSongQueue()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-th-list\"></span>\n    </a>\n\n    <a (click)=\"openProfileHome()\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -4305,6 +4413,8 @@ var ProjectHomeComponent = (function () {
         this.router = router;
         this._service = _service;
         this._qservice = _qservice;
+        this.current_song = { length: 0, url: "", title: "" };
+        this.song_load_error = false;
         _qservice.queueChangedEvent.subscribe(function (res) {
             _this.onQueueChanged();
         });
@@ -4378,6 +4488,7 @@ var ProjectHomeComponent = (function () {
         }
     };
     ProjectHomeComponent.prototype.loadCurrentSong = function () {
+        var _this = this;
         if (!this.route.snapshot.firstChild) {
             return;
         }
@@ -4385,15 +4496,20 @@ var ProjectHomeComponent = (function () {
         var aud = this.audioPlayer.nativeElement;
         if (uid) {
             this._qservice.currentSong(uid).subscribe(function (song) {
+                _this.song_load_error = false;
+                _this.current_song = song;
                 console.log(song);
                 aud.src = song.url;
                 aud.play();
             }, function (err) {
-                console.log("error loading next song");
+                console.log("error loading current song");
+                _this.song_load_error = true;
+                _this.current_song = { length: 0, url: "", title: "" };
             });
         }
     };
     ProjectHomeComponent.prototype.loadNextSong = function () {
+        var _this = this;
         if (!this.route.snapshot.firstChild) {
             return;
         }
@@ -4401,11 +4517,14 @@ var ProjectHomeComponent = (function () {
         var aud = this.audioPlayer.nativeElement;
         if (uid) {
             this._qservice.nextSong(uid).subscribe(function (song) {
-                console.log(song);
+                _this.song_load_error = false;
+                _this.current_song = song;
                 aud.src = song.url;
                 aud.play();
             }, function (err) {
                 console.log("error loading next song");
+                _this.song_load_error = true;
+                _this.current_song = { length: 0, url: "", title: "" };
             });
         }
     };
@@ -5619,7 +5738,7 @@ var QueueService = (function () {
         return this._http.get(this.baseUrl + ("/api/user/" + uid + "/queue/head"))
             .map(function (res) {
             var data = res.json();
-            data.url = _this.baseUrl + "/api/youtube/" + data.videoId;
+            data.url = _this.baseUrl + data.url;
             return data;
         });
     };
@@ -5628,7 +5747,7 @@ var QueueService = (function () {
         return this._http.delete(this.baseUrl + ("/api/user/" + uid + "/queue/head"))
             .map(function (res) {
             var data = res.json();
-            data.url = _this.baseUrl + "/api/youtube/" + data.videoId;
+            data.url = _this.baseUrl + data.url;
             return data;
         });
     };
