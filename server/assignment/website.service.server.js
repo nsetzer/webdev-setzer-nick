@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, model) {
     var winston = require("winston");
     var _website = require('./website.data.server');
     var _message = require('./message.data.server');

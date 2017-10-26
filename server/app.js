@@ -10,14 +10,16 @@ module.exports = function (app) {
 
     var winston = require("winston");
 
+    var model = require("./models/model.js")();
+
     winston.info("current environment: " + process.env.NODE_ENV);
 
-    require("./test-mongodb/app")(app);
+    require("./test-mongodb/app")(app,model);
 
-    require("./assignment/user.service.server")(app);
-    require("./assignment/page.service.server")(app);
-    require("./assignment/website.service.server")(app);
-    require("./assignment/widget.service.server")(app);
+    require("./assignment/user.service.server")(app,model);
+    require("./assignment/page.service.server")(app,model);
+    require("./assignment/website.service.server")(app,model);
+    require("./assignment/widget.service.server")(app,model);
     require("./assignment/flickr.service.server")(app);
 
     require("./project/playlist.service.server")(app);

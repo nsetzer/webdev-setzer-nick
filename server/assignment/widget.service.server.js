@@ -1,6 +1,6 @@
 
 
-module.exports = (app) => {
+module.exports = (app, model) => {
 
     var winston = require("winston");
     var _widget = require('./widget.data.server');
