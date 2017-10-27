@@ -2,19 +2,11 @@ module.exports = function(app, model)
 {
 
     app.get('/api', (req, res) => {
-      res.send('App works');
+      res.send('Server Api works');
     });
     app.get("/api/test", findAllMessages);
     app.post("/api/test", createMessage);
     app.delete("/api/test/:id", deleteMessage);
-
-    /*
-    var TestSchema = model.mongoose.Schema({
-        message: String
-    });
-
-    var TestModel = model.mongoose.model("TestModel", TestSchema);
-    */
 
     function findAllMessages(req, res) {
 

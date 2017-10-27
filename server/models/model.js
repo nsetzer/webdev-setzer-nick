@@ -17,11 +17,24 @@ module.exports = function() {
 
     mongojs('web-app-maker');
 
+    TestSchema       = require("./test/test.schema.server")(mongoose);
+    UserSchema       = require("./assignment/user.schema.server")(mongoose);
+    WebsiteSchema    = require("./assignment/website.schema.server")(mongoose);
+    PageSchema       = require("./assignment/page.schema.server")(mongoose);
+    WidgetSchema     = require("./assignment/widget.schema.server")(mongoose);
+
     var model = {
-        userModel        : require("./assignment/user.model.server")(),
-        /*pageModel        : require("./assignment/page.model.server")(),
-        widgetMode       : require("./assignment/widget.model.server")(),
-        websiteMode      : require("./assignment/website.model.server")(),*/
+        // schemas
+
+
+        // models
+        TestModel        : require("./test/test.model.server")(mongoose,TestSchema),
+        userModel        : require("./assignment/user.model.server")(mongoose,UserSchema),
+        websiteMode      : require("./assignment/website.model.server")(mongoose,WebsiteSchema),
+        pageModel        : require("./assignment/page.model.server")(mongoose,PageSchema),
+        widgetMode       : require("./assignment/widget.model.server")(mongoose,WidgetSchema),
+
+        // db connections
         mongojs          : mongojs,
         mongoose         : mongoose
     };
