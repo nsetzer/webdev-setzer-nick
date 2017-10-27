@@ -8,15 +8,17 @@ module.exports = function(app, model)
     app.post("/api/test", createMessage);
     app.delete("/api/test/:id", deleteMessage);
 
+    /*
     var TestSchema = model.mongoose.Schema({
         message: String
     });
 
     var TestModel = model.mongoose.model("TestModel", TestSchema);
+    */
 
     function findAllMessages(req, res) {
 
-        TestModel
+        model.TestModel
             .find()
             .then(
                 function(tests) {
@@ -29,8 +31,7 @@ module.exports = function(app, model)
     }
 
     function createMessage(req, res) {
-        console.log("in app");
-        TestModel
+        model.TestModel
             .create(req.body)
             .then(
                 function(test) {
@@ -43,7 +44,7 @@ module.exports = function(app, model)
     }
 
     function deleteMessage(req, res) {
-        TestModel
+        model.TestModel
             .remove({_id: req.params.id})
             .then(
                 function(result) {
