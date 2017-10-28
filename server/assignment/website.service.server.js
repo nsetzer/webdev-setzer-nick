@@ -8,7 +8,9 @@ module.exports = function (app, model) {
     app.get('/api/website/:wid', findWebsiteById);
     app.put('/api/website/:wid', updateWebsite);
     app.delete('/api/website/:wid', deleteWebsite);
-    app.get('/api/_test/website', getRandomSite);
+    if (process.env.NODE_ENV === "test") {
+        app.get('/api/_test/website', getRandomSite);
+    }
 
     function createWebsite(req, res) {
         // create a website and append the id to the users website list

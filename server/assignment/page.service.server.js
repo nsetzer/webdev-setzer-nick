@@ -8,6 +8,9 @@ module.exports = function (app, model) {
     app.get('/api/page/:pid', findPageById);
     app.put('/api/page/:pid', updatePage);
     app.delete('/api/page/:pid', deletePage);
+    if (process.env.NODE_ENV === "test") {
+        app.get('/api/_test/page', getRandomPage);
+    }
 
     function createPage(req, res) {
         if (req.body._id || req.body._id==='') {
@@ -87,6 +90,20 @@ module.exports = function (app, model) {
         }
 
         res.status(404).send(_message.Error("website not found"))
+    }
+
+    function getRandomPage(req, res) {
+        model.PageModel
+            .find()
+            .limit(1)
+            .then(
+                (pages) => {
+                    res.status(200).json(pages[0])
+                },
+                (err) => {
+                    res.status(500).send(_message.Error(err))
+                }
+            );
     }
 
     winston.info("page endpoints registered");
