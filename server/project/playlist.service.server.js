@@ -12,6 +12,7 @@ module.exports = function (app, model) {
     app.get('/api/playlist', findPlaylistsByTerm);
     app.get('/api/playlist/:plid', findPlaylistById);
     app.put('/api/playlist/:plid', updatePlaylist);
+    app.get('/api/playlist/:plid/songs', findAllSongssForPlaylist);
     app.delete('/api/playlist/:plid', deletePlaylist);
     app.put('/api/playlist/:plid/append', addSongToPlaylist);
     app.post("/api/upload/audio", upload.single('myFile'), uploadAudio);
@@ -105,9 +106,8 @@ module.exports = function (app, model) {
             // push a copy of the list if it is relevant
             if (relevance > 0) {
                 var lst = playlists[x];
-                var tmp = _playlist.scrub(lst)
-                tmp.relevance = relevance
-                lists.push(tmp)
+                lst.relevance = relevance
+                lists.push(lst)
             }
         }
 
@@ -149,6 +149,38 @@ module.exports = function (app, model) {
 
         res.status(404).send(_message.Error("website not found"))
     }
+
+    function reorder(truth, data) {
+        var out = []
+        for (let x = 0; x < truth.length; x++) {
+            for (let y = 0; y < data.length; y++) {
+                if (data[y]._id.equals(truth[x])) {
+                    out.push(data.splice(y, 1)[0])
+                    break;
+                }
+            }
+        }
+        return out;
+    }
+
+    async function _findAllSongssForPlaylist(pid) {
+        let playlists = await model.PlaylistModel.find({_id:pid})
+        if (playlists) {
+            let playlist = playlists[0]
+            let songs = await model.SongModel
+                .find({_id: {$in: playlist.songs}});
+            songs = reorder(playlist.songs, songs)
+            return songs;
+        }
+        return [];
+    }
+
+    async function findAllSongssForPlaylist(req, res) {
+        var items = await _findAllSongssForPlaylist(req.params.plid);
+        res.json(items)
+    }
+
+
 
     async function _addSongToPlaylist(plid, song) {
 

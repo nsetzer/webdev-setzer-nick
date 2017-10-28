@@ -45,8 +45,8 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
 
   reload() {
     // todo make a direct api for this
-    this._plservice.findPlaylistById(this.plid).subscribe(
-        (lst) => { this.song = lst.songs[this.idx]; }
+    this._plservice.findSongsForPlaylist(this.plid).subscribe(
+        (lst) => { this.song = lst[this.idx]; }
     );
   }
 

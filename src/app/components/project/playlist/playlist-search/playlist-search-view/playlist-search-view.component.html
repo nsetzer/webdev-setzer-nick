@@ -53,8 +53,8 @@
 
 <div class="container-fluid content-body">
 
-<ol *ngIf="playlist.songs.length>0">
-     <li *ngFor="let song of playlist.songs; let i = index;">
+<ol *ngIf="songs.length>0">
+     <li *ngFor="let song of songs; let i = index;">
            {{song.title}}
 
             <div class ="pull-right">

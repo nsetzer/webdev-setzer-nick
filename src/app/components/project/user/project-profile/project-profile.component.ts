@@ -41,7 +41,7 @@ export class ProjectProfileComponent implements OnInit {
   }
 
   logout() {
-    this.router.navigateByUrl("/project/login");
+    this.router.navigateByUrl("/project/search/pl");
   }
 
   saveChanges() {

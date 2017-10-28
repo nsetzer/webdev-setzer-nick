@@ -114,6 +114,16 @@ export class PlaylistService {
      );
   }
 
+  findSongsForPlaylist(plid) {
+    return this._http.get(this.baseUrl + `/api/playlist/${plid}/songs`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
+
 
 
 }

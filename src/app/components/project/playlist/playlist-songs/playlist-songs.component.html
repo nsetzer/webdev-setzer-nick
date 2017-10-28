@@ -38,10 +38,10 @@
 <div class="container-fluid content-body">
 
 <ul class="list-group"
-    *ngIf="playlist && playlist.songs"
+    *ngIf="playlist && songs"
     appSortable
     (newIndexes)="reorderList($event)">
-    <li *ngFor="let song of playlist.songs; let i = index"
+    <li *ngFor="let song of songs; let i = index"
          class="list-group-item list-item-borderless">
 
         {{i+1}}. {{song.title}}

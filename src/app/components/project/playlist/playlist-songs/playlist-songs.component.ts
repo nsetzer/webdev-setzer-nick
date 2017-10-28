@@ -16,8 +16,10 @@ export class PlaylistSongsComponent implements OnInit {
   plid : string;
   user : any;
   playlist : any = {songs:[]};
+  songs = []
   private sub: any;
 
+  changed : Boolean = false
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -38,7 +40,9 @@ export class PlaylistSongsComponent implements OnInit {
       (user) => {
         this.user = user;
       },
-      (err) => {}
+      (err) => {
+        console.log(err);
+      }
     )
 
     this._plservice.findPlaylistById(this.plid).subscribe(
@@ -46,10 +50,21 @@ export class PlaylistSongsComponent implements OnInit {
         this.playlist = playlist;
       },
       (err) => {}
-    )
+    );
+
+    this._plservice.findSongsForPlaylist(this.plid).subscribe(
+      (songs) => {
+        this.songs = songs
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   saveChanges() {
+
+    console.log(this.playlist.songs.map(x=>x))
     this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(
       (res) => {
         let url = "/project/(project:user/" + this.uid + "/list)"
@@ -60,24 +75,47 @@ export class PlaylistSongsComponent implements OnInit {
   }
 
   uploadSong() {
-    let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/upload)"
-    this.router.navigateByUrl(url);
+    if (this.changed) {
+      this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(
+        () => {
+          let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/upload)"
+          this.router.navigateByUrl(url);
+        },
+        (err) => {}
+      );
+
+    } else {
+      let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/upload)"
+      this.router.navigateByUrl(url);
+    }
   }
 
   addSongs() {
-    this._pservice.clearPreviousKeywordSearch();
-    let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)"
-    this.router.navigateByUrl(url);
+    if (this.changed) {
+      this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(
+        () => {
+          this._pservice.clearPreviousKeywordSearch();
+          let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)"
+          this.router.navigateByUrl(url);
+        },
+        (err) => {}
+      );
+    } else {
+      this._pservice.clearPreviousKeywordSearch();
+      let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)"
+      this.router.navigateByUrl(url);
+    }
   }
 
-  reorderList(event) {
+  // TODO: other ways out of this page need to check if the list was changed
 
+  // TODO: reordered elements need their indices updated
+
+  reorderList(event) {
     // drag and drop does not upadte the internal list, only the view
     var song = this.playlist.songs.splice(event.startIndex, 1)[0]
     this.playlist.songs.splice(event.endIndex, 0, song);
-
-    // this.playlist.songs.map( x => x._id )
-
+    this.changed = true;
   }
 
 }

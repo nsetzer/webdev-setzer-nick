@@ -69,6 +69,36 @@ describe('Playlist', function() {
       }); // end get user
     });
 
+  describe('/api/playlist find songs', function() {
+    it('return find the correct playlist given the id', function(done) {
+      chai.request(server)
+        .get('/api/_test/playlist')
+        .end(function(err, res) {
+          expect(res).to.have.status(200)
+          let playlist = res.body;
+          chai.request(server)
+            .get('/api/playlist/'+playlist._id + '/songs')
+            .end(function(err, res) {
+              res.should.have.status(200);
+              res.body.length.should.eql(5)
+              done();
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
+
+  describe('/api/playlist search', function() {
+    it('return find the correct playlist given the id', function(done) {
+      chai.request(server)
+        .get('/api/playlist?term=default')
+        .end(function(err, res) {
+          expect(res).to.have.status(200)
+          res.body.length.should.gt(1)
+          res.body.length.should.eql(4)
+          done();
+        }) // end get lists
+    }); // end it
+  }); // end describe
 
   describe('/api/playlist create', function() {
     it('creates a new playlist', function(done) {
@@ -129,6 +159,7 @@ describe('Playlist', function() {
           expect(res).to.have.status(200)
           let playlist = res.body;
           playlist.name = "changeme"
+          playlist.songs = []
           chai.request(server)
             .put('/api/playlist/'+playlist._id)
             .send(playlist)
@@ -139,8 +170,10 @@ describe('Playlist', function() {
                     .end(function(err, res) {
                       res.should.have.status(200);
                       expect(res.body)
-                        .to.include({"name":playlist.name,
+                        .to.include({"name":"changeme",
                                      "uid":playlist.uid});
+                      res.body.songs.should.be.a('array');
+                      res.body.songs.length.should.eql(0)
                       done();
                     });
             });
@@ -175,22 +208,6 @@ describe('Playlist', function() {
     }); // end it
   }); // end describe
 
-/*
-  describe('/api/playlist search', function() {
-    it('should return default playlists', function(done) {
-      chai.request(server)
-        .get('/api/playlist?term=default')
-        .end(function(err, res) {
-          res.should.have.status(200);
-          res.body.should.be.a('array');
-          // this should equal the number of default users
-          // with a maximum of 10 users
-          res.body.length.should.gt(1)
-          res.body[0].relevance.should.eql(1)
-          done();
-        });
-    });
-  });
-*/
+
 
 });

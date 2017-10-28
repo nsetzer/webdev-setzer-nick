@@ -15,6 +15,7 @@ export class PlaylistSearchViewComponent implements OnInit {
   puid    : string;
   plid    : string;
   playlist = {songs:[]}
+  songs = []
   private sub: any;
 
   constructor(private route: ActivatedRoute,
@@ -42,6 +43,10 @@ export class PlaylistSearchViewComponent implements OnInit {
   reload() {
     this._plservice.findPlaylistById(this.plid).subscribe(
         (lst) => { this.playlist = lst; }
+    );
+
+    this._plservice.findSongsForPlaylist(this.plid).subscribe(
+        (songs) => { this.songs = songs; }
     );
   }
 

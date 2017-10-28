@@ -44,13 +44,26 @@ module.exports = (app, model) => {
             );
     }
 
+    function reorder(truth, data) {
+        var out = []
+        for (let x = 0; x < truth.length; x++) {
+            for (let y = 0; y < data.length; y++) {
+                if (data[y]._id.equals(truth[x])) {
+                    out.push(data.splice(y, 1)[0])
+                    break;
+                }
+            }
+        }
+        return out;
+    }
+
     async function _findAllWidgetsForPage(pid) {
-        // TODO: verify order retuned is correct
         let pages = await model.PageModel.find({_id:pid})
         if (pages) {
             let page = pages[0]
             let widgets = await model.WidgetModel
                 .find({_id: {$in: page.widgets}});
+            widgets = reorder(page.widgets, widgets);
             return widgets;
         }
         return [];
