@@ -28,91 +28,154 @@ describe('Playlist', function() {
     });
   });
 
-/*
-  describe('/api/playlist find all', function() {
-    it('should return the default set of 3 playlists', function(done) {
+  describe('/api/playlist find', function() {
+    it('return find the correct playlist given the id', function(done) {
       chai.request(server)
-        .get('/api/user/123/playlist')
+        .get('/api/_test/playlist')
         .end(function(err, res) {
-          res.should.have.status(200);
-          res.body.should.be.a('array');
-          res.body.length.should.eql(1)
-          done();
+          expect(res).to.have.status(200)
+          let playlist = res.body;
+          chai.request(server)
+            .get('/api/playlist/'+playlist._id)
+            .end(function(err, res) {
+              res.should.have.status(200);
+              expect(res.body)
+                .to.include({"name":playlist.name,
+                             "uid":playlist.uid});
+              // update when this changes
+              res.body.songs.length.should.eql(5)
+              done();
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
+
+  describe('/api/playlist find all', function() {
+    it('find all playlists for a user', function(done) {
+      chai.request(server)
+        .get('/api/user')
+        .query({'username':'alice'})
+        .end(function(err, res) {
+          let uid = res.body._id;
+          chai.request(server)
+            .get('/api/user/' + uid + '/playlist')
+            .end(function(err, res) {
+              expect(res).to.have.status(200);
+              res.body.should.be.a('array');
+              res.body.length.should.eql(3)
+              done();
+            }); // end update user
         });
+      }); // end get user
+    });
+
+
+  describe('/api/playlist create', function() {
+    it('creates a new playlist', function(done) {
+      chai.request(server)
+        .get('/api/user')
+        .query({'username':'alice'})
+        .end(function(err, res) {
+          let uid = res.body._id;
+          var list = _playlist.Playlist('',uid,"Test")
+          chai.request(server)
+            .post('/api/user/' + uid + '/playlist')
+            .send(list)
+            .end(function(err, res) {
+              expect(res).to.have.status(201);
+              let new_list = res.body;
+              chai.request(server)
+                .get('/api/playlist/' + new_list._id)
+                .end(function(err, res) {
+                  expect(res).to.have.status(200);
+                  expect(JSON.parse(res.text))
+                    .to.include({"name":"Test",
+                                 "uid":uid});
+                  done();
+              }); // end get user
+          }); // end update user
+      }); // end get user
     });
   });
 
-  describe('/api/playlist create', function() {
-    it('creates and returns the playlist', function(done) {
-      var list = _playlist.Playlist('',"123","Test")
+
+  describe('/api/playlist delete', function() {
+    it('delete the playlist', function(done) {
       chai.request(server)
-        .post('/api/user/2020/playlist')
-        .send(list)
+        .get('/api/_test/playlist')
         .end(function(err, res) {
-          expect(res).to.have.status(201);
-          var new_list = JSON.parse(res.text);
+          expect(res).to.have.status(200)
+          let playlist = res.body;
           chai.request(server)
-            .get('/api/playlist/' + new_list._id)
+            .delete('/api/playlist/'+playlist._id)
             .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"name":"Test",
-                             "uid":"2020"});
-              done();
-          });
-        });
-    });
-  });
+              res.should.have.status(200);
+                  chai.request(server)
+                    .get('/api/playlist/'+playlist._id)
+                    .end(function(err, res) {
+                      res.should.have.status(404);
+                      done();
+                    });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
   describe('/api/playlist update', function() {
     it('update the playlist', function(done) {
-      var list = _playlist.Playlist('',"123","Test")
       chai.request(server)
-        .put('/api/playlist/123')
-        .send(list)
+        .get('/api/_test/playlist')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(200)
+          let playlist = res.body;
+          playlist.name = "changeme"
           chai.request(server)
-            .get('/api/playlist/123')
+            .put('/api/playlist/'+playlist._id)
+            .send(playlist)
             .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"name":"Test"});
-              done();
-          });
-        });
-    });
-  });
+              res.should.have.status(200);
+                  chai.request(server)
+                    .get('/api/playlist/'+playlist._id)
+                    .end(function(err, res) {
+                      res.should.have.status(200);
+                      expect(res.body)
+                        .to.include({"name":playlist.name,
+                                     "uid":playlist.uid});
+                      done();
+                    });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
-  describe('/api/playlist delete', function() {
-    it('deletes the playlist', function(done) {
+  describe('/api/playlist append song', function() {
+    it('return find the correct playlist given the id', function(done) {
       chai.request(server)
-        .delete('/api/playlist/123')
+        .get('/api/_test/playlist')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(200)
+          let playlist = res.body;
+          let song = _song.getDefaultSongs()[0];
           chai.request(server)
-            .get('/api/playlist/123')
+            .put('/api/playlist/'+playlist._id+"/append")
+            .send(song)
             .end(function(err, res) {
-              expect(res).to.have.status(404);
-              done();
-          });
-        });
-    });
-  });
+              res.should.have.status(200);
+              chai.request(server)
+                .get('/api/playlist/'+playlist._id)
+                .end(function(err, res) {
+                  res.should.have.status(200);
+                  let playlist2 = res.body;
+                  playlist2.songs.length
+                    .should.eql(playlist.songs.length+1)
+                  done();
+                });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
-  describe('/api/playlist add song', function() {
-    it('should add a song to the playlist', function(done) {
-      var song = _song.getDefaultSongs()[0];
-      chai.request(server)
-        .put('/api/playlist/456/append')
-        .send(song)
-        .end(function(err, res) {
-          expect(res).to.have.status(200);
-          done();
-        });
-    });
-  });
-
+/*
   describe('/api/playlist search', function() {
     it('should return default playlists', function(done) {
       chai.request(server)

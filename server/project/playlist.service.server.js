@@ -2,6 +2,7 @@ module.exports = function (app, model) {
     var winston = require("winston");
     var _playlist = require('./playlist.data.server');
     var _song = require('./song.data.server');
+    var _message = require('../assignment/message.data.server');
 
     var multer = require('multer'); //
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
@@ -14,6 +15,9 @@ module.exports = function (app, model) {
     app.delete('/api/playlist/:plid', deletePlaylist);
     app.put('/api/playlist/:plid/append', addSongToPlaylist);
     app.post("/api/upload/audio", upload.single('myFile'), uploadAudio);
+    if (process.env.NODE_ENV === "test") {
+        app.get('/api/_test/playlist', getRandomPlaylist);
+    }
 
     function createPlaylist(req, res) {
         if (req.body._id || req.body._id==='') {
@@ -43,15 +47,15 @@ module.exports = function (app, model) {
     }
 
     function findAllPlaylistsForUser(req, res) {
-
         model.PlaylistModel
-            .find({uid:uid})
+            .find({uid:req.params.uid})
             .then(
-                (lists) => {res.status(200).json(lists)},
+                (lists) => {
+                    res.status(200).json(lists)
+                },
                 (err) => {
                     res.status(500).send(_message.Error(err))
                 }
-
             );
     }
 
@@ -148,6 +152,11 @@ module.exports = function (app, model) {
 
     async function _addSongToPlaylist(plid, song) {
 
+        if (song._id || song._id==='') {
+            delete song._id;
+        }
+
+
         let new_song = await model.SongModel.create(song);
 
         await model.PlaylistModel
@@ -184,6 +193,20 @@ module.exports = function (app, model) {
         }
 
         res.status(404).json({message:"Error: playlist not found"})
+    }
+
+    function getRandomPlaylist(req, res) {
+        model.PlaylistModel
+            .find()
+            .limit(1)
+            .then(
+                (lists) => {
+                    res.status(200).json(lists[0])
+                },
+                (err) => {
+                    res.status(500).send(_message.Error(err))
+                }
+            );
     }
 
 

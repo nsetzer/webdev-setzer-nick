@@ -1,6 +1,7 @@
 module.exports = function (app, model) {
     var winston = require("winston");
     var _playlist = require('./playlist.data.server');
+    var _message = require('../assignment/message.data.server');
 
     queues = []
 

@@ -3,6 +3,7 @@
 module.exports = function (app, model) {
     var winston = require("winston");
     var _social = require('./social.data.server');
+    var _message = require('../assignment/message.data.server');
 
     var network = []
     var notifications = []
