@@ -35,13 +35,12 @@ module.exports = function (app, model) {
         await model.UserModel.remove()
         await model.WebsiteModel.remove()
         await model.PageModel.remove()
-        await model.UserModel.remove()
-        await model.WidgetModel.remove()
+        //await model.WidgetModel.remove()
 
         await create(model.UserModel,   _user.getDefaultUsers(model));
         await create(model.WebsiteModel,await _website.getDefaultWebsites(model));
         await create(model.PageModel,   await _page.getDefaultPages(model));
-        await create(model.WidgetModel, await _widget.getDefaultWidgets(model));
+        //await create(model.WidgetModel, await _widget.getDefaultWidgets(model));
 
         winston.info("reset database complete")
         res.status(200).send(_message.Error("OK"));

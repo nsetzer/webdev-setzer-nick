@@ -24,78 +24,94 @@ describe('Page', function() {
         });
     });
   });
-/*
-  describe('/api/page find all', function() {
-    it('should return the default set of 3 pages', function(done) {
+
+  describe('/api/page find', function() {
+    it('return the default set of websites', function(done) {
       chai.request(server)
-        .get('/api/website/123/page')
+        .get('/api/_test/website')
         .end(function(err, res) {
-          res.should.have.status(200);
-          res.body.should.be.a('array');
-          res.body.length.should.eql(3)
-          done();
-        });
-    });
-  });
+          expect(res).to.have.status(200)
+          let site = res.body;
+          chai.request(server)
+            .get('/api/website/'+site._id+'/page')
+            .end(function(err, res) {
+              res.should.have.status(200);
+              res.body.should.be.a('array');
+              res.body.length.should.eql(3)
+              done();
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
   describe('/api/page create', function() {
-    it('creates and returns the page', function(done) {
-      var page = _page.Page('',"Test","123",'page','lorem')
+    it('create a new page', function(done) {
       chai.request(server)
-        .post('/api/website/2020/page')
-        .send(page)
+        .get('/api/_test/website')
         .end(function(err, res) {
-          expect(res).to.have.status(201);
-          var new_site = res.body;
+          expect(res).to.have.status(200)
+          let site = res.body;
+          var page = _page.Page('',"Test",site._id,'page','lorem')
           chai.request(server)
-            .get('/api/page/' + new_site._id)
+            .post('/api/website/'+site._id+'/page')
+            .send(page)
             .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(res.body)
-                .to.include({"name":"Test",
-                             "websiteId":"2020"});
+              res.should.have.status(201);
               done();
-          });
-        });
-    });
-  });
-
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
   describe('/api/page update', function() {
-    it('update the page', function(done) {
-      var page = _page.Page('',"Test","123",'page','lorem')
+    it('create and update a page', function(done) {
       chai.request(server)
-        .put('/api/page/100')
-        .send(page)
+        .get('/api/_test/website')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(200)
+          let site = res.body;
+          var page = _page.Page('',"Test",site._id,'page','lorem')
           chai.request(server)
-            .get('/api/page/100')
+            .post('/api/website/'+site._id+'/page')
+            .send(page)
             .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"title":"page"});
-              done();
-          });
-        });
-    });
-  });
+              res.should.have.status(201);
+              let new_page = res.body;
+              chai.request(server)
+                .put('/api/page/'+new_page._id)
+                .send(new_page)
+                .end(function(err, res) {
+                  res.should.have.status(200);
+                  done();
+                });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
   describe('/api/page delete', function() {
-    it('deletes the page', function(done) {
+    it('create and delete a page', function(done) {
       chai.request(server)
-        .delete('/api/page/100')
+        .get('/api/_test/website')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(200)
+          let site = res.body;
+          var page = _page.Page('',"Test",site._id,'page','lorem')
           chai.request(server)
-            .get('/api/page/100')
+            .post('/api/website/'+site._id+'/page')
+            .send(page)
             .end(function(err, res) {
-              expect(res).to.have.status(404);
-              done();
-          });
-        });
-    });
-  });
+              res.should.have.status(201);
+              let new_page = res.body;
+              chai.request(server)
+                .delete('/api/page/'+new_page._id)
+                .end(function(err, res) {
+                  res.should.have.status(200);
+                  done();
+                });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
-*/
 });

@@ -8,6 +8,7 @@ module.exports = function (app, model) {
     app.get('/api/website/:wid', findWebsiteById);
     app.put('/api/website/:wid', updateWebsite);
     app.delete('/api/website/:wid', deleteWebsite);
+    app.get('/api/_test/website', getRandomSite);
 
     function createWebsite(req, res) {
         // create a website and append the id to the users website list
@@ -38,7 +39,6 @@ module.exports = function (app, model) {
             .then(
                 (sites) => {res.status(200).json(sites)},
                 (err) => {
-                    console.log(err)
                     res.status(500).send(_message.Error(err))
                 }
             );
@@ -72,20 +72,33 @@ module.exports = function (app, model) {
             );
     }
 
-    function deleteWebsite(req, res) {
+    async function deleteWebsite(req, res) {
+
+        let website = await model.WebsiteModel.find({_id:req.params.wid})
+
+        if (website) {
+            await model.WebsiteModel.remove({_id:req.params.wid})
+            await model.UserModel
+                    .update({_id:website.developerId},
+                            { $pull: { websites: req.params.wid } });
+            res.status(200).json(_message.Success("OK"));
+            return
+        }
+
+        res.status(404).send(_message.Error("website not found"))
+    }
+
+    function getRandomSite(req, res) {
         model.WebsiteModel
-            .remove({_id:req.params.wid})
+            .find()
+            .limit(1)
             .then(
-                (website) => {
-                    model.UserModel
-                        .update( {_id:website.developerId},
-                                 { $pull: { websites: req.params.wid } })
-                        .then(
-                          () => {res.status(200).json(_message.Success("OK"));},
-                          (err) => {res.status(500).send(_message.Error(err))}
-                        )
+                (sites) => {
+                    res.status(200).json(sites[0])
                 },
-                (err) => {res.status(500).send(_message.Error(err))}
+                (err) => {
+                    res.status(500).send(_message.Error(err))
+                }
             );
     }
 

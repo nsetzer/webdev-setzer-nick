@@ -32,7 +32,6 @@ describe('Website', function() {
         .query({'username':'alice'})
         .end(function(err, res) {
           let uid = res.body._id;
-          var site = _website.Website('',"Test",uid,'')
           chai.request(server)
             .get('/api/user/' + uid + '/website')
             .end(function(err, res) {

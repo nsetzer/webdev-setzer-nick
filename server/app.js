@@ -19,10 +19,10 @@ module.exports = function (app) {
     require("./test-mongodb/test-mongodb.service.server")(app,model);
 
     require("./assignment/user.service.server")(app,model);
-    require("./assignment/page.service.server")(app,model);
     require("./assignment/website.service.server")(app,model);
-    require("./assignment/widget.service.server")(app,model);
-    require("./assignment/flickr.service.server")(app);
+    require("./assignment/page.service.server")(app,model);
+    //require("./assignment/widget.service.server")(app,model);
+    //require("./assignment/flickr.service.server")(app);
 
     require("./project/playlist.service.server")(app);
     require("./project/social.service.server")(app);

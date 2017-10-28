@@ -74,7 +74,10 @@ module.exports = function (app, model) {
                         res.status(200).json(users[0])
                     }
                 },
-                (err) => {res.status(500).send(_message.Error(err))}
+                (err) => {
+                    console.log("no user found")
+                    res.status(500).send(_message.Error(err))
+                }
             );
     }
 
