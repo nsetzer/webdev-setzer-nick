@@ -11,7 +11,7 @@ function Page(_id, name, websiteId, title, description) {
 
 exports.Page = Page;
 
-exports.getDefaultPages = function() {
+exports.getDefaultPages = function(model) {
   let pages = [
         new Page( "321", "Post 1", "456", "Post 1", "Lorem" ),
         new Page( "432", "Post 2", "456", "Post 2", "Lorem" ),

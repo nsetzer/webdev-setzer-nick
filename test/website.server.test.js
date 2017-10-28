@@ -25,76 +25,105 @@ describe('Website', function() {
     });
   });
 
-  describe('/api/website find all', function() {
-    it('should return the default set of 3 websites', function(done) {
+  describe('/api/website find', function() {
+    it('return the default set of websites', function(done) {
       chai.request(server)
-        .get('/api/user/123/website')
+        .get('/api/user')
+        .query({'username':'alice'})
         .end(function(err, res) {
-          res.should.have.status(200);
-          res.body.should.be.a('array');
-          res.body.length.should.eql(3)
-          done();
-        });
+          let uid = res.body._id;
+          var site = _website.Website('',"Test",uid,'')
+          chai.request(server)
+            .get('/api/user/' + uid + '/website')
+            .end(function(err, res) {
+              res.should.have.status(200);
+              res.body.should.be.a('array');
+              res.body.length.should.eql(3)
+              done();
+          }); // end update user
+      }); // end get user
     });
   });
 
-
   describe('/api/website create', function() {
-    it('creates and returns the website', function(done) {
-      var site = _website.Website('',"Test","123",'')
+    it('creates a new website', function(done) {
+
       chai.request(server)
-        .post('/api/user/2020/website')
-        .send(site)
+        .get('/api/user')
+        .query({'username':'alice'})
         .end(function(err, res) {
-          expect(res).to.have.status(201);
-          var new_site = JSON.parse(res.text);
+          let uid = res.body._id;
+          var site = _website.Website('',"Test",uid,'')
           chai.request(server)
-            .get('/api/website/' + new_site._id)
+            .post('/api/user/' + uid + '/website')
+            .send(site)
             .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"name":"Test",
-                             "developerId":"2020"});
-              done();
-          });
-        });
+              expect(res).to.have.status(201);
+              let new_site = res.body;
+              chai.request(server)
+                .get('/api/website/' + new_site._id)
+                .end(function(err, res) {
+                  expect(res).to.have.status(200);
+                  expect(JSON.parse(res.text))
+                    .to.include({"name":"Test",
+                                 "developerId":uid});
+                  done();
+              }); // end get user
+          }); // end update user
+      }); // end get user
     });
   });
 
   describe('/api/website update', function() {
-    it('update the website', function(done) {
-      var site = _website.Website('',"Test","123",'')
+    it('updates the correct website', function(done) {
+
       chai.request(server)
-        .put('/api/website/123')
-        .send(site)
+        .get('/api/user')
+        .query({'username':'alice'})
         .end(function(err, res) {
-          expect(res).to.have.status(200);
+          let uid = res.body._id;
+          var site = _website.Website('',"Test",uid,'')
           chai.request(server)
-            .get('/api/website/123')
+            .post('/api/user/' + uid + '/website')
+            .send(site)
             .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"name":"Test"});
-              done();
-          });
-        });
+              expect(res).to.have.status(201);
+              let new_site = res.body;
+              chai.request(server)
+                .put('/api/website/' + new_site._id)
+                .send(new_site)
+                .end(function(err, res) {
+                  expect(res).to.have.status(200);
+                  done();
+              }); // end get user
+          }); // end update user
+      }); // end get user
     });
   });
 
   describe('/api/website delete', function() {
-    it('deletes the website', function(done) {
+    it('deletes the correct website', function(done) {
+
       chai.request(server)
-        .delete('/api/website/123')
+        .get('/api/user')
+        .query({'username':'alice'})
         .end(function(err, res) {
-          expect(res).to.have.status(200);
+          let uid = res.body._id;
+          var site = _website.Website('',"Test",uid,'')
           chai.request(server)
-            .get('/api/website/123')
+            .post('/api/user/' + uid + '/website')
+            .send(site)
             .end(function(err, res) {
-              expect(res).to.have.status(404);
-              done();
-          });
-        });
+              expect(res).to.have.status(201);
+              let new_site = res.body;
+              chai.request(server)
+                .delete('/api/website/' + new_site._id)
+                .end(function(err, res) {
+                  expect(res).to.have.status(200);
+                  done();
+              }); // end get user
+          }); // end update user
+      }); // end get user
     });
   });
-
 });

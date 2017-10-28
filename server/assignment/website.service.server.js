@@ -3,9 +3,6 @@ module.exports = function (app, model) {
     var _website = require('./website.data.server');
     var _message = require('./message.data.server');
 
-    websites = _website.getDefaultWebsites();
-    nextId = 1000;
-
     app.post('/api/user/:uid/website', createWebsite);
     app.get('/api/user/:uid/website', findAllWebsitesForUser);
     app.get('/api/website/:wid', findWebsiteById);
@@ -13,62 +10,83 @@ module.exports = function (app, model) {
     app.delete('/api/website/:wid', deleteWebsite);
 
     function createWebsite(req, res) {
-        var website = req.body;
-        website._id = "" + nextId;
-        website.developerId = req.params.uid;
-        nextId = nextId + 1;
-        websites.push( website );
-        res.status(201).json(website)
+        // create a website and append the id to the users website list
+        if (req.body._id || req.body._id==='') {
+            delete req.body._id;
+        }
+        model.WebsiteModel
+            .create(req.body)
+            .then(
+                (website) => {
+                    model.UserModel
+                        .update( {_id:website.developerId},
+                                 { $push: { websites: website._id } })
+                        .then(
+                          () => {res.status(201).json(website)},
+                          (err) => {res.status(500).send(_message.Error(err))}
+                        )
+                },
+                (err) => {
+                    res.status(500).send(_message.Error(err))
+                }
+            );
     }
 
     function findAllWebsitesForUser(req, res) {
-        var sites = [];
-        for (let x = 0; x < websites.length; x++) {
-            if (websites[x].developerId === req.params.uid) {
-                sites.push(websites[x]);
-            }
-        }
-        res.json(sites)
+        model.WebsiteModel
+            .find({developerId:req.params.uid})
+            .then(
+                (sites) => {res.status(200).json(sites)},
+                (err) => {
+                    console.log(err)
+                    res.status(500).send(_message.Error(err))
+                }
+            );
     }
 
     function findWebsiteById(req, res) {
-        for (let x = 0; x < websites.length; x++) {
-            if (websites[x]._id === req.params.wid) {
-                res.json(websites[x]);
-                return;
-            }
-        }
+        model.WebsiteModel
+            .find({_id:req.params.wid})
+            .then(
+                (sites) => {
+                    if (sites.length===0) {
+                        res.status(404).json(
+                            _message.Error("website not found"));
+                    } else {
+                        res.status(200).json(sites[0])
+                    }
 
-        res.status(404).json(
-                _message.Error("website not found"));
+                },
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
     function updateWebsite(req, res) {
-        var website  = req.body;
-        for (let x = 0; x < websites.length; x++) {
-            if (websites[x]._id === req.params.wid) {
-                website._id = websites[x]._id;
-                websites[x] = website;
-                res.status(200).json(
-                _message.Success("OK"));
-                return;
-            }
-        }
-        res.status(404).json(
-                _message.Error("website not found"));
+
+        model.WebsiteModel
+            .update({_id:req.params.wid},
+                    req.body)
+            .then(
+                () => {res.status(200).json(_message.Success("OK"));},
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
     function deleteWebsite(req, res) {
-        for (let x = 0; x < websites.length; x++) {
-            if (websites[x]._id === req.params.wid) {
-                websites.splice(x,1);
-                res.status(200).json(
-                _message.Success("OK"));
-                return;
-            }
-        }
-        res.status(404).json(
-                _message.Error("website not found"));
+        model.WebsiteModel
+            .remove({_id:req.params.wid})
+            .then(
+                (website) => {
+                    model.UserModel
+                        .update( {_id:website.developerId},
+                                 { $pull: { websites: req.params.wid } })
+                        .then(
+                          () => {res.status(200).json(_message.Success("OK"));},
+                          (err) => {res.status(500).send(_message.Error(err))}
+                        )
+                },
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
     winston.info("website endpoints registered");

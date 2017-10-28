@@ -60,7 +60,7 @@ function widgetFactory(wgid, pageId, type) {
   return widget;
 }
 
-function getDefaultWidgets() {
+function getDefaultWidgets(model) {
 
   let widgets = [
     newHeadingWidget( "123", "", "321", 2, "GIZMODO"),

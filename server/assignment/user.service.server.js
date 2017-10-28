@@ -11,6 +11,10 @@ module.exports = function (app, model) {
     app.delete('/api/user/:uid', deleteUser);
 
     function createUser(req, res) {
+        if (req.body._id || req.body._id==='') {
+            delete req.body._id;
+        }
+
         model.UserModel
             .find({username: req.body.username})
             .then(

@@ -10,15 +10,18 @@ function Website(_id, name, developerId, description) {
 
 exports.Website = Website;
 
-exports.getDefaultWebsites = function() {
-  let sites = [
-        new Website("123", "Facebook",    "456", "Lorem" ),
-        new Website("234", "Tweeter",     "456", "Lorem" ),
-        new Website("456", "Gizmodo",     "456", "Lorem" ),
-        new Website("890", "Go",          "123", "Lorem" ),
-        new Website("567", "Tic Tac Toe", "123", "Lorem" ),
-        new Website("678", "Checkers",    "123", "Lorem" ),
-        new Website("789", "Chess",       "234", "Lorem" )
-  ]
+async function getDefaultWebsites(model) {
+
+  var users = await model.UserModel.find();
+
+  let sites = []
+  for (var x=0; x < users.length; x++) {
+    sites.push( Website("", "Tic Tac Toe", users[x]._id, "Lorem" ))
+    sites.push( Website("", "Checkers",    users[x]._id, "Lorem" ))
+    sites.push( Website("", "Chess",       users[x]._id, "Lorem" ))
+  }
   return sites;
 }
+
+
+exports.getDefaultWebsites = getDefaultWebsites

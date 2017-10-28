@@ -2,18 +2,23 @@
 module.exports = function (app, model) {
     var winston = require("winston");
     var _message = require('../assignment/message.data.server');
-    var _user = require('../assignment/user.data.server');
+    var _user    = require('../assignment/user.data.server');
+    var _website = require('../assignment/website.data.server');
+    var _page    = require('../assignment/page.data.server');
+    var _widget  = require('../assignment/widget.data.server');
 
     app.delete('/api/reset', resetDatabase);
 
     async function create(model,items) {
-        for (let x=0; x < items.length; x++) {
-            if (items[x]._id) {
-                delete items[x]._id;
+
+        if (items) {
+            for (let x=0; x < items.length; x++) {
+                var item = items[x]
+                if (item._id || item._id==='') {
+                    delete item._id;
+                }
+                await model.create(item)
             }
-            await model.create(items[x])
-
-
         }
         let result = await model.find()
         winston.info("created " + result.length + " records in " +
@@ -28,12 +33,15 @@ module.exports = function (app, model) {
 
         await model.TestModel.remove()
         await model.UserModel.remove()
-        await model.WebsiteMode.remove()
+        await model.WebsiteModel.remove()
         await model.PageModel.remove()
         await model.UserModel.remove()
-        await model.WidgetMode.remove()
+        await model.WidgetModel.remove()
 
         await create(model.UserModel,_user.getDefaultUsers());
+        await create(model.WebsiteModel,await _website.getDefaultWebsites(model));
+        //await create(model.PageModel,_page.getDefaultPagess(model));
+        //await create(model.WidgetModel,_widget.getDefaultWidgets(model));
 
         winston.info("reset database complete")
         res.status(200).send(_message.Error("OK"));
