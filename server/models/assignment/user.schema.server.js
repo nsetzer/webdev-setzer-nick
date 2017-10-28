@@ -6,7 +6,8 @@ module.exports = function(mongoose) {
         firstName: String,
         lastName: String,
         email: String,
-        phone: String,
+        role: {type: String, default: "user"},
+        phone: {type: String, default: ""},
         websites: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'WebsiteModel'
@@ -15,6 +16,6 @@ module.exports = function(mongoose) {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'PlaylistModel'
         }],
-        dateCreated: Date
+        dateCreated: {type: Date, default: Date.now}
     });
 }

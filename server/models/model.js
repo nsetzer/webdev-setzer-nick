@@ -29,10 +29,10 @@ module.exports = function() {
 
         // models
         TestModel        : require("./test/test.model.server")(mongoose,TestSchema),
-        userModel        : require("./assignment/user.model.server")(mongoose,UserSchema),
-        websiteMode      : require("./assignment/website.model.server")(mongoose,WebsiteSchema),
-        pageModel        : require("./assignment/page.model.server")(mongoose,PageSchema),
-        widgetMode       : require("./assignment/widget.model.server")(mongoose,WidgetSchema),
+        UserModel        : require("./assignment/user.model.server")(mongoose,UserSchema),
+        WebsiteMode      : require("./assignment/website.model.server")(mongoose,WebsiteSchema),
+        PageModel        : require("./assignment/page.model.server")(mongoose,PageSchema),
+        WidgetMode       : require("./assignment/widget.model.server")(mongoose,WidgetSchema),
 
         // db connections
         mongojs          : mongojs,

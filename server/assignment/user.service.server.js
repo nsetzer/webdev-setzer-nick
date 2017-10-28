@@ -3,37 +3,54 @@ module.exports = function (app, model) {
     var _user = require('./user.data.server');
     var _message = require('./message.data.server');
 
-    users = _user.getDefaultUsers();
-    nextId = 1000;
-
     app.post('/api/user', createUser);
     app.get('/api/user', getUser);
     app.get('/api/user/find', getUsers);
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
+    app.delete('/api/user', drop);
+
+    function drop(req,res) {
+        model.UserModel
+            .remove()
+            .then(
+                (user) => {res.status(200).json(user)},
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
+    }
 
     function createUser(req, res) {
-
-        var user = req.body;
-
-        for (let x = 0; x < users.length; x++) {
-          if (users[x].username === user.username) {
-            res.status(400).json(
-                _message.Error("User already exists."));
-            return;
-          }
-        }
-
-        user._id = "" + nextId;
-        nextId = nextId + 1;
-        users.push( user );
-        res.status(201).json(user)
+        model.UserModel
+            .find({username: req.body.username})
+            .then(
+                (users) => {
+                    if (users.length===0) {
+                      model.UserModel
+                        .create(req.body)
+                        .then(
+                            (user) => {res.status(201).json(user)},
+                            (err) => {
+                                res.status(500).send(_message.Error(err))}
+                        );
+                    } else {
+                        res.status(400).send(_message.Error("user exists"))
+                    }
+                },
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
     function getUsers(req,res) {
         var username = req.query.username;
-        res.status(200).json(users);
+        // TODO allow wild card match search
+        // e.g. username==='*' -> all users
+        model.UserModel
+            .find()
+            .then(
+                (users) => {res.status(200).json(users)},
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
     function getUser(req, res) {
@@ -52,73 +69,77 @@ module.exports = function (app, model) {
     }
 
     function findUserByUsername(res, username) {
-        for (let x = 0; x < users.length; x++) {
-          if (users[x].username === username) {
-            res.json(users[x]);
-            return;
-          }
-        }
-
-        res.status(400).json(
-            _message.Error('User `' + username + '`not found by name'));
+        model.UserModel
+            .find({username: username})
+            .then(
+                (users) => {
+                    if (users.length===0) {
+                        res.status(404).send(
+                            _message.Error("user not found"))
+                    } else {
+                        res.status(200).json(users[0])
+                    }
+                },
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
     function findUserByCredentials(res, username,password) {
-        for (let x = 0; x < users.length; x++) {
-          if (users[x].username === username &&
-              users[x].password === password) {
-            res.json(users[x]);
-            return;
-          }
-        }
-
-        res.status(404).json(
-            _message.Error('User `' + username +
-                '` not found for given credentials'));
+        model.UserModel
+            .find({username: username, password:password})
+            .then(
+                (users) => {
+                    if (users.length===0) {
+                        res.status(404).send(
+                            _message.Error('User `' + username +
+                            '` not found for given credentials'))
+                    } else {
+                        res.status(200).json(users[0])
+                    }
+                },
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
     function findUserById(req, res) {
-        for (let x = 0; x < users.length; x++) {
-          if (users[x]._id === req.params.uid) {
-            res.json(users[x]);
-            return;
-          }
-        }
-
-        res.status(404).json(
-            _message.Error('Error: user not found'));
+        model.UserModel
+            .find({_id: req.params.uid})
+            .then(
+                (users) => {
+                    if (users.length===0) {
+                        res.status(404).send(
+                            _message.Error("user not found"))
+                    } else {
+                        res.status(200).json(users[0])
+                    }
+                },
+                (err) => {res.status(404).send(
+                    _message.Error('User not found'))}
+            );
     }
 
     function updateUser(req, res) {
 
-        var user = req.body;
-        for (let x = 0; x < users.length; x++) {
-          if (users[x]._id === req.params.uid) {
-            user._id = req.params.uid;
-            users[x] = user;
-            res.status(200).json(
-                _message.Success("OK"));
-            return;
-          }
-        }
-
-        res.status(404).json(
-            _message.Error('Error: user not found'));
+        model.UserModel
+            .update({_id: req.params.uid},req.body)
+            .then(
+                () => {res.status(200).json(_message.Success("OK"))},
+                (err) => {
+                    res.status(404).send(
+                    _message.Error('User not found'))
+                }
+            );
     }
 
     function deleteUser(req, res) {
-        for (let x = 0; x < this.users.length; x++) {
-            if (this.users[x]._id === req.params.uid) {
-                this.users.splice(x, 1)
-                res.status(200).json(
-                _message.Success("OK"));
-                return;
-            }
-        }
-
-        res.status(404).json(
-            _message.Error('Error: user not found'));
+        model.UserModel
+            .remove({_id: req.params.uid})
+            .then(
+                () => {res.status(200).json(_message.Success("OK"))},
+                (err) => {res.status(404).send(
+                    _message.Error('User not found'))}
+            );
     }
 
-    winston.info("user endpoints registered (" + users.length + " users)");
+    winston.info("user endpoints registered");
 };
