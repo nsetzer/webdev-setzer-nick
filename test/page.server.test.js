@@ -13,6 +13,18 @@ chai.use(chaiHttp);
 
 describe('Page', function() {
 
+  describe('Reset Database', function() {
+    it('should reset the database', function(done) {
+      this.timeout(5000);
+      chai.request(server)
+        .delete('/api/reset')
+        .end(function(err, res) {
+          expect(res).to.have.status(200)
+          done();
+        });
+    });
+  });
+
   describe('/api/page find all', function() {
     it('should return the default set of 3 pages', function(done) {
       chai.request(server)
@@ -25,8 +37,6 @@ describe('Page', function() {
         });
     });
   });
-
-
 
   describe('/api/page create', function() {
     it('creates and returns the page', function(done) {

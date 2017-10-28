@@ -14,6 +14,8 @@ module.exports = function (app) {
 
     winston.info("current environment: " + process.env.NODE_ENV);
 
+    require("./reset/reset.service.server")(app,model);
+
     require("./test-mongodb/test-mongodb.service.server")(app,model);
 
     require("./assignment/user.service.server")(app,model);

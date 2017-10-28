@@ -11,23 +11,24 @@ chai.use(chaiHttp);
 
 describe('User', function() {
 
+  describe('Reset Database', function() {
+    it('should reset the database', function(done) {
+      this.timeout(5000);
+      chai.request(server)
+        .delete('/api/reset')
+        .end(function(err, res) {
+          expect(res).to.have.status(200)
+          done();
+        });
+    });
+  });
+
   describe('/api/user api error', function() {
     it('should fail when an invalid enpoint is reached', function(done) {
       chai.request(server)
         .get('/api/user')
         .end(function(err, res) {
           expect(res).to.have.status(400)
-          done();
-        });
-    });
-  });
-
-  describe('/api/user reset', function() {
-    it('should clear the database', function(done) {
-      chai.request(server)
-        .delete('/api/user')
-        .end(function(err, res) {
-          expect(res).to.have.status(200)
           done();
         });
     });
@@ -64,14 +65,15 @@ describe('User', function() {
 
   // create a user and check to see that the
   // user id exists when done
+
   describe('/api/user create', function() {
     it('should create a new user', function(done) {
       var data = {
-        'username' : 'alice',
-        'password' : 'alice',
-        'firstName' : 'Alice',
+        'username' : 'fred',
+        'password' : 'fred',
+        'firstName' : 'fred',
         'lastName'  : 'Wonderland',
-        'email' : 'alice@example.com'
+        'email' : 'fred@example.com'
       };
       chai.request(server)
         .post('/api/user')
@@ -83,7 +85,7 @@ describe('User', function() {
             .end(function(err, res) {
               expect(res).to.have.status(200);
               expect(JSON.parse(res.text))
-                .to.include({"username":"alice"});
+                .to.include({"username":"fred"});
               done();
           });
         });

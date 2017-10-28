@@ -13,6 +13,18 @@ chai.use(chaiHttp);
 
 describe('Website', function() {
 
+  describe('Reset Database', function() {
+    it('should reset the database', function(done) {
+      this.timeout(5000);
+      chai.request(server)
+        .delete('/api/reset')
+        .end(function(err, res) {
+          expect(res).to.have.status(200)
+          done();
+        });
+    });
+  });
+
   describe('/api/website find all', function() {
     it('should return the default set of 3 websites', function(done) {
       chai.request(server)

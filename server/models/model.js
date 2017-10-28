@@ -15,6 +15,8 @@ module.exports = function() {
       useMongoClient: true
     });
 
+    mongoose.Promise = global.Promise
+
     mongojs('web-app-maker');
 
     TestSchema       = require("./test/test.schema.server")(mongoose);

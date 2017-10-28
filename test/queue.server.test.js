@@ -15,6 +15,18 @@ chai.use(chaiHttp);
 
 describe('SongQueue', function() {
 
+  describe('Reset Database', function() {
+    it('should reset the database', function(done) {
+      this.timeout(5000);
+      chai.request(server)
+        .delete('/api/reset')
+        .end(function(err, res) {
+          expect(res).to.have.status(200)
+          done();
+        });
+    });
+  });
+
   describe('/api/queue set/get', function() {
     it('creates and returns the playlist', function(done) {
       var list = _playlist.Playlist('123',"123","Test")

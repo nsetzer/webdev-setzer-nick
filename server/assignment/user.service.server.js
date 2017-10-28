@@ -9,16 +9,6 @@ module.exports = function (app, model) {
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
-    app.delete('/api/user', drop);
-
-    function drop(req,res) {
-        model.UserModel
-            .remove()
-            .then(
-                (user) => {res.status(200).json(user)},
-                (err) => {res.status(500).send(_message.Error(err))}
-            );
-    }
 
     function createUser(req, res) {
         model.UserModel

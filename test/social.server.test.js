@@ -14,6 +14,18 @@ chai.use(chaiHttp);
 
 describe('Social', function() {
 
+  describe('Reset Database', function() {
+    it('should reset the database', function(done) {
+      this.timeout(5000);
+      chai.request(server)
+        .delete('/api/reset')
+        .end(function(err, res) {
+          expect(res).to.have.status(200)
+          done();
+        });
+    });
+  });
+
   describe('/api/social connect', function() {
     it('should create a single connection', function(done) {
       chai.request(server)
