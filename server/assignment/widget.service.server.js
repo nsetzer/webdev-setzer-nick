@@ -62,7 +62,7 @@ module.exports = (app, model) => {
     }
 
     async function _findWidgetById(wgid) {
-        var items = await model.WidgetModel.find({_id:req.params.wgid});
+        var items = await model.WidgetModel.find({_id:wgid});
         if (items && items.length>0) {
             return items[0]
         }

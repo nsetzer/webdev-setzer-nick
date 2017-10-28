@@ -1,7 +1,7 @@
 
 <div class="container">
 
-    <h1>Login</h1>
+    <h1 (click)="username='alice'; password='alice'">Login</h1>
 
     <div *ngIf="error_message" class="help-block">
         {{error_message}}

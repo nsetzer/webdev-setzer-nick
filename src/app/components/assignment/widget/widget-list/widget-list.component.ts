@@ -37,7 +37,10 @@ export class WidgetListComponent implements OnInit {
 
   reload() {
     this._service.findWidgetsByPageId(this.pid).subscribe(
-      (widgets) => { this.widgets = widgets },
+      (widgets) => {
+        this.widgets = widgets
+        console.log(widgets)
+      },
       (err) => {
         let msg = JSON.parse(err._body)
         this.error_message = msg.message;

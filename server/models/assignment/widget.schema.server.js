@@ -5,7 +5,7 @@ module.exports = function(mongoose) {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'PageModel'
         },
-        type: {
+        widgetType: {
             type: String,
             enum: ['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT'],
         },
