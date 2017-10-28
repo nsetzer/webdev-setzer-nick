@@ -26,6 +26,7 @@ describe('Social', function() {
     });
   });
 
+/*
   describe('/api/social connect', function() {
     it('should create a single connection', function(done) {
       chai.request(server)
@@ -132,5 +133,5 @@ describe('Social', function() {
     });
   });
 
-
+*/
 });

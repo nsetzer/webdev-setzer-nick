@@ -27,6 +27,7 @@ describe('SongQueue', function() {
     });
   });
 
+/*
   describe('/api/queue set/get', function() {
     it('creates and returns the playlist', function(done) {
       var list = _playlist.Playlist('123',"123","Test")
@@ -98,6 +99,6 @@ describe('SongQueue', function() {
         });
     });
   });
-
+*/
 
 });

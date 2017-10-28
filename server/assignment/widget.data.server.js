@@ -60,58 +60,33 @@ function widgetFactory(wgid, pageId, type) {
   return widget;
 }
 
-function getDefaultWidgets(model) {
+async function getDefaultWidgets(model) {
 
-  let widgets = [
-    newHeadingWidget( "123", "", "321", 2, "GIZMODO"),
-    newHeadingWidget( "234", "", "321", 4, "Lorem ipsum"),
-    newHeadingWidget( "567", "", "321", 4, "Lorem ipsum"),
-    newImageWidget(  "345", "", "321", "100%", "http://lorempixel.com/400/200/"),
-    newYoutubeWidget("678", "", "321", "100%", "https://www.youtube.com/embed/AM2Ivdi9c4E"),
-    newHTMLWidget( "456", "", "321", "<p>Lorem ipsum</p>"),
-    newHTMLWidget( "789", "", "321", "<p>Lorem ipsum</p>")
-  ]
+  var pages = await model.PageModel.find();
 
-  var pages = [432,543,
-             100,101,102,
-             110,111,112,
-             120,121,122,
-             130,131,132,
-             140,141,142,
-             150,151,152 ];
-
-  let nextId = 800;
+  var widgets = []
 
   for (let i=0; i < pages.length; i++) {
 
     widgets.push(newHeadingWidget(
-      "" + nextId, "", "" + pages[i], 2, "HEADING " + nextId));
-    nextId = nextId + 1;
+      "", "", pages[i]._id, 2, "HEADING " + i));
 
     widgets.push(newHTMLWidget(
-      "" + nextId, "", "" + pages[i], "<b>Lorem</b> <i>ipsum</i>"));
-    nextId = nextId + 1;
+      "", "", pages[i]._id, "<b>Lorem</b> <i>ipsum</i>"));
 
     widgets.push(newHeadingWidget(
-      "" + nextId, "", "" + pages[i], 2, "HEADING " + nextId));
-    nextId = nextId + 1;
+      "", "", pages[i]._id, 2, "HEADING " + i));
 
     widgets.push(newHTMLWidget(
-      "" + nextId, "", "" + pages[i], "<b>Lorem</b> <i>dolar</i>"));
-    nextId = nextId + 1;
+      "", "", pages[i]._id, "<b>Lorem</b> <i>dolar</i>"));
 
     widgets.push(newImageWidget(
-      "" + nextId, "", "" + pages[i], "100%",
+      "", "", pages[i]._id, "100%",
       "http://lorempixel.com/400/200/"));
-    nextId = nextId + 1;
 
     widgets.push(newYoutubeWidget(
-      "" + nextId, "", "" + pages[i], "100%",
+      "", "", pages[i]._id, "100%",
       "https://www.youtube.com/embed/AM2Ivdi9c4E"));
-    nextId = nextId + 1;
-
-
-
   }
 
   return widgets;

@@ -24,7 +24,7 @@ describe('Page', function() {
         });
     });
   });
-
+/*
   describe('/api/page find all', function() {
     it('should return the default set of 3 pages', function(done) {
       chai.request(server)
@@ -96,4 +96,6 @@ describe('Page', function() {
         });
     });
   });
+
+*/
 });
