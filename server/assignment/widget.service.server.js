@@ -6,9 +6,6 @@ module.exports = (app, model) => {
     var _widget = require('./widget.data.server');
     var _message = require('./message.data.server');
 
-    var widgets = _widget.getDefaultWidgets();
-    var nextId = 1000;
-
     var multer = require('multer'); //
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
 
@@ -21,40 +18,59 @@ module.exports = (app, model) => {
     app.post("/api/upload", upload.single('myFile'), uploadImage);
 
     function createWidget(req, res) {
-        var widget = req.body;
-        widget._id = "" + nextId
-        nextId = nextId + 1;
-        widget.pageId = req.params.pid
-        widgets.push( widget );
-        res.status(201).json(widget)
+        if (req.body._id || req.body._id==='') {
+            delete req.body._id;
+        }
+
+        req.body.pageId = req.params.pid;
+
+        model.WidgetModel
+            .create(req.body)
+            .then(
+                (widget) => {
+                    model.PageModel
+                        .update( {_id:widget.pageId},
+                                 { $push: { widgets: widget._id } })
+                        .then(
+                          () => {res.status(201).json(widget)},
+                          (err) => {
+                            res.status(500).send(_message.Error(err))
+                          }
+                        )
+                },
+                (err) => {
+                    res.status(500).send(_message.Error(err))
+                }
+            );
     }
 
-    function _findAllWidgetsForPage(pid) {
-        var items = [];
-        for (let x = 0; x < widgets.length; x++) {
-            if (widgets[x].pageId === pid) {
-                items.push(widgets[x]);
-            }
+    async function _findAllWidgetsForPage(pid) {
+        // TODO: verify order retuned is correct
+        let pages = await model.PageModel.find({_id:pid})
+        if (pages) {
+            let page = pages[0]
+            let widgets = await model.WidgetModel
+                .find({_id: {$in: page.widgets}});
+            return widgets;
         }
-        items.sort( (a,b) => (a.index-b.index))
-        return items;
+        return [];
     }
-    function findAllWidgetsForPage(req, res) {
-        var items = _findAllWidgetsForPage(req.params.pid);
+
+    async function findAllWidgetsForPage(req, res) {
+        var items = await _findAllWidgetsForPage(req.params.pid);
         res.json(items)
     }
 
-    function _findWidgetById(wgid) {
-        for (let x = 0; x < widgets.length; x++) {
-            if (widgets[x]._id === wgid) {
-                return widgets[x];
-            }
+    async function _findWidgetById(wgid) {
+        var items = await model.WidgetModel.find({_id:req.params.wgid});
+        if (items && items.length>0) {
+            return items[0]
         }
         return;
     }
 
-    function findWidgetById(req, res) {
-        var widget = _findWidgetById(req.params.wgid);
+    async function findWidgetById(req, res) {
+        var widget = await _findWidgetById(req.params.wgid);
         if (widget) {
             res.json(widget);
         } else {
@@ -63,66 +79,59 @@ module.exports = (app, model) => {
         }
     }
 
-    function _updateWidget(wgid, widget) {
-        for (let x = 0; x < widgets.length; x++) {
-            if (widgets[x]._id === wgid) {
-                widget._id = widgets[x]._id;
-                widgets[x] = widget;
-                return true;
-            }
-        }
-        return false;
-    }
-
     function updateWidget(req, res) {
-        if (_updateWidget(req.params.wgid, req.body)) {
-            res.status(200).json(
-                _message.Success("OK"));
-        } else {
-            res.status(404).json(
-                _message.Error("widget not found"));
-        }
+        model.WidgetModel
+            .update({_id:req.params.wgid},
+                    req.body)
+            .then(
+                () => {res.status(200).json(_message.Success("OK"));},
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
-    function deleteWidget(req, res) {
-        winston.info("delete widget " + req.params.wgid);
-        for (let x = 0; x < widgets.length; x++) {
-            if (widgets[x]._id === req.params.wgid) {
-                widgets.splice(x,1);
-                res.status(200).json(
-                _message.Success("OK"));
-                return;
-            }
+    async function deleteWidget(req, res) {
+        let widget = await model.WidgetModel.find({_id:req.params.pid})
+
+        if (widget) {
+            await model.WidgetModel.remove({_id:req.params.wgid})
+            await model.PageModel
+                    .update({_id:widget.pageId},
+                            { $pull: { widgets: req.params.wgid } });
+            res.status(200).json(_message.Success("OK"));
+            return
         }
-        res.status(404).json(
-                _message.Error("widget not found"));
+
+        res.status(404).send(_message.Error("website not found"))
     }
 
-    function _reorderWidget(pid, from, to) {
+    async function _reorderWidget(pid, from, to) {
         winston.info("pid " + pid + " move " + from + " to " + to);
-        var items = _findAllWidgetsForPage(pid);
 
-        if ( from < 0 || from >= items.length) {
-            return false;
-        }
+        let pages = await model.PageModel.find({_id:pid})
+        if (pages) {
+            let page = pages[0];
+            let items = page.widgets;
 
-        if ( to < 0 || to >= items.length) {
-            return false;
-        }
+            if ( from < 0 || from >= items.length) {
+                return false;
+            }
 
-        var widget = items.splice(from, 1)[0]
-        widget.index = -1
-        items.splice(to, 0, widget);
+            if ( to < 0 || to >= items.length) {
+                return false;
+            }
 
-        for (let x=0; x < items.length; x++) {
-            items[x].index = x;
-            _updateWidget(items[x]._id,items[x]);
+            var widget = items.splice(from, 1)[0]
+            items.splice(to, 0, widget);
+
+            page.widgets = items;
+
+            await model.PageModel.update({_id:pid}, page)
         }
 
         return true;
     }
 
-    function reorderWidget(req,res) {
+    async function reorderWidget(req,res) {
         if (_reorderWidget( req.params.pid, req.query.from, req.query.to)) {
             res.status(200).json(
                 _message.Success("OK"));

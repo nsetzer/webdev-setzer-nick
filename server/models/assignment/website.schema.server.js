@@ -11,6 +11,6 @@ module.exports = function(mongoose) {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'PageModel'
         }],
-        dateCreated: Date
+        dateCreated: {type: Date, default: Date.now}
     });
 }

@@ -27,80 +27,96 @@ describe('Widget', function() {
     });
   });
 
-/*
-  describe('/api/widget find all', function() {
-    it('should return the default set of 3 websites', function(done) {
+  describe('/api/widget find', function() {
+    it('return the default set of websites', function(done) {
       chai.request(server)
-        .get('/api/page/121/widget')
+        .get('/api/_test/page')
         .end(function(err, res) {
-          res.should.have.status(200);
-          res.body.should.be.a('array');
-          // if the default number of widgets changes
-          // then this number needs to be updated
-          res.body.length.should.eql(6)
-          done();
-        });
-    });
-  });
-
+          expect(res).to.have.status(200)
+          let page = res.body;
+          chai.request(server)
+            .get('/api/page/'+page._id+'/widget')
+            .end(function(err, res) {
+              res.should.have.status(200);
+              res.body.should.be.a('array');
+              // update when this changes
+              res.body.length.should.eql(6)
+              done();
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
   describe('/api/widget create', function() {
-    it('creates and returns the website', function(done) {
-      var widget = _widget.newHeadingWidget('',"Test","123",'','')
+    it('create a new widget', function(done) {
       chai.request(server)
-        .post('/api/page/121/widget')
-        .send(widget)
+        .get('/api/_test/page')
         .end(function(err, res) {
-          expect(res).to.have.status(201);
-          var new_widget = JSON.parse(res.text);
+          expect(res).to.have.status(200)
+          let page = res.body;
+          var widget = _widget.newHeadingWidget('',"Test",page._id,'','')
           chai.request(server)
-            .get('/api/widget/' + new_widget._id)
+            .post('/api/page/'+page._id+'/widget')
+            .send(widget)
             .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(res.body)
-                .to.include({"name":"Test",
-                             "widgetType": "HEADING",
-                             "pageId":"121"});
+              res.should.have.status(201);
               done();
-          });
-        });
-    });
-  });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
   describe('/api/widget update', function() {
-    it('update the widget', function(done) {
-      var widget = _widget.newHeadingWidget('',"Test","123",'','')
+    it('create and update a widget', function(done) {
       chai.request(server)
-        .put('/api/widget/123')
-        .send(widget)
+        .get('/api/_test/page')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(200)
+          let page = res.body;
+          var widget = _widget.newHeadingWidget('',"Test",page._id,'','')
           chai.request(server)
-            .get('/api/widget/123')
+            .post('/api/page/'+page._id+'/widget')
+            .send(widget)
             .end(function(err, res) {
-              expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"name":"Test"});
-              done();
-          });
-        });
-    });
-  });
+              res.should.have.status(201);
+              let new_page = res.body;
+              chai.request(server)
+                .put('/api/page/'+new_page._id)
+                .send(new_page)
+                .end(function(err, res) {
+                  res.should.have.status(200);
+                  done();
+                });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
 
   describe('/api/widget delete', function() {
-    it('deletes the widget', function(done) {
+    it('create and delete a widget', function(done) {
       chai.request(server)
-        .delete('/api/widget/123')
+        .get('/api/_test/page')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(200)
+          let page = res.body;
+          var widget = _widget.newHeadingWidget('',"Test",page._id,'','')
           chai.request(server)
-            .get('/api/widget/123')
+            .post('/api/page/'+page._id+'/widget')
+            .send(widget)
             .end(function(err, res) {
-              expect(res).to.have.status(404);
-              done();
-          });
-        });
-    });
-  });
-*/
+              res.should.have.status(201);
+              let new_page = res.body;
+              chai.request(server)
+                .delete('/api/page/'+new_page._id)
+                .end(function(err, res) {
+                  res.should.have.status(200);
+                  done();
+                });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
+
+
+
 });

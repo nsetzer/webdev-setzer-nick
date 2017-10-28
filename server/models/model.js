@@ -23,14 +23,13 @@ module.exports = function() {
     UserSchema       = require("./assignment/user.schema.server")(mongoose);
     WebsiteSchema    = require("./assignment/website.schema.server")(mongoose);
     PageSchema       = require("./assignment/page.schema.server")(mongoose);
-    //WidgetSchema     = require("./assignment/widget.schema.server")(mongoose);
+    WidgetSchema     = require("./assignment/widget.schema.server")(mongoose);
 
     TestModel        = require("./test/test.model.server")(mongoose,TestSchema)
     UserModel        = require("./assignment/user.model.server")(mongoose,UserSchema)
     WebsiteModel     = require("./assignment/website.model.server")(mongoose,WebsiteSchema)
     PageModel        = require("./assignment/page.model.server")(mongoose,PageSchema)
-    //WidgetModel      = require("./assignment/widget.model.server")(mongoose,WidgetSchema)
-
+    WidgetModel      = require("./assignment/widget.model.server")(mongoose,WidgetSchema)
 
     var model = {
         // models
@@ -38,7 +37,7 @@ module.exports = function() {
         UserModel   : UserModel,
         WebsiteModel: WebsiteModel,
         PageModel   : PageModel,
-        //WidgetModel : WidgetModel ,
+        WidgetModel : WidgetModel,
 
         // db connections
         mongojs          : mongojs,

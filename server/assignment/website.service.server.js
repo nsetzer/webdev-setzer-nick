@@ -17,6 +17,9 @@ module.exports = function (app, model) {
         if (req.body._id || req.body._id==='') {
             delete req.body._id;
         }
+
+        req.body.developerId = req.params.uid;
+
         model.WebsiteModel
             .create(req.body)
             .then(

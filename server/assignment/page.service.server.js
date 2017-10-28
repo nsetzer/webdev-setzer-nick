@@ -16,6 +16,9 @@ module.exports = function (app, model) {
         if (req.body._id || req.body._id==='') {
             delete req.body._id;
         }
+
+        req.body.websiteId = req.params.wid;
+
         model.PageModel
             .create(req.body)
             .then(
@@ -26,14 +29,12 @@ module.exports = function (app, model) {
                         .then(
                           () => {res.status(201).json(page)},
                           (err) => {
-                            console.log(err)
-                            res.status(501).send(_message.Error(err))
+                            res.status(500).send(_message.Error(err))
                           }
                         )
                 },
                 (err) => {
-                    console.log(err)
-                    res.status(502).send(_message.Error(err))
+                    res.status(500).send(_message.Error(err))
                 }
             );
     }
@@ -56,11 +57,10 @@ module.exports = function (app, model) {
                 (pages) => {
                     if (pages.length===0) {
                         res.status(404).json(
-                            _message.Error("website not found"));
+                            _message.Error("page not found"));
                     } else {
                         res.status(200).json(pages[0])
                     }
-
                 },
                 (err) => {res.status(500).send(_message.Error(err))}
             );

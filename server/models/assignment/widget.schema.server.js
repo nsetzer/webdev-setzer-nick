@@ -22,6 +22,6 @@ module.exports = function(mongoose) {
         icon: String,
         deleteable: Boolean,
         formatted: Boolean,
-        dateCreated: Date
+        dateCreated: {type: Date, default: Date.now}
     });
 }
