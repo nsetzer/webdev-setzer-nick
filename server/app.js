@@ -22,13 +22,14 @@ module.exports = function (app) {
     require("./assignment/website.service.server")(app,model);
     require("./assignment/page.service.server")(app,model);
     require("./assignment/widget.service.server")(app,model);
+
     require("./assignment/flickr.service.server")(app);
 
-    require("./project/playlist.service.server")(app);
-    require("./project/social.service.server")(app);
-    require("./project/queue.service.server")(app);
+    require("./project/playlist.service.server")(app,model);
+    require("./project/social.service.server")(app,model);
+    require("./project/queue.service.server")(app,model);
 
-    require("./youtube/yt_endpoints")(app);
+    require("./youtube/youtube.service.server")(app);
 
 
 };

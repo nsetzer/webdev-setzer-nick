@@ -25,19 +25,27 @@ module.exports = function() {
     PageSchema       = require("./assignment/page.schema.server")(mongoose);
     WidgetSchema     = require("./assignment/widget.schema.server")(mongoose);
 
+    SongSchema       = require("./project/song.schema.server")(mongoose);
+    PlaylistSchema   = require("./project/playlist.schema.server")(mongoose);
+
     TestModel        = require("./test/test.model.server")(mongoose,TestSchema)
     UserModel        = require("./assignment/user.model.server")(mongoose,UserSchema)
     WebsiteModel     = require("./assignment/website.model.server")(mongoose,WebsiteSchema)
     PageModel        = require("./assignment/page.model.server")(mongoose,PageSchema)
     WidgetModel      = require("./assignment/widget.model.server")(mongoose,WidgetSchema)
 
+    SongModel        = require("./project/song.model.server")(mongoose,SongSchema)
+    PlaylistModel    = require("./project/playlist.model.server")(mongoose,PlaylistSchema)
+
     var model = {
         // models
-        TestModel   : TestModel,
-        UserModel   : UserModel,
-        WebsiteModel: WebsiteModel,
-        PageModel   : PageModel,
-        WidgetModel : WidgetModel,
+        TestModel     : TestModel,
+        UserModel     : UserModel,
+        WebsiteModel  : WebsiteModel,
+        PageModel     : PageModel,
+        WidgetModel   : WidgetModel,
+        SongModel     : SongModel,
+        PlaylistModel : PlaylistModel,
 
         // db connections
         mongojs          : mongojs,

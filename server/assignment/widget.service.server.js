@@ -90,12 +90,12 @@ module.exports = (app, model) => {
     }
 
     async function deleteWidget(req, res) {
-        let widget = await model.WidgetModel.find({_id:req.params.pid})
+        let widgets = await model.WidgetModel.find({_id:req.params.wgid})
 
-        if (widget) {
+        if (widgets) {
             await model.WidgetModel.remove({_id:req.params.wgid})
             await model.PageModel
-                    .update({_id:widget.pageId},
+                    .update({_id:widgets[0].pageId},
                             { $pull: { widgets: req.params.wgid } });
             res.status(200).json(_message.Success("OK"));
             return

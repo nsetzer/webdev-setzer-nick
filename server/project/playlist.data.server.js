@@ -14,31 +14,26 @@ function Playlist(_id, uid, name) {
     };
 }
 
-// some api calls may return many playlists --
-// which each may contain many songs. this returns
-// a copy of a playlist with songs removed to save on bandwidth
-function scrub( lst ) {
-    return {
-        _id: lst._id,
-        uid: lst.uid,
-        name: lst.name,
-        description: lst.description,
-        songs: []
-    };
-}
-
-function createDefaultPlaylist(uid, plid) {
-    var lst = new Playlist(plid, uid, "Default Playlist");
-    lst.songs = _song.getDefaultSongs();
+function createDefaultPlaylist(uid, name, songs) {
+    var lst = new Playlist("", uid, name);
+    lst.songs = songs
     return lst;
 }
 
-function getDefaultPlaylists() {
-    return _user.getDefaultUsers().map(user =>
-        createDefaultPlaylist(user._id,user._id));
+async function getDefaultPlaylists(model) {
+
+    var users = await model.UserModel.find();
+    var songs = await model.SongModel.find().limit(5);
+
+    let lists = []
+    for (var x=0; x < users.length; x++) {
+        lists.push(createDefaultPlaylist(users[x]._id,"Default Playlist", songs))
+        lists.push(createDefaultPlaylist(users[x]._id,"Favorite Songs", songs))
+        lists.push(createDefaultPlaylist(users[x]._id,"Workout Mix", songs))
+    }
+
+    return lists;
 }
 
 exports.Playlist = Playlist;
-exports.scrub = scrub;
-exports.createDefaultPlaylist = createDefaultPlaylist;
 exports.getDefaultPlaylists = getDefaultPlaylists;

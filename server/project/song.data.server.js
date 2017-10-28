@@ -10,13 +10,13 @@ function Song(_id, videoId, description, title, artist, thumbnail) {
     };
 }
 
-function getDefaultSongs() {
+function getDefaultSongs(model) {
     return [
-        Song('100',"Yn1WbBaWTdc","","Title1","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
-        Song('101',"2oPeZFOpPAM","","Title2","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
-        Song('102',"9lZgHdOU-ko","","Title3","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
-        Song('103',"xSrEQSKLJh0","","Title4","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
-        Song('104',"GNk6Por8iq8","","Title5","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
+        Song('',"Yn1WbBaWTdc","","Wicked Garden","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
+        Song('',"2oPeZFOpPAM","","Wicked Garden (live)","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
+        Song('',"9lZgHdOU-ko","","Wicked Garden (Acoustic)","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
+        Song('',"xSrEQSKLJh0","","Wicked Garden (letterman)","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
+        Song('',"GNk6Por8iq8","","Wicked Garden (album version)","","https://i.ytimg.com/vi/2oPeZFOpPAM/hqdefault.jpg"),
     ]
 }
 

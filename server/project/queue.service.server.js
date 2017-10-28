@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, model) {
     var winston = require("winston");
     var _playlist = require('./playlist.data.server');
 
