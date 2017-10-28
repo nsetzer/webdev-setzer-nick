@@ -12,28 +12,37 @@ module.exports = function (app, model) {
 
     function setSongQueue(req, res) {
         var playlist = req.body;
-        playlist.uid = req.params.uid;
-        for (let x = 0; x < queues.length; x++) {
-          if (queues[x].uid === playlist.uid) {
-            queues[x] = playlist
-            res.status(200).json(playlist)
-            return;
-          }
-        }
-        queues.push( playlist );
-        res.status(200).json(playlist)
+        var queue = {
+            uid: req.params.uid,
+            songs: playlist.songs
+        };
+        model.QueueModel
+            .update({uid:req.params.uid}, queue, {upsert:true})
+            .then(
+                () => {res.status(200).json(queue)},
+                (err) => {res.status(501).send(_message.Error(err))}
+            );
     }
 
     function getSongQueue(req, res) {
-        for (let x = 0; x < queues.length; x++) {
-          if (queues[x].uid === req.params.uid) {
-            res.status(200).json(queues[x])
-            return;
-          }
-        }
-        // default always return an empty list
-        var playlist = _playlist.createDefaultPlaylist(req.params.uid,"");
-        res.status(200).json(playlist);
+
+        model.QueueModel
+            .find({uid: req.params.uid})
+            .then(
+                (queues) => {
+                    if (queues.length===0) {
+                        // return the default, empty queue, when not found
+                        res.status(200).json({
+                            uid: req.params.uid,
+                            songs: []
+                        });
+                    } else {
+                        // return the queue that was found
+                        res.status(200).json(queues[0])
+                    }
+                },
+                (err) => {res.status(502).send(_message.Error(err))}
+            );
     }
 
     function _getUrl(song) {
@@ -44,37 +53,45 @@ module.exports = function (app, model) {
         }
     }
 
-    function getSongQueueHead(req, res) {
-        for (let x = 0; x < queues.length; x++) {
-          if (queues[x].uid === req.params.uid) {
-            // return the head of the queue
-            if (queues[x].songs.length > 0) {
-                var song = queues[x].songs[0]
-                song.url = _getUrl(song)
-                song.length = queues[x].length
-                res.status(200).json(song)
-                return;
-            }
-          }
+    async function getSongQueueHead(req, res) {
+
+        var queues = await model.QueueModel.find({uid:req.params.uid});
+
+        if (queues && queues.length > 0) {
+            let songid = queues[0].songs[0];
+            let songs = await model.SongModel.find({_id:songid})
+            let song = songs[0]
+
+            song.url = _getUrl(song)
+            song.length = queues[0].length;
+            res.status(200).json(song)
+
+            return;
         }
         // default return a null object
         res.status(200).json(null)
     }
 
-    function deleteSongQueueHead(req, res) {
-        for (let x = 0; x < queues.length; x++) {
-          if (queues[x].uid === req.params.uid) {
-            // remove the song at index 0
-            queues[x].songs.splice(0,1);
-            // return the new head of the queue
-            if (queues[x].songs.length > 0) {
-                var song = queues[x].songs[0]
-                song.url = _getUrl(song)
-                song.length = queues[x].length
-                res.status(200).json(song)
-                return;
-            }
-          }
+    async function deleteSongQueueHead(req, res) {
+
+        var queues = await model.QueueModel.find({uid:req.params.uid});
+
+        if (queues && queues.length > 0) {
+            let songid = queues[0].songs[0];
+            let songs = await model.SongModel.find({_id:songid})
+            let song = songs[0]
+
+            song.url = _getUrl(song)
+            song.length = queues[0].length;
+
+            // remove the song
+            await model.QueueModel.update(
+                {uid:req.params.uid},
+                { $pop: { songs: -1 } }
+            );
+
+            res.status(200).json(song)
+            return;
         }
         // default return a null object
         res.status(200).json(null)

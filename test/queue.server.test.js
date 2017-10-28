@@ -29,78 +29,85 @@ describe('SongQueue', function() {
     });
   });
 
-/*
   describe('/api/queue set/get', function() {
     it('creates and returns the playlist', function(done) {
-      var list = _playlist.Playlist('123',"123","Test")
-      list.songs = _song.getDefaultSongs()
-
       chai.request(server)
-        .put('/api/user/123/queue')
-        .send(list)
+        .get('/api/_test/playlist')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
-          var new_list = JSON.parse(res.text);
+          let uid = res.body.uid;
+          let list = res.body;
           chai.request(server)
-            .get('/api/user/123/queue')
+            .put('/api/user/'+uid+'/queue')
+            .send(list)
             .end(function(err, res) {
               expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-                .to.include({"name":"Test",
-                             "uid":"123"});
-              done();
-          });
+              var new_list = JSON.parse(res.text);
+              chai.request(server)
+                .get('/api/user/'+uid+'/queue')
+                .end(function(err, res) {
+                  expect(res).to.have.status(200);
+                  res.body.songs.should.be.a('array');
+                  res.body.songs.length.should.eql(5)
+
+                  done();
+              });
+            });
+
         });
+
     });
   });
 
   describe('/api/queue get head', function() {
-    it('should delete head from queue', function(done) {
-      var list = _playlist.Playlist('123',"123","Test")
-      list.songs = _song.getDefaultSongs()
-
+    it('creates and returns the playlist', function(done) {
       chai.request(server)
-        .put('/api/user/123/queue')
-        .send(list)
+        .get('/api/_test/playlist')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
-          var new_list = JSON.parse(res.text);
+          let uid = res.body.uid;
+          let list = res.body;
           chai.request(server)
-            .get('/api/user/123/queue/head')
+            .put('/api/user/'+uid+'/queue')
+            .send(list)
             .end(function(err, res) {
               expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-              // the id of the second default song
-                .to.include({"_id":"100"});
-              done();
-          });
+              var new_list = JSON.parse(res.text);
+              chai.request(server)
+                .get('/api/user/'+uid+'/queue/head')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    res.body._id.should.eql(list.songs[0])
+                    done();
+                });
+            });
         });
+
     });
   });
 
   describe('/api/queue delete head', function() {
-    it('should delete head from queue', function(done) {
-      var list = _playlist.Playlist('123',"123","Test")
-      list.songs = _song.getDefaultSongs()
-
+    it('creates and returns the playlist', function(done) {
       chai.request(server)
-        .put('/api/user/123/queue')
-        .send(list)
+        .get('/api/_test/playlist')
         .end(function(err, res) {
-          expect(res).to.have.status(200);
-          var new_list = JSON.parse(res.text);
+          let uid = res.body.uid;
+          let list = res.body;
           chai.request(server)
-            .delete('/api/user/123/queue/head')
+            .put('/api/user/'+uid+'/queue')
+            .send(list)
             .end(function(err, res) {
               expect(res).to.have.status(200);
-              expect(JSON.parse(res.text))
-              // the id of the second default song
-                .to.include({"_id":"101"});
-              done();
-          });
+              var new_list = JSON.parse(res.text);
+              chai.request(server)
+                .delete('/api/user/'+uid+'/queue/head')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    res.body._id.should.eql(list.songs[0])
+                    done();
+                });
+            });
         });
+
     });
   });
-*/
 
 });

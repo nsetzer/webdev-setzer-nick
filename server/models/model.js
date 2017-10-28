@@ -27,6 +27,7 @@ module.exports = function() {
 
     SongSchema       = require("./project/song.schema.server")(mongoose);
     PlaylistSchema   = require("./project/playlist.schema.server")(mongoose);
+    QueueSchema      = require("./project/queue.schema.server")(mongoose);
 
     TestModel        = require("./test/test.model.server")(mongoose,TestSchema)
     UserModel        = require("./assignment/user.model.server")(mongoose,UserSchema)
@@ -36,6 +37,7 @@ module.exports = function() {
 
     SongModel        = require("./project/song.model.server")(mongoose,SongSchema)
     PlaylistModel    = require("./project/playlist.model.server")(mongoose,PlaylistSchema)
+    QueueModel       = require("./project/queue.model.server")(mongoose,QueueSchema)
 
     var model = {
         // models
@@ -46,6 +48,7 @@ module.exports = function() {
         WidgetModel   : WidgetModel,
         SongModel     : SongModel,
         PlaylistModel : PlaylistModel,
+        QueueModel    : QueueModel,
 
         // db connections
         mongojs          : mongojs,
