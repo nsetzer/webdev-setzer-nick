@@ -49,7 +49,7 @@ export class PlaylistAddComponent implements OnInit {
          this.runSearch();
        } else {
          this.videoId = null;
-         let state = this._service.getPreviousKeywordSearch();
+         let state = this._service.getPreviousSearchResults();
          this.searchTerm = state.searchTerm;
          this.searchResults = state.results;
        }

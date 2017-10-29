@@ -53,14 +53,26 @@
 
 <div class="container-fluid content-body">
 
-{{song.title}}<br>
-{{song.description}}<br>
+<div *ngIf="song">
 
-<div class="image-container">
-    <img [src]="makeSafe(song.thumbnail)"
-         width="33%"
-         class="image-container"
-         />
+  Title: {{song.title}}<br>
+  Description: {{song.description}}<br>
+
+  <div class="image-container">
+      <img [src]="makeSafe(song.thumbnail)"
+           width="33%"
+           class="image-container"
+           />
+  </div>
+</div>
+
+<div >
+  <p>Playlists from other users that contain this song:</p>
+  <ul *ngIf="playlists.length>0">
+    <li *ngFor="let playlist of playlists">
+      {{playlist.name}}
+    </li>
+  </ul>
 </div>
 
 </div>

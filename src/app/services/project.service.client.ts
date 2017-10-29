@@ -29,6 +29,7 @@ export class ProjectService {
             data[i].url = this.baseUrl + "/api/youtube/" + data[i].videoId
           }
           this.keyword_state.results = data;
+          this.clearPreviousRelatedSearch();
           return data;
         }
       );
@@ -55,6 +56,7 @@ export class ProjectService {
             data[i].url = this.baseUrl + "/api/youtube/" + data[i].videoId
           }
           this.related_state.results = data;
+          this.clearPreviousKeywordSearch();
           return data;
         }
       );
@@ -66,6 +68,20 @@ export class ProjectService {
 
   clearPreviousRelatedSearch() {
     this.related_state = {results:[],searchTerm:""};
+  }
+
+  getPreviousSearchResults() {
+
+    if (this.keyword_state.searchTerm !== "") {
+      return this.keyword_state;
+    }
+
+    if (this.related_state.searchTerm !== "") {
+      return {results:this.related_state.results,
+              searchTerm:"related:"+this.related_state.searchTerm};
+    }
+
+    return {results:[],searchTerm:""};
   }
 
   databaseReset() {

@@ -124,7 +124,15 @@ export class PlaylistService {
      );
   }
 
-
+  findPlaylistsContaining(vid) {
+    return this._http.get(this.baseUrl + `/api/playlist-contains/${vid}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
 
 }
 

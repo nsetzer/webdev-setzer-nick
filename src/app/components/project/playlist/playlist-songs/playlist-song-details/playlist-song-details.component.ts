@@ -18,6 +18,7 @@ export class PlaylistSongDetailsComponent implements OnInit {
   song : any = {title:"",description:""};
   playlist : any = []
   private sub: any;
+  playlists= [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -40,6 +41,16 @@ export class PlaylistSongDetailsComponent implements OnInit {
         (lst) => {
             this.playlist = lst;
             this.song = lst.songs[this.idx];
+
+            /*
+            if (this.song.videoId) {
+              this._pservice.findPlaylistsContaining(this.song.videoId).subscribe(
+                (lists) => { this.playlists = lists },
+                (err) => {}
+              )
+            }
+            */
+
         }
     );
   }

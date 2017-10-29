@@ -13,6 +13,7 @@ module.exports = function (app, model) {
     app.get('/api/playlist/:plid', findPlaylistById);
     app.put('/api/playlist/:plid', updatePlaylist);
     app.get('/api/playlist/:plid/songs', findAllSongssForPlaylist);
+    app.get('/api/playlist-contains/:videoId', findPlaylistsContainingSong);
     app.delete('/api/playlist/:plid', deletePlaylist);
     app.put('/api/playlist/:plid/append', addSongToPlaylist);
     app.delete('/api/playlist/:plid/:idx', removeSongFromPlaylist);
@@ -265,6 +266,19 @@ module.exports = function (app, model) {
                     res.status(500).send(_message.Error(err))
                 }
             );
+    }
+
+    async function findPlaylistsContainingSong(req, res) {
+        let vid = req.params.videoId;
+
+        let songs = await model.SongModel.find({videoId:vid})
+        let sids = songs.map(s => s._id)
+
+        let lists = await model.PlaylistModel
+                .find({songs: {$all: sids}});
+
+        winston.info("found " + lists.lengths + " lists containing " + vid);
+        res.status(200).json(lists)
     }
 
 

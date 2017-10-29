@@ -18,10 +18,12 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
   idx     : number = 0;
   song : any;
   private sub: any;
+  playlists= [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _service: ProjectService,
+              private _pservice: PlaylistService,
               private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
@@ -34,12 +36,18 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
        this.plid = params['plid'];
        this.idx = +params['idx'];
 
+       /*
        let results = []
        if (params["videoId"]) {
          this.videoId = params['videoId']
          results = this._service.getPreviousRelatedSearch().results;
        } else {
          results = this._service.getPreviousKeywordSearch().results;
+       }
+       */
+       let results = this._service.getPreviousSearchResults().results
+       if (params["videoId"]) {
+         this.videoId = params['videoId']
        }
 
        // if the user landed on this page providing invalid arguments, leave
@@ -59,7 +67,13 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
 
   reload(results) {
     this.song = results[this.idx];
-    console.log(this.song);
+
+    if (this.song.videoId) {
+      this._pservice.findPlaylistsContaining(this.song.videoId).subscribe(
+        (lists) => { this.playlists = lists },
+        (err) => {}
+      )
+    }
   }
 
   return() {

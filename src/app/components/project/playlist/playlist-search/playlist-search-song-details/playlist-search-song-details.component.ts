@@ -18,6 +18,7 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
   idx     : number = 0;
   song : any;
   private sub: any;
+  playlists= [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -46,7 +47,17 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
   reload() {
     // todo make a direct api for this
     this._plservice.findSongsForPlaylist(this.plid).subscribe(
-        (lst) => { this.song = lst[this.idx]; }
+        (lst) => {
+          this.song = lst[this.idx];
+
+          if (this.song.videoId) {
+            this._plservice.findPlaylistsContaining(this.song.videoId).subscribe(
+              (lists) => { this.playlists = lists },
+              (err) => {}
+            )
+          }
+
+        }
     );
   }
 
