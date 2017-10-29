@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
+import { ProjectService } from '../../../../services/project.service.client';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -19,7 +20,8 @@ export class ProjectAdminComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: UserService) { }
+              private _service: UserService,
+              private _pservice: ProjectService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -35,6 +37,18 @@ export class ProjectAdminComponent implements OnInit {
     this.searchResults = state.results;
 
   }
+
+  reset() {
+    this._pservice.databaseReset().subscribe(
+      (res) => {
+        this.router.navigateByUrl("/project/search/pl");
+      },
+      (err) => {
+
+      }
+    );
+  }
+
   runSearch() {
     this._service.findUsersByName(this.searchTerm)
     .subscribe(

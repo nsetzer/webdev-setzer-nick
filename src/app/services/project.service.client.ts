@@ -68,5 +68,16 @@ export class ProjectService {
     this.related_state = {results:[],searchTerm:""};
   }
 
+  databaseReset() {
+    return this._http.delete(this.baseUrl +
+     `/api/reset`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
+
 }
 

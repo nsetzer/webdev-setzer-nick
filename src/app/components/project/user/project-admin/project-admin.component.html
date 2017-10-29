@@ -23,6 +23,10 @@
 <div class="container-fluid content-body">
 
 <a class="btn btn-danger btn-block "
+     (click)="reset()">
+     Reset Database</a>
+
+<a class="btn btn-danger btn-block "
      [routerLink]="['/project', {outlets: {'project': ['user', uid , 'admin', 'new']}}]">
      Create User</a>
 

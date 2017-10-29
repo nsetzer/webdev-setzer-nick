@@ -26,10 +26,16 @@ async function getDefaultPlaylists(model) {
     var songs = await model.SongModel.find().limit(5);
 
     let lists = []
+    let name = ""
+    let names = [" Playlist", " Songs", " Mix", " Song List", "s"]
     for (var x=0; x < users.length; x++) {
-        lists.push(createDefaultPlaylist(users[x]._id,"Default Playlist", songs))
-        lists.push(createDefaultPlaylist(users[x]._id,"Favorite Songs", songs))
-        lists.push(createDefaultPlaylist(users[x]._id,"Workout Mix", songs))
+
+        name = "Default" + names[Math.floor(Math.random() * names.length)]
+        lists.push(createDefaultPlaylist(users[x]._id,name, songs))
+        name = "Favorite" + names[Math.floor(Math.random() * names.length)]
+        lists.push(createDefaultPlaylist(users[x]._id,name, songs))
+        name = "Workout" + names[Math.floor(Math.random() * names.length)]
+        lists.push(createDefaultPlaylist(users[x]._id,name, songs))
     }
 
     return lists;

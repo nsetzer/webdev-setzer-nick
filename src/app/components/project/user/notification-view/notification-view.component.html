@@ -31,11 +31,13 @@
 
 <div class="container-fluid content-body">
 
-<div *ngIf="messages.length>0">
-    <div *ngFor="let message of messages">
-        {{message}}
-    </div>
-</div>
+<ul *ngIf="messages.length>0"
+    class="list-group">
+    <li *ngFor="let message of messages"
+         class="list-group-item">
+        {{message.message}}
+    </li>
+</ul>
 
 <div *ngIf="messages.length===0" class="centered-content">
 No messages to display. Try following other users!
