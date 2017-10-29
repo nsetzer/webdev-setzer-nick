@@ -55,6 +55,8 @@ export class PlaylistSongsComponent implements OnInit {
     this._plservice.findSongsForPlaylist(this.plid).subscribe(
       (songs) => {
         this.songs = songs
+        for (let i=0;i<this.songs.length;i++){this.songs[i].index=i+1}
+        console.log("got here")
       },
       (err) => {
         console.log(err);
@@ -113,9 +115,14 @@ export class PlaylistSongsComponent implements OnInit {
 
   reorderList(event) {
     // drag and drop does not upadte the internal list, only the view
-    var song = this.playlist.songs.splice(event.startIndex, 1)[0]
-    this.playlist.songs.splice(event.endIndex, 0, song);
+    this.playlist.songs.splice(event.endIndex, 0,
+      this.playlist.songs.splice(event.startIndex, 1)[0]);
+
+    this.songs.splice(event.endIndex, 0,
+      this.songs.splice(event.startIndex, 1)[0]);
+
     this.changed = true;
+    for (let i=0;i<this.songs.length;i++){this.songs[i].index=i+1;}
   }
 
 }
