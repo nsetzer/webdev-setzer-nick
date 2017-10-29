@@ -131,6 +131,9 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_57__components_project_user_notification_compose_notification_compose_component__ = __webpack_require__("../../../../../src/app/components/project/user/notification-compose/notification-compose.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_58__components_project_playlist_playlist_songs_playlist_upload_playlist_upload_component__ = __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_59__components_project_playlist_playlist_songs_playlist_song_details_playlist_song_details_component__ = __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_60__components_project_user_project_admin_project_admin_component__ = __webpack_require__("../../../../../src/app/components/project/user/project-admin/project-admin.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_61__components_project_user_project_admin_admin_user_new_admin_user_new_component__ = __webpack_require__("../../../../../src/app/components/project/user/project-admin/admin-user-new/admin-user-new.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_62__components_project_user_project_admin_admin_user_edit_admin_user_edit_component__ = __webpack_require__("../../../../../src/app/components/project/user/project-admin/admin-user-edit/admin-user-edit.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -184,6 +187,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 // project components
+
+
+
 
 
 
@@ -258,7 +264,10 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_56__components_project_user_notification_view_notification_view_component__["a" /* NotificationViewComponent */],
             __WEBPACK_IMPORTED_MODULE_57__components_project_user_notification_compose_notification_compose_component__["a" /* NotificationComposeComponent */],
             __WEBPACK_IMPORTED_MODULE_58__components_project_playlist_playlist_songs_playlist_upload_playlist_upload_component__["a" /* PlaylistUploadComponent */],
-            __WEBPACK_IMPORTED_MODULE_59__components_project_playlist_playlist_songs_playlist_song_details_playlist_song_details_component__["a" /* PlaylistSongDetailsComponent */]
+            __WEBPACK_IMPORTED_MODULE_59__components_project_playlist_playlist_songs_playlist_song_details_playlist_song_details_component__["a" /* PlaylistSongDetailsComponent */],
+            __WEBPACK_IMPORTED_MODULE_60__components_project_user_project_admin_project_admin_component__["a" /* ProjectAdminComponent */],
+            __WEBPACK_IMPORTED_MODULE_61__components_project_user_project_admin_admin_user_new_admin_user_new_component__["a" /* AdminUserNewComponent */],
+            __WEBPACK_IMPORTED_MODULE_62__components_project_user_project_admin_admin_user_edit_admin_user_edit_component__["a" /* AdminUserEditComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -326,6 +335,9 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_project_user_notification_compose_notification_compose_component__ = __webpack_require__("../../../../../src/app/components/project/user/notification-compose/notification-compose.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_project_playlist_playlist_songs_playlist_upload_playlist_upload_component__ = __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_project_playlist_playlist_songs_playlist_song_details_playlist_song_details_component__ = __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_project_user_project_admin_project_admin_component__ = __webpack_require__("../../../../../src/app/components/project/user/project-admin/project-admin.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__components_project_user_project_admin_admin_user_new_admin_user_new_component__ = __webpack_require__("../../../../../src/app/components/project/user/project-admin/admin-user-new/admin-user-new.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__components_project_user_project_admin_admin_user_edit_admin_user_edit_component__ = __webpack_require__("../../../../../src/app/components/project/user/project-admin/admin-user-edit/admin-user-edit.component.ts");
 /**
  * Created by sesha on 7/26/17.
  *
@@ -334,6 +346,9 @@ AppModule = __decorate([
  * update this file for new routing
  * you may need to update import path in app.module.ts
  */
+
+
+
 
 
 
@@ -400,6 +415,9 @@ var APP_ROUTES = [
             { path: 'user/:uid/queue', component: __WEBPACK_IMPORTED_MODULE_28__components_project_queue_song_queue_song_queue_component__["a" /* SongQueueComponent */], outlet: 'project' },
             { path: 'user/:uid/messages', component: __WEBPACK_IMPORTED_MODULE_32__components_project_user_notification_view_notification_view_component__["a" /* NotificationViewComponent */], outlet: 'project' },
             { path: 'user/:uid/messages/compose', component: __WEBPACK_IMPORTED_MODULE_33__components_project_user_notification_compose_notification_compose_component__["a" /* NotificationComposeComponent */], outlet: 'project' },
+            { path: 'user/:uid/admin', component: __WEBPACK_IMPORTED_MODULE_36__components_project_user_project_admin_project_admin_component__["a" /* ProjectAdminComponent */], outlet: 'project' },
+            { path: 'user/:uid/admin/new', component: __WEBPACK_IMPORTED_MODULE_37__components_project_user_project_admin_admin_user_new_admin_user_new_component__["a" /* AdminUserNewComponent */], outlet: 'project' },
+            { path: 'user/:uid/admin/:puid', component: __WEBPACK_IMPORTED_MODULE_38__components_project_user_project_admin_admin_user_edit_admin_user_edit_component__["a" /* AdminUserEditComponent */], outlet: 'project' },
             { path: 'user/:uid/list', component: __WEBPACK_IMPORTED_MODULE_22__components_project_playlist_playlist_list_playlist_list_component__["a" /* PlaylistListComponent */], outlet: 'project' },
             { path: 'user/:uid/list/search', component: __WEBPACK_IMPORTED_MODULE_24__components_project_playlist_playlist_search_playlist_search_component__["a" /* PlaylistSearchComponent */], outlet: 'project' },
             { path: 'user/:uid/list/search/:plid', component: __WEBPACK_IMPORTED_MODULE_31__components_project_playlist_playlist_search_playlist_search_view_playlist_search_view_component__["a" /* PlaylistSearchViewComponent */], outlet: 'project' },
@@ -738,7 +756,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/user/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container\">\n\n    <h1>Login</h1>\n\n    <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n    </div>\n\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required\n             autofocus/>\n      <div *ngIf=\"invalid_username\" class=\"help-block\">\n        Username not Found\n      </div>\n\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required\n             />\n      <div *ngIf=\"invalid_password\" class=\"help-block\">\n        Invalid Username or Password\n      </div>\n\n      <button type=\"submit\" [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['/register']\">Register</a>\n\n\n</div>"
+module.exports = "\n<div class=\"container\">\n\n    <h1 (click)=\"username='alice'; password='alice'\">Login</h1>\n\n    <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n    </div>\n\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required\n             autofocus/>\n      <div *ngIf=\"invalid_username\" class=\"help-block\">\n        Username not Found\n      </div>\n\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required\n             />\n      <div *ngIf=\"invalid_password\" class=\"help-block\">\n        Invalid Username or Password\n      </div>\n\n      <button type=\"submit\" [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['/register']\">Register</a>\n\n\n</div>"
 
 /***/ }),
 
@@ -2539,7 +2557,10 @@ var WidgetListComponent = (function () {
     };
     WidgetListComponent.prototype.reload = function () {
         var _this = this;
-        this._service.findWidgetsByPageId(this.pid).subscribe(function (widgets) { _this.widgets = widgets; }, function (err) {
+        this._service.findWidgetsByPageId(this.pid).subscribe(function (widgets) {
+            _this.widgets = widgets;
+            console.log(widgets);
+        }, function (err) {
             var msg = JSON.parse(err._body);
             _this.error_message = msg.message;
         });
@@ -2655,7 +2676,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n{{song.title}}<br>\n{{song.description}}<br>\n\n<div class=\"image-container\">\n    <img [src]=\"makeSafe(song.thumbnail)\"\n         width=\"33%\"\n         class=\"image-container\"\n         />\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n  Title: {{song.title}}<br>\n  Description: {{song.description}}<br>\n\n  <div class=\"image-container\">\n      <img [src]=\"makeSafe(song.thumbnail)\"\n           width=\"33%\"\n           class=\"image-container\"\n           />\n  </div>\n</div>\n\n<div >\n  <p>Playlists from other users that contain this song:</p>\n  <ul *ngIf=\"playlists.length>0\">\n    <li *ngFor=\"let playlist of playlists\">\n      {{playlist.name}}\n    </li>\n  </ul>\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -2666,8 +2687,9 @@ module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlaylistAddSongDetailsComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_project_service_client__ = __webpack_require__("../../../../../src/app/services/project.service.client.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__ = __webpack_require__("../../../../../src/app/services/playlist.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_project_service_client__ = __webpack_require__("../../../../../src/app/services/project.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2681,14 +2703,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var PlaylistAddSongDetailsComponent = (function () {
-    function PlaylistAddSongDetailsComponent(route, router, _service, sanitizer) {
+    function PlaylistAddSongDetailsComponent(route, router, _service, _pservice, sanitizer) {
         this.route = route;
         this.router = router;
         this._service = _service;
+        this._pservice = _pservice;
         this.sanitizer = sanitizer;
         this.videoId = null;
         this.idx = 0;
+        this.playlists = [];
     }
     PlaylistAddSongDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -2701,13 +2726,18 @@ var PlaylistAddSongDetailsComponent = (function () {
             }
             _this.plid = params['plid'];
             _this.idx = +params['idx'];
-            var results = [];
+            /*
+            let results = []
+            if (params["videoId"]) {
+              this.videoId = params['videoId']
+              results = this._service.getPreviousRelatedSearch().results;
+            } else {
+              results = this._service.getPreviousKeywordSearch().results;
+            }
+            */
+            var results = _this._service.getPreviousSearchResults().results;
             if (params["videoId"]) {
                 _this.videoId = params['videoId'];
-                results = _this._service.getPreviousRelatedSearch().results;
-            }
-            else {
-                results = _this._service.getPreviousKeywordSearch().results;
             }
             // if the user landed on this page providing invalid arguments, leave
             if (_this.idx < 0 || !results || _this.idx >= results.length) {
@@ -2724,8 +2754,11 @@ var PlaylistAddSongDetailsComponent = (function () {
         });
     };
     PlaylistAddSongDetailsComponent.prototype.reload = function (results) {
+        var _this = this;
         this.song = results[this.idx];
-        console.log(this.song);
+        if (this.song.videoId) {
+            this._pservice.findPlaylistsContaining(this.song.videoId).subscribe(function (lists) { _this.playlists = lists; }, function (err) { });
+        }
     };
     PlaylistAddSongDetailsComponent.prototype.return = function () {
         var url = "";
@@ -2754,10 +2787,10 @@ PlaylistAddSongDetailsComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_project_service_client__["a" /* ProjectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_project_service_client__["a" /* ProjectService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["b" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["b" /* DomSanitizer */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_project_service_client__["a" /* ProjectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_project_service_client__["a" /* ProjectService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__["b" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__["b" /* DomSanitizer */]) === "function" && _e || Object])
 ], PlaylistAddSongDetailsComponent);
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=playlist-add-song-details.component.js.map
 
 /***/ }),
@@ -2838,7 +2871,7 @@ var PlaylistAddComponent = (function () {
             }
             else {
                 _this.videoId = null;
-                var state = _this._service.getPreviousKeywordSearch();
+                var state = _this._service.getPreviousSearchResults();
                 _this.searchTerm = state.searchTerm;
                 _this.searchResults = state.results;
             }
@@ -3302,7 +3335,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-search/playlist-search-song-details/playlist-search-song-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    Title: {{song.title}}<br>\n    Description: {{song.description}}<br>\n\n    <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    Title: {{song.title}}<br>\n    Description: {{song.description}}<br>\n\n    <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n</div>\n\n<div >\n  <p>Playlists from other users that contain this song:</p>\n  <ul *ngIf=\"playlists.length>0\">\n    <li *ngFor=\"let playlist of playlists\">\n      {{playlist.name}}\n    </li>\n  </ul>\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -3336,6 +3369,7 @@ var PlaylistSearchSongDetailsComponent = (function () {
         this.sanitizer = sanitizer;
         this.videoId = null;
         this.idx = 0;
+        this.playlists = [];
     }
     PlaylistSearchSongDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3360,7 +3394,12 @@ var PlaylistSearchSongDetailsComponent = (function () {
     PlaylistSearchSongDetailsComponent.prototype.reload = function () {
         var _this = this;
         // todo make a direct api for this
-        this._plservice.findPlaylistById(this.plid).subscribe(function (lst) { _this.song = lst.songs[_this.idx]; });
+        this._plservice.findSongsForPlaylist(this.plid).subscribe(function (lst) {
+            _this.song = lst[_this.idx];
+            if (_this.song.videoId) {
+                _this._plservice.findPlaylistsContaining(_this.song.videoId).subscribe(function (lists) { _this.playlists = lists; }, function (err) { });
+            }
+        });
     };
     PlaylistSearchSongDetailsComponent.prototype.return = function () {
         var url = "";
@@ -3424,7 +3463,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>{{playlist.name}}</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ol *ngIf=\"playlist.songs.length>0\">\n     <li *ngFor=\"let song of playlist.songs; let i = index;\">\n           {{song.title}}\n\n            <div class =\"pull-right\">\n                <a (click)=\"viewDetails(i)\">\n                <span class=\"glyphicon glyphicon-info-sign\"></span>\n                </a>\n            </div>\n     </li>\n</ol>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>{{playlist.name}}</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ol *ngIf=\"songs.length>0\">\n     <li *ngFor=\"let song of songs; let i = index;\">\n           {{song.title}}\n\n            <div class =\"pull-right\">\n                <a (click)=\"viewDetails(i)\">\n                <span class=\"glyphicon glyphicon-info-sign\"></span>\n                </a>\n            </div>\n     </li>\n</ol>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -3457,6 +3496,7 @@ var PlaylistSearchViewComponent = (function () {
         this._plservice = _plservice;
         this.sanitizer = sanitizer;
         this.playlist = { songs: [] };
+        this.songs = [];
     }
     PlaylistSearchViewComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3480,6 +3520,7 @@ var PlaylistSearchViewComponent = (function () {
     PlaylistSearchViewComponent.prototype.reload = function () {
         var _this = this;
         this._plservice.findPlaylistById(this.plid).subscribe(function (lst) { _this.playlist = lst; });
+        this._plservice.findSongsForPlaylist(this.plid).subscribe(function (songs) { _this.songs = songs; });
     };
     PlaylistSearchViewComponent.prototype.return = function () {
         var url = "";
@@ -3627,7 +3668,7 @@ var PlaylistSearchComponent = (function () {
     };
     PlaylistSearchComponent.prototype.openProfile = function (lst) {
         if (this.uid) {
-            var url = "/project/(project:user/" + this.uid + "/profile/" + lst._id + ")";
+            var url = "/project/(project:user/" + this.uid + "/profile/" + lst.uid + ")";
             this.router.navigateByUrl(url);
         }
         else {
@@ -3693,7 +3734,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Song Details</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    <!-- TODO this should allow editing -->\n\n    <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"song.title\"\n             name=\"widgetName\"\n             placeholder=\"Song Title\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetText\">Description</label>\n      <textarea rows=\"5\"\n                class=\"form-control\"\n                [(ngModel)]=\"song.description\"\n                name=\"widgetText\"\n                id=\"widgetText\">{{song.description}}</textarea>\n    </div>\n\n    </form>\n\n    <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n\n</div>\n\n</div>"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Song Details</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    <!-- TODO this should allow editing -->\n\n    <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"song.title\"\n             name=\"widgetName\"\n             placeholder=\"Song Title\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetText\">Description</label>\n      <textarea rows=\"5\"\n                class=\"form-control\"\n                [(ngModel)]=\"song.description\"\n                name=\"widgetText\"\n                id=\"widgetText\">{{song.description}}</textarea>\n    </div>\n\n    </form>\n\n    <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n\n<!--\n    <div >\n      <p>Playlists from other users that contain this song:</p>\n      <ul *ngIf=\"playlists.length>0\">\n        <li *ngFor=\"let playlist of playlists\">\n          {{playlist.name}}\n        </li>\n      </ul>\n    </div>\n-->\n\n</div>\n\n</div>"
 
 /***/ }),
 
@@ -3729,6 +3770,7 @@ var PlaylistSongDetailsComponent = (function () {
         this.idx = 0;
         this.song = { title: "", description: "" };
         this.playlist = [];
+        this.playlists = [];
     }
     PlaylistSongDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3745,6 +3787,14 @@ var PlaylistSongDetailsComponent = (function () {
         this._plservice.findPlaylistById(this.plid).subscribe(function (lst) {
             _this.playlist = lst;
             _this.song = lst.songs[_this.idx];
+            /*
+            if (this.song.videoId) {
+              this._pservice.findPlaylistsContaining(this.song.videoId).subscribe(
+                (lists) => { this.playlists = lists },
+                (err) => {}
+              )
+            }
+            */
         });
     };
     PlaylistSongDetailsComponent.prototype.saveChanges = function () {
@@ -3795,7 +3845,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-songs.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>{{playlist.name}}</b>\n      </a>\n    </p>\n\n\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"uploadSong()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-cloud-upload\"></span>\n      </a>\n\n      <a (click)=\"addSongs()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-plus\"></span>\n      </a>\n\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && playlist.songs\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of playlist.songs; let i = index\"\n         class=\"list-group-item list-item-borderless\">\n\n        {{i+1}}. {{song.title}}\n\n        <div class =\"pull-right\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]\">\n            <span class=\"glyphicon glyphicon-search\"></span>\n            </a>\n\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n\n    </li>\n</ul>\n\n</div>"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>{{playlist.name}}</b>\n      </a>\n    </p>\n\n\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"uploadSong()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-cloud-upload\"></span>\n      </a>\n\n      <a (click)=\"addSongs()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-plus\"></span>\n      </a>\n\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && songs\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of songs; let i = index\"\n         class=\"list-group-item list-item-borderless\">\n\n        {{i+1}}. {{song.title}}\n\n        <div class =\"pull-right\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]\">\n            <span class=\"glyphicon glyphicon-search\"></span>\n            </a>\n\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n\n    </li>\n</ul>\n\n</div>"
 
 /***/ }),
 
@@ -3831,6 +3881,8 @@ var PlaylistSongsComponent = (function () {
         this._plservice = _plservice;
         this._pservice = _pservice;
         this.playlist = { songs: [] };
+        this.songs = [];
+        this.changed = false;
     }
     PlaylistSongsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -3844,32 +3896,61 @@ var PlaylistSongsComponent = (function () {
         var _this = this;
         this.user = this._service.findUserById(this.uid).subscribe(function (user) {
             _this.user = user;
-        }, function (err) { });
+        }, function (err) {
+            console.log(err);
+        });
         this._plservice.findPlaylistById(this.plid).subscribe(function (playlist) {
             _this.playlist = playlist;
         }, function (err) { });
+        this._plservice.findSongsForPlaylist(this.plid).subscribe(function (songs) {
+            _this.songs = songs;
+        }, function (err) {
+            console.log(err);
+        });
     };
     PlaylistSongsComponent.prototype.saveChanges = function () {
         var _this = this;
+        console.log(this.playlist.songs.map(function (x) { return x; }));
         this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(function (res) {
             var url = "/project/(project:user/" + _this.uid + "/list)";
             _this.router.navigateByUrl(url);
         });
     };
     PlaylistSongsComponent.prototype.uploadSong = function () {
-        var url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/upload)";
-        this.router.navigateByUrl(url);
+        var _this = this;
+        if (this.changed) {
+            this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(function () {
+                var url = "/project/(project:user/" + _this.uid + "/list/" + _this.plid + "/upload)";
+                _this.router.navigateByUrl(url);
+            }, function (err) { });
+        }
+        else {
+            var url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/upload)";
+            this.router.navigateByUrl(url);
+        }
     };
     PlaylistSongsComponent.prototype.addSongs = function () {
-        this._pservice.clearPreviousKeywordSearch();
-        var url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)";
-        this.router.navigateByUrl(url);
+        var _this = this;
+        if (this.changed) {
+            this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(function () {
+                _this._pservice.clearPreviousKeywordSearch();
+                var url = "/project/(project:user/" + _this.uid + "/list/" + _this.plid + "/add)";
+                _this.router.navigateByUrl(url);
+            }, function (err) { });
+        }
+        else {
+            this._pservice.clearPreviousKeywordSearch();
+            var url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)";
+            this.router.navigateByUrl(url);
+        }
     };
+    // TODO: other ways out of this page need to check if the list was changed
+    // TODO: reordered elements need their indices updated
     PlaylistSongsComponent.prototype.reorderList = function (event) {
         // drag and drop does not upadte the internal list, only the view
         var song = this.playlist.songs.splice(event.startIndex, 1)[0];
         this.playlist.songs.splice(event.endIndex, 0, song);
-        // this.playlist.songs.map( x => x._id )
+        this.changed = true;
     };
     return PlaylistSongsComponent;
 }());
@@ -4294,7 +4375,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/notification-view/notification-view.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\">\n    <div class=\"col-xs-8\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b>Notifications</b>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"col-xs-4\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'messages', 'compose']}}]\"\n           class=\"btn btn-danger btn-block\">Compose</a>\n    </div>\n    </div>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"messages.length>0\">\n    <div *ngFor=\"let message of messages\">\n        {{message}}\n    </div>\n</div>\n\n<div *ngIf=\"messages.length===0\" class=\"centered-content\">\nNo messages to display. Try following other users!\n</div>\n\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\">\n    <div class=\"col-xs-8\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b>Notifications</b>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"col-xs-4\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'messages', 'compose']}}]\"\n           class=\"btn btn-danger btn-block\">Compose</a>\n    </div>\n    </div>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid content-body\">\n\n<ul *ngIf=\"messages.length>0\"\n    class=\"list-group\">\n    <li *ngFor=\"let message of messages\"\n         class=\"list-group-item\">\n        {{message.message}}\n    </li>\n</ul>\n\n<div *ngIf=\"messages.length===0\" class=\"centered-content\">\nNo messages to display. Try following other users!\n</div>\n\n</div>\n"
 
 /***/ }),
 
@@ -4356,6 +4437,279 @@ NotificationViewComponent = __decorate([
 
 var _a, _b, _c, _d;
 //# sourceMappingURL=notification-view.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/admin-user-edit/admin-user-edit.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/admin-user-edit/admin-user-edit.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'admin']}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Admin: Edit User</b>\n      </a>\n      </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid content-body\">\n\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"role\">Role</label>\n      <input type=\"role\"\n             [(ngModel)]=\"user.role\"\n             name=\"role\"\n             placeholder=\"Role\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"resetPassword()\">\n     Delete User</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"deleteUser()\">\n     Delete User</a>\n\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/admin-user-edit/admin-user-edit.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminUserEditComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__objects_user_object__ = __webpack_require__("../../../../../src/app/objects/user.object.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AdminUserEditComponent = (function () {
+    function AdminUserEditComponent(route, router, _service) {
+        this.route = route;
+        this.router = router;
+        this._service = _service;
+        this.uid = "";
+        this.puid = "";
+        this.user = new __WEBPACK_IMPORTED_MODULE_3__objects_user_object__["a" /* User */]("", "", "", "", "", "");
+    }
+    AdminUserEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.puid = params['puid'];
+            _this.reload();
+        });
+    };
+    AdminUserEditComponent.prototype.reload = function () {
+        var _this = this;
+        this._service.findUserById(this.puid).subscribe(function (user) {
+            _this.user = user;
+        }, function (err) { });
+    };
+    AdminUserEditComponent.prototype.resetPassword = function () {
+    };
+    AdminUserEditComponent.prototype.deleteUser = function () {
+    };
+    return AdminUserEditComponent;
+}());
+AdminUserEditComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-admin-user-edit',
+        template: __webpack_require__("../../../../../src/app/components/project/user/project-admin/admin-user-edit/admin-user-edit.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/project/user/project-admin/admin-user-edit/admin-user-edit.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */]) === "function" && _c || Object])
+], AdminUserEditComponent);
+
+var _a, _b, _c;
+//# sourceMappingURL=admin-user-edit.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/admin-user-new/admin-user-new.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/admin-user-new/admin-user-new.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'admin']}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Admin: Create User</b>\n      </a>\n      </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid content-body\">\n\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"role\">Role</label>\n      <input type=\"role\"\n             [(ngModel)]=\"user.role\"\n             name=\"role\"\n             placeholder=\"Role\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"password\">Password</label>\n      <input type=\"password\"\n             [(ngModel)]=\"user.password\"\n             name=\"password\"\n             class=\"form-control\"\n             placeholder=\"Password\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"password\">Verify Password</label>\n      <input type=\"password\"\n             [(ngModel)]=\"verify_password\"\n             name=\"password\"\n             class=\"form-control\"\n             placeholder=\"Password\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n\n  </form>\n\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"createUser()\">\n     Create User</a>\n\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/admin-user-new/admin-user-new.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminUserNewComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__objects_user_object__ = __webpack_require__("../../../../../src/app/objects/user.object.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var AdminUserNewComponent = (function () {
+    function AdminUserNewComponent(route, router, _service) {
+        this.route = route;
+        this.router = router;
+        this._service = _service;
+        this.uid = "";
+        this.user = new __WEBPACK_IMPORTED_MODULE_3__objects_user_object__["a" /* User */]("", "", "", "", "", "");
+    }
+    AdminUserNewComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.reload();
+        });
+    };
+    AdminUserNewComponent.prototype.reload = function () {
+    };
+    AdminUserNewComponent.prototype.createUser = function () {
+    };
+    return AdminUserNewComponent;
+}());
+AdminUserNewComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-admin-user-new',
+        template: __webpack_require__("../../../../../src/app/components/project/user/project-admin/admin-user-new/admin-user-new.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/project/user/project-admin/admin-user-new/admin-user-new.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */]) === "function" && _c || Object])
+], AdminUserNewComponent);
+
+var _a, _b, _c;
+//# sourceMappingURL=admin-user-new.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/project-admin.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/project-admin.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Admin</b>\n      </a>\n      </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid content-body\">\n\n<a class=\"btn btn-danger btn-block \"\n     (click)=\"reset()\">\n     Reset Database</a>\n\n<a class=\"btn btn-danger btn-block \"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'admin', 'new']}}]\">\n     Create User</a>\n\n<div class=\"input-group\">\n <input [(ngModel)]=\"searchTerm\" type=\"text\" class=\"form-control\"\n        placeholder=\"Search For Users\">\n <span class=\"input-group-btn\">\n         <a (click)=\"runSearch()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n </span>\n</div>\n\n<div *ngIf=\"searchResults.length>0\">\n <div *ngFor=\"let result of searchResults\">\n       {{result.username}}\n\n        <div class =\"pull-right\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'admin', result._id]}}]\">\n            <span class=\"glyphicon glyphicon-cog\"></span>\n            </a>\n        </div>\n </div>\n\n</div>\n\n<div *ngIf=\"searchWasRun && !searchResults.length\">\nNo results to display\n</div>\n\n\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/project/user/project-admin/project-admin.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProjectAdminComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_project_service_client__ = __webpack_require__("../../../../../src/app/services/project.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ProjectAdminComponent = (function () {
+    function ProjectAdminComponent(route, router, _service, _pservice) {
+        this.route = route;
+        this.router = router;
+        this._service = _service;
+        this._pservice = _pservice;
+        this.uid = "";
+        this.searchTerm = "";
+        this.searchResults = [];
+        this.searchWasRun = false;
+    }
+    ProjectAdminComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.reload();
+        });
+    };
+    ProjectAdminComponent.prototype.reload = function () {
+        var state = this._service.getPreviousUserSearch();
+        this.searchTerm = state.searchTerm;
+        this.searchResults = state.results;
+    };
+    ProjectAdminComponent.prototype.reset = function () {
+        var _this = this;
+        this._pservice.databaseReset().subscribe(function (res) {
+            _this.router.navigateByUrl("/project/search/pl");
+        }, function (err) {
+        });
+    };
+    ProjectAdminComponent.prototype.runSearch = function () {
+        var _this = this;
+        this._service.findUsersByName(this.searchTerm)
+            .subscribe(function (data) {
+            _this.searchResults = data;
+            _this.searchWasRun = true;
+        });
+    };
+    return ProjectAdminComponent;
+}());
+ProjectAdminComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-project-admin',
+        template: __webpack_require__("../../../../../src/app/components/project/user/project-admin/project-admin.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/project/user/project-admin/project-admin.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_project_service_client__["a" /* ProjectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_project_service_client__["a" /* ProjectService */]) === "function" && _d || Object])
+], ProjectAdminComponent);
+
+var _a, _b, _c, _d;
+//# sourceMappingURL=project-admin.component.js.map
 
 /***/ }),
 
@@ -4572,7 +4926,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-login/project-login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container\">\n\n    <h1>Login</h1>\n\n    <!--\n    jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial\n    -->\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required/>\n      <div *ngIf=\"invalid_username\" class=\"help-block\">Username not Found</div>\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required/>\n      <div *ngIf=\"invalid_password\" class=\"help-block\">Password is required</div>\n\n      <button (click)=\"login()\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['project/register']\">Register</a>\n\n\n</div>"
+module.exports = "\n<div class=\"container\">\n\n    <h1  (click)=\"username='alice'; password='alice'\">Login</h1>\n\n    <!--\n    jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial\n    -->\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required/>\n      <div *ngIf=\"invalid_username\" class=\"help-block\">Username not Found</div>\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required/>\n      <div *ngIf=\"invalid_password\" class=\"help-block\">Password is required</div>\n\n      <button (click)=\"login()\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['project/register']\">Register</a>\n\n\n</div>"
 
 /***/ }),
 
@@ -4659,7 +5013,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-profile-public/project-profile-public.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>{{user_public.username}}</b>\n      </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n      <div class=\"col-xs-6 col-md-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/project/search/pl']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>{{user_public.username}}</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-3 col-md-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-3 col-md-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n      User Name: {{user_public.username}}<br>\n      Name: {{user_public.firstName}} {{user_public.lastName}}<br>\n      Email: {{user_public.email}}<br>\n\n<br>\nPlaylists:\n<br>\n\n<div *ngIf=\"playlists.length>0\">\n <div *ngFor=\"let lst of playlists\">\n       {{lst.name}}\n\n        <div class =\"pull-right\">\n            <a *ngIf=\"uid\"\n               (click)=\"copyPlaylist(lst)\">\n            <span class=\"glyphicon glyphicon-copy\"></span>\n            </a>\n\n            <a (click)=\"viewPlaylist(lst)\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n </div>\n</div>\n<div *ngIf=\"playlists.length===0\">\nNo Playlists to display\n</div>\n\n</div>\n\n"
+module.exports = "\n\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <!--\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', 'search']}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n      -->\n\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a (click)=\"back()\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>{{user_public.username}}</b>\n      </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n      <div class=\"col-xs-6 col-md-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/project/search/pl']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>{{user_public.username}}</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-3 col-md-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-3 col-md-2\" style=\"padding:15px\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n      User Name: {{user_public.username}}<br>\n      Name: {{user_public.firstName}} {{user_public.lastName}}<br>\n      Email: {{user_public.email}}<br>\n\n<div *ngIf=\"uid\">\n\n<div *ngIf=\"isConnected\">\n  <a class=\"btn btn-primary btn-block\"\n     (click)=\"unfollow()\">\n     Unfollow</a>\n</div>\n\n<div *ngIf=\"!isConnected\">\n  <a class=\"btn btn-primary btn-block\"\n     (click)=\"follow()\">\n     Follow</a>\n</div>\n\n</div>\n\n<br>\nPlaylists:\n<br>\n\n\n\n<div *ngIf=\"playlists.length>0\">\n <div *ngFor=\"let lst of playlists\">\n       {{lst.name}}\n\n        <div class =\"pull-right\">\n            <a *ngIf=\"uid\"\n               (click)=\"copyPlaylist(lst)\">\n            <span class=\"glyphicon glyphicon-copy\"></span>\n            </a>\n\n            <a (click)=\"viewPlaylist(lst)\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n </div>\n</div>\n<div *ngIf=\"playlists.length===0\">\nNo Playlists to display\n</div>\n\n</div>\n\n"
 
 /***/ }),
 
@@ -4671,7 +5025,9 @@ module.exports = "\n\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-to
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__ = __webpack_require__("../../../../../src/app/services/playlist.service.client.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_social_service_client__ = __webpack_require__("../../../../../src/app/services/social.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4685,12 +5041,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var ProjectProfilePublicComponent = (function () {
-    function ProjectProfilePublicComponent(route, router, _service, _plservice) {
+    function ProjectProfilePublicComponent(route, router, location, _service, _plservice, _socialService) {
         this.route = route;
         this.router = router;
+        this.location = location;
         this._service = _service;
         this._plservice = _plservice;
+        this._socialService = _socialService;
+        this.isConnected = false;
         this.user_public = { username: "" };
         this.playlists = [];
     }
@@ -4717,6 +5078,20 @@ var ProjectProfilePublicComponent = (function () {
           );
         */
         this._plservice.findPlaylistsByUser(this.puid).subscribe(function (lsts) { _this.playlists = lsts; }, function (err) { });
+        if (this.uid) {
+            this._socialService.isConnectedTo(this.uid, this.puid).subscribe(function (res) { _this.isConnected = res; }, function (err) { });
+        }
+    };
+    ProjectProfilePublicComponent.prototype.back = function () {
+        this.location.back();
+    };
+    ProjectProfilePublicComponent.prototype.follow = function () {
+        var _this = this;
+        this._socialService.follow(this.uid, this.puid).subscribe(function (res) { _this.isConnected = true; }, function (err) { });
+    };
+    ProjectProfilePublicComponent.prototype.unfollow = function () {
+        var _this = this;
+        this._socialService.unfollow(this.uid, this.puid).subscribe(function (res) { _this.isConnected = false; }, function (err) { });
     };
     ProjectProfilePublicComponent.prototype.copyPlaylist = function (lst) {
         var _this = this;
@@ -4748,10 +5123,10 @@ ProjectProfilePublicComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/project/user/project-profile-public/project-profile-public.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/project/user/project-profile-public/project-profile-public.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__angular_common__["f" /* Location */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_common__["f" /* Location */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__services_social_service_client__["a" /* SocialService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_social_service_client__["a" /* SocialService */]) === "function" && _f || Object])
 ], ProjectProfilePublicComponent);
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=project-profile-public.component.js.map
 
 /***/ }),
@@ -4777,7 +5152,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-profile/project-profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Profile</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"changes_saved\" class=\"help-block\">Changes Saved</div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n  </form>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list']}}]\">\n     My Playlists</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'queue']}}]\">\n     My Song Queue</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'messages']}}]\">\n     My Notifications</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list', 'search']}}]\">\n     Search Public Playlists</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"logout()\">Logout</a>\n\n</div>\n\n"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Profile</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"changes_saved\" class=\"help-block\">Changes Saved</div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n  </form>\n\n  <div *ngIf=\"following.length===0\">\n    Not Following any users\n  </div>\n\n  <div *ngIf=\"following.length>0\">\n  <p>Following:</p><br>\n    <ul *ngFor=\"let followee of following\">\n      <li> {{followee.username}}\n      <div class =\"pull-right\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'profile', followee._id]}}]\">\n            <span class=\"glyphicon glyphicon-user\"></span>\n        </a>\n      </div>\n      </li>\n    </ul>\n  </div>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list']}}]\">\n     My Playlists</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'queue']}}]\">\n     My Song Queue</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'messages']}}]\">\n     My Notifications</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list', 'search']}}]\">\n     Search Public Playlists</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'admin']}}]\">\n     Admin</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"logout()\">Logout</a>\n\n</div>\n\n"
 
 /***/ }),
 
@@ -4789,7 +5164,9 @@ module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_playlist_service_client__ = __webpack_require__("../../../../../src/app/services/playlist.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_social_service_client__ = __webpack_require__("../../../../../src/app/services/social.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__objects_user_object__ = __webpack_require__("../../../../../src/app/objects/user.object.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_playlist_service_client__ = __webpack_require__("../../../../../src/app/services/playlist.service.client.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4803,30 +5180,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var ProjectProfileComponent = (function () {
-    function ProjectProfileComponent(route, router, _service, _plservice) {
+    function ProjectProfileComponent(route, router, _service, _socialService, _plservice) {
         this.route = route;
         this.router = router;
         this._service = _service;
+        this._socialService = _socialService;
         this._plservice = _plservice;
+        this.user = new __WEBPACK_IMPORTED_MODULE_4__objects_user_object__["a" /* User */]("", "", "", "", "", "");
         this.changes_saved = false;
         this.playlists = [];
+        this.following = [];
     }
     ProjectProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
-            _this.uid = params['uid']; // (+) converts string 'id' to a number
+            _this.uid = params['uid'];
             _this.reload();
         });
     };
     ProjectProfileComponent.prototype.reload = function () {
         var _this = this;
-        this.user = this._service.findUserById(this.uid).subscribe(function (user) {
+        this._service.findUserById(this.uid).subscribe(function (user) {
             _this.user = user;
         }, function (err) { });
+        this._socialService.getFollowing(this.uid).subscribe(function (users) { _this.following = users; console.log(users); }, function (err) { });
     };
     ProjectProfileComponent.prototype.logout = function () {
-        this.router.navigateByUrl("/project/login");
+        this.router.navigateByUrl("/project/search/pl");
     };
     ProjectProfileComponent.prototype.saveChanges = function () {
         this._service.updateUser(this.uid, this.user);
@@ -4840,10 +5223,10 @@ ProjectProfileComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/project/user/project-profile/project-profile.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/project/user/project-profile/project-profile.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__services_social_service_client__["a" /* SocialService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_social_service_client__["a" /* SocialService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _e || Object])
 ], ProjectProfileComponent);
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=project-profile.component.js.map
 
 /***/ }),
@@ -5175,6 +5558,7 @@ var User = (function () {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.role = "user";
     }
     User.getDefaultUsers = function () {
         var users = [new User("123", "alice", "alice", "Alice", "Wonder", "alice@example.com"),
@@ -5577,6 +5961,20 @@ var PlaylistService = (function () {
             return song;
         });
     };
+    PlaylistService.prototype.findSongsForPlaylist = function (plid) {
+        return this._http.get(this.baseUrl + ("/api/playlist/" + plid + "/songs"))
+            .map(function (res) {
+            var data = res.json();
+            return data;
+        });
+    };
+    PlaylistService.prototype.findPlaylistsContaining = function (vid) {
+        return this._http.get(this.baseUrl + ("/api/playlist-contains/" + vid))
+            .map(function (res) {
+            var data = res.json();
+            return data;
+        });
+    };
     return PlaylistService;
 }());
 PlaylistService = __decorate([
@@ -5632,6 +6030,7 @@ var ProjectService = (function () {
                 data[i].url = _this.baseUrl + "/api/youtube/" + data[i].videoId;
             }
             _this.keyword_state.results = data;
+            _this.clearPreviousRelatedSearch();
             return data;
         });
     };
@@ -5654,6 +6053,7 @@ var ProjectService = (function () {
                 data[i].url = _this.baseUrl + "/api/youtube/" + data[i].videoId;
             }
             _this.related_state.results = data;
+            _this.clearPreviousKeywordSearch();
             return data;
         });
     };
@@ -5662,6 +6062,24 @@ var ProjectService = (function () {
     };
     ProjectService.prototype.clearPreviousRelatedSearch = function () {
         this.related_state = { results: [], searchTerm: "" };
+    };
+    ProjectService.prototype.getPreviousSearchResults = function () {
+        if (this.keyword_state.searchTerm !== "") {
+            return this.keyword_state;
+        }
+        if (this.related_state.searchTerm !== "") {
+            return { results: this.related_state.results,
+                searchTerm: "related:" + this.related_state.searchTerm };
+        }
+        return { results: [], searchTerm: "" };
+    };
+    ProjectService.prototype.databaseReset = function () {
+        return this._http.delete(this.baseUrl +
+            "/api/reset")
+            .map(function (res) {
+            var data = res.json();
+            return data;
+        });
     };
     return ProjectService;
 }());
@@ -5822,6 +6240,14 @@ var SocialService = (function () {
             return data;
         });
     };
+    SocialService.prototype.getFollowing = function (uid) {
+        return this._http.get(this.baseUrl +
+            ("/api/user/" + uid + "/social-following"))
+            .map(function (res) {
+            var data = res.json();
+            return data;
+        });
+    };
     SocialService.prototype.sendNotification = function (userId, messageText) {
         return this._http.post(this.baseUrl +
             ("/api/user/" + userId + "/notifications"), { "message": messageText })
@@ -5963,6 +6389,7 @@ var UserService = (function () {
     function UserService(_http) {
         this._http = _http;
         this.baseUrl = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseUrl;
+        this.state = { searchTerm: "", results: [] };
         this.api = {
             'createUser': this.createUser,
             'findUserById': this.findUserById,
@@ -6027,6 +6454,22 @@ var UserService = (function () {
                 return 0;
             }
         });
+    };
+    UserService.prototype.findUsersByName = function (username) {
+        var _this = this;
+        return this._http.get(this.baseUrl + ("/api/user/find?username=" + username))
+            .map(function (res) {
+            var data = res.json();
+            _this.state.searchTerm = username;
+            _this.state.results = data;
+            return data;
+        });
+    };
+    UserService.prototype.getPreviousUserSearch = function () {
+        return this.state;
+    };
+    UserService.prototype.clearPreviousUserSearch = function () {
+        this.state = { results: [], searchTerm: "" };
     };
     return UserService;
 }());
