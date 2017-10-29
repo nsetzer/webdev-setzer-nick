@@ -207,6 +207,31 @@ describe('Playlist', function() {
     }); // end it
   }); // end describe
 
+  describe('/api/playlist remove song', function() {
+    it('return find the correct playlist given the id', function(done) {
+      chai.request(server)
+        .get('/api/_test/playlist')
+        .end(function(err, res) {
+          expect(res).to.have.status(200)
+          let playlist = res.body;
+          chai.request(server)
+            .delete('/api/playlist/'+playlist._id+"/0")
+            .end(function(err, res) {
+              res.should.have.status(200);
+              chai.request(server)
+                .get('/api/playlist/'+playlist._id)
+                .end(function(err, res) {
+                  res.should.have.status(200);
+                  let playlist2 = res.body;
+                  playlist2.songs.length
+                    .should.eql(playlist.songs.length-1)
+                  done();
+                });
+            });
+        }) // end get user
+    }); // end it
+  }); // end describe
+
 
 
 });

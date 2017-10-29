@@ -15,6 +15,7 @@ module.exports = function (app, model) {
     app.get('/api/playlist/:plid/songs', findAllSongssForPlaylist);
     app.delete('/api/playlist/:plid', deletePlaylist);
     app.put('/api/playlist/:plid/append', addSongToPlaylist);
+    app.delete('/api/playlist/:plid/:idx', removeSongFromPlaylist);
     app.post("/api/upload/audio", upload.single('myFile'), uploadAudio);
     if (process.env.NODE_ENV === "test") {
         app.get('/api/_test/playlist', getRandomPlaylist);
@@ -208,6 +209,31 @@ module.exports = function (app, model) {
             return;
         }
         res.status(404).json({message:"Error: playlist not found"})
+    }
+
+    async function removeSongFromPlaylist(req, res) {
+        var plid = req.params.plid;
+        var idx  = req.params.idx;
+
+        let playlists = await model.PlaylistModel.find({_id:plid})
+
+        if (playlists && playlists.length>0) {
+
+            let songs = playlists[0].songs
+            if ( idx < 0 || idx >= songs.length ) {
+                res.status(400).json({message:"invalid index"})
+            }
+
+            songs.splice(idx,1)
+
+            await model.PlaylistModel.update({_id:plid}, {songs:songs})
+
+            res.status(200).json(null);
+
+        } else {
+            res.status(404).json({message:"playlist not found"})
+        }
+
     }
 
     async function uploadAudio(req, res) {
