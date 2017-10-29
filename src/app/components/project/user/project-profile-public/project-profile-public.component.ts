@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
 import { PlaylistService } from '../../../../services/playlist.service.client';
+import { SocialService } from '../../../../services/social.service.client';
 import { User } from '../../../../objects/user.object';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-project-profile-public',
@@ -14,14 +16,17 @@ export class ProjectProfilePublicComponent implements OnInit {
 
   uid : string;
   puid : string;
+  isConnected = false;
   user_public = { username: ""};
   playlists = [];
   private sub: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private location: Location,
               private _service: UserService,
-              private _plservice: PlaylistService) { }
+              private _plservice: PlaylistService,
+              private _socialService: SocialService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -51,6 +56,30 @@ export class ProjectProfilePublicComponent implements OnInit {
       (err : any) => { }
       );
 
+    if (this.uid) {
+      this._socialService.isConnectedTo(this.uid,this.puid).subscribe(
+        (res) => {this.isConnected = res},
+        (err : any) => { }
+      );
+    }
+  }
+
+  back() {
+    this.location.back();
+  }
+
+  follow() {
+    this._socialService.follow(this.uid,this.puid).subscribe(
+        (res) => {this.isConnected = true},
+        (err : any) => { }
+      );
+  }
+
+  unfollow() {
+    this._socialService.unfollow(this.uid,this.puid).subscribe(
+        (res) => {this.isConnected = false},
+        (err : any) => { }
+      );
   }
 
   copyPlaylist(lst) {

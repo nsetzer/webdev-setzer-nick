@@ -60,7 +60,7 @@ export class PlaylistSearchComponent implements OnInit {
 
   openProfile(lst) {
     if (this.uid) {
-      let url = "/project/(project:user/" + this.uid + "/profile/"+lst._id+")"
+      let url = "/project/(project:user/" + this.uid + "/profile/"+lst.uid+")"
       this.router.navigateByUrl(url);
     } else {
       let url = "/project/search/user/" + lst.uid;

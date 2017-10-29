@@ -9,7 +9,9 @@ module.exports = function (app, model) {
 
     var _song  = require('../project/song.data.server');
     var _playlist  = require('../project/playlist.data.server');
+    var _social  = require('../project/social.data.server');
 
+    // curl -X DELETE http://localhost:3100/api/reset
     app.delete('/api/reset', resetDatabase);
 
     // drop the existing collection, and populate with default data
@@ -66,11 +68,54 @@ module.exports = function (app, model) {
 
     }
 
+    async function createUserConnections(model, connections) {
+        await model.FollowModel.remove()
+
+        let users = await model.UserModel.find()
+
+        let map = {}
+        for (let x=0; x < users.length; x++) {
+            map[users[x].username] = users[x]._id;
+        }
+
+        let conns = []
+        for (let x=0; x < connections.length; x++) {
+            let id1= map[connections[x].follower]
+            let id2= map[connections[x].followee]
+            conns.push(_social.Follow(id1,id2))
+        }
+
+        await model.FollowModel.collection.insert(conns)
+
+        winston.info("created " + connections.length +
+            " connections in " + model.FollowModel.collection.collectionName)
+
+    }
+
+    async function createUserNotifications(model, username) {
+
+        let users = await model.UserModel.find({username: username})
+        let user = users[0]
+
+        let connections = await model.FollowModel.find({followee:user._id});
+        let uids = connections.map( x => x.follower );
+
+        let message = "Hello, from " + username
+
+        let notifications = []
+        for (var x=0; x < uids.length; x++) {
+            notifications.push(_social.Notification(user._id, uids[x], message))
+        }
+
+        await model.NotificationModel.collection.insert(notifications)
+
+        winston.info("created " + notifications.length +
+            " notifications for " + username)
+    }
+
     async function resetDatabase(req, res) {
 
         winston.info("reset database...")
-
-
 
         await create(model.UserModel, _user.getDefaultUsers(model));
         //await create(model.WebsiteModel,await _website.getDefaultWebsites(model));
@@ -95,12 +140,27 @@ module.exports = function (app, model) {
                               "uid", "playlists",
                               await _playlist.getDefaultPlaylists(model))
 
-        await model.FollowModel.remove()
+        await createUserConnections(model, [
+            _social.Follow("alice", "bob"),
+            _social.Follow("charly", "bob"),
+            _social.Follow("jannunzi", "bob"),
+
+            _social.Follow("dan", "alice"),
+            _social.Follow("charly", "alice"),
+            _social.Follow("jannunzi", "alice"),
+
+            _social.Follow("alice", "dan"),
+
+        ]);
+
         await model.NotificationModel.remove()
+        await createUserNotifications(model, "alice")
+        await createUserNotifications(model, "bob")
+
         await model.RatingModel.remove()
 
         winston.info("reset database complete")
-        res.status(200).send(_message.Error("OK"));
+        res.status(200).send(_message.Success("OK"));
     }
 
     winston.info("db reset endpoints registered");

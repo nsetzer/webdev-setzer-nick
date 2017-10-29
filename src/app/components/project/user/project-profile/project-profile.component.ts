@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user.service.client';
+import { SocialService } from '../../../../services/social.service.client';
 import { User } from '../../../../objects/user.object';
 import { PlaylistService } from '../../../../services/playlist.service.client';
 
@@ -18,10 +19,12 @@ export class ProjectProfileComponent implements OnInit {
   changes_saved : boolean = false;
 
   playlists : any = [];
+  following : any = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _service: UserService,
+              private _socialService: SocialService,
               private _plservice: PlaylistService) { }
 
   ngOnInit() {
@@ -38,6 +41,11 @@ export class ProjectProfileComponent implements OnInit {
       },
       (err) => {}
     )
+
+    this._socialService.getFollowing(this.uid).subscribe(
+      (users) => { this.following = users; console.log(users)},
+      (err) => {}
+    );
   }
 
   logout() {

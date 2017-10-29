@@ -56,6 +56,17 @@ export class SocialService {
      );
   }
 
+  getFollowing(uid) {
+    return this._http.get(this.baseUrl +
+     `/api/user/${uid}/social-following`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
+
   sendNotification(userId, messageText) {
     return this._http.post(this.baseUrl +
      `/api/user/${userId}/notifications`, {"message":messageText})

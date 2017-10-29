@@ -98,21 +98,20 @@ module.exports = function (app, model) {
             );
     }
 
-    function findUserById(req, res) {
-        model.UserModel
-            .find({_id: req.params.uid})
-            .then(
-                (users) => {
-                    if (users.length===0) {
-                        res.status(404).send(
-                            _message.Error("user not found"))
-                    } else {
-                        res.status(200).json(users[0])
-                    }
-                },
-                (err) => {res.status(404).send(
-                    _message.Error('User not found'))}
-            );
+    async function findUserById(req, res) {
+        let users = await model.UserModel.find({_id: req.params.uid})
+
+        if (users.length === 0) {
+
+            let users = await model.UserModel.find()
+            console.log(req.params.uid)
+            console.log(users.map(x=>x._id))
+
+            res.status(404).send(
+                _message.Error("user not found"))
+        }
+
+        res.status(200).json(users[0])
     }
 
     function updateUser(req, res) {
