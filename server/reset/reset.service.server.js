@@ -95,6 +95,10 @@ module.exports = function (app, model) {
                               "uid", "playlists",
                               await _playlist.getDefaultPlaylists(model))
 
+        await model.FollowModel.remove()
+        await model.NotificationModel.remove()
+        await model.RatingModel.remove()
+
         winston.info("reset database complete")
         res.status(200).send(_message.Error("OK"));
     }

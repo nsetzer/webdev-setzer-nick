@@ -5,12 +5,6 @@ module.exports = function (app, model) {
     var _social = require('./social.data.server');
     var _message = require('../assignment/message.data.server');
 
-    var network = []
-    var notifications = []
-    var ratings = []
-
-    nextId = 1000;
-
     app.delete('/api/user/:uid/social/:fid', deleteConnection);
     app.put(   '/api/user/:uid/social/:fid', addConnection);
     app.get(   '/api/user/:uid/social/:fid', getUserIsConnected);
@@ -20,46 +14,43 @@ module.exports = function (app, model) {
     app.put(   '/api/user/:uid/rate/:plid', rateList);
     app.delete('/api/user/:uid/rate/:plid', unrateList);
 
-    function addConnection(req,res) {
-        var connection = _social.Follow("" + nextId,
-                                        req.params.uid,
-                                        req.params.fid)
-        nextId = nextId + 1
-        network.push( connection );
+    async function addConnection(req,res) {
+        var connection = {
+            follower: req.params.uid,
+            followee: req.params.fid
+        }
+
+        await model.FollowModel.create(connection)
+
         winston.info("added new connection from "+req.params.uid+
                      " to "+req.params.fid);
+
         res.status(201).json(null)
     }
 
-    function deleteConnection(req,res) {
-        var uid = req.params.uid;
-        var fid = req.params.fid;
-
-        for (var x=0; x < network.length; x++) {
-            if (network[x].followee === fid && network[x].uid == uid) {
-                network.splice(x,1);
-                break;
-            }
+    async function deleteConnection(req,res) {
+        var connection = {
+            follower: req.params.uid,
+            followee: req.params.fid
         }
 
-        res.status(200).json(null);
+        await model.FollowModel.remove(connection)
+
+        winston.info("removed connection from "+req.params.uid+
+                     " to "+req.params.fid);
+
+        res.status(200).json(null)
     }
 
 
     // return a list of all users following the given uid
-    function _getUserFollowers(uid) {
-        var uids = []
-        for (var x=0; x < network.length; x++) {
-            if (network[x].followee === uid) {
-                uids.push(network[x].uid)
-            }
-        }
-        return uids;
+    async function _getUserFollowers(uid) {
+        connections = await model.FollowModel.find({followee:uid});
+        return connections.map( x => x.follower );
     }
 
-    function getUserFollowers(req,res) {
-        uids = _getUserFollowers(req.params.uid)
-
+    async function getUserFollowers(req,res) {
+        uids = await _getUserFollowers(req.params.uid)
         winston.info("found "+uids.length+" followers of " + req.params.uid)
         res.status(200).json(uids)
     }
@@ -67,17 +58,18 @@ module.exports = function (app, model) {
     /**
      * return true if the given uid is connected to the fid.
      */
-    function getUserIsConnected(req,res) {
+    async function getUserIsConnected(req,res) {
 
         var uid = req.params.uid;
         var fid = req.params.fid;
-        var isConnected = false;
-        for (var x=0; x < network.length; x++) {
-            if (network[x].followee === fid && network[x].uid == uid) {
-                isConnected = true;
-                break;
-            }
+
+        var connection = {
+            follower: uid,
+            followee: fid
         }
+
+        connections = await model.FollowModel.find(connection);
+        var isConnected = connections.length>0;
 
         if (isConnected) {
             winston.info("user "+uid+" is connected to " + fid);
@@ -92,33 +84,26 @@ module.exports = function (app, model) {
      *
      * post data format: { message: ""}
      */
-    function sendNotification(req,res) {
+    async function sendNotification(req,res) {
         var message = req.body.message;
         var uid = req.params.uid;
-        var uids = _getUserFollowers(uid)
+        var uids = await _getUserFollowers(uid)
 
-        console.log(network)
-        console.log(uids)
+        let notifications = []
         for (var x=0; x < uids.length; x++) {
-            var n = _social.Notification("" + nextId,uid, uids[x], message);
-            notifications.push(n)
+            notifications.push(_social.Notification(uid, uids[x], message))
         }
 
+        await model.NotificationModel.collection.insert(notifications)
+
         winston.info("dispatched "+uids.length+" notifications");
+
         res.status(200).json(null)
     }
 
-    function getNotifications(req,res) {
+    async function getNotifications(req,res) {
         var uid = req.params.uid;
-
-        messages = []
-
-        for (var x=0; x < notifications.length; x++) {
-            if (notifications[x].uid2 == uid) {
-                messages.push(notifications[x])
-            }
-        }
-
+        messages = await model.NotificationModel.find({receiver: uid})
         winston.info("found "+messages.length+" notifications for user " + uid);
         res.status(200).json(messages)
     }
@@ -127,9 +112,10 @@ module.exports = function (app, model) {
     //       this can be implemented as a server side join whenever a
     //       a playlist is returned by a query.
 
-    function rateList(req,res) {
+    async function rateList(req,res) {
         var uid = req.params.uid;
         var plid = req.params.plid;
+
         var data = req.body;
         data.uid = uid;
         data.plid = plid;
@@ -141,31 +127,19 @@ module.exports = function (app, model) {
             return;
         }
 
-        // update an existing value
-        for (let x =0; x < ratings.length; x++) {
-            if (ratings[x].uid===uid && ratings[x].plid===plid) {
-                ratings[x].value = data.value
-                res.status(200).json(null);
-                return;
-            }
-        }
+        await model.RatingModel
+            .update({uid:uid, plid: plid}, data, {upsert:true})
 
-        // add a new value
-        ratings.push(data);
         res.status(200).json(null);
     }
 
-    function unrateList(req,res) {
+    async function unrateList(req,res) {
         var uid = req.params.uid;
         var plid = req.params.plid;
 
-        for (let x =0; x < ratings.length; x++) {
-            if (ratings[x].uid===uid && ratings[x].plid===plid) {
-                ratings.splice(x,1);
-                res.status(200).json(null);
-                return
-            }
-        }
+        await model.RatingModel
+            .remove({uid:uid, plid: plid})
+
         res.status(200).json(null);
     }
 

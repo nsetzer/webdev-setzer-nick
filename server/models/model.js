@@ -30,6 +30,7 @@ module.exports = function() {
     QueueSchema        = require("./project/queue.schema.server")(mongoose);
     FollowSchema       = require("./project/follow.schema.server")(mongoose);
     NotificationSchema = require("./project/notification.schema.server")(mongoose);
+    RatingSchema       = require("./project/rating.schema.server")(mongoose);
 
     TestModel         = require("./test/test.model.server")(mongoose,TestSchema)
     UserModel         = require("./assignment/user.model.server")(mongoose,UserSchema)
@@ -40,8 +41,9 @@ module.exports = function() {
     SongModel         = require("./project/song.model.server")(mongoose,SongSchema)
     PlaylistModel     = require("./project/playlist.model.server")(mongoose,PlaylistSchema)
     QueueModel        = require("./project/queue.model.server")(mongoose,QueueSchema)
-    //FollowModel       = require("./project/follow.model.server")(mongoose,FollowSchema)
-    //NotificationModel = require("./project/notification.model.server")(mongoose,NotificationSchema)
+    FollowModel       = require("./project/follow.model.server")(mongoose,FollowSchema)
+    NotificationModel = require("./project/notification.model.server")(mongoose,NotificationSchema)
+    RatingModel       = require("./project/rating.model.server")(mongoose,RatingSchema)
 
     var model = {
         // models
@@ -53,8 +55,9 @@ module.exports = function() {
         SongModel         : SongModel,
         PlaylistModel     : PlaylistModel,
         QueueModel        : QueueModel,
-        //FollowModel       : FollowModel,
-        //NotificationModel : NotificationModel,
+        FollowModel       : FollowModel,
+        NotificationModel : NotificationModel,
+        RatingModel       : RatingModel,
 
         // db connections
         mongojs           : mongojs,
