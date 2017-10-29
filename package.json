@@ -1,6 +1,9 @@
 {
   "name": "webdev-setzer-nick",
   "version": "8.5.0",
+  "engines": {
+    "node": "8.7.0"
+  },
   "license": "MIT",
   "scripts": {
     "ng": "ng",
