@@ -15,6 +15,9 @@ module.exports = function (app, model) {
     // drop the existing collection, and populate with default data
     async function create(model,items) {
 
+        if (!model) {
+            console.log(Object.keys(model))
+        }
         await model.remove()
 
         if (items) {
@@ -34,7 +37,12 @@ module.exports = function (app, model) {
     // drop the existing collection, and populate with default data
     // updates a parent collection with a reference to each child
     // object that is created
+
     async function createAndUpdate(modelParent, model, fieldId, fieldArray, items) {
+
+        if (!model) {
+            console.log(Object.keys(model))
+        }
 
         await model.remove()
 
@@ -61,6 +69,8 @@ module.exports = function (app, model) {
     async function resetDatabase(req, res) {
 
         winston.info("reset database...")
+
+
 
         await create(model.UserModel, _user.getDefaultUsers(model));
         //await create(model.WebsiteModel,await _website.getDefaultWebsites(model));

@@ -19,40 +19,46 @@ module.exports = function() {
 
     mongojs('web-app-maker');
 
-    TestSchema       = require("./test/test.schema.server")(mongoose);
-    UserSchema       = require("./assignment/user.schema.server")(mongoose);
-    WebsiteSchema    = require("./assignment/website.schema.server")(mongoose);
-    PageSchema       = require("./assignment/page.schema.server")(mongoose);
-    WidgetSchema     = require("./assignment/widget.schema.server")(mongoose);
+    TestSchema         = require("./test/test.schema.server")(mongoose);
+    UserSchema         = require("./assignment/user.schema.server")(mongoose);
+    WebsiteSchema      = require("./assignment/website.schema.server")(mongoose);
+    PageSchema         = require("./assignment/page.schema.server")(mongoose);
+    WidgetSchema       = require("./assignment/widget.schema.server")(mongoose);
 
-    SongSchema       = require("./project/song.schema.server")(mongoose);
-    PlaylistSchema   = require("./project/playlist.schema.server")(mongoose);
-    QueueSchema      = require("./project/queue.schema.server")(mongoose);
+    SongSchema         = require("./project/song.schema.server")(mongoose);
+    PlaylistSchema     = require("./project/playlist.schema.server")(mongoose);
+    QueueSchema        = require("./project/queue.schema.server")(mongoose);
+    FollowSchema       = require("./project/follow.schema.server")(mongoose);
+    NotificationSchema = require("./project/notification.schema.server")(mongoose);
 
-    TestModel        = require("./test/test.model.server")(mongoose,TestSchema)
-    UserModel        = require("./assignment/user.model.server")(mongoose,UserSchema)
-    WebsiteModel     = require("./assignment/website.model.server")(mongoose,WebsiteSchema)
-    PageModel        = require("./assignment/page.model.server")(mongoose,PageSchema)
-    WidgetModel      = require("./assignment/widget.model.server")(mongoose,WidgetSchema)
+    TestModel         = require("./test/test.model.server")(mongoose,TestSchema)
+    UserModel         = require("./assignment/user.model.server")(mongoose,UserSchema)
+    WebsiteModel      = require("./assignment/website.model.server")(mongoose,WebsiteSchema)
+    PageModel         = require("./assignment/page.model.server")(mongoose,PageSchema)
+    WidgetModel       = require("./assignment/widget.model.server")(mongoose,WidgetSchema)
 
-    SongModel        = require("./project/song.model.server")(mongoose,SongSchema)
-    PlaylistModel    = require("./project/playlist.model.server")(mongoose,PlaylistSchema)
-    QueueModel       = require("./project/queue.model.server")(mongoose,QueueSchema)
+    SongModel         = require("./project/song.model.server")(mongoose,SongSchema)
+    PlaylistModel     = require("./project/playlist.model.server")(mongoose,PlaylistSchema)
+    QueueModel        = require("./project/queue.model.server")(mongoose,QueueSchema)
+    //FollowModel       = require("./project/follow.model.server")(mongoose,FollowSchema)
+    //NotificationModel = require("./project/notification.model.server")(mongoose,NotificationSchema)
 
     var model = {
         // models
-        TestModel     : TestModel,
-        UserModel     : UserModel,
-        WebsiteModel  : WebsiteModel,
-        PageModel     : PageModel,
-        WidgetModel   : WidgetModel,
-        SongModel     : SongModel,
-        PlaylistModel : PlaylistModel,
-        QueueModel    : QueueModel,
+        TestModel         : TestModel,
+        UserModel         : UserModel,
+        WebsiteModel      : WebsiteModel,
+        PageModel         : PageModel,
+        WidgetModel       : WidgetModel,
+        SongModel         : SongModel,
+        PlaylistModel     : PlaylistModel,
+        QueueModel        : QueueModel,
+        //FollowModel       : FollowModel,
+        //NotificationModel : NotificationModel,
 
         // db connections
-        mongojs          : mongojs,
-        mongoose         : mongoose
+        mongojs           : mongojs,
+        mongoose          : mongoose
     };
     return model;
 }

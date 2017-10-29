@@ -93,8 +93,7 @@ describe('Playlist', function() {
         .get('/api/playlist?term=default')
         .end(function(err, res) {
           expect(res).to.have.status(200)
-          res.body.length.should.gt(1)
-          res.body.length.should.eql(4)
+          res.body.length.should.eql(6)
           done();
         }) // end get lists
     }); // end it

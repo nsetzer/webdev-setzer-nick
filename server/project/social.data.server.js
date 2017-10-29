@@ -7,8 +7,8 @@
 function Follow(_id, uid, followee) {
     return {
         _id: _id,
-        uid: uid,
-        followee: followee,
+        uid: uid,            // the user who is following someone
+        followee: followee,  // the user who is being followed
     }
 }
 
