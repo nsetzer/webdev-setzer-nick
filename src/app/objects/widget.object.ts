@@ -1,15 +1,18 @@
 
 export class Widget {
 
-    _id:        string;
-    pageId:     string;
-    widgetType: string;
-    name:       string;
-    title:      string;
-    text:       string;
-    url:        string;
-    size:       number;
-    width:      string;
+    _id:         string;
+    pageId:      string;
+    widgetType:  string;
+    name:        string;
+    title:       string;
+    text:        string;
+    placeholder: string;
+    formatted:   boolean;
+    url:         string;
+    size:        number;
+    rows:        number;
+    width:       string;
 
     constructor(_id: string, name: string, pageId: string) {
         this._id = _id;
@@ -49,6 +52,17 @@ export class Widget {
         return widget;
     }
 
+    static newTextWidget(_id: string, name: string, pageId: string, text: string) {
+        let widget = new Widget(_id,name,pageId);
+        widget.widgetType = "TEXT";
+        widget.text = text;
+        widget.placeholder = "";
+        widget.rows = 3;
+        widget.formatted = false;
+        return widget;
+    }
+
+
     static widgetFactory(wgid: string, pageId: string, type: string) {
       /*
       creates and returns a new widget given the type of widget to create
@@ -66,6 +80,12 @@ export class Widget {
       }
       if (type === "HEADING") {
         widget.size = 2;
+      }
+      if (type === "TEXT") {
+        widget.text = "";
+        widget.placeholder = "";
+        widget.rows = 3;
+        widget.formatted = false;
       }
 
       return widget;

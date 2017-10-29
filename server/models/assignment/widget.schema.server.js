@@ -7,7 +7,7 @@ module.exports = function(mongoose) {
         },
         widgetType: {
             type: String,
-            enum: ['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT'],
+            enum: ['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT', 'TEXT'],
         },
         name: String,
         text: String,

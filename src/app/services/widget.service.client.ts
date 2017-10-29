@@ -12,8 +12,6 @@ export class WidgetService {
 
   baseUrl = environment.baseUrl;
 
-  nextId : number = 1000;
-
   widgets = Widget.getDefaultWidgets();
 
   api = {
@@ -30,7 +28,7 @@ export class WidgetService {
   }
 
   widgetFactory(pageId: string, type: string) {
-    return Widget.widgetFactory("" + this.nextId, pageId, type);
+    return Widget.widgetFactory("", pageId, type);
   }
 
   createWidget(pageId, widget) {

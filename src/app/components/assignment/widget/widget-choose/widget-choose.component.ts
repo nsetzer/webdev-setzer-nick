@@ -61,7 +61,8 @@ export class WidgetChooseComponent implements OnInit {
     if (kind == "HEADING" ||
         kind == "HTML" ||
         kind == "IMAGE" ||
-        kind == "YOUTUBE") {
+        kind == "YOUTUBE" ||
+        kind == "TEXT") {
         let widget = this._service.widgetFactory(this.pid,kind)
 
         this._service.createWidget(this.pid,widget).subscribe(
@@ -69,14 +70,17 @@ export class WidgetChooseComponent implements OnInit {
             let url = "/user/" + this.uid +
                       "/website/" + this.wid +
                       "/page/" + this.pid +
-                     "/widget/" + widget._id;
+                     "/widget/" + res._id;
+            console.log(url)
             this.router.navigate([url]);
           },
           (err) => {
             let msg = JSON.parse(err._body)
-            this.error_message = msg.message;
+            this.error_message = msg.message.message;
           }
         );
+    } else {
+      this.error_message = kind + " not supported.";
     }
   }
 

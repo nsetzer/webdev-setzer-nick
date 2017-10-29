@@ -43,6 +43,9 @@ import { WidgetHeaderComponent } from './components/assignment/widget/widget-edi
 import { WidgetYoutubeComponent } from './components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component';
 import { WidgetImageComponent } from './components/assignment/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetHtmlComponent } from './components/assignment/widget/widget-edit/widget-html/widget-html.component';
+import { WidgetTextComponent } from './components/assignment/widget/widget-edit/widget-text/widget-text.component';
+
+import { QuillEditorModule } from 'ngx-quill-editor';
 
 // list components
 import { WidgetListComponent } from './components/assignment/widget/widget-list/widget-list.component';
@@ -50,6 +53,7 @@ import { WidgetListHeaderComponent } from './components/assignment/widget/widget
 import { WidgetListImageComponent } from './components/assignment/widget/widget-list/widget-list-image/widget-list-image.component';
 import { WidgetListHtmlComponent } from './components/assignment/widget/widget-list/widget-list-html/widget-list-html.component';
 import { WidgetListYoutubeComponent } from './components/assignment/widget/widget-list/widget-list-youtube/widget-list-youtube.component';
+import { WidgetListTextComponent } from './components/assignment/widget/widget-list/widget-list-text/widget-list-text.component';
 
 // other
 import { FlickrImageSearchComponent } from './components/assignment/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
@@ -80,7 +84,6 @@ import { ProjectAdminComponent } from './components/project/user/project-admin/p
 import { AdminUserNewComponent } from './components/project/user/project-admin/admin-user-new/admin-user-new.component';
 import { AdminUserEditComponent } from './components/project/user/project-admin/admin-user-edit/admin-user-edit.component';
 
-import { QuillEditorModule } from 'ngx-quill-editor';
 
 @NgModule({
   // Declare components here
@@ -105,6 +108,12 @@ import { QuillEditorModule } from 'ngx-quill-editor';
     WidgetYoutubeComponent,
     WidgetImageComponent,
     WidgetHtmlComponent,
+    WidgetTextComponent,
+    WidgetListHeaderComponent,
+    WidgetListImageComponent,
+    WidgetListHtmlComponent,
+    WidgetListYoutubeComponent,
+    WidgetListTextComponent,
     ProjectRegisterComponent,
     ProjectLoginComponent,
     ProjectProfileComponent,
@@ -120,10 +129,6 @@ import { QuillEditorModule } from 'ngx-quill-editor';
     FlickrImageSearchComponent,
     SortableDirective,
     SongQueueComponent,
-    WidgetListHeaderComponent,
-    WidgetListImageComponent,
-    WidgetListHtmlComponent,
-    WidgetListYoutubeComponent,
     PlaylistAddSongDetailsComponent,
     PlaylistSearchSongDetailsComponent,
     PlaylistSearchViewComponent,
