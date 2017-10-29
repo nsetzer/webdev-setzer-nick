@@ -13,7 +13,7 @@
     <!--heading on the nav bar-->
     <p class="navbar-header pull-left">
       <a class="navbar-brand thick">
-        <b>{{playlist.name}}</b>
+        <b>My Song Queue</b>
       </a>
     </p>
 
@@ -30,7 +30,7 @@
 <div class="container-fluid content-body">
 
 <ul class="list-group"
-    *ngIf="playlist && playlist.songs"
+    *ngIf="playlist && playlist.songs.length>0"
     appSortable
     (newIndexes)="reorderList($event)">
     <li *ngFor="let song of playlist.songs"
@@ -48,5 +48,9 @@
 
     </li>
 </ul>
+
+<div *ngIf="!(playlist) || playlist.songs.length===0">
+No Songs To Display
+</div>
 
 </div>

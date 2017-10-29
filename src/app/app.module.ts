@@ -80,7 +80,7 @@ import { ProjectAdminComponent } from './components/project/user/project-admin/p
 import { AdminUserNewComponent } from './components/project/user/project-admin/admin-user-new/admin-user-new.component';
 import { AdminUserEditComponent } from './components/project/user/project-admin/admin-user-edit/admin-user-edit.component';
 
-
+import { QuillEditorModule } from 'ngx-quill-editor';
 
 @NgModule({
   // Declare components here
@@ -139,7 +139,8 @@ import { AdminUserEditComponent } from './components/project/user/project-admin/
     BrowserModule,
     HttpModule,
     FormsModule,
-    Routing
+    Routing,
+    QuillEditorModule
   ],
   // Client Side services here
   providers: [ TestService,
