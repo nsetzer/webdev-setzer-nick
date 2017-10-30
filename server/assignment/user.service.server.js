@@ -11,27 +11,14 @@ module.exports = function (app, model) {
     app.delete('/api/user/:uid', deleteUser);
 
     function createUser(req, res) {
-        if (req.body._id || req.body._id==='') {
-            delete req.body._id;
-        }
-
         model.UserModel
-            .find({username: req.body.username})
+            .createUser(req.body)
             .then(
-                (users) => {
-                    if (users.length===0) {
-                      model.UserModel
-                        .create(req.body)
-                        .then(
-                            (user) => {res.status(201).json(user)},
-                            (err) => {
-                                res.status(500).send(_message.Error(err))}
-                        );
-                    } else {
-                        res.status(400).send(_message.Error("user exists"))
-                    }
+                (user) => {
+                    res.status(201).json(user)
                 },
-                (err) => {res.status(500).send(_message.Error(err))}
+                (err) => {
+                    res.status(400).send(_message.Error(err))}
             );
     }
 
@@ -62,62 +49,48 @@ module.exports = function (app, model) {
         }
     }
 
-    function findUserByUsername(res, username) {
-        model.UserModel
-            .find({username: username})
-            .then(
-                (users) => {
-                    if (users.length===0) {
-                        res.status(404).send(
-                            _message.Error("user not found"))
-                    } else {
-                        res.status(200).json(users[0])
-                    }
-                },
-                (err) => {
-                    console.log("no user found")
-                    res.status(500).send(_message.Error(err))
-                }
-            );
+    async function findUserByUsername(res, username) {
+        let user = await model.UserModel
+            .findUserByUsername(username)
+
+        if (user) {
+            res.status(200).json(user)
+            return
+        }
+
+        res.status(404).send(
+            _message.Error("user not found"))
     }
 
-    function findUserByCredentials(res, username,password) {
-        model.UserModel
-            .find({username: username, password:password})
-            .then(
-                (users) => {
-                    if (users.length===0) {
-                        res.status(404).send(
-                            _message.Error('User `' + username +
-                            '` not found for given credentials'))
-                    } else {
-                        res.status(200).json(users[0])
-                    }
-                },
-                (err) => {res.status(500).send(_message.Error(err))}
-            );
+    async function findUserByCredentials(res, username,password) {
+        let user = await model.UserModel
+            .findUserByCreadentials(username, password)
+
+        if (user) {
+            res.status(200).json(user)
+            return
+        }
+
+        res.status(404).send(
+            _message.Error("user not found"))
     }
 
     async function findUserById(req, res) {
-        let users = await model.UserModel.find({_id: req.params.uid})
+        let user = await model.UserModel.findUserById(req.params.uid)
 
-        if (users.length === 0) {
-
-            let users = await model.UserModel.find()
-            console.log(req.params.uid)
-            console.log(users.map(x=>x._id))
-
-            res.status(404).send(
-                _message.Error("user not found"))
+        if (user) {
+            res.status(200).json(user)
+            return
         }
 
-        res.status(200).json(users[0])
+        res.status(404).send(
+            _message.Error("user not found"))
     }
 
     function updateUser(req, res) {
 
         model.UserModel
-            .update({_id: req.params.uid},req.body)
+            .updateUser(req.params.uid,req.body)
             .then(
                 () => {res.status(200).json(_message.Success("OK"))},
                 (err) => {
@@ -129,7 +102,7 @@ module.exports = function (app, model) {
 
     function deleteUser(req, res) {
         model.UserModel
-            .remove({_id: req.params.uid})
+            .deleteUser(req.params.uid)
             .then(
                 () => {res.status(200).json(_message.Success("OK"))},
                 (err) => {res.status(404).send(

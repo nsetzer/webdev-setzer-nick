@@ -41,7 +41,7 @@ app.set('port', port);
 // Create HTTP server
 const server = http.createServer(app);
 
-require("./server/app")(app);
+let model = require("./server/app")(app);
 
 // For Build: Catch all other routes and return the index file -- BUILDING
 app.get('*', function (req, res) {
@@ -51,4 +51,5 @@ app.get('*', function (req, res) {
 server.listen( port , () => console.log('Running on port ' + port));
 
 // for testing
+server.model = model
 module.exports = server
