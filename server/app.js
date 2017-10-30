@@ -31,6 +31,6 @@ module.exports = function (app) {
 
     require("./youtube/youtube.service.server")(app);
 
-
+    return model
 };
 

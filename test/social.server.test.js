@@ -14,31 +14,56 @@ var expect = chai.expect;
 
 chai.use(chaiHttp);
 
+let uid1 = null
+let uid2 = null
+
 describe('Social', function() {
 
-  describe('Reset Database', function() {
+  describe('Reset Database + create 2 users', function() {
     it('should reset the database', function(done) {
       this.timeout(5000);
+      var user1 = {
+        'username' : 'test1',
+        'password' : 'test',
+        'firstName' : 'test',
+        'lastName'  : 'test',
+        'email' : 'test@example.com'
+      };
+      var user2 = {
+        'username' : 'test2',
+        'password' : 'test',
+        'firstName' : 'test',
+        'lastName'  : 'test',
+        'email' : 'test@example.com'
+      };
       chai.request(server)
         .delete('/api/reset')
         .end(function(err, res) {
           expect(res).to.have.status(200)
-          done();
+          chai.request(server)
+            .post('/api/user')
+            .send(user1)
+            .end(function(err, res) {
+              uid1 = res.body._id
+              chai.request(server)
+                .post('/api/user')
+                .send(user2)
+                .end(function(err, res) {
+                  uid2 = res.body._id
+                  done();
+                });
+            });
         });
     });
   });
 
-  // Note: none of these tests actually require the users to exist
-  // the user ids and playlist ids are hardcoded to simplify the tests
-
-
   describe('/api/social connect', function() {
     it('should create a single connection', function(done) {
       chai.request(server)
-        .put('/api/user/59f504f3316796469637c000/social/59f504f3316796469637c001')
+        .put('/api/user/'+uid1+'/social/'+uid2)
         .end(function(err, res) {
           chai.request(server)
-            .get('/api/user/59f504f3316796469637c001/social')
+            .get('/api/user/'+uid2+'/social')
             .end(function(err, res) {
               res.body.should.be.a('array');
               res.body.length.should.eql(1)
@@ -51,7 +76,7 @@ describe('Social', function() {
   describe('/api/social is connected', function() {
     it('should return true', function(done) {
       chai.request(server)
-        .get('/api/user/59f504f3316796469637c000/social/59f504f3316796469637c001')
+        .get('/api/user/'+uid1+'/social/'+uid2)
         .end(function(err, res) {
           res.should.have.status(200);
           res.body.should.eql(true);
@@ -60,16 +85,15 @@ describe('Social', function() {
     });
   });
 
-
   describe('/api/social notification', function() {
     it('should create a single connection', function(done) {
         chai.request(server)
-          .post('/api/user/59f504f3316796469637c001/notifications')
+          .post('/api/user/'+uid2+'/notifications')
           .send({message:"test"})
           .end(function(err, res) {
             res.should.have.status(200);
             chai.request(server)
-              .get('/api/user/59f504f3316796469637c000/notifications')
+              .get('/api/user/'+uid1+'/notifications')
               .end(function(err, res) {
                 res.body.should.be.a('array');
                 res.body.length.should.eql(1)
@@ -81,8 +105,6 @@ describe('Social', function() {
     }); // end it
   }); // end describe
 
-
-
   describe('/api/social delete', function() {
     it('should delete the connection', function(done) {
       chai.request(server)
@@ -93,7 +115,6 @@ describe('Social', function() {
         });
     });
   });
-
 
   describe('/api/social is not connected', function() {
     it('should return false', function(done) {
@@ -141,6 +162,4 @@ describe('Social', function() {
         });
     });
   });
-
-
 });

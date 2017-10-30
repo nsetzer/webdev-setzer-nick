@@ -54,6 +54,7 @@ module.exports = function (app, model) {
         let record = {}
         record[src] = uid;
         let connections = await model.FollowModel.find(record);
+        console.log("found: " + connections.length)
         let uids = connections.map( x => x[tgt] );
         let users = await model.UserModel
                 .find({_id: {$in: uids}});

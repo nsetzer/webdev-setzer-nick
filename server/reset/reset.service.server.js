@@ -22,18 +22,22 @@ module.exports = function (app, model) {
         }
         await model.remove()
 
+        ids = []
         if (items) {
             for (let x=0; x < items.length; x++) {
                 var item = items[x]
                 if (item._id || item._id==='') {
                     delete item._id;
                 }
-                await model.create(item)
+                item = await model.create(item)
+                ids.push(item._id)
             }
         }
         let result = await model.find()
         winston.info("created " + result.length + "/" + items.length +
             " records in " + model.collection.collectionName)
+
+        return ids;
     }
 
     // drop the existing collection, and populate with default data
@@ -117,7 +121,7 @@ module.exports = function (app, model) {
 
         winston.info("reset database...")
 
-        await create(model.UserModel, _user.getDefaultUsers(model));
+        users = await create(model.UserModel, _user.getDefaultUsers(model));
         //await create(model.WebsiteModel,await _website.getDefaultWebsites(model));
         await createAndUpdate(model.UserModel, model.WebsiteModel,
                               "developerId", "websites",
@@ -160,7 +164,10 @@ module.exports = function (app, model) {
         await model.RatingModel.remove()
 
         winston.info("reset database complete")
-        res.status(200).send(_message.Success("OK"));
+
+        res.status(200).json({
+            users: users,
+        });
     }
 
     winston.info("db reset endpoints registered");

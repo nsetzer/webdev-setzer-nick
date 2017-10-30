@@ -66,6 +66,28 @@ describe('User', function() {
   });
 
   // create a user and check to see that the
+  // username exists when done
+  describe('/api/user create exists', function() {
+    it('should create a new user', function(done) {
+      var data = {
+        'username' : 'david',
+        'password' : 'david',
+        'firstName' : 'David',
+        'lastName'  : 'Jones',
+        'email' : 'david@example.com'
+      };
+      chai.request(server)
+        .post('/api/user')
+        .send(data)
+        .end(function(err, res) {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+  });
+
+
+  // create a user and check to see that the
   // user id exists when done
 
   describe('/api/user create', function() {

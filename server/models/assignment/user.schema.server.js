@@ -1,7 +1,7 @@
 
 module.exports = function(mongoose) {
     return mongoose.Schema({
-        username: String,
+        username: { type: String, unique: true },
         password: String,
         firstName: String,
         lastName: String,
