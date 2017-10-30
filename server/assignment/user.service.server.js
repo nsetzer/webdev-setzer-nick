@@ -50,8 +50,14 @@ module.exports = function (app, model) {
     }
 
     async function findUserByUsername(res, username) {
-        let user = await model.UserModel
-            .findUserByUsername(username)
+        let user;
+        try {
+            user = await model.UserModel
+                .findUserByUsername(username)
+        } catch (err) {
+            res.status(500).send(
+                _message.Error(err))
+        }
 
         if (user) {
             res.status(200).json(user)
@@ -63,8 +69,14 @@ module.exports = function (app, model) {
     }
 
     async function findUserByCredentials(res, username,password) {
-        let user = await model.UserModel
-            .findUserByCreadentials(username, password)
+        let user;
+        try {
+            user = await model.UserModel
+                .findUserByCreadentials(username, password)
+        } catch (err) {
+            res.status(500).send(
+                _message.Error(err))
+        }
 
         if (user) {
             res.status(200).json(user)
@@ -76,7 +88,14 @@ module.exports = function (app, model) {
     }
 
     async function findUserById(req, res) {
-        let user = await model.UserModel.findUserById(req.params.uid)
+        let user;
+        try {
+            user = await model.UserModel
+                .findUserById(req.params.uid)
+        } catch (err) {
+            res.status(500).send(
+                _message.Error(err))
+        }
 
         if (user) {
             res.status(200).json(user)
