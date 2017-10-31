@@ -13,15 +13,8 @@ module.exports = function (app, model) {
     }
 
     function createWebsite(req, res) {
-        // create a website and append the id to the users website list
-        if (req.body._id || req.body._id==='') {
-            delete req.body._id;
-        }
-
-        req.body.developerId = req.params.uid;
-
         model.WebsiteModel
-            .create(req.body)
+            .createWebsiteForUser(req.params.uid,req.body)
             .then(
                 (website) => {
                     model.UserModel
@@ -40,7 +33,7 @@ module.exports = function (app, model) {
 
     function findAllWebsitesForUser(req, res) {
         model.WebsiteModel
-            .find({developerId:req.params.uid})
+            .findAllWebsitesForUser(req.params.uid)
             .then(
                 (sites) => {res.status(200).json(sites)},
                 (err) => {
@@ -51,16 +44,15 @@ module.exports = function (app, model) {
 
     function findWebsiteById(req, res) {
         model.WebsiteModel
-            .find({_id:req.params.wid})
+            .findWebsiteById(req.params.wid)
             .then(
-                (sites) => {
-                    if (sites.length===0) {
+                (site) => {
+                    if (!site) {
                         res.status(404).json(
                             _message.Error("website not found"));
                     } else {
-                        res.status(200).json(sites[0])
+                        res.status(200).json(site)
                     }
-
                 },
                 (err) => {res.status(500).send(_message.Error(err))}
             );
@@ -69,8 +61,7 @@ module.exports = function (app, model) {
     function updateWebsite(req, res) {
 
         model.WebsiteModel
-            .update({_id:req.params.wid},
-                    req.body)
+            .updateWebsite(req.params.wid,req.body)
             .then(
                 () => {res.status(200).json(_message.Success("OK"));},
                 (err) => {res.status(500).send(_message.Error(err))}
@@ -79,10 +70,11 @@ module.exports = function (app, model) {
 
     async function deleteWebsite(req, res) {
 
-        let website = await model.WebsiteModel.find({_id:req.params.wid})
+        let website = await model.WebsiteModel.findWebsiteById(req.params.wid)
 
         if (website) {
-            await model.WebsiteModel.remove({_id:req.params.wid})
+            await model.WebsiteModel.deleteWebsite(req.params.wid)
+            // TODO: create model API for this update function
             await model.UserModel
                     .update({_id:website.developerId},
                             { $pull: { websites: req.params.wid } });
