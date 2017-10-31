@@ -138,6 +138,10 @@ ul.list-group {
   padding-left:0px;
 }
 
+.padding-all {
+  padding:15px;
+}
+
 .padding-default {
   padding-left:15px;
   padding-right:15px;

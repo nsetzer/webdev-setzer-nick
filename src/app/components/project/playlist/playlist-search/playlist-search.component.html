@@ -27,12 +27,12 @@
         </p>
       </div>
 
-      <div class="col-sm-2 col-xs-4" style="padding:15px">
+      <div class="col-sm-2 col-xs-4 padding-all">
         <a [routerLink]="['/project/login']"
            class="btn btn-default btn-block">Login</a>
       </div>
 
-      <div class="col-sm-2 col-xs-4" style="padding:15px">
+      <div class="col-sm-2 col-xs-4 padding-all">
         <a [routerLink]="['/project/register']"
            class="btn btn-danger btn-block">Register</a>
       </div>
@@ -44,17 +44,17 @@
 <div class="container-fluid content-body">
 
 <div class="row" *ngIf="!uid">
-  <div class="col-sm-3 hidden-xs" style="padding:15px">
+  <div class="col-sm-3 hidden-xs padding-all">
   </div>
-  <div class="col-sm-3 col-xs-6" style="padding:15px">
+  <div class="col-sm-3 col-xs-6 padding-all">
   <p disabled="true"
      class="btn btn-success btn-block">Search for Playlists</p>
   </div>
-  <div class="col-sm-3 col-xs-6" style="padding:15px">
+  <div class="col-sm-3 col-xs-6 padding-all">
   <a [routerLink]="['/project/search/s']"
      class="btn btn-success btn-block">Search for Songs</a>
   </div>
-  <div class="col-sm-3 col-xs-3 hidden-xs" style="padding:15px">
+  <div class="col-sm-3 col-xs-3 hidden-xs padding-all">
   </div>
 </div>
 <!--
