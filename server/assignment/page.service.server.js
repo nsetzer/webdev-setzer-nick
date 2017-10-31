@@ -13,14 +13,9 @@ module.exports = function (app, model) {
     }
 
     function createPage(req, res) {
-        if (req.body._id || req.body._id==='') {
-            delete req.body._id;
-        }
-
-        req.body.websiteId = req.params.wid;
 
         model.PageModel
-            .create(req.body)
+            .createPage(req.params.wid, req.body)
             .then(
                 (page) => {
                     model.WebsiteModel
@@ -41,7 +36,7 @@ module.exports = function (app, model) {
 
     function findAllPagesForWebsite(req, res) {
         model.PageModel
-            .find({websiteId:req.params.wid})
+            .findAllPagesForWebsite(req.params.wid)
             .then(
                 (pages) => {res.status(200).json(pages)},
                 (err) => {
@@ -52,14 +47,14 @@ module.exports = function (app, model) {
 
     function findPageById(req, res) {
         model.PageModel
-            .find({_id:req.params.pid})
+            .findPageById(req.params.pid)
             .then(
-                (pages) => {
-                    if (pages.length===0) {
+                (page) => {
+                    if (!page) {
                         res.status(404).json(
                             _message.Error("page not found"));
                     } else {
-                        res.status(200).json(pages[0])
+                        res.status(200).json(page)
                     }
                 },
                 (err) => {res.status(500).send(_message.Error(err))}
@@ -68,8 +63,7 @@ module.exports = function (app, model) {
 
     function updatePage(req, res) {
         model.PageModel
-            .update({_id:req.params.pid},
-                    req.body)
+            .updatePage(req.params.pid,req.body)
             .then(
                 () => {res.status(200).json(_message.Success("OK"));},
                 (err) => {res.status(500).send(_message.Error(err))}
@@ -78,10 +72,12 @@ module.exports = function (app, model) {
 
     async function deletePage(req, res) {
 
-        let page = await model.PageModel.find({_id:req.params.pid})
+        let page = await model.PageModel.findPageById(req.params.pid)
+        console.log(page)
 
         if (page) {
-            await model.PageModel.remove({_id:req.params.pid})
+            await model.PageModel.deletePage(req.params.pid)
+            // TODO: create model API for this update function
             await model.WebsiteModel
                     .update({_id:page.websiteId},
                             { $pull: { pages: req.params.pid } });
