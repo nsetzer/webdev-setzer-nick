@@ -18,10 +18,8 @@
       </p>
     </div>
 
-
-
     <div class="row" *ngIf="!uid">
-      <div class="col-xs-8">
+      <div class="col-sm-8 col-xs-4">
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
             <b>Project Title Here</b>
@@ -29,12 +27,12 @@
         </p>
       </div>
 
-      <div class="col-xs-2" style="padding:15px">
+      <div class="col-sm-2 col-xs-4" style="padding:15px">
         <a [routerLink]="['/project/login']"
            class="btn btn-default btn-block">Login</a>
       </div>
 
-      <div class="col-xs-2" style="padding:15px">
+      <div class="col-sm-2 col-xs-4" style="padding:15px">
         <a [routerLink]="['/project/register']"
            class="btn btn-danger btn-block">Register</a>
       </div>
@@ -46,17 +44,17 @@
 <div class="container-fluid content-body">
 
 <div class="row" *ngIf="!uid">
-  <div class="col-xs-3" style="padding:15px">
+  <div class="col-sm-3 hidden-xs" style="padding:15px">
   </div>
-  <div class="col-xs-3" style="padding:15px">
+  <div class="col-sm-3 col-xs-6" style="padding:15px">
   <p disabled="true"
      class="btn btn-success btn-block">Search for Playlists</p>
   </div>
-  <div class="col-xs-3" style="padding:15px">
+  <div class="col-sm-3 col-xs-6" style="padding:15px">
   <a [routerLink]="['/project/search/s']"
      class="btn btn-success btn-block">Search for Songs</a>
   </div>
-  <div class="col-xs-3" style="padding:15px">
+  <div class="col-sm-3 col-xs-3 hidden-xs" style="padding:15px">
   </div>
 </div>
 <!--
@@ -82,27 +80,29 @@
  </span>
 </div>
 
-<div *ngIf="searchResults.length>0">
- <div *ngFor="let result of searchResults">
-       {{result.name}}
-
-        <div class ="pull-right">
-            <a (click)="openProfile(result)">
-            <span class="glyphicon glyphicon-user"></span>
-            </a>
-
-            <a *ngIf="uid"
-               (click)="copyPlaylist(result)">
-            <span class="glyphicon glyphicon-copy"></span>
-            </a>
-
-            <a (click)="viewPlaylist(result)">
-            <span class="glyphicon glyphicon-info-sign"></span>
-            </a>
+<ul *ngIf="searchResults.length>0"
+    class="list-group">
+  <li *ngFor="let result of searchResults"
+      class="list-group-item">
+        <div class="search-result">
+        {{result.name}}
         </div>
- </div>
+        <span class="search-result-icons">
+             <a (click)="openProfile(result)">
+             <span class="glyphicon glyphicon-user padding-left-default"></span>
+             </a>
 
-</div>
+             <a *ngIf="uid"
+                (click)="copyPlaylist(result)">
+             <span class="glyphicon glyphicon-copy padding-left-default"></span>
+             </a>
+
+             <a (click)="viewPlaylist(result)">
+             <span class="glyphicon glyphicon-info-sign padding-left-default"></span>
+             </a>
+         </span>
+  </li>
+</ul>
 
 <div *ngIf="searchWasRun && !searchResults.length">
 No results to display

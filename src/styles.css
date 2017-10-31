@@ -212,3 +212,23 @@ img.image-container {
   margin:auto;
 }
 
+/*
+search results
+*/
+
+div.search-result {
+  display: inline-block;
+  white-space: nowrap;
+  width:100%;
+  padding-right:45px;
+  margin:0 0 0px;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  /*border: 1px solid #000000;"*/
+}
+
+span.search-result-icons {
+  position: absolute;
+  top:15px;
+  right:0px;
+}
