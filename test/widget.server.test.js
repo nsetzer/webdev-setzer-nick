@@ -105,9 +105,9 @@ describe('Widget', function() {
             .send(widget)
             .end(function(err, res) {
               res.should.have.status(201);
-              let new_page = res.body;
+              let new_widget = res.body;
               chai.request(server)
-                .delete('/api/page/'+new_page._id)
+                .delete('/api/widget/'+new_widget._id)
                 .end(function(err, res) {
                   res.should.have.status(200);
                   done();

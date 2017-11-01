@@ -34,9 +34,9 @@ module.exports = function() {
 
     TestModel         = require("./test/test.model.server")(mongoose,TestSchema)
     UserModel         = require("./assignment/user.model.server")(mongoose,UserSchema)
-    WebsiteModel      = require("./assignment/website.model.server")(mongoose,WebsiteSchema)
-    PageModel         = require("./assignment/page.model.server")(mongoose,PageSchema)
-    WidgetModel       = require("./assignment/widget.model.server")(mongoose,WidgetSchema)
+    WebsiteModel      = require("./assignment/website.model.server")(mongoose,WebsiteSchema,UserModel)
+    PageModel         = require("./assignment/page.model.server")(mongoose,PageSchema,WebsiteModel)
+    WidgetModel       = require("./assignment/widget.model.server")(mongoose,WidgetSchema,PageModel)
 
     SongModel         = require("./project/song.model.server")(mongoose,SongSchema)
     PlaylistModel     = require("./project/playlist.model.server")(mongoose,PlaylistSchema)

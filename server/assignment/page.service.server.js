@@ -17,20 +17,8 @@ module.exports = function (app, model) {
         model.PageModel
             .createPage(req.params.wid, req.body)
             .then(
-                (page) => {
-                    model.WebsiteModel
-                        .update( {_id:page.websiteId},
-                                 { $push: { pages: page._id } })
-                        .then(
-                          () => {res.status(201).json(page)},
-                          (err) => {
-                            res.status(500).send(_message.Error(err))
-                          }
-                        )
-                },
-                (err) => {
-                    res.status(500).send(_message.Error(err))
-                }
+                (page) => {res.status(201).json(page)},
+                (err) => {res.status(500).send(_message.Error(err))}
             );
     }
 
@@ -71,20 +59,10 @@ module.exports = function (app, model) {
     }
 
     async function deletePage(req, res) {
-
-        let page = await model.PageModel.findPageById(req.params.pid)
-        console.log(page)
-
-        if (page) {
-            await model.PageModel.deletePage(req.params.pid)
-            // TODO: create model API for this update function
-            await model.WebsiteModel
-                    .update({_id:page.websiteId},
-                            { $pull: { pages: req.params.pid } });
+        if (await model.PageModel.deletePage(req.params.pid)) {
             res.status(200).json(_message.Success("OK"));
             return
         }
-
         res.status(404).send(_message.Error("website not found"))
     }
 

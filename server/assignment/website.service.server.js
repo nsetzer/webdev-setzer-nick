@@ -16,18 +16,8 @@ module.exports = function (app, model) {
         model.WebsiteModel
             .createWebsiteForUser(req.params.uid,req.body)
             .then(
-                (website) => {
-                    model.UserModel
-                        .update( {_id:website.developerId},
-                                 { $push: { websites: website._id } })
-                        .then(
-                          () => {res.status(201).json(website)},
-                          (err) => {res.status(500).send(_message.Error(err))}
-                        )
-                },
-                (err) => {
-                    res.status(500).send(_message.Error(err))
-                }
+                (website) => {res.status(201).json(website)},
+                (err) => {res.status(500).send(_message.Error(err))}
             );
     }
 
@@ -69,15 +59,7 @@ module.exports = function (app, model) {
     }
 
     async function deleteWebsite(req, res) {
-
-        let website = await model.WebsiteModel.findWebsiteById(req.params.wid)
-
-        if (website) {
-            await model.WebsiteModel.deleteWebsite(req.params.wid)
-            // TODO: create model API for this update function
-            await model.UserModel
-                    .update({_id:website.developerId},
-                            { $pull: { websites: req.params.wid } });
+        if (model.WebsiteModel.deleteWebsite(req.params.wid)) {
             res.status(200).json(_message.Success("OK"));
             return
         }

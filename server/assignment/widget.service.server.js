@@ -18,72 +18,24 @@ module.exports = (app, model) => {
     app.post("/api/upload", upload.single('myFile'), uploadImage);
 
     function createWidget(req, res) {
-        if (req.body._id || req.body._id==='') {
-            delete req.body._id;
-        }
-
-        req.body.pageId = req.params.pid;
-
         model.WidgetModel
-            .create(req.body)
+            .createWidget(req.params.pid, req.body)
             .then(
-                (widget) => {
-                    model.PageModel
-                        .update( {_id:widget.pageId},
-                                 { $push: { widgets: widget._id } })
-                        .then(
-                          () => {res.status(201).json(widget)},
-                          (err) => {
-                            res.status(500).send(_message.Error(err))
-                          }
-                        )
-                },
+                (widget) => {res.status(201).json(widget)},
                 (err) => {
                     res.status(500).send(_message.Error(err))
                 }
-            );
-    }
-
-    function reorder(truth, data) {
-        var out = []
-        for (let x = 0; x < truth.length; x++) {
-            for (let y = 0; y < data.length; y++) {
-                if (data[y]._id.equals(truth[x])) {
-                    out.push(data.splice(y, 1)[0])
-                    break;
-                }
-            }
-        }
-        return out;
-    }
-
-    async function _findAllWidgetsForPage(pid) {
-        let pages = await model.PageModel.find({_id:pid})
-        if (pages) {
-            let page = pages[0]
-            let widgets = await model.WidgetModel
-                .find({_id: {$in: page.widgets}});
-            widgets = reorder(page.widgets, widgets);
-            return widgets;
-        }
-        return [];
+            )
     }
 
     async function findAllWidgetsForPage(req, res) {
-        var items = await _findAllWidgetsForPage(req.params.pid);
+        var items = await model.WidgetModel
+            .findAllWidgetsForPage(req.params.pid);
         res.json(items)
     }
 
-    async function _findWidgetById(wgid) {
-        var items = await model.WidgetModel.find({_id:wgid});
-        if (items && items.length>0) {
-            return items[0]
-        }
-        return;
-    }
-
     async function findWidgetById(req, res) {
-        var widget = await _findWidgetById(req.params.wgid);
+        var widget = await model.WidgetModel.findWidgetById(req.params.wgid);
         if (widget) {
             res.json(widget);
         } else {
@@ -94,8 +46,7 @@ module.exports = (app, model) => {
 
     function updateWidget(req, res) {
         model.WidgetModel
-            .update({_id:req.params.wgid},
-                    req.body)
+            .updateWidget(req.params.wgid,req.body)
             .then(
                 () => {res.status(200).json(_message.Success("OK"));},
                 (err) => {res.status(500).send(_message.Error(err))}
@@ -103,54 +54,24 @@ module.exports = (app, model) => {
     }
 
     async function deleteWidget(req, res) {
-        let widgets = await model.WidgetModel.find({_id:req.params.wgid})
-
-        if (widgets) {
-            await model.WidgetModel.remove({_id:req.params.wgid})
-            await model.PageModel
-                    .update({_id:widgets[0].pageId},
-                            { $pull: { widgets: req.params.wgid } });
+        if (await model.WidgetModel.deleteWidget(req.params.wgid)) {
             res.status(200).json(_message.Success("OK"));
             return
         }
-
         res.status(404).send(_message.Error("website not found"))
     }
 
-    async function _reorderWidget(pid, from, to) {
-        winston.info("pid " + pid + " move " + from + " to " + to);
-
-        let pages = await model.PageModel.find({_id:pid})
-        if (pages) {
-            let page = pages[0];
-            let items = page.widgets;
-
-            if ( from < 0 || from >= items.length) {
-                return false;
-            }
-
-            if ( to < 0 || to >= items.length) {
-                return false;
-            }
-
-            var widget = items.splice(from, 1)[0]
-            items.splice(to, 0, widget);
-
-            page.widgets = items;
-
-            await model.PageModel.update({_id:pid}, page)
-        }
-
-        return true;
-    }
-
     async function reorderWidget(req,res) {
-        if (_reorderWidget( req.params.pid, req.query.from, req.query.to)) {
+        let pid = req.params.pid
+        let from = req.query.from
+        let to = req.query.to
+        winston.info("pid " + pid + " move " + from + " to " + to);
+        if (await model.WidgetModel.reorderWidget(pid, from, to)) {
             res.status(200).json(
                 _message.Success("OK"));
         } else {
-            res.status(400).json(
-                _message.Error("widget not found"));
+            res.status(404).json(
+                _message.Error("page not found"));
         }
     }
 
