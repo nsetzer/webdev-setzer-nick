@@ -44,7 +44,7 @@ module.exports = function(mongoose, WebsiteSchema, UserModel) {
         let website = await model.findWebsiteById(websiteId)
 
         if (website) {
-            await model.remove(websiteId)
+            await model.remove({_id: websiteId})
             await UserModel
                     .update({_id:website.developerId},
                             { $pull: { websites: websiteId } });

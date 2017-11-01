@@ -110,7 +110,12 @@ describe('Page', function() {
                 .delete('/api/page/'+new_page._id)
                 .end(function(err, res) {
                   res.should.have.status(200);
-                  done();
+                  chai.request(server)
+                    .get("/api/page/"+new_page._id)
+                    .end(function(err, res){
+                      res.should.have.status(404);
+                      done();
+                    });
                 });
             });
         }) // end get user

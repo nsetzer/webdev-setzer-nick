@@ -120,8 +120,12 @@ describe('Website', function() {
               chai.request(server)
                 .delete('/api/website/' + new_site._id)
                 .end(function(err, res) {
-                  expect(res).to.have.status(200);
-                  done();
+                  chai.request(server)
+                    .get("/api/website/"+new_site._id)
+                    .end(function(err, res){
+                      res.should.have.status(404);
+                      done();
+                    });
               }); // end get user
           }); // end update user
       }); // end get user

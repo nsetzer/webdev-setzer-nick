@@ -60,10 +60,9 @@ import { AdminUserEditComponent } from './components/project/user/project-admin/
 
 
 const APP_ROUTES: Routes = [
-  {path: 'home', component : HomeComponent},
+  {path: '', component : HomeComponent},
   {path: 'test',       component: TestComponent},
 
-  {path: '',          component: LoginComponent},
   {path: 'login',     component: LoginComponent},
   {path: 'register',  component: RegisterComponent},
   {path: 'user/:uid', component: ProfileComponent},

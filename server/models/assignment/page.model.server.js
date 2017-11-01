@@ -1,7 +1,6 @@
 module.exports = function(mongoose, PageSchema, WebsiteModel) {
     let model = mongoose.model("PageModel", PageSchema);
 
-
     model.createPage = async function(websiteId, page) {
         if (page._id || page._id==='') {
             delete page._id;
@@ -39,9 +38,8 @@ module.exports = function(mongoose, PageSchema, WebsiteModel) {
 
     model.deletePage = async function(pageId) {
         let page = await model.findPageById(pageId)
-
         if (page) {
-            await model.remove(pageId)
+            await model.remove({_id:pageId})
             await WebsiteModel
                     .update({_id:page.websiteId},
                             { $pull: { pages: pageId } });
