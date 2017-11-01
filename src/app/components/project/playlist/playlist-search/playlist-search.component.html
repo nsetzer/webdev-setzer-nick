@@ -59,8 +59,8 @@
   <div class="col-sm-3 col-xs-3 hidden-xs padding-all">
   </div>
 </div>
-<!--
 
+<!--
   <div *ngIf="alertMessage"
        class="alert alert-danger">
     "Failed to create"
@@ -87,7 +87,6 @@
   <li *ngFor="let result of searchResults"
       class="list-group-item list-item-borderless">
        <a class="search-result" (click)="viewPlaylist(result)">
-       <!--<span class="glyphicon glyphicon-info-sign padding-left-default"></span>-->
        {{result.name}}
        </a>
 
@@ -116,6 +115,5 @@ No results to display
 <nav *ngIf="!uid"
   class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <div class="container-fluid">
-
   </div>
 </nav>
