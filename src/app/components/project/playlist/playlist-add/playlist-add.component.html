@@ -20,7 +20,7 @@
     </div>
 
     <div class="row" *ngIf="!uid">
-      <div class="col-xs-8">
+      <div class="col-sm-8 col-xs-6">
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
             <b>Project Title Here</b>
@@ -28,14 +28,16 @@
         </p>
       </div>
 
-      <div class="col-xs-2 padding-all">
+      <div class="col-sm-2 col-xs-3 padding-all">
         <a [routerLink]="['/project/login']"
-           class="btn btn-default btn-block">Login</a>
+           class="btn btn-default btn-block"
+           style="font-size: 85%;">Login</a>
       </div>
 
-      <div class="col-xs-2 padding-all">
+      <div class="col-sm-2 col-xs-3 padding-all">
         <a [routerLink]="['/project/register']"
-           class="btn btn-danger btn-block">Register</a>
+           class="btn btn-danger btn-block"
+           style="font-size: 85%;">Register</a>
       </div>
     </div>
 
@@ -82,15 +84,20 @@
  </span>
 </div>
 
-<div *ngIf="searchResults.length>0">
- <div *ngFor="let result of searchResults">
+<ul *ngIf="searchResults.length>0"
+    class="list-group">
+ <li *ngFor="let result of searchResults"
+     class="list-group-item list-item-borderless">
+
+       <a class="search-result" (click)="viewDetails(result.index)">
        {{result.title}}
+       </a>
 
        <audio name="audioPlayer" #audioPlayer>
           <source type="audio/mp3">
        </audio>
 
-        <div class ="pull-right">
+        <span class="search-result-icons">
             <!-- TODO: after POC hide this behind user role -->
             <a (click)="playPauseIndex(result.index)">
             <span class="glyphicon glyphicon-play"  *ngIf="result.state==='wait'"></span>
@@ -101,20 +108,16 @@
 
             <a *ngIf="uid"
                (click)="addIndexToPlaylist(result.index)">
-            <span class="glyphicon glyphicon-plus"></span>
+            <span class="glyphicon glyphicon-plus padding-left-default"></span>
             </a>
 
             <a (click)="findRelatedSongs(result.index)">
-            <span class="glyphicon glyphicon-search"></span>
+            <span class="glyphicon glyphicon-search padding-left-default"></span>
             </a>
+        </span>
+ </li>
 
-            <a (click)="viewDetails(result.index)">
-            <span class="glyphicon glyphicon-info-sign"></span>
-            </a>
-        </div>
- </div>
-
-</div>
+</ul>
 
 <div *ngIf="searchWasRun && !searchResults.length">
 No results to display

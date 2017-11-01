@@ -19,7 +19,7 @@
     </div>
 
     <div class="row" *ngIf="!uid">
-      <div class="col-sm-8 col-xs-4">
+      <div class="col-sm-8 col-xs-6">
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
             <b>Project Title Here</b>
@@ -27,14 +27,16 @@
         </p>
       </div>
 
-      <div class="col-sm-2 col-xs-4 padding-all">
+      <div class="col-sm-2 col-xs-3 padding-all">
         <a [routerLink]="['/project/login']"
-           class="btn btn-default btn-block">Login</a>
+           class="btn btn-default btn-block"
+           style="font-size: 85%;">Login</a>
       </div>
 
-      <div class="col-sm-2 col-xs-4 padding-all">
+      <div class="col-sm-2 col-xs-3 padding-all">
         <a [routerLink]="['/project/register']"
-           class="btn btn-danger btn-block">Register</a>
+           class="btn btn-danger btn-block"
+           style="font-size: 85%;">Register</a>
       </div>
     </div>
 
@@ -83,10 +85,12 @@
 <ul *ngIf="searchResults.length>0"
     class="list-group">
   <li *ngFor="let result of searchResults"
-      class="list-group-item">
-        <div class="search-result">
-        {{result.name}}
-        </div>
+      class="list-group-item list-item-borderless">
+       <a class="search-result" (click)="viewPlaylist(result)">
+       <!--<span class="glyphicon glyphicon-info-sign padding-left-default"></span>-->
+       {{result.name}}
+       </a>
+
         <span class="search-result-icons">
              <a (click)="openProfile(result)">
              <span class="glyphicon glyphicon-user padding-left-default"></span>
@@ -95,10 +99,6 @@
              <a *ngIf="uid"
                 (click)="copyPlaylist(result)">
              <span class="glyphicon glyphicon-copy padding-left-default"></span>
-             </a>
-
-             <a (click)="viewPlaylist(result)">
-             <span class="glyphicon glyphicon-info-sign padding-left-default"></span>
              </a>
          </span>
   </li>
