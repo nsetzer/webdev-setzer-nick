@@ -45,21 +45,6 @@
 
 <div class="container-fluid content-body">
 
-<div class="row" *ngIf="!uid">
-  <div class="col-sm-3 hidden-xs padding-all">
-  </div>
-  <div class="col-sm-3 col-xs-6 padding-all">
-  <p disabled="true"
-     class="btn btn-success btn-block">Search for Playlists</p>
-  </div>
-  <div class="col-sm-3 col-xs-6 padding-all">
-  <a [routerLink]="['/project/search/s']"
-     class="btn btn-success btn-block">Search for Songs</a>
-  </div>
-  <div class="col-sm-3 col-xs-3 hidden-xs padding-all">
-  </div>
-</div>
-
 <!--
   <div *ngIf="alertMessage"
        class="alert alert-danger">
@@ -72,6 +57,15 @@
   </div>
 -->
 
+<ul class="nav nav-tabs" *ngIf="!uid">
+  <li class="active">
+  <a disabled="true"><b>Search for Playlists</b></a>
+  </li>
+  <li>
+  <a [routerLink]="['/project/search/s']">Search for Songs</a>
+  </li>
+</ul>
+
 <div class="input-group">
  <input [(ngModel)]="searchTerm" type="text" class="form-control"
         placeholder="Enter Search Term">
@@ -81,6 +75,8 @@
          </a>
  </span>
 </div>
+
+
 
 <ul *ngIf="searchResults.length>0"
     class="list-group">

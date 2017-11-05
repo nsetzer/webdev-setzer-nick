@@ -46,20 +46,14 @@
 
 <div class="container-fluid content-body">
 
-<div class="row" *ngIf="!uid">
-  <div class="col-sm-3 hidden-xs padding-all">
-  </div>
-  <div class="col-sm-3 col-xs-6 padding-all">
-  <a [routerLink]="['/project/search/pl']"
-     class="btn btn-success btn-block">Search for Playlists</a>
-  </div>
-  <div class="col-sm-3 col-xs-6 padding-all">
-  <p disabled="true"
-     class="btn btn-success btn-block">Search for Songs</p>
-  </div>
-  <div class="col-sm-3 hidden-xs padding-all">
-  </div>
-</div>
+<ul class="nav nav-tabs" *ngIf="!uid">
+  <li>
+  <a [routerLink]="['/project/search/pl']">Search for Playlists</a>
+  </li>
+  <li class="active">
+  <a disabled="true"><b>Search for Songs</b></a>
+  </li>
+</ul>
 
 <!--
   <div *ngIf="alertMessage"
