@@ -28,6 +28,7 @@ module.exports = function (app, model) {
 
         model.QueueModel
             .find({uid: req.params.uid})
+            .populate('songs')
             .then(
                 (queues) => {
                     if (queues.length===0) {

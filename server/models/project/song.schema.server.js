@@ -6,5 +6,6 @@ module.exports = function(mongoose) {
         title: String,
         artist: { type:String, default: "" },
         thumbnail: String,
+        url : String,
     });
 }

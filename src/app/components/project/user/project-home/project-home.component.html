@@ -13,8 +13,7 @@
        #audioPlayer
        width=0px
        height=0px>
-      <!--<source src="http://localhost:3100/api/youtube/2oPeZFOpPAM" type="audio/mp3">-->
-      <source src="http://localhost:3100/public/uploads/top.wav" type="audio/mp3">
+      <source src="" type="audio/mp3">
     </audio>
 
     <a (click)="playPauseClicked()"
@@ -31,7 +30,7 @@
       <span class="glyphicon glyphicon-forward"></span>
     </a>
 
-    {{current_song.length}}. {{current_song.title}}
+    {{current_song.title}}
   </p>
 
   <p class="navbar-text pull-right glyph-margin">

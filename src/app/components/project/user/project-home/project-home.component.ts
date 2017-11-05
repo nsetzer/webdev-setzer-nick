@@ -56,15 +56,27 @@ export class ProjectHomeComponent implements OnInit {
         // this._activatedRoute.snapshot is up to date
         if (this.route.snapshot.firstChild) {
           var uid = this.route.snapshot.firstChild.url[1].path;
-          this.onRouteChanged(uid);
-          console.log(event);
+          if (uid) {
+            this.onRouteChanged(uid);
+          } else {
+            let url = "/project/search/pl";
+            this.router.navigateByUrl(url);
+          }
         }
       }
     });
 
+    this.reload()
+
   }
 
   reload() {
+    if (this.route.snapshot.firstChild) {
+      let uid = this.route.snapshot.firstChild.url[1].path;
+      if (uid) {
+        this.loadCurrentSong(0);
+      }
+    }
   }
 
   onRouteChanged(uid) {
@@ -112,12 +124,14 @@ export class ProjectHomeComponent implements OnInit {
         aud.pause()
       }
     } else {
-      console.error(aud.error);
+      let code = aud.error.code
+      let message = aud.error.message
+      console.error(`Media error (${code}): ${message}`);
     }
 
   }
 
-  loadCurrentSong(){
+  loadCurrentSong(autoplay=1){
     if (!this.route.snapshot.firstChild) {
       return;
     }
@@ -129,9 +143,11 @@ export class ProjectHomeComponent implements OnInit {
           (song) => {
             this.song_load_error = false
             this.current_song = song
-            console.log(song);
+            console.log("current song" + JSON.stringify(song));
             aud.src = song.url
-            aud.play();
+            if (autoplay) {
+              aud.play();
+            }
           },
           (err) => {
             console.log("error loading current song")

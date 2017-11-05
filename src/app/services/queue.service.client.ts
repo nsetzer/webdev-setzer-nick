@@ -59,6 +59,7 @@ export class QueueService {
           (res: Response) => {
             let data = res.json();
             data.url = this.baseUrl + data.url
+
             return data;
           }
         );
