@@ -14,6 +14,7 @@ export class ProjectLoginComponent implements OnInit {
   password: string
   invalid_username: boolean
   invalid_password: boolean
+  error_message: string = ""
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -31,6 +32,7 @@ export class ProjectLoginComponent implements OnInit {
 
     this.invalid_password = false;
     this.invalid_username = false;
+
     this._service.validateUser(this.username, this.password,
       (user) => this.router.navigateByUrl("/project/(project:user/" + user._id + ")"))
       .subscribe(
@@ -41,7 +43,10 @@ export class ProjectLoginComponent implements OnInit {
             this.invalid_username = true;
           }
         },
-        (err: any) => {}
+        (err : any) => {
+          let msg = JSON.parse(err._body)
+          this.error_message = msg.message;
+        }
         );
 
   }

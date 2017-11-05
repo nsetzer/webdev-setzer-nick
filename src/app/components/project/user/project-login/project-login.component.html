@@ -3,26 +3,35 @@
 
     <h1  (click)="username='alice'; password='alice'">Login</h1>
 
-    <!--
-    jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial
-    -->
+    <div *ngIf="error_message" class="help-block">
+        {{error_message}}
+    </div>
+
     <form name="form" (ngSubmit)="login()" #f="ngForm">
       <input type="text"
              [(ngModel)]="username"
              name="username"
              placeholder="username"
              class="form-control"
-             required/>
-      <div *ngIf="invalid_username" class="help-block">Username not Found</div>
+             required
+             autofocus
+             />
+      <div *ngIf="invalid_username" class="help-block">
+        Username not Found
+      </div>
+
       <input type="password"
              [(ngModel)]="password"
              name="password"
              placeholder="password"
              class="form-control"
-             required/>
-      <div *ngIf="invalid_password" class="help-block">Password is required</div>
+             required
+             />
+      <div *ngIf="invalid_password" class="help-block">
+        Invalid Username or Password
+      </div>
 
-      <button (click)="login()"
+      <button type="submit" [disabled]="!f.valid"
               class="btn btn-primary btn-block">Login</button>
 
     </form>
