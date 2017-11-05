@@ -16,9 +16,7 @@ export class PlaylistSongDetailsComponent implements OnInit {
   videoId : any = null;
   idx     : number = 0;
   song : any = {title:"",description:""};
-  playlist : any = []
   private sub: any;
-  playlists= [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -37,32 +35,21 @@ export class PlaylistSongDetailsComponent implements OnInit {
 
   reload() {
     // todo make a direct api for this
-    this._plservice.findPlaylistById(this.plid).subscribe(
-        (lst) => {
-            this.playlist = lst;
-            this.song = lst.songs[this.idx];
-
-            /*
-            if (this.song.videoId) {
-              this._pservice.findPlaylistsContaining(this.song.videoId).subscribe(
-                (lists) => { this.playlists = lists },
-                (err) => {}
-              )
-            }
-            */
-
+    this._plservice.findSongForPlaylist(this.plid,this.idx).subscribe(
+        (song) => {
+            this.song = song;
         }
     );
   }
 
   saveChanges() {
-    this.playlist[this.idx] = this.song
-    this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(
+    this._plservice.updateSong(this.song).subscribe(
       (res) => {
         let url = "/project/(project:user/" + this.uid + "/list/"+this.plid+"/songs)"
         this.router.navigateByUrl(url);
       }
     );
+
   }
 
   makeSafe(url) {

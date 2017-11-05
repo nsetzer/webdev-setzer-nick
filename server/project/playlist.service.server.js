@@ -9,6 +9,7 @@ module.exports = function (app, model) {
 
     app.post('/api/user/:uid/playlist', createPlaylist);
     app.get('/api/user/:uid/playlist', findAllPlaylistsForUser);
+    app.put('/api/song/:sid', updateSong);
     app.get('/api/playlist', findPlaylistsByTerm);
     app.get('/api/playlist/:plid', findPlaylistById);
     app.put('/api/playlist/:plid', updatePlaylist);
@@ -235,6 +236,17 @@ module.exports = function (app, model) {
             res.status(404).json({message:"playlist not found"})
         }
 
+    }
+
+    async function updateSong(req,res) {
+        var song  = req.body;
+        model.SongModel
+            .update({_id:req.params.sid},
+                    req.body)
+            .then(
+                () => {res.status(200).json(_message.Success("OK"));},
+                (err) => {res.status(500).send(_message.Error(err))}
+            );
     }
 
     async function uploadAudio(req, res) {

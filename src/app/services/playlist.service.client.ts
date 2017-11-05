@@ -124,6 +124,27 @@ export class PlaylistService {
      );
   }
 
+  findSongForPlaylist(plid, idx) {
+    return this._http.get(this.baseUrl + `/api/playlist/${plid}/songs`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data[idx];
+       }
+     );
+  }
+
+  updateSong(song) {
+    return this._http.put(this.baseUrl + `/api/song/${song._id}`, song)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
+
+
   findPlaylistsContaining(vid) {
     return this._http.get(this.baseUrl + `/api/playlist-contains/${vid}`)
      .map(
