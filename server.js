@@ -9,6 +9,11 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
+const cookieParser = require('cookie-parser');
+const session      = require('express-session');
+
+app.use(cookieParser());
+app.use(session({ secret: (process.env.SESSION_SECRET || "SECRET") }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
