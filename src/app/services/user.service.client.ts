@@ -17,8 +17,9 @@ export class UserService {
   options = new RequestOptions();
 
   api = {
-    'login'   : this.login,
+    'login'    : this.login,
     'logout'   : this.logout,
+    'register' : this.register,
     'createUser'   : this.createUser,
     'findUserById' : this.findUserById,
     'findUserByUsername' : this.findUserByUsername,
@@ -47,10 +48,22 @@ export class UserService {
 
   logout() {
     this.options.withCredentials = true;
-    return this._http.post(this.baseUrl + '/api/logout', '', this.options)
+    return this._http.post(this.baseUrl + '/api/logout', null, this.options)
       .map(
         (res: Response) => {
-          const data = res;
+          const data = res.json();
+          return data;
+        }
+      );
+  }
+
+  register(user) {
+    this.options.withCredentials = true;
+    return this._http.post(this.baseUrl + '/api/register', user, this.options)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
         }
       );
   }

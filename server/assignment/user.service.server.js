@@ -17,6 +17,7 @@ module.exports = function (app, model) {
     app.delete('/api/user/:uid', deleteUser);
     app.post  ('/api/login', _passport.authenticate('local'), login);
     app.post  ('/api/logout', logout);
+    app.post  ('/api/register', register);
 
     function createUser(req, res) {
         model.UserModel
@@ -181,6 +182,28 @@ module.exports = function (app, model) {
         req.logOut();
         res.send(200);
     }
+
+    function register (req, res) {
+        var user = req.body;
+        model.UserModel
+            .createUser(user)
+            .then(
+                (user) => {
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(409).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    } else {
+                        res.status(400).send(null);
+                    }
+                }
+            );
+    }
+
 
 
 
