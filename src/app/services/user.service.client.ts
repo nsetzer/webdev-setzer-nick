@@ -18,6 +18,7 @@ export class UserService {
 
   api = {
     'login'   : this.login,
+    'logout'   : this.logout,
     'createUser'   : this.createUser,
     'findUserById' : this.findUserById,
     'findUserByUsername' : this.findUserByUsername,
@@ -42,8 +43,16 @@ export class UserService {
          return data;
        }
      );
+  }
 
-
+  logout() {
+    this.options.withCredentials = true;
+    return this._http.post(this.baseUrl + '/api/logout', '', this.options)
+      .map(
+        (res: Response) => {
+          const data = res;
+        }
+      );
   }
 
   createUser(user: any) {

@@ -16,6 +16,7 @@ module.exports = function (app, model) {
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
     app.post  ('/api/login', _passport.authenticate('local'), login);
+    app.post  ('/api/logout', logout);
 
     function createUser(req, res) {
         model.UserModel
@@ -174,6 +175,11 @@ module.exports = function (app, model) {
     function login(req, res) {
         var user = req.user;
         res.json(user);
+    }
+
+    function logout(req,res) {
+        req.logOut();
+        res.send(200);
     }
 
 
