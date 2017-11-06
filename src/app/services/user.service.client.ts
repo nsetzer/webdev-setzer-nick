@@ -1,6 +1,6 @@
 
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, RequestOptions, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 
@@ -14,7 +14,10 @@ export class UserService {
 
   state = {searchTerm:"", results:[]}
 
+  options = new RequestOptions();
+
   api = {
+    'login'   : this.login,
     'createUser'   : this.createUser,
     'findUserById' : this.findUserById,
     'findUserByUsername' : this.findUserByUsername,
@@ -23,6 +26,24 @@ export class UserService {
   };
 
   constructor(private _http: Http) {
+  }
+
+  login(username,password) {
+
+    const body = {
+     username : username,
+     password : password
+    };
+    this.options.withCredentials = true;
+    return this._http.post(this.baseUrl + '/api/login', body, this.options)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+
+
   }
 
   createUser(user: any) {

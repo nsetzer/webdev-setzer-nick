@@ -15,6 +15,7 @@ module.exports = function (app, model) {
     app.get('/api/user/:uid', findUserById);
     app.put('/api/user/:uid', updateUser);
     app.delete('/api/user/:uid', deleteUser);
+    app.post  ('/api/login', _passport.authenticate('local'), login);
 
     function createUser(req, res) {
         model.UserModel
@@ -141,7 +142,7 @@ module.exports = function (app, model) {
     }
 
     function deserializeUser(user, done) {
-        userModel
+        model.UserModel
             .findUserById(user._id)
             .then(
                 function(user){
@@ -154,7 +155,7 @@ module.exports = function (app, model) {
         }
 
     function localStrategy(username, password, done) {
-        userModel
+        model.UserModel
             .findUserByCreadentials(username, password)
             .then(
                 function(user) {
@@ -168,6 +169,11 @@ module.exports = function (app, model) {
                     if (err) { return done(err); }
                 }
             );
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
     }
 
 
