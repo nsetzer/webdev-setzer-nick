@@ -2,6 +2,12 @@ module.exports = function (app, model) {
     var winston = require("winston");
     var _user = require('./user.data.server');
     var _message = require('./message.data.server');
+    var _passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+
+    _passport.deserializeUser(deserializeUser);
+    _passport.serializeUser(serializeUser);
+    _passport.use(new LocalStrategy(localStrategy));
 
     app.post('/api/user', createUser);
     app.get('/api/user', getUser);
@@ -128,6 +134,44 @@ module.exports = function (app, model) {
                     _message.Error('User not found'))}
             );
     }
+
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            );
+        }
+
+    function localStrategy(username, password, done) {
+        userModel
+            .findUserByCreadentials(username, password)
+            .then(
+                function(user) {
+                    if(user) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            );
+    }
+
+
+
 
     winston.info("user endpoints registered");
 };
