@@ -6,6 +6,8 @@ import {environment} from '../../environments/environment';
 
 import { User } from '../objects/user.object';
 
+import {SharedService} from './shared.service.client';
+
 @Injectable()
 
 export class UserService {
@@ -20,6 +22,7 @@ export class UserService {
     'login'    : this.login,
     'logout'   : this.logout,
     'register' : this.register,
+    'loggedin' : this.loggedIn,
     'createUser'   : this.createUser,
     'findUserById' : this.findUserById,
     'findUserByUsername' : this.findUserByUsername,
@@ -27,8 +30,8 @@ export class UserService {
     'deleteUser' : this.deleteUser
   };
 
-  constructor(private _http: Http) {
-  }
+  constructor(private _http: Http,
+              private _sharedService: SharedService) {}
 
   login(username,password) {
 
@@ -53,6 +56,18 @@ export class UserService {
         (res: Response) => {
           const data = res.json();
           return data;
+        }
+      );
+  }
+
+  loggedIn() {
+    this.options.withCredentials = true;
+    return this._http.get(this.baseUrl + '/api/loggedin', this.options)
+      .map(
+        (res: Response) => {
+          const user = res.json();
+          this._sharedService.current_user = user; // user or null
+          return user;
         }
       );
   }

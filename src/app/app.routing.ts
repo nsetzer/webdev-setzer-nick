@@ -7,7 +7,7 @@
  * you may need to update import path in app.module.ts
  */
 
-
+import {AuthGuard} from './services/auth-guard.service.client';
 
 import {Routes, RouterModule} from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
@@ -65,7 +65,7 @@ const APP_ROUTES: Routes = [
 
   {path: 'login',     component: LoginComponent},
   {path: 'register',  component: RegisterComponent},
-  {path: 'user/:uid', component: ProfileComponent},
+  {path: 'user/:uid', component: ProfileComponent, canActivate: [AuthGuard]},
 
   {path: 'user/:uid/website',      component: WebsiteListComponent},
   {path: 'user/:uid/website/new',  component: WebsiteNewComponent},

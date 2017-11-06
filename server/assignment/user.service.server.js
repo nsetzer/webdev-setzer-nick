@@ -18,6 +18,7 @@ module.exports = function (app, model) {
     app.post  ('/api/login', _passport.authenticate('local'), login);
     app.post  ('/api/logout', logout);
     app.post  ('/api/register', register);
+    app.get   ('/api/loggedin', loggedin);
 
     function createUser(req, res) {
         model.UserModel
@@ -179,8 +180,8 @@ module.exports = function (app, model) {
     }
 
     function logout(req,res) {
-        req.logOut();
-        res.send(200);
+        req.logout();
+        res.send(_message.Success('success'));
     }
 
     function register (req, res) {
@@ -204,9 +205,9 @@ module.exports = function (app, model) {
             );
     }
 
-
-
-
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : null);
+    }
 
     winston.info("user endpoints registered");
 };
