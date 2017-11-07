@@ -3,7 +3,6 @@ module.exports = function (app, model) {
     var _user = require('./user.data.server');
     var _message = require('./message.data.server');
     var _passport = require('passport');
-    var _bcrypt = require("bcrypt-nodejs");
     var LocalStrategy = require('passport-local').Strategy;
 
     _passport.deserializeUser(deserializeUser);
@@ -23,7 +22,6 @@ module.exports = function (app, model) {
 
     function createUser(req, res) {
         let user = req.body;
-        user.password = bcrypt.hashSync(user.password);
         model.UserModel
             .createUser(user)
             .then(
@@ -85,10 +83,12 @@ module.exports = function (app, model) {
         let user;
         try {
             user = await model.UserModel
-                .findUserByCreadentials(username, password)
+                .findUserByCredentials(username, password)
         } catch (err) {
+            winston.error(err)
             res.status(500).send(
                 _message.Error(err))
+            return
         }
 
         if (user) {

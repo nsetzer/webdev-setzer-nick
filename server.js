@@ -27,6 +27,12 @@ process.on('uncaughtException', function (err) {
   console.error(err);
 });
 
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  // application specific logging, throwing an error, or other logic here
+});
+
+
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, 'dist')));
 
