@@ -181,7 +181,11 @@ module.exports = function (app, model) {
 
     function logout(req,res) {
         req.logout();
-        res.send(_message.Success('success'));
+        req.user=null;
+        req.session.destroy(function (err) {
+            res.send(_message.Success('success'));
+            console.log("on log out")
+        });
     }
 
     function register (req, res) {
@@ -206,7 +210,9 @@ module.exports = function (app, model) {
     }
 
     function loggedin(req, res) {
-        res.send(req.isAuthenticated() ? req.user : null);
+        console.log("is authed:? " + req.isAuthenticated() )
+        console.log(req.user)
+        res.status(200).json(req.isAuthenticated() ? req.user : null);
     }
 
     winston.info("user endpoints registered");

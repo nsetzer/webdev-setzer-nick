@@ -60,29 +60,28 @@ import { AdminUserEditComponent } from './components/project/user/project-admin/
 
 
 const APP_ROUTES: Routes = [
-  {path: '', component : HomeComponent},
-  {path: 'test',       component: TestComponent},
-
+  {path: '',          component: HomeComponent},
+  {path: 'test',      component: TestComponent},
   {path: 'login',     component: LoginComponent},
   {path: 'register',  component: RegisterComponent},
   {path: 'user/:uid', component: ProfileComponent, canActivate: [AuthGuard]},
 
-  {path: 'user/:uid/website',      component: WebsiteListComponent},
-  {path: 'user/:uid/website/new',  component: WebsiteNewComponent},
-  {path: 'user/:uid/website/:wid', component: WebsiteEditComponent},
+  {path: 'user/:uid/website',      component: WebsiteListComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/new',  component: WebsiteNewComponent,  canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid', component: WebsiteEditComponent, canActivate: [AuthGuard]},
 
-  {path: 'user/:uid/website/:wid/page',      component: PageListComponent},
-  {path: 'user/:uid/website/:wid/page/new',  component: PageNewComponent},
-  {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
+  {path: 'user/:uid/website/:wid/page',      component: PageListComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/new',  component: PageNewComponent,  canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent, canActivate: [AuthGuard]},
 
-  {path: 'user/:uid/website/:wid/page/:pid/widget',       component: WidgetListComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new',   component: WidgetChooseComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/search', component: FlickrImageSearchComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget',              component: WidgetListComponent,        canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/new',          component: WidgetChooseComponent,      canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid',        component: WidgetEditComponent,        canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/search', component: FlickrImageSearchComponent, canActivate: [AuthGuard]},
 
-  {path: 'project/test',              component: ApiTestComponent},
-  {path: 'project/login',             component: ProjectLoginComponent},
-  {path: 'project/register',          component: ProjectRegisterComponent},
+  {path: 'project/test',      component: ApiTestComponent},
+  {path: 'project/login',     component: ProjectLoginComponent},
+  {path: 'project/register',  component: ProjectRegisterComponent},
 
   //http://onehungrymind.com/named-router-outlets-in-angular-2/
   {path: 'project',  component: ProjectHomeComponent,

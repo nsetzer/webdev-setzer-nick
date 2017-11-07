@@ -1,18 +1,24 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
 import {UserService} from './user.service.client';
+import {SharedService} from './shared.service.client';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
- constructor(private userService: UserService, private router: Router) {}
+ constructor(private _userService: UserService,
+             private _sharedService: SharedService,
+             private router: Router) {}
 
- async canActivate() {
-   let user = this.userService.loggedIn();
-   if (user) {
-     console.log("user is logged in")
-     return true;
-   }
-   return false;
+ canActivate() {
+  /*
+  let user = await this._userService.loggedIn();
+  let user = this._sharedService.current_user;
+  if (user) {
+    return true;
+  }
+  return false;
+  */
+  return this._userService.loggedIn()
  }
 }

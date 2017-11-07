@@ -54,6 +54,7 @@ export class UserService {
     return this._http.post(this.baseUrl + '/api/logout', null, this.options)
       .map(
         (res: Response) => {
+          console.log("logged out")
           const data = res.json();
           return data;
         }
@@ -66,8 +67,9 @@ export class UserService {
       .map(
         (res: Response) => {
           const user = res.json();
+          console.log("logged in: "+ ((user)?true:false))
           this._sharedService.current_user = user; // user or null
-          return user;
+          return (user)?true:false;
         }
       );
   }
