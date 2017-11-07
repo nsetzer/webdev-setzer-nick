@@ -1,7 +1,14 @@
 module.exports = function(mongoose, WidgetSchema, PageModel) {
     let model = mongoose.model("WidgetModel", WidgetSchema);
 
-    model.createWidget = async function(pageId, widget) {
+    model.createWidget = createWidget
+    model.findAllWidgetsForPage = findAllWidgetsForPage
+    model.findWidgetById = findWidgetById
+    model.updateWidget = updateWidget
+    model.deleteWidget = deleteWidget
+    model.reorderWidget = reorderWidget
+
+    async function createWidget(pageId, widget) {
         if (widget._id || widget._id==='') {
             delete widget._id;
         }
@@ -32,7 +39,7 @@ module.exports = function(mongoose, WidgetSchema, PageModel) {
         return out;
     }
 
-    model.findAllWidgetsForPage = async function(pageId) {
+    async function findAllWidgetsForPage(pageId) {
         let pages = await PageModel.find({_id:pageId})
         if (pages) {
             let page = pages[0]
@@ -43,7 +50,7 @@ module.exports = function(mongoose, WidgetSchema, PageModel) {
         return [];
     }
 
-    model.findWidgetById = async function(widgetId) {
+    async function findWidgetById(widgetId) {
         let widgets = await model.find({_id:widgetId})
         if (widgets && widgets.length>0) {
             return widgets[0]
@@ -51,14 +58,14 @@ module.exports = function(mongoose, WidgetSchema, PageModel) {
         return null
     }
 
-    model.updateWidget = function(widgetId, widget) {
+    function updateWidget(widgetId, widget) {
         if (widget._id || widget._id==='') {
             delete widget._id;
         }
         return model.update({_id:widgetId},widget)
     }
 
-    model.deleteWidget = async function(widgetId) {
+    async function deleteWidget(widgetId) {
         let widgets = await model.find({_id:widgetId})
         if (widgets) {
             await model.remove({_id:widgetId})
@@ -70,7 +77,7 @@ module.exports = function(mongoose, WidgetSchema, PageModel) {
         return false;
     }
 
-    model.reorderWidget = async function(pid, from, to) {
+    async function reorderWidget(pid, from, to) {
 
         let pages = await PageModel.find({_id:pid})
         if (pages) {

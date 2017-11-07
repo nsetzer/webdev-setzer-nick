@@ -2,14 +2,21 @@
 module.exports = function(mongoose, UserSchema) {
     let model =  mongoose.model("UserModel", UserSchema);
 
-    model.createUser = function(user) {
+    model.createUser = createUser
+    model.findUserById = findUserById
+    model.findUserByUsername = findUserByUsername
+    model.findUserByCreadentials = findUserByCreadentials
+    model.updateUser = updateUser
+    model.deleteUser = deleteUser
+
+    function createUser(user) {
         if (user._id || user._id==='') {
             delete user._id;
         }
         return model.create(user)
     }
 
-    model.findUserById = async function(uid) {
+    async function findUserById(uid) {
         result = await model.find({_id: uid})
         if (result.length === 1) {
             return result[0];
@@ -17,7 +24,7 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    model.findUserByUsername = async function(username) {
+    async function findUserByUsername(username) {
         result = await model.find({username: username})
         if (result.length === 1) {
             return result[0];
@@ -25,7 +32,7 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    model.findUserByCreadentials = async function(username,password) {
+    async function findUserByCreadentials(username,password) {
         result = await model.find(
             {username: username, password:password})
         if (result.length === 1) {
@@ -34,14 +41,15 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    model.updateUser = function(uid,user) {
+    function updateUser(uid,user) {
         if (user._id || user._id==='') {
             delete user._id;
         }
         return model.update({_id: uid},user)
     }
 
-    model.deleteUser = function(uid) {
+    function deleteUser(uid) {
+
         return model.remove({_id: uid})
     }
 
