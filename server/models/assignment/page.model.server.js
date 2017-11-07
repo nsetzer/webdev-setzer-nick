@@ -1,7 +1,13 @@
 module.exports = function(mongoose, PageSchema, WebsiteModel) {
     let model = mongoose.model("PageModel", PageSchema);
 
-    model.createPage = async function(websiteId, page) {
+    model.createPage = createPage
+    model.findAllPagesForWebsite = findAllPagesForWebsite
+    model.findPageById = findPageById
+    model.updatePage = updatePage
+    model.deletePage = deletePage
+
+    async function createPage(websiteId, page) {
         if (page._id || page._id==='') {
             delete page._id;
         }
@@ -17,11 +23,12 @@ module.exports = function(mongoose, PageSchema, WebsiteModel) {
         return new_page;
     }
 
-    model.findAllPagesForWebsite = function(websiteId) {
+    function findAllPagesForWebsite(websiteId) {
+
         return model.find({websiteId:websiteId})
     }
 
-    model.findPageById = async function(pageId) {
+    async function findPageById(pageId) {
         let pages = await model.find({_id:pageId})
         if (pages.length>0) {
             return pages[0]
@@ -29,14 +36,14 @@ module.exports = function(mongoose, PageSchema, WebsiteModel) {
         return null
     }
 
-    model.updatePage = function(pageId, page) {
+    function updatePage(pageId, page) {
         if (page._id || page._id==='') {
             delete page._id;
         }
         return model.update({_id:pageId},page)
     }
 
-    model.deletePage = async function(pageId) {
+    async function deletePage(pageId) {
         let page = await model.findPageById(pageId)
         if (page) {
             await model.remove({_id:pageId})

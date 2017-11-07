@@ -3,16 +3,22 @@ module.exports = function(mongoose, UserSchema) {
     let model =  mongoose.model("UserModel", UserSchema);
     var _bcrypt = require("bcrypt-nodejs");
 
-    model.createUser = function(user) {
+    model.createUser = createUser
+    model.findUserById = findUserById
+    model.findUserByUsername = findUserByUsername
+    model.findUserByCredentials = findUserByCredentials
+    model.updateUser = updateUser
+    model.deleteUser = deleteUser
+
+    function createUser(user) {
         user.password = _bcrypt.hashSync(user.password);
-        console.log("create user " + user.username + ":" + user.password)
         if (user._id || user._id==='') {
             delete user._id;
         }
         return model.create(user)
     }
 
-    model.findUserById = async function(uid) {
+    async function findUserById(uid) {
         result = await model.find({_id: uid})
         if (result.length === 1) {
             return result[0];
@@ -20,7 +26,7 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    model.findUserByUsername = async function(username) {
+    async function findUserByUsername(username) {
         result = await model.find({username: username})
         if (result.length === 1) {
             return result[0];
@@ -28,7 +34,7 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    model.findUserByCredentials = async function(username,password) {
+    async function findUserByCredentials(username,password) {
         result = await model.find({username: username})
         if (result.length === 1) {
             let user = result[0]
@@ -39,14 +45,15 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    model.updateUser = function(uid,user) {
+    function updateUser(uid,user) {
         if (user._id || user._id==='') {
             delete user._id;
         }
         return model.update({_id: uid},user)
     }
 
-    model.deleteUser = function(uid) {
+    function deleteUser(uid) {
+
         return model.remove({_id: uid})
     }
 

@@ -1,7 +1,13 @@
 module.exports = function(mongoose, WebsiteSchema, UserModel) {
     let model = mongoose.model("WebsiteModel", WebsiteSchema);
 
-    model.createWebsiteForUser = async function (userId, website) {
+    model.createWebsiteForUser = createWebsiteForUser
+    model.findAllWebsitesForUser = findAllWebsitesForUser
+    model.findWebsiteById = findWebsiteById
+    model.updateWebsite = updateWebsite
+    model.deleteWebsite = deleteWebsite
+
+    async function createWebsiteForUser(userId, website) {
         if (website._id || website._id==='') {
             delete website._id;
         }
@@ -15,14 +21,14 @@ module.exports = function(mongoose, WebsiteSchema, UserModel) {
                      { $push: { pages: new_website._id } });
 
         return new_website;
-
     }
 
-    model.findAllWebsitesForUser = function (userId) {
+    function findAllWebsitesForUser(userId) {
+
         return model.find({developerId:userId})
     }
 
-    model.findWebsiteById = async function (websiteId) {
+    async function findWebsiteById(websiteId) {
         let sites = await model.find({_id:websiteId})
 
         if (sites.length>0) {
@@ -32,14 +38,14 @@ module.exports = function(mongoose, WebsiteSchema, UserModel) {
         return null
     }
 
-    model.updateWebsite = function (websiteId, website) {
+    function updateWebsite(websiteId, website) {
         if (website._id || website._id==='') {
             delete website._id;
         }
         return model.update({_id:websiteId},website)
-
     }
-    model.deleteWebsite = async function (websiteId) {
+
+    async function deleteWebsite(websiteId) {
 
         let website = await model.findWebsiteById(websiteId)
 
@@ -52,7 +58,6 @@ module.exports = function(mongoose, WebsiteSchema, UserModel) {
         }
 
         return false;
-
     }
 
     return model
