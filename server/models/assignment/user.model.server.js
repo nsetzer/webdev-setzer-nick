@@ -5,7 +5,7 @@ module.exports = function(mongoose, UserSchema) {
     model.createUser = createUser
     model.findUserById = findUserById
     model.findUserByUsername = findUserByUsername
-    model.findUserByCreadentials = findUserByCreadentials
+    model.findUserByCredentials = findUserByCredentials
     model.updateUser = updateUser
     model.deleteUser = deleteUser
 
@@ -32,7 +32,7 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    async function findUserByCreadentials(username,password) {
+    async function findUserByCredentials(username,password) {
         result = await model.find(
             {username: username, password:password})
         if (result.length === 1) {

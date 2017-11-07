@@ -72,7 +72,7 @@ module.exports = function (app, model) {
         let user;
         try {
             user = await model.UserModel
-                .findUserByCreadentials(username, password)
+                .findUserByCredentials(username, password)
         } catch (err) {
             res.status(500).send(
                 _message.Error(err))
