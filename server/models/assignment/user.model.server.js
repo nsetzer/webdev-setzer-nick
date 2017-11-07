@@ -1,8 +1,10 @@
 
 module.exports = function(mongoose, UserSchema) {
     let model =  mongoose.model("UserModel", UserSchema);
+    var _bcrypt = require("bcrypt-nodejs");
 
     model.createUser = function(user) {
+        //user.password = bcrypt.hashSync(user.password);
         if (user._id || user._id==='') {
             delete user._id;
         }
@@ -25,11 +27,13 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    model.findUserByCreadentials = async function(username,password) {
-        result = await model.find(
-            {username: username, password:password})
+    model.findUserByCredentials = async function(username,password) {
+        result = await model.find({username: username})
         if (result.length === 1) {
-            return result[0];
+            let user = result[0]
+            //if(user && bcrypt.compareSync(password, user.password)) {
+                return user;
+            //}
         }
         return null
     }
