@@ -1,5 +1,10 @@
 
+
+
 module.exports = function(mongoose) {
+
+    var facebookSchema = new mongoose.Schema({ id: String, token: String });
+
     return mongoose.Schema({
         username: { type: String, unique: true },
         password: String,
@@ -16,6 +21,7 @@ module.exports = function(mongoose) {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'PlaylistModel'
         }],
-        dateCreated: {type: Date, default: Date.now}
+        dateCreated: {type: Date, default: Date.now},
+        facebook: facebookSchema
     });
 }

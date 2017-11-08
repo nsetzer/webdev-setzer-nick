@@ -4,6 +4,9 @@ import { SharedService } from '../../../../services/shared.service.client';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
+import { environment } from '../../../../../environments/environment'
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,6 +20,8 @@ export class LoginComponent implements OnInit {
   invalid_username: boolean
   invalid_password: boolean
   error_message: string = ""
+
+  facebook_auth_url = environment.baseUrl + '/api/facebook'
 
   constructor(private route: ActivatedRoute,
               private router: Router,

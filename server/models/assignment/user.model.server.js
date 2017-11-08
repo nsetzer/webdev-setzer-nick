@@ -5,6 +5,8 @@ module.exports = function(mongoose, UserSchema) {
 
     model.createUser = createUser
     model.findUserById = findUserById
+    model.findUserByFacebookId = findUserByFacebookId
+    model.findOrCreateUserByFacebookProfile = findOrCreateUserByFacebookProfile
     model.findUserByUsername = findUserByUsername
     model.findUserByCredentials = findUserByCredentials
     model.updateUser = updateUser
@@ -20,6 +22,23 @@ module.exports = function(mongoose, UserSchema) {
 
     async function findUserById(uid) {
         result = await model.find({_id: uid})
+        if (result.length === 1) {
+            return result[0];
+        }
+        return null
+    }
+
+    async function findUserByFacebookId(id) {
+        result = await model.find({'facebook.id': id})
+        if (result.length === 1) {
+            return result[0];
+        }
+        return null
+    }
+
+    async function findOrCreateUserByFacebookProfile(profile) {
+        console.log(profile)
+        result = await model.find({'facebook.id': profile.id})
         if (result.length === 1) {
             return result[0];
         }

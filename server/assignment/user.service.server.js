@@ -4,10 +4,20 @@ module.exports = function (app, model) {
     var _message = require('./message.data.server');
     var _passport = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
+
+    var facebookConfig = {
+        clientID     : process.env.FACEBOOK_CLIENTID,
+        clientSecret : process.env.FACEBOOK_SECRET,
+        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+    };
+
+    console.log(facebookConfig);
 
     _passport.deserializeUser(deserializeUser);
     _passport.serializeUser(serializeUser);
     _passport.use(new LocalStrategy(localStrategy));
+    _passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
     app.post('/api/user', createUser);
     app.get('/api/user', getUser);
@@ -19,6 +29,13 @@ module.exports = function (app, model) {
     app.post  ('/api/logout', logout);
     app.post  ('/api/register', register);
     app.get   ('/api/loggedin', loggedin);
+
+    app.get ('/api/facebook', _passport.authenticate('facebook', { scope : 'email' }));
+    app.get ('/api/facebook/callback',
+             _passport.authenticate('facebook',
+             { successRedirect: '/user/123',
+               failureRedirect: '/'}
+    ));
 
     function createUser(req, res) {
         let user = req.body;
@@ -119,6 +136,25 @@ module.exports = function (app, model) {
             _message.Error("user not found"))
     }
 
+    async function findUserByFacebookId(req, res) {
+        let user;
+        try {
+            user = await model.UserModel
+                .findUserById(req.params.uid)
+        } catch (err) {
+            res.status(500).send(
+                _message.Error(err))
+        }
+
+        if (user) {
+            res.status(200).json(user)
+            return
+        }
+
+        res.status(404).send(
+            _message.Error("user not found"))
+    }
+
     function updateUser(req, res) {
 
         model.UserModel
@@ -175,6 +211,13 @@ module.exports = function (app, model) {
                     if (err) { return done(err); }
                 }
             );
+    }
+
+    async function facebookStrategy(token, refreshToken, profile, done) {
+        console.log(profile)
+        let user = await model.UserModel
+                       .fisndOrCreateUserByFacebookProfile(profile.id);
+        console.log(user)
     }
 
     function login(req, res) {
