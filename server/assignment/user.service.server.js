@@ -9,7 +9,7 @@ module.exports = function (app, model) {
     var facebookConfig = {
         clientID     : process.env.FACEBOOK_CLIENTID,
         clientSecret : process.env.FACEBOOK_SECRET,
-        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+        callbackURL  : process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3100/api/facebook/callback"
     };
 
     console.log(facebookConfig);
@@ -32,10 +32,16 @@ module.exports = function (app, model) {
 
     app.get ('/api/facebook', _passport.authenticate('facebook', { scope : 'email' }));
     app.get ('/api/facebook/callback',
-             _passport.authenticate('facebook',
-             { successRedirect: '/user/123',
-               failureRedirect: '/'}
-    ));
+             _passport.authenticate('facebook', { failureRedirect: '/login' }),
+             (req, res) => {
+                if (req) {
+                    console.log("callback code: " + req.query.code)
+                }
+                if (req.user) {
+                    console.log(req.user);
+                }
+                res.redirect("/user/" + req.user._id);
+             });
 
     function createUser(req, res) {
         let user = req.body;
@@ -95,6 +101,7 @@ module.exports = function (app, model) {
         res.status(404).send(
             _message.Error("user not found"))
     }
+
 
     async function findUserByCredentials(res, username,password) {
         let user;
@@ -197,7 +204,7 @@ module.exports = function (app, model) {
     async function facebookStrategy(token, refreshToken, profile, done) {
         console.log(profile)
         let user = await model.UserModel
-                       .fisndOrCreateUserByFacebookProfile(profile.id);
+                       .findOrCreateUserByFacebookProfile(profile.id);
 
         if(user) {
             return done(null, user);
