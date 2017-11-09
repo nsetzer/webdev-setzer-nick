@@ -12,6 +12,7 @@ module.exports = function(mongoose) {
         lastName: String,
         email: String,
         role: {type: String, default: "user"},
+        activeRole: {type: String, default: "user"},
         phone: {type: String, default: ""},
         websites: [{
             type: mongoose.Schema.Types.ObjectId,

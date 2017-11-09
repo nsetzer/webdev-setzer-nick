@@ -9,6 +9,7 @@ function User(_id, username, password, firstName, lastName, email, role) {
         "lastName": lastName,
         "email": email,
         "role": role,
+        "activeRole": role,
     };
 }
 

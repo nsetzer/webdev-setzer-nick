@@ -67,7 +67,9 @@ export class UserService {
       .map(
         (res: Response) => {
           const user = res.json();
-          console.log("logged in: "+ ((user)?true:false))
+          if (user) {
+            console.log("userName: " + user.username + " activeRole: " + user.activeRole)
+          }
           this._sharedService.current_user = user; // user or null
           return (user)?true:false;
         }

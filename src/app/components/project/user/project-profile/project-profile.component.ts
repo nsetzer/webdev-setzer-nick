@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user.service.client';
 import { SocialService } from '../../../../services/social.service.client';
 import { User } from '../../../../objects/user.object';
+import { SharedService } from '../../../../services/shared.service.client';
 import { PlaylistService } from '../../../../services/playlist.service.client';
 
 @Component({
@@ -25,7 +26,8 @@ export class ProjectProfileComponent implements OnInit {
               private router: Router,
               private _service: UserService,
               private _socialService: SocialService,
-              private _plservice: PlaylistService) { }
+              private _plservice: PlaylistService,
+              private _sharedService: SharedService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -49,7 +51,12 @@ export class ProjectProfileComponent implements OnInit {
   }
 
   logout() {
-    this.router.navigateByUrl("/project/search/pl");
+    this._service.logout()
+     .subscribe(
+       (data: any) => {
+         this._sharedService.current_user = null;
+         this.router.navigate(['/login']);
+       });
   }
 
   saveChanges() {

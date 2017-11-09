@@ -168,10 +168,12 @@ module.exports = function (app, model) {
 
 
     function serializeUser(user, done) {
+        console.log("serialize: userName: " + user.username + " activeRole: " + user.activeRole)
         done(null, user);
     }
 
     function deserializeUser(user, done) {
+        console.log("deseriaize: userName: " + user.username + " activeRole: " + user.activeRole)
         model.UserModel
             .findUserById(user._id)
             .then(
@@ -184,21 +186,31 @@ module.exports = function (app, model) {
             );
         }
 
-    function localStrategy(username, password, done) {
-        model.UserModel
-            .findUserByCredentials(username, password)
-            .then(
-                function(user) {
-                    if(user) {
-                        return done(null, user);
-                    } else {
-                        return done(null, false);
-                    }
-                },
-                function(err) {
-                    if (err) { return done(err); }
-                }
-            );
+    async function localStrategy(username, password, done) {
+        let arr = username.split("/")
+        username = arr[0]
+        let role = "user"
+        if (arr.length > 1) {
+            role = arr[1]
+        }
+        if (role !== "user" && role !== "superuser" && role != "admin") {
+            return done(_message.Error('invalid role: ' + role), null);
+        }
+
+        let user = await model.UserModel
+                            .findUserByCredentials(username, password)
+
+
+        if(user) {
+            if (user.activeRole != role) {
+                await model.UserModel.update({_id: user._id},{activeRole: role})
+            }
+            user.activeRole = role
+            console.log("userName: " + user.username + " activeRole: " + user.activeRole)
+            return done(null, user);
+        } else {
+            return done(_message.Error('User not found'), null);
+        }
     }
 
     async function facebookStrategy(token, refreshToken, profile, done) {
@@ -207,9 +219,11 @@ module.exports = function (app, model) {
                        .findOrCreateUserByFacebookProfile(profile.id);
 
         if(user) {
+            user.activeRole = "user"
+            console.log("userName: " + user.username + " activeRole: " + user.activeRole)
             return done(null, user);
         } else {
-            return done(null, false);
+            return done(_message.Error('User not found'), null);
         }
     }
 
@@ -249,8 +263,9 @@ module.exports = function (app, model) {
     }
 
     function loggedin(req, res) {
-        console.log("is authed:? " + req.isAuthenticated() )
-        console.log(req.user)
+        if (req.isAuthenticated()) {
+            console.log("logged in? userName: " + req.user.username + " activeRole: " + req.user.activeRole)
+        }
         res.status(200).json(req.isAuthenticated() ? req.user : null);
     }
 

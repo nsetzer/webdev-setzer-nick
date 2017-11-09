@@ -11,14 +11,6 @@ export class AuthGuard implements CanActivate {
              private router: Router) {}
 
  canActivate() {
-  /*
-  let user = await this._userService.loggedIn();
-  let user = this._sharedService.current_user;
-  if (user) {
-    return true;
-  }
-  return false;
-  */
   return this._userService.loggedIn()
  }
 }
