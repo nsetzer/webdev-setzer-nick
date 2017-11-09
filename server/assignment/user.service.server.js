@@ -136,25 +136,6 @@ module.exports = function (app, model) {
             _message.Error("user not found"))
     }
 
-    async function findUserByFacebookId(req, res) {
-        let user;
-        try {
-            user = await model.UserModel
-                .findUserById(req.params.uid)
-        } catch (err) {
-            res.status(500).send(
-                _message.Error(err))
-        }
-
-        if (user) {
-            res.status(200).json(user)
-            return
-        }
-
-        res.status(404).send(
-            _message.Error("user not found"))
-    }
-
     function updateUser(req, res) {
 
         model.UserModel
@@ -217,7 +198,12 @@ module.exports = function (app, model) {
         console.log(profile)
         let user = await model.UserModel
                        .fisndOrCreateUserByFacebookProfile(profile.id);
-        console.log(user)
+
+        if(user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+        }
     }
 
     function login(req, res) {
