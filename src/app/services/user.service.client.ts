@@ -27,7 +27,9 @@ export class UserService {
     'findUserById' : this.findUserById,
     'findUserByUsername' : this.findUserByUsername,
     'updateUser' : this.updateUser,
-    'deleteUser' : this.deleteUser
+    'deleteUser' : this.deleteUser,
+    'isAdmin' : this.isAdmin,
+    'isSuperUser' : this.isSuperUser
   };
 
   constructor(private _http: Http,
@@ -182,6 +184,20 @@ export class UserService {
     this.state = {results:[],searchTerm:""};
   }
 
+  isAdmin() {
+    if (this._sharedService.current_user) {
+      return this._sharedService.current_user.activeRole === 'admin';
+    }
+    return false;
+  }
+
+  isSuperUser() {
+    if (this._sharedService.current_user) {
+      let role = this._sharedService.current_user.activeRole
+      return role === 'superuser' || role === "admin"
+    }
+    return false;
+  }
 
 
 }

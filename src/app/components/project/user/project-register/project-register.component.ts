@@ -67,7 +67,7 @@ export class ProjectRegisterComponent implements OnInit {
       .subscribe(
         (user) => {
           this._sharedService.current_user = user;
-          this.router.navigate(['/user/'+user._id]);
+          this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
         },
         (err) => {
           this.error_message = err;

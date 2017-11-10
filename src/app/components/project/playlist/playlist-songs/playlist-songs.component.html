@@ -19,7 +19,9 @@
 
 
     <p class="navbar-text pull-right glyph-margin">
-      <a (click)="uploadSong()" class="navbar-link">
+      <a (click)="uploadSong()"
+         class="navbar-link"
+         *ngIf="_service.isSuperUser()">
         <span class="glyphicon glyphicon-cloud-upload"></span>
       </a>
 

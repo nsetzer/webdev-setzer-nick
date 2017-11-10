@@ -58,7 +58,7 @@ export class ProjectLoginComponent implements OnInit {
        (user) => {
           console.log("success " + this.username)
            this._sharedService.current_user = user;
-           this.router.navigate(["/user/" + user._id])
+           this.router.navigateByUrl("/project/(project:user/" + user._id + ")")
        },
        (err) => {
            console.log("failed to log in user")

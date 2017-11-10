@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialService } from '../../../../services/social.service.client';
+import { UserService } from '../../../../services/user.service.client';
 import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
@@ -16,7 +17,8 @@ export class NotificationViewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: SocialService,
+              private _service: UserService,
+              private _socialService: SocialService,
               private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
@@ -27,10 +29,9 @@ export class NotificationViewComponent implements OnInit {
   }
 
   reload() {
-    this._service.getNotifications(this.uid).subscribe(
+    this._socialService.getNotifications(this.uid).subscribe(
         (messages) => {
             this.messages = messages;
-            console.log("got msg return")
             console.log(this.messages)
         }
     );
