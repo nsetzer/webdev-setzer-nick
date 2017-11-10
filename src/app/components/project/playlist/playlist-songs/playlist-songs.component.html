@@ -4,7 +4,7 @@
 
     <!--back mark-->
     <p class="navbar-text pull-left glyph-margin">
-      <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list']}}]"
+      <a (click)="location.back()"
          class="navbar-link  navbar-chevron-link">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>

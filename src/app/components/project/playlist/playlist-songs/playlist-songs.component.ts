@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user.service.client';
 import { PlaylistService } from '../../../../services/playlist.service.client';
 import { ProjectService } from '../../../../services/project.service.client';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-playlist-songs',
@@ -23,6 +24,7 @@ export class PlaylistSongsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private location: Location,
               private _service: UserService,
               private _plservice: PlaylistService,
               private _pservice: ProjectService) { }

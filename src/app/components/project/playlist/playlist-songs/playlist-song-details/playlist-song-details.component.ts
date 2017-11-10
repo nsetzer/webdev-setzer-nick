@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PlaylistService } from '../../../../../services/playlist.service.client';
 import { ProjectService } from '../../../../../services/project.service.client';
 import { DomSanitizer} from '@angular/platform-browser';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-playlist-song-details',
@@ -20,6 +21,7 @@ export class PlaylistSongDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private location: Location,
               private _plservice: PlaylistService,
               private sanitizer: DomSanitizer) { }
 

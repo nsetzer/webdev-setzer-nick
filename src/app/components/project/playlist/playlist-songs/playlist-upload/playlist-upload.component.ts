@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlaylistService } from '../../../../../services/playlist.service.client';
 import { environment } from '../../../../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-playlist-upload',
@@ -24,6 +25,7 @@ export class PlaylistUploadComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private location: Location,
               private _service: PlaylistService) { }
 
   ngOnInit() {
@@ -36,6 +38,10 @@ export class PlaylistUploadComponent implements OnInit {
 
   reload() {
 
+  }
+
+  back() {
+    this.location.back();
   }
 
   uploadAudio() {

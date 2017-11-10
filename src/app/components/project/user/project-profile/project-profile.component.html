@@ -69,22 +69,28 @@
     </div>
   </form>
 
-  <div *ngIf="following.length===0">
-    Not Following any users
-  </div>
 
-  <div *ngIf="following.length>0">
-  <p>Following:</p><br>
-    <ul *ngFor="let followee of following">
-      <li> {{followee.username}}
-      <div class ="pull-right">
-        <a [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', followee._id]}}]">
-            <span class="glyphicon glyphicon-user"></span>
-        </a>
-      </div>
+
+  <div>
+  <p><b>Following:</b></p>
+    <ul class="list-group"
+        *ngIf="following.length>0">
+      <li class="list-group-item"
+          *ngFor="let followee of following">
+        {{followee.username}}
+        <div class ="pull-right">
+          <a [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', followee._id]}}]">
+              <span class="glyphicon glyphicon-user"></span>
+          </a>
+        </div>
       </li>
     </ul>
+    <div *ngIf="following.length===0">
+      Not Following any users
+    </div>
   </div>
+
+  <br/>
 
   <a class="btn btn-primary btn-block"
      [routerLink]="['/project', {outlets: {'project': ['user', uid , 'list']}}]">
