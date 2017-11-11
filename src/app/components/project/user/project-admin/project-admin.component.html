@@ -40,18 +40,18 @@
  </span>
 </div>
 
-<div *ngIf="searchResults.length>0">
- <div *ngFor="let result of searchResults">
-       {{result.username}}
-
-        <div class ="pull-right">
-            <a [routerLink]="['/project', {outlets: {'project': ['user', uid , 'admin', result._id]}}]">
-            <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </div>
- </div>
-
-</div>
+<ul *ngIf="searchResults.length>0"
+    class="list-group">
+  <li *ngFor="let result of searchResults"
+      class="list-group-item">
+    {{result.username||"N/A"}}
+    <div class ="pull-right">
+      <a [routerLink]="['/project', {outlets: {'project': ['user', uid , 'admin', result._id]}}]">
+        <span class="glyphicon glyphicon-cog"></span>
+      </a>
+    </div>
+  </li>
+</ul>
 
 <div *ngIf="searchWasRun && !searchResults.length">
 No results to display

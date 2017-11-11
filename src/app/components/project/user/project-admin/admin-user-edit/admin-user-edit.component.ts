@@ -15,6 +15,7 @@ export class AdminUserEditComponent implements OnInit {
   user = new User("","","","","","")
   private sub: any;
   changes_saved = false
+  role_data = { "user": "User", "superuser":"Super User", "admin":"Admin"}
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -37,11 +38,15 @@ export class AdminUserEditComponent implements OnInit {
     )
   }
 
-  resetPassword() {
+  deleteUser() {
 
   }
 
-  deleteUser() {
+  changeRole(role) {
+    this.user.role = role
+  }
+
+  saveChanges() {
 
   }
 

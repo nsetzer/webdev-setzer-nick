@@ -56,17 +56,19 @@ module.exports = function (app, model) {
 
     async function getSongQueueHead(req, res) {
 
-        var queues = await model.QueueModel.find({uid:req.params.uid});
+        var queues = await model.QueueModel
+            .find({uid:req.params.uid})
+            .populate("songs");
 
         if (queues && queues.length > 0) {
-            let songid = queues[0].songs[0];
-            let songs = await model.SongModel.find({_id:songid})
-            let song = songs[0]
-
-            song.url = _getUrl(song)
-            song.length = queues[0].length;
+            let songs = queues[0].songs
+            let song = null;
+            if (songs.length>0) {
+                song = queues[0].songs[0];
+                song.url = _getUrl(song)
+                song.length = queues[0].length;
+            }
             res.status(200).json(song)
-
             return;
         }
         // default return a null object
@@ -75,21 +77,26 @@ module.exports = function (app, model) {
 
     async function deleteSongQueueHead(req, res) {
 
-        var queues = await model.QueueModel.find({uid:req.params.uid});
+        var queues = await model.QueueModel
+            .find({uid:req.params.uid})
+            .populate("songs");
 
         if (queues && queues.length > 0) {
-            let songid = queues[0].songs[0];
-            let songs = await model.SongModel.find({_id:songid})
-            let song = songs[0]
-
-            song.url = _getUrl(song)
-            song.length = queues[0].length;
-
-            // remove the song
-            await model.QueueModel.update(
-                {uid:req.params.uid},
-                { $pop: { songs: -1 } }
-            );
+            let songs = queues[0].songs
+            let song = null;
+            // grab the NEXT song
+            if (songs.length>1) {
+                song = queues[0].songs[1];
+                song.url = _getUrl(song)
+                song.length = queues[0].length-1;
+            }
+            // delete the head.
+            if (songs.length>0) {
+                await model.QueueModel.update(
+                    {uid:req.params.uid},
+                    { $pop: { songs: -1 } }
+                );
+            }
 
             res.status(200).json(song)
             return;
