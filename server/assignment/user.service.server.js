@@ -9,10 +9,11 @@ module.exports = function (app, model) {
     var facebookConfig = {
         clientID     : process.env.FACEBOOK_CLIENTID,
         clientSecret : process.env.FACEBOOK_SECRET,
-        callbackURL  : process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3100/api/facebook/callback"
+        callbackURL  : process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3100/api/facebook/callback",
+        passReqToCallback: true
     };
 
-    console.log(facebookConfig);
+    winston.info(facebookConfig);
 
     _passport.deserializeUser(deserializeUser);
     _passport.serializeUser(serializeUser);
@@ -30,18 +31,23 @@ module.exports = function (app, model) {
     app.post  ('/api/register', register);
     app.get   ('/api/loggedin', loggedin);
 
-    app.get ('/api/facebook', _passport.authenticate('facebook', { scope : 'email' }));
+    app.get ('/api/facebook', facebookAuthenticate);
     app.get ('/api/facebook/callback',
              _passport.authenticate('facebook', { failureRedirect: '/login' }),
-             (req, res) => {
-                if (req) {
-                    console.log("callback code: " + req.query.code)
-                }
-                if (req.user) {
-                    console.log(req.user);
-                }
-                res.redirect("/user/" + req.user._id);
-             });
+             facebookCallback);
+
+    function facebookAuthenticate(req,res) {
+        req.session.mode = req.query.mode || "none"
+        return _passport.authenticate('facebook', { scope : 'email' })(req,res);
+    }
+
+    function facebookCallback(req,res) {
+        if (req.session.mode=="project") {
+            res.redirect("/project/(project:user/"+req.user._id+")");
+        } else {
+            res.redirect("/user/" + req.user._id);
+        }
+    }
 
     function createUser(req, res) {
         let user = req.body;
@@ -168,12 +174,10 @@ module.exports = function (app, model) {
 
 
     function serializeUser(user, done) {
-        console.log("serialize: userName: " + user.username + " activeRole: " + user.activeRole)
         done(null, user);
     }
 
     function deserializeUser(user, done) {
-        console.log("deseriaize: userName: " + user.username + " activeRole: " + user.activeRole)
         model.UserModel
             .findUserById(user._id)
             .then(
@@ -206,21 +210,24 @@ module.exports = function (app, model) {
                 await model.UserModel.update({_id: user._id},{activeRole: role})
             }
             user.activeRole = role
-            console.log("userName: " + user.username + " activeRole: " + user.activeRole)
+            winston.info("(local) userName: " + user.username + " activeRole: " + user.activeRole)
             return done(null, user);
         } else {
             return done(_message.Error('User not found'), null);
         }
     }
 
-    async function facebookStrategy(token, refreshToken, profile, done) {
-        console.log(profile)
+    async function facebookStrategy(req, token, refreshToken, profile, done) {
+
+        console.log("query params ")
+        console.log(req.query)
+        console.log(req.session)
         let user = await model.UserModel
-                       .findOrCreateUserByFacebookProfile(profile.id);
+                       .findOrCreateUserByFacebookProfile(profile, token);
 
         if(user) {
             user.activeRole = "user"
-            console.log("userName: " + user.username + " activeRole: " + user.activeRole)
+            winston.info("(facebook) userName: " + user.username + " activeRole: " + user.activeRole)
             return done(null, user);
         } else {
             return done(_message.Error('User not found'), null);

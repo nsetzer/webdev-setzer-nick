@@ -36,11 +36,17 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
-    async function findOrCreateUserByFacebookProfile(profile) {
-        console.log(profile)
+    async function findOrCreateUserByFacebookProfile(profile, token) {
         result = await model.find({'facebook.id': profile.id})
         if (result.length === 0) {
-            return await model.create({"facebook":{"id":profile.id,token:"mytoken"}})
+            let user = {
+                username: profile.username || "N/A",
+                firstName: profile.name.givenName || "N/A",
+                lastName: profile.name.familyName || "N/A",
+                role: "user",
+                facebook:{"id":profile.id,token:token}
+            }
+            return await model.create({})
         }
         return result[0]
     }
