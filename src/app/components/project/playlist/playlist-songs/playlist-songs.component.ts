@@ -43,7 +43,6 @@ export class PlaylistSongsComponent implements OnInit {
         this.user = user;
       },
       (err) => {
-        console.log(err);
       }
     )
 
@@ -58,10 +57,8 @@ export class PlaylistSongsComponent implements OnInit {
       (songs) => {
         this.songs = songs
         for (let i=0;i<this.songs.length;i++){this.songs[i].index=i+1}
-        console.log("got here")
       },
       (err) => {
-        console.log(err);
       }
     );
   }
@@ -76,7 +73,6 @@ export class PlaylistSongsComponent implements OnInit {
 
   saveChanges() {
 
-    console.log(this.playlist.songs.map(x=>x))
     this._plservice.updatePlaylist(this.plid, this.playlist).subscribe(
       (res) => {
         let url = "/project/(project:user/" + this.uid + "/list)"
@@ -133,6 +129,14 @@ export class PlaylistSongsComponent implements OnInit {
 
     this.changed = true;
     for (let i=0;i<this.songs.length;i++){this.songs[i].index=i+1;}
+  }
+
+  delete(index) {
+    // delete locally, require the user to save changes
+
+    this.playlist.songs.splice(index, 1)
+    this.songs.splice(index, 1)
+
   }
 
 }

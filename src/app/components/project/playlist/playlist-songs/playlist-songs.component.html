@@ -54,8 +54,13 @@
             </a>
 
             <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]">
-            <span class="glyphicon glyphicon-info-sign"></span>
+            <span class="glyphicon glyphicon-info-sign padding-right-default"></span>
             </a>
+
+            <a (click)="delete(i)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
+
         </div>
 
     </li>
