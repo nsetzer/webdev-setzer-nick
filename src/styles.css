@@ -160,6 +160,11 @@ sed -i s="class\=\"navbar-text pull-right\""="class\=\"navbar-text pull-right gl
   margin-left:15px;
 }
 
+.profile-margin-right {
+  margin-right:15px;
+}
+
+
 
 p.glyph-margin {
   margin-left:15px;

@@ -71,7 +71,7 @@ export class PlaylistSongsComponent implements OnInit {
   }
 
   isSuperUser() {
-    this._service.isSuperUser()
+    return this._service.isSuperUser()
   }
 
   saveChanges() {

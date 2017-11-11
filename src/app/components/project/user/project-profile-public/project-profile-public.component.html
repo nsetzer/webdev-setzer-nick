@@ -60,7 +60,7 @@
   </div>
 </nav>
 
-<div class="container-fluid content-body">
+<div class="container-fluid container-margin content-body">
 
       User Name: {{user_public.username}}<br>
       Name: {{user_public.firstName}} {{user_public.lastName}}<br>
@@ -83,27 +83,26 @@
 </div>
 
 <br>
-Playlists:
+<b>Playlists:</b>
 <br>
-
-
-
-<div *ngIf="playlists.length>0">
- <div *ngFor="let lst of playlists">
+<ul *ngIf="playlists.length>0"
+    class="list-group">
+ <li *ngFor="let lst of playlists"
+     class="list-group-item">
        {{lst.name}}
 
         <div class ="pull-right">
             <a *ngIf="uid"
                (click)="copyPlaylist(lst)">
-            <span class="glyphicon glyphicon-copy"></span>
+            <span class="glyphicon glyphicon-copy padding-right-default"></span>
             </a>
 
             <a (click)="viewPlaylist(lst)">
             <span class="glyphicon glyphicon-info-sign"></span>
             </a>
         </div>
- </div>
-</div>
+ </li>
+</ul>
 <div *ngIf="playlists.length===0">
 No Playlists to display
 </div>

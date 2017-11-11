@@ -194,6 +194,7 @@ export class UserService {
   isSuperUser() {
     if (this._sharedService.current_user) {
       let role = this._sharedService.current_user.activeRole
+      console.log("current role:" + role)
       return role === 'superuser' || role === "admin"
     }
     return false;

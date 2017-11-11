@@ -4,7 +4,7 @@
 
     <div class="row" *ngIf="uid">
       <!--back mark-->
-      <p class="navbar-text pull-left glyph-margin">
+      <p class="navbar-text pull-left glyph-margin padding-left-default">
         <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]"
            class="navbar-link  navbar-chevron-link">
           <span class="glyphicon glyphicon-chevron-left"></span>
@@ -44,7 +44,7 @@
   </div>
 </nav>
 
-<div class="container-fluid content-body">
+<div class="container-fluid container-margin content-body">
 
 <ul class="nav nav-tabs" *ngIf="!uid">
   <li>
@@ -80,7 +80,7 @@
 <ul *ngIf="searchResults.length>0"
     class="list-group">
   <li *ngFor="let result of searchResults"
-      class="list-group-item list-item-borderless">
+      class="list-group-item list-item-borderless padding-left-none">
        <a class="search-result" (click)="viewDetails(result.index)">
        {{result.title}}
        </a>
