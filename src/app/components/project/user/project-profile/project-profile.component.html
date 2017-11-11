@@ -3,14 +3,16 @@
   <div class="container-fluid">
 
     <!--heading on the nav bar-->
+    <div class="profile-margin">
     <p class="navbar-header pull-left">
       <a class="navbar-brand thick">
         <b>Profile</b>
       </a>
     </p>
+    </div>
 
     <!--tick mark-->
-    <p class="navbar-text pull-right glyph-margin">
+    <p class="navbar-text pull-right glyph-margin padding-right-default">
       <a (click)="saveChanges()" class="navbar-link">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
@@ -23,7 +25,6 @@
 
   <div *ngIf="changes_saved" class="help-block">Changes Saved</div>
 
-  <form>
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text"
@@ -67,9 +68,6 @@
              (ngModelChange)="changes_saved=false"
              required/>
     </div>
-  </form>
-
-
 
   <div>
   <p><b>Following:</b></p>

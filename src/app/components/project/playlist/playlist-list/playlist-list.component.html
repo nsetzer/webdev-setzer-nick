@@ -18,7 +18,7 @@
     </p>
 
     <!--tick mark-->
-    <p class="navbar-text pull-right glyph-margin">
+    <p class="navbar-text pull-right glyph-margin padding-right-default">
 
       <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', 'new']}}]"
          class="navbar-link">
@@ -39,7 +39,7 @@
 
         <p class="pull-right">
           <a (click)="queuePlaylist(lst)"
-             class="navbar-link">
+             class="navbar-link padding-right-default">
           <span class="glyphicon glyphicon-share"></span>
           </a>
 
@@ -53,12 +53,3 @@
 </ul>
 
 </div>
-
-<!--
-<ol class="list-group">
-            <li *ngFor="let sng of lst.songs"
-                class="list-group-item list-item-borderless">
-            {{sng.videoId}} -- {{sng.title}}
-            </li>
-        </ol>
--->

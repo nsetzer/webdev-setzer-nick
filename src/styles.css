@@ -156,9 +156,14 @@ ul.list-group {
 sed -i s="class\=\"navbar-text pull-left\""="class\=\"navbar-text pull-left glyph-margin\""=g
 sed -i s="class\=\"navbar-text pull-right\""="class\=\"navbar-text pull-right glyph-margin\""=g
 */
+.profile-margin {
+  margin-left:15px;
+}
+
+
 p.glyph-margin {
   margin-left:15px;
-  margin-right:15px;
+  margin-right:0px;
 }
 
 p.glyph-padding-short {

@@ -4,7 +4,7 @@
 
     <!--back mark-->
     <p class="navbar-text pull-left glyph-margin">
-      <a (click)="back()"
+      <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list']}}]"
          class="navbar-link  navbar-chevron-link">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
@@ -20,16 +20,16 @@
 
     <p class="navbar-text pull-right glyph-margin">
       <a (click)="uploadSong()"
-         class="navbar-link"
+         class="navbar-link padding-right-default"
          *ngIf="isSuperUser()">
         <span class="glyphicon glyphicon-cloud-upload"></span>
       </a>
 
-      <a (click)="addSongs()" class="navbar-link">
+      <a (click)="addSongs()" class="navbar-link padding-right-default">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
 
-      <a (click)="saveChanges()" class="navbar-link">
+      <a (click)="saveChanges()" class="navbar-link padding-right-default">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
     </p>
@@ -50,7 +50,7 @@
 
         <div class ="pull-right">
             <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]">
-            <span class="glyphicon glyphicon-search"></span>
+            <span class="glyphicon glyphicon-search padding-right-default"></span>
             </a>
 
             <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]">
