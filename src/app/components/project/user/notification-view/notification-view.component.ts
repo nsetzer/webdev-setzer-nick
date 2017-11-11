@@ -32,13 +32,22 @@ export class NotificationViewComponent implements OnInit {
     this._socialService.getNotifications(this.uid).subscribe(
         (messages) => {
             this.messages = messages;
-            console.log(this.messages)
         }
     );
   }
 
   isSuperUser() {
     return this._service.isSuperUser()
+  }
+
+  delete(message) {
+    this._socialService.deleteNotification(this.uid, message._id)
+      .subscribe(
+        (messages) => {
+            this.messages = messages;
+        }
+    );
+
   }
 
 }

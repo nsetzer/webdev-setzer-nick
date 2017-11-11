@@ -10,8 +10,9 @@ module.exports = function (app, model) {
     app.get(   '/api/user/:uid/social/:fid', getUserIsConnected);
     app.get(   '/api/user/:uid/social',      getUserFollowers);
     app.get(   '/api/user/:uid/social-following', getUserFollowing);
-    app.post('/api/user/:uid/notifications', sendNotification);
-    app.get( '/api/user/:uid/notifications', getNotifications);
+    app.post(  '/api/user/:uid/notifications', sendNotification);
+    app.get(   '/api/user/:uid/notifications', getNotifications);
+    app.delete('/api/user/:uid/notification/:nid', deleteNotification);
     app.put(   '/api/user/:uid/rate/:plid', rateList);
     app.delete('/api/user/:uid/rate/:plid', unrateList);
 
@@ -124,7 +125,22 @@ module.exports = function (app, model) {
 
     async function getNotifications(req,res) {
         var uid = req.params.uid;
-        messages = await model.NotificationModel.find({receiver: uid})
+        let messages = await model.NotificationModel
+            .find({receiver: uid})
+            .populate('sender')
+            .populate('receiver')
+        winston.info("found "+messages.length+" notifications for user " + uid);
+        res.status(200).json(messages)
+    }
+
+    async function deleteNotification(req,res) {
+        var uid = req.params.uid;
+        var nid = req.params.nid;
+        await model.NotificationModel.remove({_id:nid})
+        let messages = await model.NotificationModel
+            .find({receiver: uid})
+            .populate('sender')
+            .populate('receiver')
         winston.info("found "+messages.length+" notifications for user " + uid);
         res.status(200).json(messages)
     }

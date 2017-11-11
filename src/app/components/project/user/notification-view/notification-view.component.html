@@ -39,6 +39,12 @@
          class="list-group-item">
         <b>From:</b>&nbsp;{{message.sender.username}}<br>
         {{message.message}}
+        <div class ="pull-right">
+          <a (click)="delete(message)">
+            <span class="glyphicon glyphicon-trash"></span>
+          </a>
+        </div>
+
     </li>
 </ul>
 
