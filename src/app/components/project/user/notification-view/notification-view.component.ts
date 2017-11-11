@@ -37,4 +37,8 @@ export class NotificationViewComponent implements OnInit {
     );
   }
 
+  isSuperUser() {
+    return this._service.isSuperUser()
+  }
+
 }

@@ -66,6 +66,14 @@ export class PlaylistSongsComponent implements OnInit {
     );
   }
 
+  back() {
+    this.location.back();
+  }
+
+  isSuperUser() {
+    this._service.isSuperUser()
+  }
+
   saveChanges() {
 
     console.log(this.playlist.songs.map(x=>x))

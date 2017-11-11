@@ -109,7 +109,7 @@
      Search Public Playlists</a>
 
   <a class="btn btn-danger btn-block "
-     *ngIf="_service.isAdmin()"
+     *ngIf="isAdmin()"
      [routerLink]="['/project', {outlets: {'project': ['user', uid , 'admin']}}]">
      Admin</a>
 

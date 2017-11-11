@@ -44,6 +44,10 @@ export class PlaylistSongDetailsComponent implements OnInit {
     );
   }
 
+  back() {
+    this.location.back();
+  }
+
   saveChanges() {
     this._plservice.updateSong(this.song).subscribe(
       (res) => {

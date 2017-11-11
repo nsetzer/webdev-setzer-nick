@@ -17,7 +17,7 @@ export class ProjectProfilePublicComponent implements OnInit {
   uid : string;
   puid : string;
   isConnected = false;
-  user_public = { username: ""};
+  user_public = { username: "", firstName:"", lastName:"", email:""};
   playlists = [];
   private sub: any;
 

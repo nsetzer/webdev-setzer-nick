@@ -13,6 +13,8 @@ export class AdminUserNewComponent implements OnInit {
   uid : string  = ""
   user = new User("","","","","","")
   private sub: any;
+  verify_password : string = ""
+  changes_saved  = false
 
   constructor(private route: ActivatedRoute,
               private router: Router,

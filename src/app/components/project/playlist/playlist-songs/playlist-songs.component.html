@@ -4,7 +4,7 @@
 
     <!--back mark-->
     <p class="navbar-text pull-left glyph-margin">
-      <a (click)="location.back()"
+      <a (click)="back()"
          class="navbar-link  navbar-chevron-link">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
@@ -21,7 +21,7 @@
     <p class="navbar-text pull-right glyph-margin">
       <a (click)="uploadSong()"
          class="navbar-link"
-         *ngIf="_service.isSuperUser()">
+         *ngIf="isSuperUser()">
         <span class="glyphicon glyphicon-cloud-upload"></span>
       </a>
 

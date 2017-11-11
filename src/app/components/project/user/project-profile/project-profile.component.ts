@@ -59,6 +59,10 @@ export class ProjectProfileComponent implements OnInit {
        });
   }
 
+  isAdmin() {
+    return this._service.isAdmin()
+  }
+
   saveChanges() {
     this._service.updateUser(this.uid, this.user);
     this.changes_saved = true;

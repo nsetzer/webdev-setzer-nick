@@ -14,6 +14,7 @@ export class AdminUserEditComponent implements OnInit {
   puid : string = ""
   user = new User("","","","","","")
   private sub: any;
+  changes_saved = false
 
   constructor(private route: ActivatedRoute,
               private router: Router,

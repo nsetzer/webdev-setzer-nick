@@ -19,6 +19,7 @@ export class PlaylistUploadComponent implements OnInit {
   title  : string = "";
   description : string = "";
   private sub: any;
+  invalid_file = false
 
   @ViewChild('myFile') myFile;
   @ViewChild('myForm') myForm;
@@ -67,12 +68,12 @@ export class PlaylistUploadComponent implements OnInit {
 
          },
          (err) => {
-          //this.invalid_file = true
+          this.invalid_file = true
           myForm.reset();
          }
       );
     } else {
-      //this.invalid_file = true;
+      this.invalid_file = true;
     }
   }
 

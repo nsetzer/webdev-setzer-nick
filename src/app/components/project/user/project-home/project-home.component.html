@@ -33,7 +33,8 @@
     {{current_song.title}}
   </p>
 
-  <p class="navbar-text pull-right glyph-margin">
+  <p *ngIf="uid"
+     class="navbar-text pull-right glyph-margin">
     <a [routerLink]="['/project', {outlets: {'project': ['user', uid,'messages']}}]"
        class="navbar-link">
       <span class="glyphicon glyphicon-bell"></span>
