@@ -87,14 +87,19 @@
        </a>
 
         <span class="search-result-icons">
-             <a (click)="openProfile(result)">
-             <span class="glyphicon glyphicon-user padding-left-default"></span>
-             </a>
+            <a *ngIf="isAdmin()"
+               (click)="delete(result)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
 
-             <a *ngIf="uid"
+            <a (click)="openProfile(result)">
+            <span class="glyphicon glyphicon-user padding-left-default"></span>
+            </a>
+
+            <a *ngIf="uid"
                 (click)="copyPlaylist(result)">
-             <span class="glyphicon glyphicon-copy padding-left-default"></span>
-             </a>
+            <span class="glyphicon glyphicon-copy padding-left-default"></span>
+            </a>
          </span>
   </li>
 </ul>

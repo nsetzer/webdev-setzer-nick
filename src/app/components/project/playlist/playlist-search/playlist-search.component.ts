@@ -24,6 +24,7 @@ export class PlaylistSearchComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private _userService: UserService,
               private _service: ProjectService,
               private _plservice: PlaylistService) { }
 
@@ -89,6 +90,19 @@ export class PlaylistSearchComponent implements OnInit {
       let url = "/project/search/pl/" + lst._id;
       this.router.navigateByUrl(url);
     }
+  }
+
+  isAdmin() {
+    return this.uid && this._userService.isAdmin()
+  }
+
+  delete(lst) {
+    this._plservice.deletePlaylist(lst._id)
+      .subscribe(
+          () => {
+              this.runSearch()
+          }
+      );
   }
 
 }
