@@ -34,7 +34,7 @@ function getDefaultUsers() {
                        "Charly",
                        "Garcia",
                        "charly@example.com",
-                       "user"),
+                       "admin"),
                   User("",
                        "dan",
                        "dan",
