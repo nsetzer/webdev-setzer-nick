@@ -7,8 +7,8 @@ module.exports = function (app, model) {
     var FacebookStrategy = require('passport-facebook').Strategy;
 
     var facebookConfig = {
-        clientID     : process.env.FACEBOOK_CLIENTID,
-        clientSecret : process.env.FACEBOOK_SECRET,
+        clientID     : process.env.FACEBOOK_CLIENTID || "none",
+        clientSecret : process.env.FACEBOOK_SECRET || "none",
         callbackURL  : process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3100/api/facebook/callback",
         passReqToCallback: true
     };
