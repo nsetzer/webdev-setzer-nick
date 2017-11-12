@@ -40,7 +40,7 @@ module.exports = function() {
 
     SongModel         = require("./project/song.model.server")(mongoose,SongSchema)
     PlaylistModel     = require("./project/playlist.model.server")(mongoose, PlaylistSchema, SongModel, UserModel)
-    QueueModel        = require("./project/queue.model.server")(mongoose,QueueSchema)
+    QueueModel        = require("./project/queue.model.server")(mongoose, QueueSchema)
     FollowModel       = require("./project/follow.model.server")(mongoose,FollowSchema, UserModel)
     NotificationModel = require("./project/notification.model.server")(mongoose,NotificationSchema)
     RatingModel       = require("./project/rating.model.server")(mongoose,RatingSchema)

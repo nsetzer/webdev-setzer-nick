@@ -7,18 +7,13 @@ module.exports = function(mongoose, QueueSchema) {
     model.getQueueHead = getQueueHead
     model.deleteQueueHead = deleteQueueHead
 
-    async function setQueue(uid,songs) {
+    function setQueue(uid,songs) {
         var queue = {
             uid: uid,
             songs: songs
         };
-        if (await model.findOne({"uid":uid})) {
-            await model.update({"uid":uid}, queue)
-        } else {
-            await model.create(queue)
-        }
 
-        return queue
+        return model.update({"uid":uid}, queue, {upsert:true})
     }
 
     async function getQueue(uid) {
@@ -45,21 +40,15 @@ module.exports = function(mongoose, QueueSchema) {
     async function getQueueHead(uid) {
         var queues = await model
             .find({uid:uid})
-            .populate("songs");
+            .populate("songs")
 
         if (queues && queues.length > 0) {
-            let songs = queues[0].songs
-            let song = null;
-            if (songs.length>0) {
-                song = queues[0].songs[0];
-                song.url = _getUrl(song)
-                song.length = queues[0].length;
-            }
-
+            let song = queues[0].songs[0]
+            song.url = _getUrl(song)
+            song.length = queues[0].length;
             return song;
         }
-
-        return null;
+        return null
     }
 
     // returns the new head
