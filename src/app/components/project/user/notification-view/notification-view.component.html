@@ -37,13 +37,16 @@
     class="list-group">
     <li *ngFor="let message of messages"
          class="list-group-item">
-        <b>From:</b>&nbsp;{{message.sender.username}}<br>
-        {{message.message}}
+        <b>From:</b>&nbsp;{{message.sender.username}}
         <div class ="pull-right">
           <a (click)="delete(message)">
             <span class="glyphicon glyphicon-trash"></span>
           </a>
         </div>
+        <br>
+
+        <div [innerHTML]="message.message"></div>
+
 
     </li>
 </ul>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialService } from '../../../../services/social.service.client';
+import { PlaylistService } from '../../../../services/playlist.service.client';
 import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
@@ -11,6 +12,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 export class NotificationComposeComponent implements OnInit {
 
   uid : string
+  plid : string
   message = ""
   followers = []
   private sub: any;
@@ -18,11 +20,17 @@ export class NotificationComposeComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _service: SocialService,
+              private _plservice: PlaylistService,
               private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        this.uid = params['uid'];
+       if (params['plid']) {
+         this.plid = params['plid']
+       } else {
+         this.plid = null
+       }
        this.reload();
     });
   }
@@ -32,6 +40,20 @@ export class NotificationComposeComponent implements OnInit {
         (lst) => { this.followers = lst;},
         (err) => {}
     );
+
+    if (this.plid) {
+      this._plservice.findPlaylistById(this.plid).subscribe(
+        (lst) => {
+          //user/:uid/profile/:puid/:plid
+          let uid = this.uid
+          let plid = this.plid
+          this.message = `Listen To [[${uid},${plid}]]((${lst.name}))`
+        },
+        (err) => {
+          this.message = ""
+        }
+      )
+    }
   }
 
   sendMessage() {

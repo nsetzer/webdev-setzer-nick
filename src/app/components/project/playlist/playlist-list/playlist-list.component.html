@@ -38,6 +38,12 @@
         <a [routerLink]="['/project', {outlets: {'project': ['user', uid , 'list', lst._id, 'songs']}}]">{{lst.name}}</a>
 
         <p class="pull-right">
+          <a (click)="sendNotification(lst)"
+             class="navbar-link padding-right-default"
+             *ngIf="isSuperUser()">
+          <span class="glyphicon glyphicon-send"></span>
+          </a>
+
           <a (click)="queuePlaylist(lst)"
              class="navbar-link padding-right-default">
           <span class="glyphicon glyphicon-share"></span>

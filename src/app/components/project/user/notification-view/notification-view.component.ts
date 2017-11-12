@@ -32,6 +32,30 @@ export class NotificationViewComponent implements OnInit {
     this._socialService.getNotifications(this.uid).subscribe(
         (messages) => {
             this.messages = messages;
+
+            // parse the message for embedded links and create a proper
+            //
+
+            for (let x=0; x < this.messages.length; x++) {
+              let m = this.messages[x].message
+              let a = m.indexOf("[[",0)
+              if (a<0) {
+                continue
+              }
+              let b = m.indexOf(",",a)
+              let c = m.indexOf("]]",b)
+              let d = m.indexOf("((",c)
+              let e = m.indexOf("))",d)
+              let uid = this.uid
+              let puid = m.substring(a+2,b)
+              let plid = m.substring(b+1,c)
+              let inner = m.substring(d+2,e)
+
+              let href = `/project/(project:user/${uid}/profile/${puid}/${plid})`
+              let link = `<a href="${href}">${inner}</a>`
+
+              this.messages[x].message = m.substring(0,a) + link + m.substring(e+2)
+            }
         }
     );
   }
