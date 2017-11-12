@@ -1,6 +1,6 @@
 
-module.exports = function(mongoose, UserSchema) {
-    model = mongoose.model("QueueModel", UserSchema);
+module.exports = function(mongoose, QueueSchema) {
+    model = mongoose.model("QueueModel", QueueSchema);
 
     model.setQueue = setQueue
     model.getQueue = getQueue
@@ -12,11 +12,13 @@ module.exports = function(mongoose, UserSchema) {
             uid: uid,
             songs: songs
         };
+        if (await model.findOne({"uid":uid})) {
+            await model.update({"uid":uid}, queue)
+        } else {
+            await model.create(queue)
+        }
 
-        await model.update({uid:uid}, queue, {upsert:true})
-
-        return model.find({uid: uid})
-                    .populate('songs')
+        return queue
     }
 
     async function getQueue(uid) {
@@ -62,12 +64,12 @@ module.exports = function(mongoose, UserSchema) {
 
     // returns the new head
     async function deleteQueueHead(uid) {
-        var queues = await model
-            .find({uid:uid})
+        var queue = await model
+            .findOne({uid:uid})
             .populate("songs");
 
-        if (queues && queues.length > 0) {
-            let songs = queues[0].songs
+        if (queue) {
+            let songs = queue.songs
             let song = null;
             // grab the NEXT song
             if (songs.length>1) {
@@ -77,9 +79,8 @@ module.exports = function(mongoose, UserSchema) {
             }
             // delete the head.
             if (songs.length>0) {
-                await model.update(
-                    {uid:uid},
-                    { $pop: { songs: -1 } }
+                await model.update({uid:uid},
+                                   { $pop: { songs: -1 } }
                 );
             }
 
