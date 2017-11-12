@@ -67,7 +67,8 @@ module.exports = function (app, model) {
         // TODO allow wild card match search
         // e.g. username==='*' -> all users
         model.UserModel
-            .find()
+            .find({ "username": { "$regex": username, "$options": "i" } })
+            .limit(30)
             .then(
                 (users) => {res.status(200).json(users)},
                 (err) => {res.status(500).send(_message.Error(err))}

@@ -37,13 +37,18 @@
 
     <div class="form-group">
       <label for="role">Role</label>
-      <input type="role"
-             [(ngModel)]="user.role"
-             name="role"
-             placeholder="Role"
-             class="form-control"
-             (ngModelChange)="changes_saved=false"
-             required/>
+
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+          {{role_data[user.role]}}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a (click)="changeRole('user')">User</a></li>
+          <li><a (click)="changeRole('superuser')">Super User</a></li>
+          <li><a (click)="changeRole('admin')">Admin</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="form-group">

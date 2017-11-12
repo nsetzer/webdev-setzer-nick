@@ -93,7 +93,8 @@ const APP_ROUTES: Routes = [
      { path: 'user/:uid/queue',                     component: SongQueueComponent,                 outlet: 'project', canActivate: [AuthGuard] },
      { path: 'user/:uid/messages',                  component: NotificationViewComponent,          outlet: 'project', canActivate: [AuthGuard] },
      { path: 'user/:uid/messages/compose',          component: NotificationComposeComponent,       outlet: 'project', canActivate: [AuthGuard] },
-     { path: 'user/:uid/messages/compose/:plid',    component: NotificationComposeComponent,       outlet: 'project', canActivate: [AuthGuard] },     { path: 'user/:uid/admin',                     component: ProjectAdminComponent,              outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/messages/compose/:plid',    component: NotificationComposeComponent,       outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/admin',                     component: ProjectAdminComponent,              outlet: 'project', canActivate: [AuthGuard] },
      { path: 'user/:uid/admin/new',                 component: AdminUserNewComponent,              outlet: 'project', canActivate: [AuthGuard] },
      { path: 'user/:uid/admin/:puid',               component: AdminUserEditComponent,             outlet: 'project', canActivate: [AuthGuard] },
 

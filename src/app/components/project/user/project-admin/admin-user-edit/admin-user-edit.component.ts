@@ -39,7 +39,13 @@ export class AdminUserEditComponent implements OnInit {
   }
 
   deleteUser() {
-
+    this._service.deleteUser(this.puid).subscribe(
+      (user) => {
+        let url = "/project/(project:user/" + this.uid + "/admin)"
+        this.router.navigateByUrl(url);
+      },
+      (err) => {}
+    )
   }
 
   changeRole(role) {
@@ -47,7 +53,13 @@ export class AdminUserEditComponent implements OnInit {
   }
 
   saveChanges() {
-
+    this._service.updateUser(this.puid, this.user).subscribe(
+      (user) => {
+        let url = "/project/(project:user/" + this.uid + "/admin)"
+        this.router.navigateByUrl(url);
+      },
+      (err) => {}
+    )
   }
 
 }
