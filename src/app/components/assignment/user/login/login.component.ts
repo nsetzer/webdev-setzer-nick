@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
+import { SharedService } from '../../../../services/shared.service.client';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+
+import { environment } from '../../../../../environments/environment'
+
 
 @Component({
   selector: 'app-login',
@@ -17,9 +21,12 @@ export class LoginComponent implements OnInit {
   invalid_password: boolean
   error_message: string = ""
 
+  facebook_auth_url = environment.baseUrl + '/api/facebook'
+
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: UserService) { }
+              private _service: UserService,
+              private _sharedService: SharedService) { }
 
   ngOnInit() {
     this.username = ""
@@ -34,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.invalid_password = false;
     this.invalid_username = false;
 
-    this._service.validateUser(this.username, this.password,
+    /*this._service.validateUser(this.username, this.password,
       (user) => this.router.navigate(["/user/" + user._id]))
       .subscribe(
         (code : number) => {
@@ -49,6 +56,22 @@ export class LoginComponent implements OnInit {
           this.error_message = msg.message;
         }
         );
+    */
+    console.log(this.username)
+    this._service.login(this.username, this.password)
+     .subscribe(
+       (user) => {
+          console.log("success " + this.username)
+           this._sharedService.current_user = user;
+           this.router.navigate(["/user/" + user._id])
+       },
+       (err) => {
+           console.log("failed to log in user")
+           console.log(err)
+           this.error_message = err;
+       }
+     );
+
 
   }
 

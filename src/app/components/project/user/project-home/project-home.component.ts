@@ -18,7 +18,7 @@ export class ProjectHomeComponent implements OnInit {
   https://stackoverflow.com/questions/35940984/angular2-call-function-of-parent-component
 
   */
-  //uid : string;
+  uid : string;
   @ViewChild('audioPlayer') audioPlayer;
 
   current_song = {length:0, url:"", title:""}
@@ -74,7 +74,10 @@ export class ProjectHomeComponent implements OnInit {
     if (this.route.snapshot.firstChild) {
       let uid = this.route.snapshot.firstChild.url[1].path;
       if (uid) {
+        this.uid = uid
         this.loadCurrentSong(0);
+      } else {
+        this.uid = null
       }
     }
   }

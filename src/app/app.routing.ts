@@ -7,7 +7,7 @@
  * you may need to update import path in app.module.ts
  */
 
-
+import {AuthGuard} from './services/auth-guard.service.client';
 
 import {Routes, RouterModule} from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
@@ -60,57 +60,57 @@ import { AdminUserEditComponent } from './components/project/user/project-admin/
 
 
 const APP_ROUTES: Routes = [
-  {path: '', component : HomeComponent},
-  {path: 'test',       component: TestComponent},
-
+  {path: '',          component: HomeComponent},
+  {path: 'test',      component: TestComponent},
   {path: 'login',     component: LoginComponent},
   {path: 'register',  component: RegisterComponent},
-  {path: 'user/:uid', component: ProfileComponent},
+  {path: 'user/:uid', component: ProfileComponent, canActivate: [AuthGuard]},
 
-  {path: 'user/:uid/website',      component: WebsiteListComponent},
-  {path: 'user/:uid/website/new',  component: WebsiteNewComponent},
-  {path: 'user/:uid/website/:wid', component: WebsiteEditComponent},
+  {path: 'user/:uid/website',      component: WebsiteListComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/new',  component: WebsiteNewComponent,  canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid', component: WebsiteEditComponent, canActivate: [AuthGuard]},
 
-  {path: 'user/:uid/website/:wid/page',      component: PageListComponent},
-  {path: 'user/:uid/website/:wid/page/new',  component: PageNewComponent},
-  {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
+  {path: 'user/:uid/website/:wid/page',      component: PageListComponent, canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/new',  component: PageNewComponent,  canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent, canActivate: [AuthGuard]},
 
-  {path: 'user/:uid/website/:wid/page/:pid/widget',       component: WidgetListComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/new',   component: WidgetChooseComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/search', component: FlickrImageSearchComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget',              component: WidgetListComponent,        canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/new',          component: WidgetChooseComponent,      canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid',        component: WidgetEditComponent,        canActivate: [AuthGuard]},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/search', component: FlickrImageSearchComponent, canActivate: [AuthGuard]},
 
-  {path: 'project/test',              component: ApiTestComponent},
-  {path: 'project/login',             component: ProjectLoginComponent},
-  {path: 'project/register',          component: ProjectRegisterComponent},
+  {path: 'project/test',      component: ApiTestComponent},
+  {path: 'project/login',     component: ProjectLoginComponent},
+  {path: 'project/register',  component: ProjectRegisterComponent},
 
   //http://onehungrymind.com/named-router-outlets-in-angular-2/
   {path: 'project',  component: ProjectHomeComponent,
     children: [
-     { path: 'user/:uid',                           component: ProjectProfileComponent,            outlet: 'project' },
-     { path: 'user/:uid/profile/:puid',             component: ProjectProfilePublicComponent,      outlet: 'project' },
-     { path: 'user/:uid/profile/:puid/:plid',       component: PlaylistSearchViewComponent,        outlet: 'project' },
-     { path: 'user/:uid/profile/:puid/:plid/:idx',  component: PlaylistSearchSongDetailsComponent, outlet: 'project' },
-     { path: 'user/:uid/queue',                     component: SongQueueComponent,                 outlet: 'project' },
-     { path: 'user/:uid/messages',                  component: NotificationViewComponent,          outlet: 'project' },
-     { path: 'user/:uid/messages/compose',          component: NotificationComposeComponent,       outlet: 'project' },
-     { path: 'user/:uid/admin',                     component: ProjectAdminComponent,              outlet: 'project' },
-     { path: 'user/:uid/admin/new',                 component: AdminUserNewComponent,              outlet: 'project' },
-     { path: 'user/:uid/admin/:puid',               component: AdminUserEditComponent,             outlet: 'project' },
+     { path: 'user/:uid',                           component: ProjectProfileComponent,            outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/profile/:puid',             component: ProjectProfilePublicComponent,      outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/profile/:puid/:plid',       component: PlaylistSearchViewComponent,        outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/profile/:puid/:plid/:idx',  component: PlaylistSearchSongDetailsComponent, outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/queue',                     component: SongQueueComponent,                 outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/messages',                  component: NotificationViewComponent,          outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/messages/compose',          component: NotificationComposeComponent,       outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/messages/compose/:plid',    component: NotificationComposeComponent,       outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/admin',                     component: ProjectAdminComponent,              outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/admin/new',                 component: AdminUserNewComponent,              outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/admin/:puid',               component: AdminUserEditComponent,             outlet: 'project', canActivate: [AuthGuard] },
 
-     { path: 'user/:uid/list',                      component: PlaylistListComponent,             outlet: 'project' },
-     { path: 'user/:uid/list/search',               component: PlaylistSearchComponent,           outlet: 'project' },
-     { path: 'user/:uid/list/search/:plid',         component: PlaylistSearchViewComponent,       outlet: 'project' },
-     { path: 'user/:uid/list/search/:plid/:idx',    component: PlaylistSearchSongDetailsComponent,outlet: 'project' },
-     { path: 'user/:uid/list/new',                  component: PlaylistNewComponent,              outlet: 'project' },
-     { path: 'user/:uid/list/:plid',                component: PlaylistEditComponent,             outlet: 'project' },
-     { path: 'user/:uid/list/:plid/songs',          component: PlaylistSongsComponent,            outlet: 'project' },
-     { path: 'user/:uid/list/:plid/songs/:idx',     component: PlaylistSongDetailsComponent,            outlet: 'project' },
-     { path: 'user/:uid/list/:plid/upload',         component: PlaylistUploadComponent,           outlet: 'project' },
-     { path: 'user/:uid/list/:plid/add',            component: PlaylistAddComponent,              outlet: 'project' },
-     { path: 'user/:uid/list/:plid/add/:videoId',   component: PlaylistAddComponent,              outlet: 'project' },
-     { path: 'user/:uid/list/:plid/add/details/:idx',          component: PlaylistAddSongDetailsComponent,   outlet: 'project' },
-     { path: 'user/:uid/list/:plid/add/:videoId/details/:idx', component: PlaylistAddSongDetailsComponent,   outlet: 'project' },
+     { path: 'user/:uid/list',                      component: PlaylistListComponent,             outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/search',               component: PlaylistSearchComponent,           outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/search/:plid',         component: PlaylistSearchViewComponent,       outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/search/:plid/:idx',    component: PlaylistSearchSongDetailsComponent,outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/new',                  component: PlaylistNewComponent,              outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/:plid',                component: PlaylistEditComponent,             outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/:plid/songs',          component: PlaylistSongsComponent,            outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/:plid/songs/:idx',     component: PlaylistSongDetailsComponent,      outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/:plid/upload',         component: PlaylistUploadComponent,           outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/:plid/add',            component: PlaylistAddComponent,              outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/:plid/add/:videoId',   component: PlaylistAddComponent,              outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/:plid/add/details/:idx',          component: PlaylistAddSongDetailsComponent,   outlet: 'project', canActivate: [AuthGuard] },
+     { path: 'user/:uid/list/:plid/add/:videoId/details/:idx', component: PlaylistAddSongDetailsComponent,   outlet: 'project', canActivate: [AuthGuard] },
 
     ]},
   { path: 'project/search/pl',                    component: PlaylistSearchComponent },

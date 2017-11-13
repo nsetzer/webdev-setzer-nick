@@ -19,15 +19,17 @@
 
 
     <p class="navbar-text pull-right glyph-margin">
-      <a (click)="uploadSong()" class="navbar-link">
+      <a (click)="uploadSong()"
+         *ngIf="isSuperUser()"
+         class="navbar-link padding-right-default">
         <span class="glyphicon glyphicon-cloud-upload"></span>
       </a>
 
-      <a (click)="addSongs()" class="navbar-link">
+      <a (click)="addSongs()" class="navbar-link padding-right-default">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
 
-      <a (click)="saveChanges()" class="navbar-link">
+      <a (click)="saveChanges()" class="navbar-link padding-right-default">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
     </p>
@@ -48,12 +50,17 @@
 
         <div class ="pull-right">
             <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]">
-            <span class="glyphicon glyphicon-search"></span>
+            <span class="glyphicon glyphicon-search padding-right-default"></span>
             </a>
 
             <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]">
-            <span class="glyphicon glyphicon-info-sign"></span>
+            <span class="glyphicon glyphicon-info-sign padding-right-default"></span>
             </a>
+
+            <a (click)="delete(i)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
+
         </div>
 
     </li>

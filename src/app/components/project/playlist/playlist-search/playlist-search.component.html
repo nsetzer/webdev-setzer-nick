@@ -4,7 +4,7 @@
 
     <div class="row" *ngIf="uid">
       <!--back mark-->
-      <p class="navbar-text pull-left glyph-margin">
+      <p class="navbar-text pull-left glyph-margin padding-left-default">
         <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]"
            class="navbar-link  navbar-chevron-link">
           <span class="glyphicon glyphicon-chevron-left"></span>
@@ -43,7 +43,7 @@
   </div>
 </nav>
 
-<div class="container-fluid content-body">
+<div class="container-fluid container-margin content-body">
 
 <!--
   <div *ngIf="alertMessage"
@@ -81,20 +81,25 @@
 <ul *ngIf="searchResults.length>0"
     class="list-group">
   <li *ngFor="let result of searchResults"
-      class="list-group-item list-item-borderless">
+      class="list-group-item list-item-borderless padding-left-none">
        <a class="search-result" (click)="viewPlaylist(result)">
        {{result.name}}
        </a>
 
         <span class="search-result-icons">
-             <a (click)="openProfile(result)">
-             <span class="glyphicon glyphicon-user padding-left-default"></span>
-             </a>
+            <a *ngIf="isAdmin()"
+               (click)="delete(result)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
 
-             <a *ngIf="uid"
+            <a (click)="openProfile(result)">
+            <span class="glyphicon glyphicon-user padding-left-default"></span>
+            </a>
+
+            <a *ngIf="uid"
                 (click)="copyPlaylist(result)">
-             <span class="glyphicon glyphicon-copy padding-left-default"></span>
-             </a>
+            <span class="glyphicon glyphicon-copy padding-left-default"></span>
+            </a>
          </span>
   </li>
 </ul>

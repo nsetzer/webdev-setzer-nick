@@ -1,15 +1,19 @@
 
 module.exports = function(mongoose, UserSchema) {
     let model =  mongoose.model("UserModel", UserSchema);
+    var _bcrypt = require("bcrypt-nodejs");
 
     model.createUser = createUser
     model.findUserById = findUserById
+    model.findUserByFacebookId = findUserByFacebookId
+    model.findOrCreateUserByFacebookProfile = findOrCreateUserByFacebookProfile
     model.findUserByUsername = findUserByUsername
     model.findUserByCredentials = findUserByCredentials
     model.updateUser = updateUser
     model.deleteUser = deleteUser
 
     function createUser(user) {
+        user.password = _bcrypt.hashSync(user.password);
         if (user._id || user._id==='') {
             delete user._id;
         }
@@ -24,6 +28,29 @@ module.exports = function(mongoose, UserSchema) {
         return null
     }
 
+    async function findUserByFacebookId(id) {
+        result = await model.find({'facebook.id': id})
+        if (result.length === 1) {
+            return result[0];
+        }
+        return null
+    }
+
+    async function findOrCreateUserByFacebookProfile(profile, token) {
+        result = await model.find({'facebook.id': profile.id})
+        if (result.length === 0) {
+            let user = {
+                username: profile.username || "N/A",
+                firstName: profile.name.givenName || "N/A",
+                lastName: profile.name.familyName || "N/A",
+                role: "user",
+                facebook:{"id":profile.id,token:token}
+            }
+            return await model.create({})
+        }
+        return result[0]
+    }
+
     async function findUserByUsername(username) {
         result = await model.find({username: username})
         if (result.length === 1) {
@@ -33,10 +60,12 @@ module.exports = function(mongoose, UserSchema) {
     }
 
     async function findUserByCredentials(username,password) {
-        result = await model.find(
-            {username: username, password:password})
+        result = await model.find({username: username})
         if (result.length === 1) {
-            return result[0];
+            let user = result[0]
+            if(user && _bcrypt.compareSync(password, user.password)) {
+                return user;
+            }
         }
         return null
     }

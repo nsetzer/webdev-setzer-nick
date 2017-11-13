@@ -12,6 +12,9 @@ import {FormsModule} from '@angular/forms';
 // default services
 import { TestService } from './services/test.service.client';
 import { UserService } from './services/user.service.client';
+import { SharedService } from './services/shared.service.client';
+import { AuthGuard } from './services/auth-guard.service.client';
+
 // assignment services
 import { WebsiteService } from './services/website.service.client';
 import { PageService } from './services/page.service.client';
@@ -150,6 +153,8 @@ import { AdminUserEditComponent } from './components/project/user/project-admin/
   // Client Side services here
   providers: [ TestService,
                UserService,
+               SharedService,
+               AuthGuard,
                WebsiteService,
                PageService,
                WidgetService,

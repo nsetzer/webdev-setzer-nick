@@ -10,65 +10,38 @@ module.exports = function (app, model) {
     app.get(   '/api/user/:uid/social/:fid', getUserIsConnected);
     app.get(   '/api/user/:uid/social',      getUserFollowers);
     app.get(   '/api/user/:uid/social-following', getUserFollowing);
-    app.post('/api/user/:uid/notifications', sendNotification);
-    app.get( '/api/user/:uid/notifications', getNotifications);
+    app.post(  '/api/user/:uid/notifications', sendNotification);
+    app.get(   '/api/user/:uid/notifications', getNotifications);
+    app.delete('/api/user/:uid/notification/:nid', deleteNotification);
     app.put(   '/api/user/:uid/rate/:plid', rateList);
     app.delete('/api/user/:uid/rate/:plid', unrateList);
 
     async function addConnection(req,res) {
-        var connection = {
-            follower: req.params.uid,
-            followee: req.params.fid
-        }
-
-        await model.FollowModel.create(connection)
-
+        await model.FollowModel.connect(req.params.uid,req.params.fid)
         winston.info("added new connection from "+req.params.uid+
                      " to "+req.params.fid);
-
         res.status(201).json(null)
     }
 
     async function deleteConnection(req,res) {
-        var connection = {
-            follower: req.params.uid,
-            followee: req.params.fid
-        }
-
-        await model.FollowModel.remove(connection)
-
+        await model.FollowModel.disconnect(req.params.uid,req.params.fid)
         winston.info("removed connection from "+req.params.uid+
                      " to "+req.params.fid);
-
         res.status(200).json(null)
     }
 
 
-    // return a list of all users following the given uid
-    // if src==followee and tgt==follower returns the set of users
-    //      that are following the given uid
-    // if src==follower and tgt==followee returns the set of users
-    //      that the user is currently following.
 
-    async function _getUserFollowers(uid, src, tgt) {
-        let record = {}
-        record[src] = uid;
-        let connections = await model.FollowModel.find(record);
-        console.log("found: " + connections.length)
-        let uids = connections.map( x => x[tgt] );
-        let users = await model.UserModel
-                .find({_id: {$in: uids}});
-        return users
-    }
+
 
     async function getUserFollowers(req,res) {
-        users = await _getUserFollowers(req.params.uid, "followee", "follower")
+        users = await model.FollowModel.getUserFollowers(req.params.uid, "followee", "follower")
         winston.info("found "+users.length+" followers of " + req.params.uid)
         res.status(200).json(users)
     }
 
     async function getUserFollowing(req,res) {
-        users = await _getUserFollowers(req.params.uid, "follower", "followee")
+        users = await model.FollowModel.getUserFollowers(req.params.uid, "follower", "followee")
         winston.info("found "+users.length+" followees of " + req.params.uid)
         res.status(200).json(users)
     }
@@ -82,13 +55,7 @@ module.exports = function (app, model) {
         var uid = req.params.uid;
         var fid = req.params.fid;
 
-        var connection = {
-            follower: uid,
-            followee: fid
-        }
-
-        connections = await model.FollowModel.find(connection);
-        var isConnected = connections.length>0;
+        let isConnected = await model.FollowModel.isConnected(uid, fid);
 
         if (isConnected) {
             winston.info("user "+uid+" is connected to " + fid);
@@ -124,7 +91,22 @@ module.exports = function (app, model) {
 
     async function getNotifications(req,res) {
         var uid = req.params.uid;
-        messages = await model.NotificationModel.find({receiver: uid})
+        let messages = await model.NotificationModel
+            .find({receiver: uid})
+            .populate('sender')
+            .populate('receiver')
+        winston.info("found "+messages.length+" notifications for user " + uid);
+        res.status(200).json(messages)
+    }
+
+    async function deleteNotification(req,res) {
+        var uid = req.params.uid;
+        var nid = req.params.nid;
+        await model.NotificationModel.remove({_id:nid})
+        let messages = await model.NotificationModel
+            .find({receiver: uid})
+            .populate('sender')
+            .populate('receiver')
         winston.info("found "+messages.length+" notifications for user " + uid);
         res.status(200).json(messages)
     }

@@ -19,9 +19,11 @@
       </p>
     </div>
 
-    <div class="col-xs-4 padding-all">
+    <div class="col-xs-4 padding-all"
+         *ngIf="isSuperUser()" >
         <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'messages', 'compose']}}]"
-           class="btn btn-danger btn-block">Compose</a>
+           class="btn btn-danger btn-block profile-margin-right">Compose</a>
+        <p>&nbsp;</p>
     </div>
     </div>
 
@@ -29,13 +31,23 @@
 </nav>
 
 
-<div class="container-fluid content-body">
+<div class="container-fluid container-margin content-body">
 
 <ul *ngIf="messages.length>0"
     class="list-group">
     <li *ngFor="let message of messages"
          class="list-group-item">
-        {{message.message}}
+        <b>From:</b>&nbsp;{{message.sender.username}}
+        <div class ="pull-right">
+          <a (click)="delete(message)">
+            <span class="glyphicon glyphicon-trash"></span>
+          </a>
+        </div>
+        <br>
+
+        <div [innerHTML]="message.message"></div>
+
+
     </li>
 </ul>
 

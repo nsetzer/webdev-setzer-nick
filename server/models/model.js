@@ -39,9 +39,9 @@ module.exports = function() {
     WidgetModel       = require("./assignment/widget.model.server")(mongoose,WidgetSchema,PageModel)
 
     SongModel         = require("./project/song.model.server")(mongoose,SongSchema)
-    PlaylistModel     = require("./project/playlist.model.server")(mongoose,PlaylistSchema)
-    QueueModel        = require("./project/queue.model.server")(mongoose,QueueSchema)
-    FollowModel       = require("./project/follow.model.server")(mongoose,FollowSchema)
+    PlaylistModel     = require("./project/playlist.model.server")(mongoose, PlaylistSchema, SongModel, UserModel)
+    QueueModel        = require("./project/queue.model.server")(mongoose, QueueSchema)
+    FollowModel       = require("./project/follow.model.server")(mongoose,FollowSchema, UserModel)
     NotificationModel = require("./project/notification.model.server")(mongoose,NotificationSchema)
     RatingModel       = require("./project/rating.model.server")(mongoose,RatingSchema)
 

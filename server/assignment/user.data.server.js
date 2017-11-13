@@ -1,13 +1,15 @@
+var _bcrypt = require("bcrypt-nodejs");
 
 function User(_id, username, password, firstName, lastName, email, role) {
     return {
         "_id": _id,
         "username": username,
-        "password": password,
+        "password": _bcrypt.hashSync(password),
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
         "role": role,
+        "activeRole": role,
     };
 }
 
@@ -32,7 +34,7 @@ function getDefaultUsers() {
                        "Charly",
                        "Garcia",
                        "charly@example.com",
-                       "user"),
+                       "admin"),
                   User("",
                        "dan",
                        "dan",

@@ -2,7 +2,7 @@
   <div class="container-fluid">
       <!--back mark-->
       <p class="navbar-text pull-left glyph-margin">
-        <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]"
+        <a (click)="back()"
            class="navbar-link  navbar-chevron-link">
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>

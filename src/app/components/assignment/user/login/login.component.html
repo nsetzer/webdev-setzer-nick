@@ -34,10 +34,17 @@
       <button type="submit" [disabled]="!f.valid"
               class="btn btn-primary btn-block">Login</button>
 
+
     </form>
 
     <a class="btn btn-success btn-block"
        [routerLink]="['/register']">Register</a>
+
+    <a href="/api/facebook?mode=assignment" class="btn btn-primary">
+      <span class="fa fa-facebook"></span>
+      Facebook
+    </a>
+
 
 
 </div>

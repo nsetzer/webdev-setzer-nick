@@ -16,6 +16,7 @@ export class PlaylistListComponent implements OnInit {
   user : any;
   playlists : any = [];
   private sub: any;
+  queue_success = false;
 
 
   constructor(private route: ActivatedRoute,
@@ -49,24 +50,32 @@ export class PlaylistListComponent implements OnInit {
   }
 
   queuePlaylist(lst) {
-    console.log("eneueue playlist")
 
     // TODO this should be done on the server side
     this._plservice.findPlaylistById(lst._id).subscribe(
       (true_lst) => {
         this._qservice.setQueue(this.uid, true_lst).subscribe(
           (res) => {
-            console.log("lst set")
+            this.queue_success = true
           },
           (err) => {
-            console.log("error setting lst")
+            this.queue_success = false
           }
         )
       },
       (err) => {
-        console.log("error retreiving lst")
+        this.queue_success = false
       }
     );
+  }
+
+  isSuperUser() {
+    return this._service.isSuperUser()
+  }
+
+  sendNotification(lst) {
+    let url = "/project/(project:user/" + this.uid + "/messages/compose/"+lst._id+")"
+    this.router.navigateByUrl(url);
   }
 
 }

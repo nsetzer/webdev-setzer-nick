@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
 import { User } from '../../../../objects/user.object';
+import { SharedService } from '../../../../services/shared.service.client';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,7 +19,8 @@ export class ProjectLoginComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: UserService) { }
+              private _service: UserService,
+              private _sharedService: SharedService) { }
 
   ngOnInit() {
     this.username = ""
@@ -30,6 +32,7 @@ export class ProjectLoginComponent implements OnInit {
 
   login() {
 
+    /*
     this.invalid_password = false;
     this.invalid_username = false;
 
@@ -48,6 +51,22 @@ export class ProjectLoginComponent implements OnInit {
           this.error_message = msg.message;
         }
         );
+    */
+    console.log(this.username)
+    this._service.login(this.username, this.password)
+     .subscribe(
+       (user) => {
+          console.log("success " + this.username)
+           this._sharedService.current_user = user;
+           this.router.navigateByUrl("/project/(project:user/" + user._id + ")")
+       },
+       (err) => {
+           console.log("failed to log in user")
+           console.log(err)
+           this.error_message = err;
+       }
+     );
+
 
   }
 

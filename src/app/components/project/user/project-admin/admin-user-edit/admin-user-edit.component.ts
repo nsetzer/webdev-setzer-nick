@@ -14,6 +14,8 @@ export class AdminUserEditComponent implements OnInit {
   puid : string = ""
   user = new User("","","","","","")
   private sub: any;
+  changes_saved = false
+  role_data = { "user": "User", "superuser":"Super User", "admin":"Admin"}
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -36,12 +38,28 @@ export class AdminUserEditComponent implements OnInit {
     )
   }
 
-  resetPassword() {
-
+  deleteUser() {
+    this._service.deleteUser(this.puid).subscribe(
+      (user) => {
+        let url = "/project/(project:user/" + this.uid + "/admin)"
+        this.router.navigateByUrl(url);
+      },
+      (err) => {}
+    )
   }
 
-  deleteUser() {
+  changeRole(role) {
+    this.user.role = role
+  }
 
+  saveChanges() {
+    this._service.updateUser(this.puid, this.user).subscribe(
+      (user) => {
+        let url = "/project/(project:user/" + this.uid + "/admin)"
+        this.router.navigateByUrl(url);
+      },
+      (err) => {}
+    )
   }
 
 }

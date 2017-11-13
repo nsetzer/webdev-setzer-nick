@@ -93,6 +93,17 @@ export class SocialService {
      );
   }
 
+  deleteNotification(userId,msgId) {
+    return this._http.delete(this.baseUrl +
+     `/api/user/${userId}/notification/${msgId}`)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
+
   // rate a given playlist for a user on a 5 point scale
   // any user can rate any playlist
   rateList(uid,plid,value) {

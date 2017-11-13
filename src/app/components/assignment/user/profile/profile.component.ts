@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
+import { SharedService } from '../../../../services/shared.service.client';
 import { User } from '../../../../objects/user.object';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -18,7 +19,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: UserService) { }
+              private _service: UserService,
+              private _sharedService: SharedService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -41,7 +43,12 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    this.router.navigate(["/login"]);
+    this._service.logout()
+     .subscribe(
+       (data: any) => {
+         this._sharedService.current_user = null;
+         this.router.navigate(['/login']);
+       });
   }
 
   saveChanges() {

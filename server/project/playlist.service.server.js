@@ -13,7 +13,7 @@ module.exports = function (app, model) {
     app.get('/api/playlist', findPlaylistsByTerm);
     app.get('/api/playlist/:plid', findPlaylistById);
     app.put('/api/playlist/:plid', updatePlaylist);
-    app.get('/api/playlist/:plid/songs', findAllSongssForPlaylist);
+    app.get('/api/playlist/:plid/songs', findAllSongsForPlaylist);
     app.get('/api/playlist-contains/:videoId', findPlaylistsContainingSong);
     app.delete('/api/playlist/:plid', deletePlaylist);
     app.put('/api/playlist/:plid/append', addSongToPlaylist);
@@ -24,35 +24,19 @@ module.exports = function (app, model) {
     }
 
     function createPlaylist(req, res) {
-        if (req.body._id || req.body._id==='') {
-            delete req.body._id;
-        }
-
-        req.body.uid = req.params.uid;
-
         model.PlaylistModel
-            .create(req.body)
+            .createPlaylist(req.params.uid,req.body)
             .then(
-                (playlist) => {
-                    model.UserModel
-                        .update( {_id:playlist.uid},
-                                 { $push: { playlists: playlist._id } })
-                        .then(
-                          () => {res.status(201).json(playlist)},
-                          (err) => {
-                            res.status(500).send(_message.Error(err))
-                          }
-                        )
-                },
-                (err) => {
-                    res.status(500).send(_message.Error(err))
-                }
-            );
+              (playlist) => {res.status(201).json(playlist)},
+              (err) => {
+                res.status(500).send(_message.Error(err))
+              }
+            )
     }
 
     function findAllPlaylistsForUser(req, res) {
         model.PlaylistModel
-            .find({uid:req.params.uid})
+            .findAllPlaylistsForUser(req.params.uid)
             .then(
                 (lists) => {
                     res.status(200).json(lists)
@@ -65,7 +49,7 @@ module.exports = function (app, model) {
 
     function findPlaylistById(req, res) {
         model.PlaylistModel
-            .find({_id:req.params.plid})
+            .findPlaylistById(req.params.plid)
             .then(
                 (lists) => {
                     if (lists.length === 0) {
@@ -84,54 +68,23 @@ module.exports = function (app, model) {
 
     async function findPlaylistsByTerm(req, res) {
 
-        // TODO: convert this to use mongoose search terms
-        // some examples:
-        // $or:[ {'_id':objId}, {'name':param}]
-        // { "name" : { $regex : new RegExp(part,"i");}
-
-        let playlists = await model.PlaylistModel.find();
-
-        var term = req.query.term.toLowerCase();
-        var parts = term.split(" ");
-        var lists = []
-        for (let x = 0; x < playlists.length; x++) {
-            let relevance = 0;
-            let name = playlists[x].name.toLowerCase();
-            let desc = playlists[x].description.toLowerCase();
-
-            for (let y=0; y < parts.length; y++) {
-                let part = parts[y]
-                if (name.indexOf(part) !== -1 ||
-                    desc.indexOf(part) !== -1) {
-                    relevance = relevance + 1
-                }
-            }
-            // push a copy of the list if it is relevant
-            if (relevance > 0) {
-                var lst = playlists[x];
-                lst.relevance = relevance
-                lists.push(lst)
-            }
-        }
+        var lists = await model.PlaylistModel
+            .findPlaylistsByTerm(req.query.term)
 
         if (lists.length == 0) {
-            winston.warn("no playlists found for term `" + term + "`")
+            winston.warn("no playlists found for term `" + req.query.term + "`")
             res.status(200).json([])
             return
         }
 
-        // sort matching sites by relevance
-        lists.sort((a,b)=>(b.relevance - a.relevance));
-        lists = lists.slice(0,10);
-        winston.info("found " + lists.length + " playlists for term `" + term + "`")
+        winston.info("found " + lists.length + " playlists for term `" + req.query.term + "`")
         res.status(200).json(lists)
     }
 
 
     function updatePlaylist(req, res) {
         model.PlaylistModel
-            .update({_id:req.params.plid},
-                    req.body)
+            .updatePlaylist(req.params.plid,req.body)
             .then(
                 () => {res.status(200).json(_message.Success("OK"));},
                 (err) => {res.status(500).send(_message.Error(err))}
@@ -139,74 +92,23 @@ module.exports = function (app, model) {
     }
 
     async function deletePlaylist(req, res) {
-        let playlists = await model.PlaylistModel.find({_id:req.params.plid})
-
-        if (playlists) {
-            await model.PlaylistModel.remove({_id:req.params.plid})
-            await model.UserModel
-                    .update({_id:playlists[0].uid},
-                            { $pull: { widgets: req.params.plid } });
+        if (await model.PlaylistModel.deletePlaylist(req.params.plid)) {
             res.status(200).json(_message.Success("OK"));
             return
         }
-
         res.status(404).send(_message.Error("website not found"))
     }
 
-    function reorder(truth, data) {
-        var out = []
-        for (let x = 0; x < truth.length; x++) {
-            for (let y = 0; y < data.length; y++) {
-                if (data[y]._id.equals(truth[x])) {
-                    out.push(data.splice(y, 1)[0])
-                    break;
-                }
-            }
-        }
-        return out;
-    }
-
-    async function _findAllSongssForPlaylist(pid) {
-        let playlists = await model.PlaylistModel.find({_id:pid})
-        if (playlists) {
-            let playlist = playlists[0]
-            let songs = await model.SongModel
-                .find({_id: {$in: playlist.songs}});
-            songs = reorder(playlist.songs, songs)
-            return songs;
-        }
-        return [];
-    }
-
-    async function findAllSongssForPlaylist(req, res) {
-        var items = await _findAllSongssForPlaylist(req.params.plid);
+    async function findAllSongsForPlaylist(req, res) {
+        var items = await model.PlaylistModel
+            .findAllSongsForPlaylist(req.params.plid);
         res.json(items)
-    }
-
-
-
-    async function _addSongToPlaylist(plid, song) {
-
-        if (song._id || song._id==='') {
-            delete song._id;
-        }
-
-
-        let new_song = await model.SongModel.create(song);
-
-        await model.PlaylistModel
-            .update(
-                {_id:plid},
-                { $push: { songs: new_song._id } }
-            );
-
-        return true;
     }
 
     async function addSongToPlaylist(req,res) {
         var song  = req.body;
         var plid = req.params.plid;
-        if (await _addSongToPlaylist(plid, song)) {
+        if (await model.PlaylistModel.addSongToPlaylist(plid, song)) {
             res.status(200).json(null);
             return;
         }
@@ -217,32 +119,17 @@ module.exports = function (app, model) {
         var plid = req.params.plid;
         var idx  = req.params.idx;
 
-        let playlists = await model.PlaylistModel.find({_id:plid})
-
-        if (playlists && playlists.length>0) {
-
-            let songs = playlists[0].songs
-            if ( idx < 0 || idx >= songs.length ) {
-                res.status(400).json({message:"invalid index"})
-            }
-
-            songs.splice(idx,1)
-
-            await model.PlaylistModel.update({_id:plid}, {songs:songs})
-
+        if (await model.PlaylistModel.removeSongFromPlaylist(plid,idx)) {
             res.status(200).json(null);
-
         } else {
             res.status(404).json({message:"playlist not found"})
         }
-
     }
 
     async function updateSong(req,res) {
-        var song  = req.body;
+        var song = req.body;
         model.SongModel
-            .update({_id:req.params.sid},
-                    req.body)
+            .updateSong(req.params.sid,song)
             .then(
                 () => {res.status(200).json(_message.Success("OK"));},
                 (err) => {res.status(500).send(_message.Error(err))}
@@ -257,7 +144,7 @@ module.exports = function (app, model) {
         var song = _song.Song("upload", url, req.body.description,
                               req.body.title, req.body.artist, "")
 
-        if (await _addSongToPlaylist(plid, song)) {
+        if (await model.PlaylistModel.addSongToPlaylist(plid, song)) {
             res.status(200).json(song);
 
             return;
@@ -281,13 +168,7 @@ module.exports = function (app, model) {
     }
 
     async function findPlaylistsContainingSong(req, res) {
-        let vid = req.params.videoId;
-
-        let songs = await model.SongModel.find({videoId:vid})
-        let sids = songs.map(s => s._id)
-
-        let lists = await model.PlaylistModel
-                .find({songs: {$all: sids}});
+        let lists = await model.PlaylistModel.findPlaylistsContainingSong(req.params.videoId)
 
         winston.info("found " + lists.lengths + " lists containing " + vid);
         res.status(200).json(lists)

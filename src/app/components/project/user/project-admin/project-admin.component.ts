@@ -34,7 +34,9 @@ export class ProjectAdminComponent implements OnInit {
 
     let state = this._service.getPreviousUserSearch()
     this.searchTerm = state.searchTerm;
-    this.searchResults = state.results;
+    //this.searchResults = state.results;
+    // re run the search since the user may have been deleted
+    this.runSearch()
 
   }
 

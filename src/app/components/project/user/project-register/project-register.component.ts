@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service.client';
+import { SharedService } from '../../../../services/shared.service.client';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -21,7 +22,8 @@ export class ProjectRegisterComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _service: UserService) { }
+              private _service: UserService,
+              private _sharedService: SharedService) { }
 
   ngOnInit() {
   }
@@ -36,6 +38,7 @@ export class ProjectRegisterComponent implements OnInit {
         return
     }
 
+    /*
     this._service.createUser({
          username:  this.username,
          password:  this.password,
@@ -51,6 +54,26 @@ export class ProjectRegisterComponent implements OnInit {
       this.error_message = msg.message;
      }
     );
+  */
+    let body = {
+         username:  this.username,
+         password:  this.password,
+         firstName: this.firstName,
+         lastName:  this.lastName,
+         email:     this.email
+    }
+
+    this._service.register(body)
+      .subscribe(
+        (user) => {
+          this._sharedService.current_user = user;
+          this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
+        },
+        (err) => {
+          this.error_message = err;
+        }
+      );
+
   }
 
 }

@@ -13,6 +13,9 @@ export class AdminUserNewComponent implements OnInit {
   uid : string  = ""
   user = new User("","","","","","")
   private sub: any;
+  verify_password : string = ""
+  changes_saved  = false
+  role_data = { "user": "User", "superuser":"Super User", "admin":"Admin"}
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -30,7 +33,15 @@ export class AdminUserNewComponent implements OnInit {
   }
 
   createUser() {
+    this._service.createUser(this.user).subscribe(
+      (user) => {
+        let url = "/project/(project:user/" + this.uid + "/admin)"
+        this.router.navigateByUrl(url);
+      },
+      (err) => {
 
+      }
+    )
   }
 
 }

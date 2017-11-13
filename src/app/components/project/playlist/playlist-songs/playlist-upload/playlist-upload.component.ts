@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlaylistService } from '../../../../../services/playlist.service.client';
 import { environment } from '../../../../../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-playlist-upload',
@@ -18,12 +19,14 @@ export class PlaylistUploadComponent implements OnInit {
   title  : string = "";
   description : string = "";
   private sub: any;
+  invalid_file = false
 
   @ViewChild('myFile') myFile;
   @ViewChild('myForm') myForm;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private location: Location,
               private _service: PlaylistService) { }
 
   ngOnInit() {
@@ -36,6 +39,10 @@ export class PlaylistUploadComponent implements OnInit {
 
   reload() {
 
+  }
+
+  back() {
+    this.location.back();
   }
 
   uploadAudio() {
@@ -61,12 +68,12 @@ export class PlaylistUploadComponent implements OnInit {
 
          },
          (err) => {
-          //this.invalid_file = true
+          this.invalid_file = true
           myForm.reset();
          }
       );
     } else {
-      //this.invalid_file = true;
+      this.invalid_file = true;
     }
   }
 

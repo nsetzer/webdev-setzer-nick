@@ -3,7 +3,7 @@
 
     <div class="row" *ngIf="uid">
         <!--back mark-->
-        <p class="navbar-text pull-left glyph-margin">
+        <p class="navbar-text pull-left glyph-margin padding-left-default">
           <a (click)="return()"
              class="navbar-link  navbar-chevron-link">
             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -51,17 +51,21 @@
   </div>
 </nav>
 
-<div class="container-fluid content-body">
+<div class="container-fluid container-margin content-body">
 
-<ol *ngIf="songs.length>0">
-     <li *ngFor="let song of songs; let i = index;">
+<ol *ngIf="songs.length>0" class="list-group">
+     <li *ngFor="let song of songs; let i = index;"
+         class="list-group-item">
+          {{i+1}}.&nbsp;
+          <a (click)="viewDetails(i)">
            {{song.title}}
+          </a>
+           <!-- <div class ="pull-right">
 
-            <div class ="pull-right">
-                <a (click)="viewDetails(i)">
                 <span class="glyphicon glyphicon-info-sign"></span>
                 </a>
             </div>
+            -->
      </li>
 </ol>
 

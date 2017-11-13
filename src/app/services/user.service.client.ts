@@ -1,10 +1,12 @@
 
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, RequestOptions, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 
 import { User } from '../objects/user.object';
+
+import {SharedService} from './shared.service.client';
 
 @Injectable()
 
@@ -14,15 +16,77 @@ export class UserService {
 
   state = {searchTerm:"", results:[]}
 
+  options = new RequestOptions();
+
   api = {
+    'login'    : this.login,
+    'logout'   : this.logout,
+    'register' : this.register,
+    'loggedin' : this.loggedIn,
     'createUser'   : this.createUser,
     'findUserById' : this.findUserById,
     'findUserByUsername' : this.findUserByUsername,
     'updateUser' : this.updateUser,
-    'deleteUser' : this.deleteUser
+    'deleteUser' : this.deleteUser,
+    'isAdmin' : this.isAdmin,
+    'isSuperUser' : this.isSuperUser
   };
 
-  constructor(private _http: Http) {
+  constructor(private _http: Http,
+              private _sharedService: SharedService) {}
+
+  login(username,password) {
+
+    const body = {
+     username : username,
+     password : password
+    };
+    this.options.withCredentials = true;
+    return this._http.post(this.baseUrl + '/api/login', body, this.options)
+     .map(
+       (res: Response) => {
+         const data = res.json();
+         return data;
+       }
+     );
+  }
+
+  logout() {
+    this.options.withCredentials = true;
+    return this._http.post(this.baseUrl + '/api/logout', null, this.options)
+      .map(
+        (res: Response) => {
+          console.log("logged out")
+          const data = res.json();
+          return data;
+        }
+      );
+  }
+
+  loggedIn() {
+    this.options.withCredentials = true;
+    return this._http.get(this.baseUrl + '/api/loggedin', this.options)
+      .map(
+        (res: Response) => {
+          const user = res.json();
+          if (user) {
+            console.log("userName: " + user.username + " activeRole: " + user.activeRole)
+          }
+          this._sharedService.current_user = user; // user or null
+          return (user)?true:false;
+        }
+      );
+  }
+
+  register(user) {
+    this.options.withCredentials = true;
+    return this._http.post(this.baseUrl + '/api/register', user, this.options)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          return data;
+        }
+      );
   }
 
   createUser(user: any) {
@@ -120,6 +184,21 @@ export class UserService {
     this.state = {results:[],searchTerm:""};
   }
 
+  isAdmin() {
+    if (this._sharedService.current_user) {
+      return this._sharedService.current_user.activeRole === 'admin';
+    }
+    return false;
+  }
+
+  isSuperUser() {
+    if (this._sharedService.current_user) {
+      let role = this._sharedService.current_user.activeRole
+      console.log("current role:" + role)
+      return role === 'superuser' || role === "admin"
+    }
+    return false;
+  }
 
 
 }

@@ -101,7 +101,7 @@ describe('SongQueue', function() {
                 .delete('/api/user/'+uid+'/queue/head')
                 .end(function(err, res) {
                     expect(res).to.have.status(200);
-                    res.body._id.should.eql(list.songs[0])
+                    res.body._id.should.eql(list.songs[1])
                     done();
                 });
             });

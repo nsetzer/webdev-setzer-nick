@@ -26,26 +26,27 @@
     </a>
 
     <a (click)="loadNextSong()"
-       class="navbar-link">
+       class="navbar-link padding-left-default ">
       <span class="glyphicon glyphicon-forward"></span>
     </a>
 
-    {{current_song.title}}
+    &nbsp;&nbsp;{{current_song.title}}
   </p>
 
-  <p class="navbar-text pull-right glyph-margin">
+  <p *ngIf="uid"
+     class="navbar-text pull-right glyph-margin">
     <a [routerLink]="['/project', {outlets: {'project': ['user', uid,'messages']}}]"
-       class="navbar-link">
+       class="navbar-link padding-right-default">
       <span class="glyphicon glyphicon-bell"></span>
     </a>
 
     <a (click)="openSongQueue()"
-       class="navbar-link">
+       class="navbar-link padding-right-default">
       <span class="glyphicon glyphicon-th-list"></span>
     </a>
 
     <a (click)="openProfileHome()"
-       class="navbar-link">
+       class="navbar-link padding-right-default">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </p>
