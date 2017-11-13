@@ -12,6 +12,7 @@ module.exports = function (app, model) {
     var _social  = require('../project/social.data.server');
 
     // curl -X DELETE http://localhost:3100/api/reset
+    // curl -X DELETE https://webdev-setzer-nick.herokuapp.com/api/reset
     app.delete('/api/reset', resetDatabase);
 
     // drop the existing collection, and populate with default data
