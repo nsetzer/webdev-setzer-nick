@@ -18,9 +18,6 @@ module.exports = function (app, model) {
     // drop the existing collection, and populate with default data
     async function create(model,items) {
 
-        if (!model) {
-            console.log(Object.keys(model))
-        }
         await model.remove()
 
         ids = []
@@ -46,10 +43,6 @@ module.exports = function (app, model) {
     // object that is created
 
     async function createAndUpdate(modelParent, model, fieldId, fieldArray, items) {
-
-        if (!model) {
-            console.log(Object.keys(model))
-        }
 
         await model.remove()
 

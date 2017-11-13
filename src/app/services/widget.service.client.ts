@@ -114,8 +114,6 @@ export class WidgetService {
     var to = event.endIndex;
     var pid = event.pid;
 
-    console.log("reorder page " + pid + " from index " + from + " to " + to );
-
     return this._http.put(this.baseUrl + `/api/page/${pid}/widget?from=${from}&to=${to}`, {})
      .map(
        (res: Response) => {

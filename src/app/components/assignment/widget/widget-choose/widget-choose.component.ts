@@ -71,7 +71,6 @@ export class WidgetChooseComponent implements OnInit {
                       "/website/" + this.wid +
                       "/page/" + this.pid +
                      "/widget/" + res._id;
-            console.log(url)
             this.router.navigate([url]);
           },
           (err) => {

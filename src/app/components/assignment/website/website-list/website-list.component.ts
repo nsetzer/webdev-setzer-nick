@@ -31,7 +31,6 @@ export class WebsiteListComponent implements OnInit {
     this._service.findWebsitesByUser(this.uid).subscribe(
       (sites) => { this.websites = sites },
       (err) => {
-        console.log(this.uid)
         let msg = JSON.parse(err._body)
         this.error_message = msg.message;
       }

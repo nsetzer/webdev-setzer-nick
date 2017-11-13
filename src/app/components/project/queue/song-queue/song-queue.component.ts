@@ -32,21 +32,16 @@ export class SongQueueComponent implements OnInit {
     this.user = this._service.findUserById(this.uid).subscribe(
       (user) => {
         this.user = user;
-        console.log("found user")
       },
       (err) => {
-        console.log("error loading user")
       }
     )
 
     this._qservice.getQueue(this.uid).subscribe(
       (playlist) => {
         this.playlist = playlist;
-        console.log("found queue")
-        console.log(playlist)
       },
       (err) => {
-        console.log("error loading queue")
       }
     )
   }

@@ -35,7 +35,6 @@ module.exports = function(mongoose, FollowSchema, UserModel) {
         let record = {}
         record[src] = uid;
         let connections = await model.find(record);
-        console.log("found: " + connections.length)
         let uids = connections.map( x => x[tgt] );
         let users = await UserModel
                 .find({_id: {$in: uids}});

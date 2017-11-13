@@ -120,11 +120,14 @@ export class ProjectHomeComponent implements OnInit {
 
     var aud = this.audioPlayer.nativeElement;
 
+    console.log(aud.error)
     if (!aud.error) {
       if (aud.paused) {
         aud.play()
+        console.log("play")
       } else {
         aud.pause()
+        console.log("pause")
       }
     } else {
       let code = aud.error.code

@@ -22,11 +22,9 @@ export class SortableDirective {
    jQuery(this.el.nativeElement).sortable({
      axis: 'y',
      start: function (event, ui) {
-       console.log('Old position: ' + ui.item.index());
        refe.initialIndex = ui.item.index();
      },
      stop: function (event, ui) {
-       console.log('New position: ' + ui.item.index());
        refe.newIndexes.emit({
          startIndex: refe.initialIndex,
          endIndex: ui.item.index()});

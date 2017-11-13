@@ -219,10 +219,6 @@ module.exports = function (app, model) {
     }
 
     async function facebookStrategy(req, token, refreshToken, profile, done) {
-
-        console.log("query params ")
-        console.log(req.query)
-        console.log(req.session)
         let user = await model.UserModel
                        .findOrCreateUserByFacebookProfile(profile, token);
 
@@ -245,7 +241,6 @@ module.exports = function (app, model) {
         req.user=null;
         req.session.destroy(function (err) {
             res.send(_message.Success('success'));
-            console.log("on log out")
         });
     }
 
@@ -271,9 +266,6 @@ module.exports = function (app, model) {
     }
 
     function loggedin(req, res) {
-        if (req.isAuthenticated()) {
-            console.log("logged in? userName: " + req.user.username + " activeRole: " + req.user.activeRole)
-        }
         res.status(200).json(req.isAuthenticated() ? req.user : null);
     }
 

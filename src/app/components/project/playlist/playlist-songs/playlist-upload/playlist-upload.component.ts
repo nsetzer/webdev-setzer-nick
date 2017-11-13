@@ -60,8 +60,6 @@ export class PlaylistUploadComponent implements OnInit {
       this._service.uploadAudio(formData).subscribe(
          (song) => {
 
-            console.log("got here")
-
             let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/songs)"
             this.router.navigateByUrl(url);
 

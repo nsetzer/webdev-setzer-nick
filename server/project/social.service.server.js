@@ -125,7 +125,6 @@ module.exports = function (app, model) {
 
         // validate the input
         if (typeof data.value === 'undefined') {
-            console.log(data)
             res.status(406).json(null);
             return;
         }

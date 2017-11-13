@@ -45,7 +45,7 @@ export class ProjectProfileComponent implements OnInit {
     )
 
     this._socialService.getFollowing(this.uid).subscribe(
-      (users) => { this.following = users; console.log(users)},
+      (users) => { this.following = users;},
       (err) => {}
     );
   }

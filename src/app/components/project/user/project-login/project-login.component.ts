@@ -52,17 +52,13 @@ export class ProjectLoginComponent implements OnInit {
         }
         );
     */
-    console.log(this.username)
     this._service.login(this.username, this.password)
      .subscribe(
        (user) => {
-          console.log("success " + this.username)
            this._sharedService.current_user = user;
            this.router.navigateByUrl("/project/(project:user/" + user._id + ")")
        },
        (err) => {
-           console.log("failed to log in user")
-           console.log(err)
            this.error_message = err;
        }
      );

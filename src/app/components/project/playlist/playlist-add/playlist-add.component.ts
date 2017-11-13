@@ -119,7 +119,7 @@ export class PlaylistAddComponent implements OnInit {
           (res) => {
             this.searchResults.splice(index,1);
           },
-          (err) => {console.log("error")},
+          (err) => {},
         );
 
     }
@@ -166,7 +166,6 @@ export class PlaylistAddComponent implements OnInit {
         this.searchResults[index].state="paused"
       }
     } else {
-      console.log(audio.error);
       this.searchResults[index].state="error"
     }
   }
@@ -183,7 +182,6 @@ export class PlaylistAddComponent implements OnInit {
         url += "/add/details/" + index
       }
     }
-    console.log(url)
     this.router.navigateByUrl(url);
   }
 

@@ -35,7 +35,6 @@ module.exports = (app) => {
 
     function _sendRequest(options, onResult)
     {
-        console.log(options)
         var port = options.port == 443 ? https : http;
         var req = port.get(options, function(res)
         {

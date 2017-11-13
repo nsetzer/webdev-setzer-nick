@@ -56,7 +56,6 @@ export class UserService {
     return this._http.post(this.baseUrl + '/api/logout', null, this.options)
       .map(
         (res: Response) => {
-          console.log("logged out")
           const data = res.json();
           return data;
         }
@@ -69,9 +68,6 @@ export class UserService {
       .map(
         (res: Response) => {
           const user = res.json();
-          if (user) {
-            console.log("userName: " + user.username + " activeRole: " + user.activeRole)
-          }
           this._sharedService.current_user = user; // user or null
           return (user)?true:false;
         }
@@ -194,7 +190,6 @@ export class UserService {
   isSuperUser() {
     if (this._sharedService.current_user) {
       let role = this._sharedService.current_user.activeRole
-      console.log("current role:" + role)
       return role === 'superuser' || role === "admin"
     }
     return false;

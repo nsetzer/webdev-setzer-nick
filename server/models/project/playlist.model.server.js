@@ -21,7 +21,6 @@ module.exports = function(mongoose, UserSchema, SongModel, UserModel) {
         lst.uid = uid;
 
         let new_playlist = await model.create(lst);
-        console.log(new_playlist)
 
         await UserModel.update( {_id:uid},
                                 { $push: { playlists: new_playlist._id } })

@@ -836,15 +836,11 @@ var LoginComponent = (function () {
             }
             );
         */
-        console.log(this.username);
         this._service.login(this.username, this.password)
             .subscribe(function (user) {
-            console.log("success " + _this.username);
             _this._sharedService.current_user = user;
             _this.router.navigate(["/user/" + user._id]);
         }, function (err) {
-            console.log("failed to log in user");
-            console.log(err);
             _this.error_message = err;
         });
     };
@@ -1263,7 +1259,6 @@ var WebsiteListComponent = (function () {
     WebsiteListComponent.prototype.reload = function () {
         var _this = this;
         this._service.findWebsitesByUser(this.uid).subscribe(function (sites) { _this.websites = sites; }, function (err) {
-            console.log(_this.uid);
             var msg = JSON.parse(err._body);
             _this.error_message = msg.message;
         });
@@ -1482,7 +1477,6 @@ var WidgetChooseComponent = (function () {
                     "/website/" + _this.wid +
                     "/page/" + _this.pid +
                     "/widget/" + res._id;
-                console.log(url);
                 _this.router.navigate([url]);
             }, function (err) {
                 var msg = JSON.parse(err._body);
@@ -2826,7 +2820,6 @@ var WidgetListComponent = (function () {
         var _this = this;
         this._service.findWidgetsByPageId(this.pid).subscribe(function (widgets) {
             _this.widgets = widgets;
-            console.log(widgets);
         }, function (err) {
             var msg = JSON.parse(err._body);
             _this.error_message = msg.message;
@@ -3200,7 +3193,7 @@ var PlaylistAddComponent = (function () {
         if (0 <= index && index < this.searchResults.length) {
             this._plservice.addSongToPlaylist(this.plid, this.searchResults[index]).subscribe(function (res) {
                 _this.searchResults.splice(index, 1);
-            }, function (err) { console.log("error"); });
+            }, function (err) { });
         }
     };
     PlaylistAddComponent.prototype.play = function (index) {
@@ -3242,7 +3235,6 @@ var PlaylistAddComponent = (function () {
             }
         }
         else {
-            console.log(audio.error);
             this.searchResults[index].state = "error";
         }
     };
@@ -3260,7 +3252,6 @@ var PlaylistAddComponent = (function () {
                 url += "/add/details/" + index;
             }
         }
-        console.log(url);
         this.router.navigateByUrl(url);
     };
     return PlaylistAddComponent;
@@ -4356,7 +4347,6 @@ var PlaylistUploadComponent = (function () {
             formData.append('plid', this.plid);
             formData.append('uid', this.uid);
             this._service.uploadAudio(formData).subscribe(function (song) {
-                console.log("got here");
                 var url = "/project/(project:user/" + _this.uid + "/list/" + _this.plid + "/songs)";
                 _this.router.navigateByUrl(url);
             }, function (err) {
@@ -4458,16 +4448,11 @@ var SongQueueComponent = (function () {
         var _this = this;
         this.user = this._service.findUserById(this.uid).subscribe(function (user) {
             _this.user = user;
-            console.log("found user");
         }, function (err) {
-            console.log("error loading user");
         });
         this._qservice.getQueue(this.uid).subscribe(function (playlist) {
             _this.playlist = playlist;
-            console.log("found queue");
-            console.log(playlist);
         }, function (err) {
-            console.log("error loading queue");
         });
     };
     SongQueueComponent.prototype.saveChanges = function () {
@@ -5233,12 +5218,15 @@ var ProjectHomeComponent = (function () {
     };
     ProjectHomeComponent.prototype.playPauseClicked = function () {
         var aud = this.audioPlayer.nativeElement;
+        console.log(aud.error);
         if (!aud.error) {
             if (aud.paused) {
                 aud.play();
+                console.log("play");
             }
             else {
                 aud.pause();
+                console.log("pause");
             }
         }
         else {
@@ -5397,15 +5385,11 @@ var ProjectLoginComponent = (function () {
             }
             );
         */
-        console.log(this.username);
         this._service.login(this.username, this.password)
             .subscribe(function (user) {
-            console.log("success " + _this.username);
             _this._sharedService.current_user = user;
             _this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
         }, function (err) {
-            console.log("failed to log in user");
-            console.log(err);
             _this.error_message = err;
         });
     };
@@ -5642,7 +5626,7 @@ var ProjectProfileComponent = (function () {
         this._service.findUserById(this.uid).subscribe(function (user) {
             _this.user = user;
         }, function (err) { });
-        this._socialService.getFollowing(this.uid).subscribe(function (users) { _this.following = users; console.log(users); }, function (err) { });
+        this._socialService.getFollowing(this.uid).subscribe(function (users) { _this.following = users; }, function (err) { });
     };
     ProjectProfileComponent.prototype.logout = function () {
         var _this = this;
@@ -5917,11 +5901,9 @@ var SortableDirective = (function () {
         jQuery(this.el.nativeElement).sortable({
             axis: 'y',
             start: function (event, ui) {
-                console.log('Old position: ' + ui.item.index());
                 refe.initialIndex = ui.item.index();
             },
             stop: function (event, ui) {
-                console.log('New position: ' + ui.item.index());
                 refe.newIndexes.emit({
                     startIndex: refe.initialIndex,
                     endIndex: ui.item.index()
@@ -7032,7 +7014,6 @@ var UserService = (function () {
         this.options.withCredentials = true;
         return this._http.post(this.baseUrl + '/api/logout', null, this.options)
             .map(function (res) {
-            console.log("logged out");
             var data = res.json();
             return data;
         });
@@ -7043,9 +7024,6 @@ var UserService = (function () {
         return this._http.get(this.baseUrl + '/api/loggedin', this.options)
             .map(function (res) {
             var user = res.json();
-            if (user) {
-                console.log("userName: " + user.username + " activeRole: " + user.activeRole);
-            }
             _this._sharedService.current_user = user; // user or null
             return (user) ? true : false;
         });
@@ -7140,7 +7118,6 @@ var UserService = (function () {
     UserService.prototype.isSuperUser = function () {
         if (this._sharedService.current_user) {
             var role = this._sharedService.current_user.activeRole;
-            console.log("current role:" + role);
             return role === 'superuser' || role === "admin";
         }
         return false;
@@ -7369,7 +7346,6 @@ var WidgetService = (function () {
         var from = event.startIndex;
         var to = event.endIndex;
         var pid = event.pid;
-        console.log("reorder page " + pid + " from index " + from + " to " + to);
         return this._http.put(this.baseUrl + ("/api/page/" + pid + "/widget?from=" + from + "&to=" + to), {})
             .map(function (res) {
             if (res.ok) {
