@@ -68,8 +68,9 @@
 
 <div >
   <p>Playlists from other users that contain this song:</p>
-  <ul *ngIf="playlists.length>0">
-    <li *ngFor="let playlist of playlists">
+  <ul *ngIf="playlists.length>0" class="list-group">
+    <li *ngFor="let playlist of playlists" class="list-group-item">
+      <b>{{playlist.uid.username}}</b><br/>
       {{playlist.name}}
     </li>
   </ul>

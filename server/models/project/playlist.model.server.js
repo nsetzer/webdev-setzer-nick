@@ -153,11 +153,11 @@ module.exports = function(mongoose, UserSchema, SongModel, UserModel) {
 
     async function findPlaylistsContainingSong(vid) {
 
-        let songs = await model.SongModel.find({videoId:vid})
+        let songs = await SongModel.find({videoId:vid})
+
         let sids = songs.map(s => s._id)
 
-        let lists = await model.PlaylistModel
-                .find({songs: {$all: sids}});
+        let lists = await model.find({songs: {$all: sids}}).populate("uid");
 
         return lists
     }

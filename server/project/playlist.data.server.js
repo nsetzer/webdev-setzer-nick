@@ -20,10 +20,19 @@ function createDefaultPlaylist(uid, name, songs) {
     return lst;
 }
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
 async function getDefaultPlaylists(model) {
 
     var users = await model.UserModel.find();
-    var songs = await model.SongModel.find().limit(5);
+    var songs = await model.SongModel.find()
 
     let lists = []
     let name = ""
@@ -31,11 +40,14 @@ async function getDefaultPlaylists(model) {
     for (var x=0; x < users.length; x++) {
 
         name = "Default" + names[Math.floor(Math.random() * names.length)]
-        lists.push(createDefaultPlaylist(users[x]._id,name, songs))
+        shuffleArray(songs)
+        lists.push(createDefaultPlaylist(users[x]._id,name, songs.slice(0,5)))
         name = "Favorite" + names[Math.floor(Math.random() * names.length)]
-        lists.push(createDefaultPlaylist(users[x]._id,name, songs))
+        shuffleArray(songs)
+        lists.push(createDefaultPlaylist(users[x]._id,name, songs.slice(0,5)))
         name = "Workout" + names[Math.floor(Math.random() * names.length)]
-        lists.push(createDefaultPlaylist(users[x]._id,name, songs))
+        shuffleArray(songs)
+        lists.push(createDefaultPlaylist(users[x]._id,name, songs.slice(0,5)))
     }
 
     return lists;

@@ -170,7 +170,7 @@ module.exports = function (app, model) {
     async function findPlaylistsContainingSong(req, res) {
         let lists = await model.PlaylistModel.findPlaylistsContainingSong(req.params.videoId)
 
-        winston.info("found " + lists.lengths + " lists containing " + vid);
+        winston.info("found " + lists.lengths + " lists containing " + req.params.videoId);
         res.status(200).json(lists)
     }
 
