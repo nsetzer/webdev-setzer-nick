@@ -227,9 +227,11 @@ img.image-container {
 }
 
 /*
-search results
+search results:
+attempts at word wrap
 */
 
+/*
 div.search-result {
   display: inline-block;
   white-space: nowrap;
@@ -238,11 +240,27 @@ div.search-result {
   margin:0 0 0px;
   text-overflow:ellipsis;
   overflow: hidden;
-  /*border: 1px solid #000000;"*/
 }
 
 span.search-result-icons {
   position: absolute;
   top:15px;
   right:0px;
+}
+*/
+
+/*apply to a list item*/
+.p-list-item {
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+/*apply to a  div*/
+.p-list-item-icons {
+  position: absolute;
+  right:0px;
+  top: 10px;
+  z-index: 1;
+  background-color: white;
 }

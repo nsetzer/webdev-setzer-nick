@@ -82,11 +82,11 @@
     class="list-group">
   <li *ngFor="let result of searchResults"
       class="list-group-item list-item-borderless padding-left-none">
-       <a class="search-result" (click)="viewPlaylist(result)">
+       <a class="p-list-item" (click)="viewPlaylist(result)">
        {{result.name}}
        </a>
 
-        <span class="search-result-icons">
+        <div class="p-list-item-icons">
             <a *ngIf="isAdmin()"
                (click)="delete(result)">
               <span class="glyphicon glyphicon-trash"></span>
@@ -100,7 +100,7 @@
                 (click)="copyPlaylist(result)">
             <span class="glyphicon glyphicon-copy padding-left-default"></span>
             </a>
-         </span>
+         </div>
   </li>
 </ul>
 

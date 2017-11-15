@@ -205,7 +205,6 @@ module.exports = function (app, model) {
         let user = await model.UserModel
                             .findUserByCredentials(username, password)
 
-
         if(user) {
             if (user.activeRole != role) {
                 await model.UserModel.update({_id: user._id},{activeRole: role})

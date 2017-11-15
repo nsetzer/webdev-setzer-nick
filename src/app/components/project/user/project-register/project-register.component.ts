@@ -38,23 +38,6 @@ export class ProjectRegisterComponent implements OnInit {
         return
     }
 
-    /*
-    this._service.createUser({
-         username:  this.username,
-         password:  this.password,
-         firstName: this.firstName,
-         lastName:  this.lastName,
-         email:     this.email
-    }).subscribe(
-     (user) => {
-      this.router.navigate(["/project/login"]);
-     },
-     (err) => {
-      let msg = JSON.parse(err._body)
-      this.error_message = msg.message;
-     }
-    );
-  */
     let body = {
          username:  this.username,
          password:  this.password,

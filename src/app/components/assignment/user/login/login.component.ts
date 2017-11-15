@@ -41,22 +41,6 @@ export class LoginComponent implements OnInit {
     this.invalid_password = false;
     this.invalid_username = false;
 
-    /*this._service.validateUser(this.username, this.password,
-      (user) => this.router.navigate(["/user/" + user._id]))
-      .subscribe(
-        (code : number) => {
-          if (code==2) {
-            this.invalid_password = true;
-          } else if (code==1) {
-            this.invalid_username = true;
-          }
-        },
-        (err : any) => {
-          let msg = JSON.parse(err._body)
-          this.error_message = msg.message;
-        }
-        );
-    */
     this._service.login(this.username, this.password)
      .subscribe(
        (user) => {
@@ -64,7 +48,7 @@ export class LoginComponent implements OnInit {
            this.router.navigate(["/user/" + user._id])
        },
        (err) => {
-           this.error_message = err;
+           this.error_message = "Invalid username or password";
        }
      );
 
