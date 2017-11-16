@@ -10,13 +10,16 @@
       </a>
     </p>
 
-    <!--heading on the nav bar-->
-    <p class="navbar-header pull-left">
+    <!--heading on the nav bar
+    <p class="navbar-header pull-left p-header">
       <a class="navbar-brand thick">
-        <b>{{playlist.name}}</b>
+        <b></b>
       </a>
     </p>
-
+-->
+    <div class="navbar-brand p-header">
+      <b>{{playlist.name}}</b>
+    </div>
 
     <p class="navbar-text pull-right glyph-margin">
       <a (click)="uploadSong()"
@@ -59,7 +62,7 @@
             </a>
 
             <a (click)="delete(i)">
-              <span class="glyphicon glyphicon-trash"></span>
+              <span class="glyphicon glyphicon-trash padding-right-default"></span>
             </a>
 
         </div>

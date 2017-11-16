@@ -250,6 +250,32 @@ span.search-result-icons {
 */
 
 /*apply to a list item*/
+.p-header {
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width:230px;
+  padding-top: 15px;
+}
+
+.p-footer {
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width:330px;
+  padding-top: 15px;
+  /*font-size: 85%;*/
+  /*background-color: rgba(.7,.7,.7,.3);*/
+}
+
+.p-footer-right {
+  position: absolute;
+  right:10px;
+  top: 15px;
+  z-index: 1;
+  /*background-color: rgba(.7,.7,.7,.3);*/
+}
+
 .p-list-item {
   overflow:hidden;
   text-overflow: ellipsis;
@@ -263,4 +289,8 @@ span.search-result-icons {
   top: 10px;
   z-index: 1;
   background-color: white;
+}
+
+.p-small-fonts {
+  font-size: 85%;
 }

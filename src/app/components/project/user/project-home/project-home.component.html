@@ -7,48 +7,52 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <div class="container-fluid">
 
-  <p class="navbar-text pull-left glyph-margin">
-    <audio
-       name="audioPlayer"
-       #audioPlayer
-       width=0px
-       height=0px>
-      <source src="" type="audio/mp3">
-    </audio>
+    <div class="navbar-text pull-left glyph-margin">
+      <audio
+         name="audioPlayer"
+         #audioPlayer
+         width=0px
+         height=0px>
+        <source src="" type="audio/mp3">
+      </audio>
 
-    <a (click)="playPauseClicked()"
-       class="navbar-link">
+      <a (click)="playPauseClicked()"
+         class="navbar-link">
 
-      <span class="glyphicon glyphicon-warning-sign" *ngIf="song_load_error"></span>
-      <span class="glyphicon glyphicon-play" *ngIf="!song_load_error && !audioPlayer.error && audioPlayer.paused"></span>
-      <span class="glyphicon glyphicon-pause" *ngIf="!song_load_error && !audioPlayer.error && !audioPlayer.paused"></span>
-      <span class="glyphicon glyphicon-stop" *ngIf="!song_load_error && audioPlayer.error"></span>
-    </a>
+        <span class="glyphicon glyphicon-warning-sign" *ngIf="song_load_error"></span>
+        <span class="glyphicon glyphicon-play" *ngIf="!song_load_error && !audioPlayer.error && audioPlayer.paused"></span>
+        <span class="glyphicon glyphicon-pause" *ngIf="!song_load_error && !audioPlayer.error && !audioPlayer.paused"></span>
+        <span class="glyphicon glyphicon-stop" *ngIf="!song_load_error && audioPlayer.error"></span>
+      </a>
 
-    <a (click)="loadNextSong()"
-       class="navbar-link padding-left-default ">
-      <span class="glyphicon glyphicon-forward"></span>
-    </a>
+      <a (click)="loadNextSong()"
+         class="navbar-link padding-left-default ">
+        <span class="glyphicon glyphicon-forward"></span>
+      </a>
 
-    &nbsp;&nbsp;{{current_song.title}}
-  </p>
 
-  <p *ngIf="uid"
-     class="navbar-text pull-right glyph-margin">
-    <a [routerLink]="['/project', {outlets: {'project': ['user', uid,'messages']}}]"
-       class="navbar-link padding-right-default">
-      <span class="glyphicon glyphicon-bell"></span>
-    </a>
+    </div>
 
-    <a (click)="openSongQueue()"
-       class="navbar-link padding-right-default">
-      <span class="glyphicon glyphicon-th-list"></span>
-    </a>
+    <div class="p-footer">
+      &nbsp;&nbsp;{{current_song.title}}
+    </div>
 
-    <a (click)="openProfileHome()"
-       class="navbar-link padding-right-default">
-      <span class="glyphicon glyphicon-user"></span>
-    </a>
-  </p>
+    <div *ngIf="uid"
+       class="p-footer-right glyph-margin">
+      <a [routerLink]="['/project', {outlets: {'project': ['user', uid,'messages']}}]"
+         class="navbar-link padding-right-default">
+        <span class="glyphicon glyphicon-bell"></span>
+      </a>
+
+      <a (click)="openSongQueue()"
+         class="navbar-link padding-right-default">
+        <span class="glyphicon glyphicon-th-list"></span>
+      </a>
+
+      <a (click)="openProfileHome()"
+         class="navbar-link padding-right-default">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+    </div>
   </div>
 </nav>
