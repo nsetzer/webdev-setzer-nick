@@ -21,8 +21,6 @@ export class LoginComponent implements OnInit {
   invalid_password: boolean
   error_message: string = ""
 
-  facebook_auth_url = environment.baseUrl + '/api/facebook'
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _service: UserService,

@@ -49,16 +49,14 @@
     <li *ngFor="let song of songs; let i = index"
          class="list-group-item list-item-borderless p-list-item">
 
-
-        {{song.index}}. {{song.title}}
+        {{song.index}}.%nbsp;
+        <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]">
+        {{song.title}}
+        </a>
 
         <div class ="pull-right p-list-item-icons">
             <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]">
             <span class="glyphicon glyphicon-search padding-right-default"></span>
-            </a>
-
-            <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]">
-            <span class="glyphicon glyphicon-info-sign padding-right-default"></span>
             </a>
 
             <a (click)="delete(i)">

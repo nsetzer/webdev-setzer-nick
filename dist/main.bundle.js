@@ -485,7 +485,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/page/page-edit/page-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid + '/website/' + wid + '/page']\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Page</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"pageName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"current_page.name\"\n             name=\"pageName\"\n             class=\"form-control\"\n             placeholder=\"Page Name\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"pageDescription\">Page Title</label>\n      <input type=\"text\"\n             [(ngModel)]=\"current_page.title\"\n             name=\"pageTitle\"\n             class=\"form-control\"\n             placeholder=\"Page Title\"\n             required/>\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"delete()\" >Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid + '/website/' + wid + '/page']\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Page</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"pageName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"current_page.name\"\n             name=\"pageName\"\n             class=\"form-control\"\n             placeholder=\"Page Name\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A website name is required</div>\n\n    <div class=\"form-group\">\n      <label for=\"pageDescription\">Page Title</label>\n      <input type=\"text\"\n             [(ngModel)]=\"current_page.title\"\n             name=\"pageTitle\"\n             class=\"form-control\"\n             placeholder=\"Page Title\"\n             required/>\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"delete()\" >Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -519,6 +519,7 @@ var PageEditComponent = (function () {
         this.pid = "";
         this.current_page = { name: "", title: "" };
         this.error_message = "";
+        this.invalid_name = false;
     }
     PageEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -538,6 +539,10 @@ var PageEditComponent = (function () {
     };
     PageEditComponent.prototype.saveChanges = function () {
         var _this = this;
+        if (this.current_page.name === "") {
+            this.invalid_name = true;
+            return;
+        }
         this._service.updatePage(this.pid, this.current_page).subscribe(function (res) {
             _this.router.navigate(["/user/" + _this.uid + "/website/" + _this.wid + "/page"]);
         }, function (err) {
@@ -677,7 +682,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/page/page-new/page-new.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid + '/website/' + wid + '/page']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>New Page</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"pageName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"current_page.name\"\n             name=\"pageName\"\n             class=\"form-control\"\n             placeholder=\"Page Name\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"pageDescription\">Page Title</label>\n      <input type=\"text\"\n             [(ngModel)]=\"current_page.title\"\n             name=\"pageTitle\"\n             class=\"form-control\"\n             placeholder=\"Page Title\"\n             required/>\n    </div>\n  </form>\n\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid + '/website/' + wid + '/page']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>New Page</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"pageName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"current_page.name\"\n             name=\"pageName\"\n             class=\"form-control\"\n             placeholder=\"Page Name\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A website name is required</div>\n\n\n    <div class=\"form-group\">\n      <label for=\"pageDescription\">Page Title</label>\n      <input type=\"text\"\n             [(ngModel)]=\"current_page.title\"\n             name=\"pageTitle\"\n             class=\"form-control\"\n             placeholder=\"Page Title\"\n             required/>\n    </div>\n  </form>\n\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -711,6 +716,7 @@ var PageNewComponent = (function () {
         this.pid = "";
         this.current_page = { name: "", title: "" };
         this.error_message = "";
+        this.invalid_name = false;
     }
     PageNewComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -729,6 +735,10 @@ var PageNewComponent = (function () {
     };
     PageNewComponent.prototype.saveChanges = function () {
         var _this = this;
+        if (this.current_page.name === "") {
+            this.invalid_name = true;
+            return;
+        }
         this._service.createPage(this.wid, this.current_page).subscribe(function (res) {
             _this.router.navigate(["/user/" + _this.uid + "/website/" + _this.wid + "/page"]);
         }, function (err) {
@@ -773,7 +783,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/user/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container\">\n\n    <h1 (click)=\"username='alice'; password='alice'\">Login</h1>\n\n    <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n    </div>\n\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required\n             autofocus\n             />\n      <div *ngIf=\"invalid_username\" class=\"help-block\">\n        Username not Found\n      </div>\n\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required\n             />\n      <div *ngIf=\"invalid_password\" class=\"help-block\">\n        Invalid Username or Password\n      </div>\n\n      <button type=\"submit\" [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['/register']\">Register</a>\n\n    <a href=\"/api/facebook?mode=assignment\" class=\"btn btn-primary\">\n      <span class=\"fa fa-facebook\"></span>\n      Facebook\n    </a>\n\n\n\n</div>"
+module.exports = "\n<div class=\"container\">\n\n    <h1 (click)=\"username='alice'; password='alice'\">Login</h1>\n\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required\n             autofocus\n             autocomplete=\"on\"\n             autocorrect=\"off\"\n             autocapitalize=\"off\"\n             spellcheck=\"false\"\n             />\n      <div *ngIf=\"invalid_username\" class=\"alert alert-danger\">\n        Username not Found\n      </div>\n\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required\n             autocomplete=\"on\"\n             autocorrect=\"off\"\n             autocapitalize=\"off\"\n             spellcheck=\"false\"\n             />\n      <div *ngIf=\"invalid_password\" class=\"alert alert-danger\">\n        Invalid Username or Password\n      </div>\n\n      <button type=\"submit\" [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['/register']\">Register</a>\n\n    <a href=\"/api/facebook?mode=assignment\" class=\"btn btn-primary\">\n      <span class=\"fa fa-facebook\"></span>\n      Facebook\n    </a>\n\n\n\n</div>"
 
 /***/ }),
 
@@ -786,7 +796,6 @@ module.exports = "\n<div class=\"container\">\n\n    <h1 (click)=\"username='ali
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_shared_service_client__ = __webpack_require__("../../../../../src/app/services/shared.service.client.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -800,7 +809,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var LoginComponent = (function () {
     function LoginComponent(route, router, _service, _sharedService) {
         this.route = route;
@@ -808,7 +816,6 @@ var LoginComponent = (function () {
         this._service = _service;
         this._sharedService = _sharedService;
         this.error_message = "";
-        this.facebook_auth_url = __WEBPACK_IMPORTED_MODULE_4__environments_environment__["a" /* environment */].baseUrl + '/api/facebook';
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.username = "";
@@ -820,12 +827,22 @@ var LoginComponent = (function () {
         var _this = this;
         this.invalid_password = false;
         this.invalid_username = false;
-        this._service.login(this.username, this.password)
+        this._service.findUserByUsername(this.username)
             .subscribe(function (user) {
-            _this._sharedService.current_user = user;
-            _this.router.navigate(["/user/" + user._id]);
+            console.log("found user");
+            _this._service.login(_this.username, _this.password)
+                .subscribe(function (user) {
+                console.log("logged in");
+                _this._sharedService.current_user = user;
+                _this.router.navigate(["/user/" + user._id]);
+            }, function (err) {
+                console.log("logged in error");
+                _this.invalid_password = true;
+                _this.error_message = "Invalid username or password";
+            });
         }, function (err) {
-            _this.error_message = "Invalid username or password";
+            _this.invalid_username = true;
+            _this.error_message = "Invalid username";
         });
     };
     return LoginComponent;
@@ -865,7 +882,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/user/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--heading on the nav bar-->\n    <div class=\"profile-margin\">\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick \">\n        <b>Profile</b>\n      </a>\n    </p>\n    </div>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <div *ngIf=\"changes_saved\" class=\"help-block\">Changes Saved</div>\n\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n  </form>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/user/'+ uid + '/website']\">Websites</a>\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"logout()\">Logout</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--heading on the nav bar-->\n    <div class=\"profile-margin\">\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick \">\n        <b>Profile</b>\n      </a>\n    </p>\n    </div>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"changes_saved\" class=\"help-block\">Changes Saved</div>\n  <div *ngIf=\"error_message\" class=\"alert alert-danger\">{{error_message}}</div>\n\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A user name is required</div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n  </form>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/user/'+ uid + '/website']\">Websites</a>\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"logout()\">Logout</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -902,6 +919,7 @@ var ProfileComponent = (function () {
         this.error_message = "";
         this.user = new __WEBPACK_IMPORTED_MODULE_3__objects_user_object__["a" /* User */]("", "", "", "", "", "");
         this.changes_saved = false;
+        this.invalid_name = true;
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -924,12 +942,21 @@ var ProfileComponent = (function () {
         this._service.logout()
             .subscribe(function (data) {
             _this._sharedService.current_user = null;
-            _this.router.navigate(['/login']);
+            _this.router.navigate(['/']);
         });
     };
     ProfileComponent.prototype.saveChanges = function () {
-        this._service.updateUser(this.uid, this.user);
-        this.changes_saved = true;
+        var _this = this;
+        this.error_message = "";
+        this.invalid_name = false;
+        if (this.user.username === "") {
+            this.invalid_name = true;
+        }
+        this._service.updateUser(this.uid, this.user).subscribe(function () {
+            _this.changes_saved = true;
+        }, function (err) {
+            _this.error_message = "Unable to update user";
+        });
     };
     return ProfileComponent;
 }());
@@ -968,7 +995,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/user/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container-fluid container-margin\">\n  <h1>Register</h1>\n\n  <form name=\"form\" (ngSubmit)=\"register()\" #f=\"ngForm\">\n\n    <div *ngIf=\"error_message\" class=\"help-block\">\n      {{error_message}}\n    </div>\n\n\n    <input type=\"text\"\n           [(ngModel)]=\"firstName\"\n           name=\"firstName\"\n           placeholder=\"First Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"lastName\"\n           name=\"lastName\"\n           placeholder=\"Last Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"username\"\n           name=\"username\"\n           placeholder=\"username\"\n           class=\"form-control\"\n           required/>\n\n    <div *ngIf=\"invalid_username\" class=\"help-block\">Username Already Exists</div>\n\n    <input type=\"email\"\n           [(ngModel)]=\"email\"\n           name=\"email\"\n           placeholder=\"email\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password\"\n           name=\"password\"\n           placeholder=\"password\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password_check\"\n           name=\"password_check\"\n           placeholder=\"retype password\"\n           class=\"form-control\"\n           required/>\n\n    <div *ngIf=\"password!=password_check\" class=\"help-block\">Passwords do not match</div>\n\n  <button type=\"submit\" [disabled]=\"!f.valid\"\n          class=\"btn btn-primary btn-block\">Register</button>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n     [routerLink]=\"['/login']\">Cancel</a>\n\n</div>"
+module.exports = "\n<div class=\"container-fluid container-margin\">\n  <h1>Register</h1>\n\n  <form name=\"form\" (ngSubmit)=\"register()\" #f=\"ngForm\">\n\n    <input type=\"text\"\n           [(ngModel)]=\"firstName\"\n           name=\"firstName\"\n           placeholder=\"First Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"lastName\"\n           name=\"lastName\"\n           placeholder=\"Last Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"username\"\n           name=\"username\"\n           placeholder=\"username\"\n           class=\"form-control\"\n           required\n           autocomplete=\"on\"\n           autocorrect=\"off\"\n           autocapitalize=\"off\"\n           spellcheck=\"false\"/>\n\n    <div *ngIf=\"invalid_username\" class=\"alert alert-danger\">Username Already Exists</div>\n\n    <input type=\"email\"\n           [(ngModel)]=\"email\"\n           name=\"email\"\n           placeholder=\"email\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password\"\n           name=\"password\"\n           placeholder=\"password\"\n           class=\"form-control\"\n           required\n           autocomplete=\"on\"\n           autocorrect=\"off\"\n           autocapitalize=\"off\"\n           spellcheck=\"false\"/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password_check\"\n           name=\"password_check\"\n           placeholder=\"retype password\"\n           class=\"form-control\"\n           required\n           autocomplete=\"on\"\n           autocorrect=\"off\"\n           autocapitalize=\"off\"\n           spellcheck=\"false\"/>\n\n    <div *ngIf=\"invalid_password\" class=\"alert alert-danger\">Passwords do not match</div>\n\n  <button type=\"submit\" [disabled]=\"!f.valid\"\n          class=\"btn btn-primary btn-block\">Register</button>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n     [routerLink]=\"['/login']\">Cancel</a>\n\n</div>"
 
 /***/ }),
 
@@ -1020,35 +1047,29 @@ var RegisterComponent = (function () {
             this.invalid_password = true;
             return;
         }
-        /*this._service.createUser({
-             username:  this.username,
-             password:  this.password,
-             firstName: this.firstName,
-             lastName:  this.lastName,
-             email:     this.email
-        }).subscribe(
-         (user) => {
-          this.router.navigate(["/login"]);
-         },
-         (err) => {
-          let msg = JSON.parse(err._body)
-          this.error_message = msg.message;
-         }
-        );
-        */
-        var body = {
-            username: this.username,
-            password: this.password,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            email: this.email
-        };
-        this._service.register(body)
+        if (this.username === "") {
+            this.invalid_username = true;
+            return;
+        }
+        this._service.findUserByUsername(this.username)
             .subscribe(function (user) {
-            _this._sharedService.current_user = user;
-            _this.router.navigate(['/user/' + user._id]);
+            _this.invalid_username = true;
+            _this.error_message = "Invalid username";
         }, function (err) {
-            _this.error_message = err;
+            var body = {
+                username: _this.username,
+                password: _this.password,
+                firstName: _this.firstName,
+                lastName: _this.lastName,
+                email: _this.email
+            };
+            _this._service.register(body)
+                .subscribe(function (user) {
+                _this._sharedService.current_user = user;
+                _this.router.navigate(['/user/' + user._id]);
+            }, function (err) {
+                _this.error_message = err;
+            });
         });
     };
     return RegisterComponent;
@@ -1088,7 +1109,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/website/website-edit/website-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n      <div class=\"col-sm-4 hidden-xs padding-none\" >\n\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/user/'+ uid + '/website']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>Website</b>\n        </a>\n\n        <!--tick mark-->\n        <!--TODO: link?-->\n        <p class=\"navbar-text pull-right glyph-padding-short\">\n          <a [routerLink]=\"['/user/'+ uid + '/website/new']\"\n             class=\"navbar-link\">\n            <span class=\"glyphicon glyphicon-plus\"></span>\n          </a>\n        </p>\n\n      </div>\n\t  <!-- end lhs column-->\n\n      <!-- rhs (small) column-->\n      <div class=\"col-sm-8 hidden-xs padding-left-default padding-right-none\">\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>Edit Website</b>\n        </a>\n        <!--tick mark-->\n        <p class=\"navbar-text pull-right glyph-margin\">\n          <a class=\"navbar-link\"\n             (click)=\"saveChanges()\">\n            <span class=\"glyphicon glyphicon-ok padding-right-default\"></span>\n          </a>\n        </p>\n      </div>\n\t  <!-- end rhs column-->\n      <!-- rhs (normal) column-->\n      <div class=\"col-xs-12 hidden-sm padding-left-default padding-right-none\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/user/'+ uid + '/website']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>Edit Website</b>\n        </a>\n        <!--tick mark-->\n        <p class=\"navbar-text pull-right glyph-margin\">\n          <a class=\"navbar-link\"\n             (click)=\"saveChanges()\">\n            <span class=\"glyphicon glyphicon-ok padding-right-default\"></span>\n          </a>\n        </p>\n      </div> <!-- end rhs (normal) column-->\n      </div> <!-- end row-->\n  </div>\n\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n  <div class=\"row\">\n    <div class=\"col-sm-4 hidden-xs padding-none\">\n\n        <div *ngIf=\"websites.length===0\" class=\"help-block\">\n          No Websites to display\n        </div>\n\n        <ul class=\"list-group\" *ngIf=\"websites.length>0\">\n          <li *ngFor=\"let website of websites\"\n              class=\"list-group-item list-item-borderless\">\n\n              <a [routerLink]=\"['/user/'+uid+'/website/'+website._id + '/page']\">{{website.name}}</a>\n\n              <a [routerLink]=\"['/user/'+uid+'/website/'+website._id]\"\n                 class=\"pull-right\">\n                <span class=\"glyphicon glyphicon-cog\"></span>\n              </a>\n        </li>\n        </ul>\n\n    </div>\n    <div class=\"col-xs-12 col-sm-8 padding-content\">\n\n      <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n      </div>\n\n      <form>\n        <div class=\"form-group\">\n          <label for=\"websiteName\">Website Name</label>\n          <input type=\"text\"\n             [(ngModel)]=\"current_site.name\"\n             name=\"websiteName\"\n             class=\"form-control\"\n             placeholder=\"Website Name\"\n             required/>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"websiteDescription\">Website Description</label>\n          <textarea rows=\"5\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"current_site.description\"\n                    name=\"description\"\n                    id=\"websiteDescription\">{{current_site.description}}</textarea>\n        </div>\n      </form>\n      <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n    </div>\n  </div>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
+module.exports = "\n  <nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n    <div class=\"container-fluid\">\n\n      <div class=\"row\">\n      <div class=\"col-sm-4 hidden-xs padding-none\" >\n\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/user/'+ uid + '/website']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>Website</b>\n        </a>\n\n        <!--tick mark-->\n        <!--TODO: link?-->\n        <p class=\"navbar-text pull-right glyph-padding-short\">\n          <a [routerLink]=\"['/user/'+ uid + '/website/new']\"\n             class=\"navbar-link\">\n            <span class=\"glyphicon glyphicon-plus\"></span>\n          </a>\n        </p>\n\n      </div>\n\t  <!-- end lhs column-->\n\n      <!-- rhs (small) column-->\n      <div class=\"col-sm-8 hidden-xs padding-left-default padding-right-none\">\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>Edit Website</b>\n        </a>\n        <!--tick mark-->\n        <p class=\"navbar-text pull-right glyph-margin\">\n          <a class=\"navbar-link\"\n             (click)=\"saveChanges()\">\n            <span class=\"glyphicon glyphicon-ok padding-right-default\"></span>\n          </a>\n        </p>\n      </div>\n\t  <!-- end rhs column-->\n      <!-- rhs (normal) column-->\n      <div class=\"col-xs-12 hidden-sm padding-left-default padding-right-none\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/user/'+ uid + '/website']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>Edit Website</b>\n        </a>\n        <!--tick mark-->\n        <p class=\"navbar-text pull-right glyph-margin\">\n          <a class=\"navbar-link\"\n             (click)=\"saveChanges()\">\n            <span class=\"glyphicon glyphicon-ok padding-right-default\"></span>\n          </a>\n        </p>\n      </div> <!-- end rhs (normal) column-->\n      </div> <!-- end row-->\n  </div>\n\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n  <div class=\"row\">\n    <div class=\"col-sm-4 hidden-xs padding-none\">\n\n        <div *ngIf=\"websites.length===0\" class=\"help-block\">\n          No Websites to display\n        </div>\n\n        <ul class=\"list-group\" *ngIf=\"websites.length>0\">\n          <li *ngFor=\"let website of websites\"\n              class=\"list-group-item list-item-borderless\">\n\n              <a [routerLink]=\"['/user/'+uid+'/website/'+website._id + '/page']\">{{website.name}}</a>\n\n              <a [routerLink]=\"['/user/'+uid+'/website/'+website._id]\"\n                 class=\"pull-right\">\n                <span class=\"glyphicon glyphicon-cog\"></span>\n              </a>\n        </li>\n        </ul>\n\n    </div>\n    <div class=\"col-xs-12 col-sm-8 padding-content\">\n\n      <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n      </div>\n\n      <form>\n        <div class=\"form-group\">\n          <label for=\"websiteName\">Website Name</label>\n          <input type=\"text\"\n             [(ngModel)]=\"current_site.name\"\n             name=\"websiteName\"\n             class=\"form-control\"\n             placeholder=\"Website Name\"\n             required/>\n        </div>\n        <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A website name is required</div>\n\n        <div class=\"form-group\">\n          <label for=\"websiteDescription\">Website Description</label>\n          <textarea rows=\"5\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"current_site.description\"\n                    name=\"description\"\n                    id=\"websiteDescription\">{{current_site.description}}</textarea>\n        </div>\n      </form>\n      <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n    </div>\n  </div>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1120,6 +1141,7 @@ var WebsiteEditComponent = (function () {
         this.websites = [];
         this.current_site = { name: "", description: "" };
         this.error_message = "";
+        this.invalid_name = false;
     }
     WebsiteEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1148,6 +1170,10 @@ var WebsiteEditComponent = (function () {
     };
     WebsiteEditComponent.prototype.saveChanges = function () {
         var _this = this;
+        if (this.current_site.name === "") {
+            this.invalid_name = true;
+            return;
+        }
         this._service.updateWebsite(this.wid, this.current_site).subscribe(function (res) {
             _this.router.navigate(["/user/" + _this.uid + "/website"]);
         }, function (err) {
@@ -1284,7 +1310,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/website/website-new/website-new.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n    <div class=\"container-fluid\">\n      <div class=\"row\">\n\n      <!-- lhs column-->\n      <div class=\"col-sm-4 hidden-xs padding-none\" >\n\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/user/'+ uid + '/website']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>Website</b>\n        </a>\n\n        <!--plus icon -->\n        <!--TODO: link?-->\n        <p class=\"navbar-text pull-right glyph-padding-short\">\n          <a [routerLink]=\"['/user/'+ uid + '/website/new']\"\n             class=\"navbar-link\">\n            <span class=\"glyphicon glyphicon-plus\"></span>\n          </a>\n        </p>\n\n      </div>\n\t  <!-- end lhs column-->\n\n      <!-- rhs (small) column-->\n      <div class=\"col-sm-8 hidden-xs padding-left-default padding-right-none\">\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>New Website</b>\n        </a>\n        <!--tick mark-->\n        <p class=\"navbar-text pull-right glyph-margin\">\n          <a class=\"navbar-link\"\n             (click)=\"saveChanges()\">\n            <span class=\"glyphicon glyphicon-ok padding-right-default\"></span>\n          </a>\n        </p>\n      </div>\n\t  <!-- end rhs column-->\n      <!-- rhs (normal) column-->\n      <div class=\"col-xs-12 hidden-sm padding-left-default padding-right-none\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/user/'+ uid + '/website']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>New Website</b>\n        </a>\n        <!--tick mark-->\n        <p class=\"navbar-text pull-right glyph-margin\">\n          <a class=\"navbar-link\"\n             (click)=\"saveChanges()\">\n            <span class=\"glyphicon glyphicon-ok padding-right-default\"></span>\n          </a>\n        </p>\n      </div> <!-- end rhs (normal) column-->\n      </div> <!-- end row-->\n  </div>\n\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n  <div class=\"row\">\n    <div class=\"col-sm-4 hidden-xs padding-none\">\n\n        <div *ngIf=\"websites.length===0\" class=\"help-block\">\n          No Websites to display\n        </div>\n\n        <ul class=\"list-group\" *ngIf=\"websites.length>0\">\n          <li *ngFor=\"let website of websites\"\n              class=\"list-group-item list-item-borderless\">\n\n              <a [routerLink]=\"['/user/'+uid+'/website/'+website._id + '/page']\">{{website.name}}</a>\n\n              <a [routerLink]=\"['/user/'+uid+'/website/'+website._id]\"\n                 class=\"pull-right\">\n                <span class=\"glyphicon glyphicon-cog\"></span>\n              </a>\n        </li>\n        </ul>\n\n    </div>\n    <div class=\"col-xs-12 col-sm-8 padding-content\">\n      <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n      </div>\n\n      <form>\n        <div class=\"form-group\">\n          <label for=\"websiteName\">Website Name</label>\n          <input type=\"text\"\n             [(ngModel)]=\"current_site.name\"\n             name=\"websiteName\"\n                 class=\"form-control\"\n             placeholder=\"Website Name\"\n             required/>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"websiteDescription\">Website Description</label>\n          <textarea rows=\"5\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"current_site.description\"\n                    name=\"description\"\n                    id=\"websiteDescription\">{{current_site.description}}</textarea>\n        </div>\n      </form>\n    </div>\n  </div>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
+module.exports = "\n  <nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n    <div class=\"container-fluid\">\n      <div class=\"row\">\n\n      <!-- lhs column-->\n      <div class=\"col-sm-4 hidden-xs padding-none\" >\n\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/user/'+ uid + '/website']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>Website</b>\n        </a>\n\n        <!--plus icon -->\n        <!--TODO: link?-->\n        <p class=\"navbar-text pull-right glyph-padding-short\">\n          <a [routerLink]=\"['/user/'+ uid + '/website/new']\"\n             class=\"navbar-link\">\n            <span class=\"glyphicon glyphicon-plus\"></span>\n          </a>\n        </p>\n\n      </div>\n\t  <!-- end lhs column-->\n\n      <!-- rhs (small) column-->\n      <div class=\"col-sm-8 hidden-xs padding-left-default padding-right-none\">\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>New Website</b>\n        </a>\n        <!--tick mark-->\n        <p class=\"navbar-text pull-right glyph-margin\">\n          <a class=\"navbar-link\"\n             (click)=\"saveChanges()\">\n            <span class=\"glyphicon glyphicon-ok padding-right-default\"></span>\n          </a>\n        </p>\n      </div>\n\t  <!-- end rhs column-->\n      <!-- rhs (normal) column-->\n      <div class=\"col-xs-12 hidden-sm padding-left-default padding-right-none\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/user/'+ uid + '/website']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <a class=\"navbar-brand thick\">\n          <b>New Website</b>\n        </a>\n        <!--tick mark-->\n        <p class=\"navbar-text pull-right glyph-margin\">\n          <a class=\"navbar-link\"\n             (click)=\"saveChanges()\">\n            <span class=\"glyphicon glyphicon-ok padding-right-default\"></span>\n          </a>\n        </p>\n      </div> <!-- end rhs (normal) column-->\n      </div> <!-- end row-->\n  </div>\n\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n  <div class=\"row\">\n    <div class=\"col-sm-4 hidden-xs padding-none\">\n\n        <div *ngIf=\"websites.length===0\" class=\"help-block\">\n          No Websites to display\n        </div>\n\n        <ul class=\"list-group\" *ngIf=\"websites.length>0\">\n          <li *ngFor=\"let website of websites\"\n              class=\"list-group-item list-item-borderless\">\n\n              <a [routerLink]=\"['/user/'+uid+'/website/'+website._id + '/page']\">{{website.name}}</a>\n\n              <a [routerLink]=\"['/user/'+uid+'/website/'+website._id]\"\n                 class=\"pull-right\">\n                <span class=\"glyphicon glyphicon-cog\"></span>\n              </a>\n        </li>\n        </ul>\n\n    </div>\n    <div class=\"col-xs-12 col-sm-8 padding-content\">\n      <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n      </div>\n\n      <form>\n        <div class=\"form-group\">\n          <label for=\"websiteName\">Website Name</label>\n          <input type=\"text\"\n             [(ngModel)]=\"current_site.name\"\n             name=\"websiteName\"\n                 class=\"form-control\"\n             placeholder=\"Website Name\"\n             required/>\n        </div>\n        <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A website name is required</div>\n\n        <div class=\"form-group\">\n          <label for=\"websiteDescription\">Website Description</label>\n          <textarea rows=\"5\"\n                    class=\"form-control\"\n                    [(ngModel)]=\"current_site.description\"\n                    name=\"description\"\n                    id=\"websiteDescription\">{{current_site.description}}</textarea>\n        </div>\n      </form>\n    </div>\n  </div>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1316,6 +1342,7 @@ var WebsiteNewComponent = (function () {
         this.websites = [];
         this.current_site = { name: "", description: "" };
         this.error_message = "";
+        this.invalid_name = false;
     }
     WebsiteNewComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1338,6 +1365,10 @@ var WebsiteNewComponent = (function () {
     };
     WebsiteNewComponent.prototype.saveChanges = function () {
         var _this = this;
+        if (this.current_site.name === "") {
+            this.invalid_name = true;
+            return;
+        }
         this._service.createWebsite(this.uid, this.current_site).subscribe(function (res) {
             _this.router.navigate(["/user/" + _this.uid + "/website"]);
         }, function (err) {
@@ -1603,7 +1634,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-header/widget-header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"titleText\">Title Text</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.text\"\n             name=\"widgetText\"\n             placeholder=\"Title Text\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetSize\">Size</label>\n      <input type=\"number\"\n             [(ngModel)]=\"widget.size\"\n             name=\"widgetSize\"\n             placeholder=\"Heading Size\"\n             class=\"form-control\"\n             required/>\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A widget name is required</div>\n\n\n    <div class=\"form-group\">\n      <label for=\"titleText\">Title Text</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.text\"\n             name=\"widgetText\"\n             placeholder=\"Title Text\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetSize\">Size</label>\n      <input type=\"number\"\n             [(ngModel)]=\"widget.size\"\n             name=\"widgetSize\"\n             placeholder=\"Heading Size\"\n             class=\"form-control\"\n             required/>\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -1643,6 +1674,7 @@ var WidgetHeaderComponent = (function () {
         this.wgid = "";
         this.widget = new __WEBPACK_IMPORTED_MODULE_2__objects_widget_object__["a" /* Widget */]('', '', '');
         this.error_message = "";
+        this.invalid_name = false;
     }
     WidgetHeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1663,6 +1695,10 @@ var WidgetHeaderComponent = (function () {
     };
     WidgetHeaderComponent.prototype.saveChanges = function () {
         var _this = this;
+        if (this.widget.name === "") {
+            this.invalid_name = true;
+            return;
+        }
         this._service.updateWidget(this.wgid, this.widget).subscribe(function (widget) {
             var url = "/user/" + _this.uid +
                 "/website/" + _this.wid +
@@ -1724,7 +1760,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-html/widget-html.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <!--\n    <div class=\"form-group\">\n      <label for=\"widgetText\">Raw HTML</label>\n      <textarea rows=\"5\"\n                class=\"form-control\"\n                [(ngModel)]=\"widget.text\"\n                name=\"widgetText\"\n                id=\"widgetText\">{{widget.text}}</textarea>\n    </div>\n    -->\n    <div class=\"form-group\">\n    <quill-editor [(ngModel)]=\"widget.text\" name=\"text\"></quill-editor>\n    </div>\n\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A widget name is required</div>\n\n    <!--\n    <div class=\"form-group\">\n      <label for=\"widgetText\">Raw HTML</label>\n      <textarea rows=\"5\"\n                class=\"form-control\"\n                [(ngModel)]=\"widget.text\"\n                name=\"widgetText\"\n                id=\"widgetText\">{{widget.text}}</textarea>\n    </div>\n    -->\n    <div class=\"form-group\">\n    <quill-editor [(ngModel)]=\"widget.text\" name=\"text\"></quill-editor>\n    </div>\n\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -1764,6 +1800,7 @@ var WidgetHtmlComponent = (function () {
         this.pid = "";
         this.wgid = "";
         this.widget = new __WEBPACK_IMPORTED_MODULE_2__objects_widget_object__["a" /* Widget */]('', '', '');
+        this.invalid_name = false;
     }
     WidgetHtmlComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1784,6 +1821,10 @@ var WidgetHtmlComponent = (function () {
     };
     WidgetHtmlComponent.prototype.saveChanges = function () {
         var _this = this;
+        if (this.widget.name === "") {
+            this.invalid_name = true;
+            return;
+        }
         this._service.updateWidget(this.wgid, this.widget).subscribe(function (widget) {
             var url = "/user/" + _this.uid +
                 "/website/" + _this.wid +
@@ -1967,7 +2008,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-image/widget-image.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_link\" class=\"help-block\">You must supply an image link</div>\n\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n\n  <form name=\"myForm\" #myForm\n        method=\"post\" enctype=\"multipart/form-data\">\n     <input  name=\"myFile\" #myFile type=\"file\"     class=\"form-control\"/>\n     <button type=\"button\" (click)=\"uploadImage()\"\n             class=\"btn btn-block btn-primary\">Upload Image</button>\n     <span class=\"small text-danger ml-2\"\n            *ngIf=\"invalid_file\">Please Select a File to Upload</span>\n  </form>\n\n  <a class=\"btn btn-primary btn-block\"\n         (click)=\"searchFlickr()\">Search Flickr</a>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A widget name is required</div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_link\" class=\"help-block\">You must supply an image link</div>\n\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n\n  <form name=\"myForm\" #myForm\n        method=\"post\" enctype=\"multipart/form-data\">\n     <input  name=\"myFile\" #myFile type=\"file\"     class=\"form-control\"/>\n     <button type=\"button\" (click)=\"uploadImage()\"\n             class=\"btn btn-block btn-primary\">Upload Image</button>\n     <span class=\"small text-danger ml-2\"\n            *ngIf=\"invalid_file\">Please Select a File to Upload</span>\n  </form>\n\n  <a class=\"btn btn-primary btn-block\"\n         (click)=\"searchFlickr()\">Search Flickr</a>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -2010,6 +2051,7 @@ var WidgetImageComponent = (function () {
         this.wgid = "";
         this.widget = new __WEBPACK_IMPORTED_MODULE_2__objects_widget_object__["a" /* Widget */]('', '', '');
         this.error_message = "";
+        this.invalid_name = false;
         this.invalid_width = false;
         this.invalid_link = false;
         this.invalid_file = false;
@@ -2033,6 +2075,10 @@ var WidgetImageComponent = (function () {
     };
     WidgetImageComponent.prototype.saveChanges = function () {
         var _this = this;
+        if (this.widget.name === "") {
+            this.invalid_name = true;
+            return;
+        }
         this.invalid_width = false;
         this.invalid_link = false;
         if (!this.widget.width.endsWith("px") &&
@@ -2140,7 +2186,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-text/widget-text.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n\n<label for=\"widget.text\">Text</label>\n<input [(ngModel)]=\"widget.text\" class=\"form-control\"/>\n\n<label for=\"widget.rows\">Rows</label>\n<input [(ngModel)]=\"widget.rows\" class=\"form-control\" type=\"number\"/>\n\n<label for=\"widget.name\">Name</label>\n<div>\n  <input [(ngModel)]=\"widget.name\"\n         type=\"text\"\n         class=\"form-control\"\n         id=\"Name\"\n         name=\"name\"\n         placeholder=\"Name\">\n</div>\n\n<label for=\"widget.placeholder\">Placeholder</label>\n<input [(ngModel)]=\"widget.placeholder\" class=\"form-control\" required/>\n\n<p></p>\n<div class=\"input-group\">\n  <input type=\"text\"\n         readonly\n         value=\"Formatted\"\n         class=\"form-control\"/>\n  <span class=\"input-group-addon\">\n    <input [(ngModel)]=\"widget.formatted\"\n           type=\"checkbox\"/>\n   </span>\n</div>\n<p></p>\n<a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n\n<label for=\"widget.text\">Text</label>\n<input [(ngModel)]=\"widget.text\" class=\"form-control\"/>\n\n<label for=\"widget.rows\">Rows</label>\n<input [(ngModel)]=\"widget.rows\" class=\"form-control\" type=\"number\"/>\n\n<label for=\"widget.name\">Name</label>\n<div>\n  <input [(ngModel)]=\"widget.name\"\n         type=\"text\"\n         class=\"form-control\"\n         id=\"Name\"\n         name=\"name\"\n         placeholder=\"Name\">\n</div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A widget name is required</div>\n\n<label for=\"widget.placeholder\">Placeholder</label>\n<input [(ngModel)]=\"widget.placeholder\" class=\"form-control\" required/>\n\n<p></p>\n<div class=\"input-group\">\n  <input type=\"text\"\n         readonly\n         value=\"Formatted\"\n         class=\"form-control\"/>\n  <span class=\"input-group-addon\">\n    <input [(ngModel)]=\"widget.formatted\"\n           type=\"checkbox\"/>\n   </span>\n</div>\n<p></p>\n<a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -2180,6 +2226,7 @@ var WidgetTextComponent = (function () {
         this.pid = "";
         this.wgid = "";
         this.widget = new __WEBPACK_IMPORTED_MODULE_2__objects_widget_object__["a" /* Widget */]('', '', '');
+        this.invalid_name = false;
     }
     WidgetTextComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -2200,6 +2247,10 @@ var WidgetTextComponent = (function () {
     };
     WidgetTextComponent.prototype.saveChanges = function () {
         var _this = this;
+        if (this.widget.name === "") {
+            this.invalid_name = true;
+            return;
+        }
         this._service.updateWidget(this.wgid, this.widget).subscribe(function (widget) {
             var url = "/user/" + _this.uid +
                 "/website/" + _this.wid +
@@ -2261,7 +2312,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/assignment/widget/widget-edit/widget-youtube/widget-youtube.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_link\" class=\"help-block\">You must supply a youtube link</div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left  glyph-margin\">\n      <a [routerLink]=\"['/user/'+uid+'/website/' + wid + '/page/' + pid + '/widget']\"\n         class=\"navbar-link navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Widget</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"widgetName\">Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.name\"\n             name=\"widgetName\"\n             placeholder=\"Widget Name\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A widget name is required</div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetUrl\">URL</label>\n      <input type=\"text\"\n             [(ngModel)]=\"widget.url\"\n             name=\"widgetUrl\"\n             placeholder=\"url\"\n             class=\"form-control\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_link\" class=\"help-block\">You must supply a youtube link</div>\n\n    <div class=\"form-group\">\n      <label for=\"widgetWidth\">Width</label>\n      <!-- 100px and 100% are valid-->\n      <input type=\"text\"\n             [(ngModel)]=\"widget.width\"\n             name=\"widgetWidth\"\n             placeholder=\"Width (percentage)\"\n             class=\"form-control\"\n             required/>\n    <div *ngIf=\"invalid_width\" class=\"help-block\">Width must be in the form of \"100px\" or \"100%\"</div>\n\n    </div>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n         (click)=\"delete()\">Delete</a>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  <p class=\"navbar-text pull-right glyph-margin\">\n    <a [routerLink]=\"['/user/'+uid]\"\n       class=\"navbar-link\">\n      <span class=\"glyphicon glyphicon-user\"></span>\n    </a>\n  </p>\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -2301,6 +2352,7 @@ var WidgetYoutubeComponent = (function () {
         this.wgid = "";
         this.widget = new __WEBPACK_IMPORTED_MODULE_2__objects_widget_object__["a" /* Widget */]('', '', '');
         this.error_message = "";
+        this.invalid_name = false;
         this.invalid_width = false;
         this.invalid_link = false;
     }
@@ -4101,7 +4153,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-songs.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar\n    <p class=\"navbar-header pull-left p-header\">\n      <a class=\"navbar-brand thick\">\n        <b></b>\n      </a>\n    </p>\n-->\n    <div class=\"navbar-brand p-header\">\n      <b>{{playlist.name}}</b>\n    </div>\n\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"uploadSong()\"\n         *ngIf=\"isSuperUser()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-cloud-upload\"></span>\n      </a>\n\n      <a (click)=\"addSongs()\" class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-plus\"></span>\n      </a>\n\n      <a (click)=\"saveChanges()\" class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && songs\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of songs; let i = index\"\n         class=\"list-group-item list-item-borderless p-list-item\">\n\n\n        {{song.index}}. {{song.title}}\n\n        <div class =\"pull-right p-list-item-icons\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]\">\n            <span class=\"glyphicon glyphicon-search padding-right-default\"></span>\n            </a>\n\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]\">\n            <span class=\"glyphicon glyphicon-info-sign padding-right-default\"></span>\n            </a>\n\n            <a (click)=\"delete(i)\">\n              <span class=\"glyphicon glyphicon-trash padding-right-default\"></span>\n            </a>\n\n        </div>\n\n    </li>\n</ul>\n\n</div>"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar\n    <p class=\"navbar-header pull-left p-header\">\n      <a class=\"navbar-brand thick\">\n        <b></b>\n      </a>\n    </p>\n-->\n    <div class=\"navbar-brand p-header\">\n      <b>{{playlist.name}}</b>\n    </div>\n\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"uploadSong()\"\n         *ngIf=\"isSuperUser()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-cloud-upload\"></span>\n      </a>\n\n      <a (click)=\"addSongs()\" class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-plus\"></span>\n      </a>\n\n      <a (click)=\"saveChanges()\" class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && songs\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of songs; let i = index\"\n         class=\"list-group-item list-item-borderless p-list-item\">\n\n        {{song.index}}.%nbsp;\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]\">\n        {{song.title}}\n        </a>\n\n        <div class =\"pull-right p-list-item-icons\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]\">\n            <span class=\"glyphicon glyphicon-search padding-right-default\"></span>\n            </a>\n\n            <a (click)=\"delete(i)\">\n              <span class=\"glyphicon glyphicon-trash padding-right-default\"></span>\n            </a>\n\n        </div>\n\n    </li>\n</ul>\n\n</div>"
 
 /***/ }),
 
@@ -5091,7 +5143,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-home/project-home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div>\n    <router-outlet name=\"project\"></router-outlet>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n    <div class=\"navbar-text pull-left glyph-margin\">\n      <audio\n         name=\"audioPlayer\"\n         #audioPlayer\n         width=0px\n         height=0px>\n        <source src=\"\" type=\"audio/mp3\">\n      </audio>\n\n      <a (click)=\"playPauseClicked()\"\n         class=\"navbar-link\">\n\n        <span class=\"glyphicon glyphicon-warning-sign\" *ngIf=\"song_load_error\"></span>\n        <span class=\"glyphicon glyphicon-play\" *ngIf=\"!song_load_error && !audioPlayer.error && audioPlayer.paused\"></span>\n        <span class=\"glyphicon glyphicon-pause\" *ngIf=\"!song_load_error && !audioPlayer.error && !audioPlayer.paused\"></span>\n        <span class=\"glyphicon glyphicon-stop\" *ngIf=\"!song_load_error && audioPlayer.error\"></span>\n      </a>\n\n      <a (click)=\"loadNextSong()\"\n         class=\"navbar-link padding-left-default \">\n        <span class=\"glyphicon glyphicon-forward\"></span>\n      </a>\n\n\n    </div>\n\n    <div class=\"p-footer\">\n      &nbsp;&nbsp;{{current_song.title}}\n    </div>\n\n    <div *ngIf=\"uid\"\n       class=\"p-footer-right glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid,'messages']}}]\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-bell\"></span>\n      </a>\n\n      <a (click)=\"openSongQueue()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-th-list\"></span>\n      </a>\n\n      <a (click)=\"openProfileHome()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-user\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "\n<div>\n    <router-outlet name=\"project\"></router-outlet>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n    <div class=\"navbar-text glyph-margin padding-left-none p-footer\">\n      <audio\n         name=\"audioPlayer\"\n         #audioPlayer\n         width=0px\n         height=0px>\n        <source src=\"\" type=\"audio/mp3\">\n      </audio>\n\n      <a (click)=\"playPauseClicked()\"\n         class=\"navbar-link\">\n\n        <span class=\"glyphicon glyphicon-warning-sign\" *ngIf=\"song_load_error\"></span>\n        <span class=\"glyphicon glyphicon-play\" *ngIf=\"!song_load_error && !audioPlayer.error && audioPlayer.paused\"></span>\n        <span class=\"glyphicon glyphicon-pause\" *ngIf=\"!song_load_error && !audioPlayer.error && !audioPlayer.paused\"></span>\n        <span class=\"glyphicon glyphicon-stop\" *ngIf=\"!song_load_error && audioPlayer.error\"></span>\n      </a>\n\n      <a (click)=\"loadNextSong()\"\n         class=\"navbar-link padding-left-default \">\n        <span class=\"glyphicon glyphicon-forward\"></span>\n      </a>\n\n      <!--<div class=\"p-footer\" style=\"background-color:red\">-->\n      &nbsp;&nbsp;{{current_song.title}}\n\n    </div>\n\n\n\n    <div *ngIf=\"uid\"\n       class=\"p-footer-right glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid,'messages']}}]\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-bell\"></span>\n      </a>\n\n      <a (click)=\"openSongQueue()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-th-list\"></span>\n      </a>\n\n      <a (click)=\"openProfileHome()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-user\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -5307,7 +5359,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-login/project-login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container\">\n\n    <h1  (click)=\"username='alice'; password='alice'\">Login</h1>\n\n    <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n    </div>\n\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required\n             autofocus\n             />\n      <div *ngIf=\"invalid_username\" class=\"help-block\">\n        Username not Found\n      </div>\n\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required\n             />\n      <div *ngIf=\"invalid_password\" class=\"help-block\">\n        Invalid Username or Password\n      </div>\n\n      <button type=\"submit\" [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['project/register']\">Register</a>\n\n    <a href=\"/api/facebook?mode=project\" class=\"btn btn-primary\">\n      <span class=\"fa fa-facebook\"></span>\n      Facebook\n    </a>\n\n</div>"
+module.exports = "\n<div class=\"container\">\n\n    <h1  (click)=\"username='alice'; password='alice'\">Login</h1>\n\n    <form name=\"form\" (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\"\n             [(ngModel)]=\"username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             required\n             autofocus\n             autocomplete=\"on\"\n             autocorrect=\"off\"\n             autocapitalize=\"off\"\n             spellcheck=\"false\"\n             />\n      <div *ngIf=\"invalid_username\" class=\"alert alert-danger\">\n        Username not Found\n      </div>\n\n      <input type=\"password\"\n             [(ngModel)]=\"password\"\n             name=\"password\"\n             placeholder=\"password\"\n             class=\"form-control\"\n             required\n             autocomplete=\"on\"\n             autocorrect=\"off\"\n             autocapitalize=\"off\"\n             spellcheck=\"false\"\n             />\n      <div *ngIf=\"invalid_password\" class=\"alert alert-danger\">\n        Invalid Username or Password\n      </div>\n\n      <button type=\"submit\" [disabled]=\"!f.valid\"\n              class=\"btn btn-primary btn-block\">Login</button>\n\n    </form>\n\n    <a class=\"btn btn-success btn-block\"\n       [routerLink]=\"['project/register']\">Register</a>\n\n    <a href=\"/api/facebook?mode=project\" class=\"btn btn-primary\">\n      <span class=\"fa fa-facebook\"></span>\n      Facebook\n    </a>\n\n</div>"
 
 /***/ }),
 
@@ -5349,12 +5401,24 @@ var ProjectLoginComponent = (function () {
     };
     ProjectLoginComponent.prototype.login = function () {
         var _this = this;
-        this._service.login(this.username, this.password)
+        this.invalid_password = false;
+        this.invalid_username = false;
+        this._service.findUserByUsername(this.username)
             .subscribe(function (user) {
-            _this._sharedService.current_user = user;
-            _this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
+            console.log("found user");
+            _this._service.login(_this.username, _this.password)
+                .subscribe(function (user) {
+                console.log("logged in");
+                _this._sharedService.current_user = user;
+                _this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
+            }, function (err) {
+                console.log("logged in error");
+                _this.invalid_password = true;
+                _this.error_message = "Invalid username or password";
+            });
         }, function (err) {
-            _this.error_message = "Invalid username or password";
+            _this.invalid_username = true;
+            _this.error_message = "Invalid username";
         });
     };
     return ProjectLoginComponent;
@@ -5394,7 +5458,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-profile-public/project-profile-public.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <!--\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', 'search']}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n      -->\n\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a (click)=\"back()\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>{{user_public.username}}</b>\n      </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n      <div class=\"col-xs-6 col-md-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/project/search/pl']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>{{user_public.username}}</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-3 col-md-2 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-3 col-md-2 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n      User Name: {{user_public.username}}<br>\n      Name: {{user_public.firstName}} {{user_public.lastName}}<br>\n      Email: {{user_public.email}}<br>\n\n<div *ngIf=\"uid\">\n\n<div *ngIf=\"isConnected\">\n  <a class=\"btn btn-primary btn-block\"\n     (click)=\"unfollow()\">\n     Unfollow</a>\n</div>\n\n<div *ngIf=\"!isConnected\">\n  <a class=\"btn btn-primary btn-block\"\n     (click)=\"follow()\">\n     Follow</a>\n</div>\n\n</div>\n\n<br>\n<b>Playlists:</b>\n<br>\n<ul *ngIf=\"playlists.length>0\"\n    class=\"list-group\">\n <li *ngFor=\"let lst of playlists\"\n     class=\"list-group-item\">\n       {{lst.name}}\n\n        <div class =\"pull-right\">\n            <a *ngIf=\"uid\"\n               (click)=\"copyPlaylist(lst)\">\n            <span class=\"glyphicon glyphicon-copy padding-right-default\"></span>\n            </a>\n\n            <a (click)=\"viewPlaylist(lst)\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n </li>\n</ul>\n<div *ngIf=\"playlists.length===0\">\nNo Playlists to display\n</div>\n\n</div>\n\n"
+module.exports = "\n\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n\n      <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n        <a (click)=\"back()\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>User Profile</b>\n      </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n      <div class=\"col-xs-6 col-md-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a [routerLink]=\"['/project/search/pl']\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>{{user_public.username}}</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-3 col-md-2 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-3 col-md-2 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body \">\n\n  <div *ngIf=\"error_message\" class=\"help-block\">\n        {{error_message}}\n  </div>\n\n  <b>User Name:</b><br/>\n  {{user_public.username}}<br/>\n  <b>Name:</b><br/>\n  {{user_public.firstName}} {{user_public.lastName}}<br/>\n  <b>Email:</b><br/>\n  {{user_public.email}}<br>\n\n  <br/>\n\n  <div *ngIf=\"uid\">\n\n    <div *ngIf=\"isConnected\">\n      <a class=\"btn btn-primary btn-block\"\n         (click)=\"unfollow()\">\n         Unfollow</a>\n    </div>\n\n    <div *ngIf=\"!isConnected\">\n      <a class=\"btn btn-primary btn-block\"\n         (click)=\"follow()\">\n         Follow</a>\n    </div>\n  </div>\n\n  <br>\n  <b>Playlists:</b>\n  <br>\n  <ul *ngIf=\"playlists.length>0\" class=\"list-group\">\n   <li *ngFor=\"let lst of playlists\"\n       class=\"list-group-item list-item-borderless padding-left-none padding-right-none\">\n\n         <a (click)=\"viewPlaylist(lst)\">\n         {{lst.name}}\n         </a>\n\n          <div class =\"pull-right\">\n              <a *ngIf=\"uid\"\n                 (click)=\"copyPlaylist(lst)\">\n              <span class=\"glyphicon glyphicon-copy padding-left-default\"></span>\n              </a>\n\n          </div>\n   </li>\n  </ul>\n\n  <div *ngIf=\"playlists.length===0\">\n  No Playlists to display\n  </div>\n\n</div>\n\n"
 
 /***/ }),
 
@@ -5435,6 +5499,7 @@ var ProjectProfilePublicComponent = (function () {
         this.isConnected = false;
         this.user_public = { username: "", firstName: "", lastName: "", email: "" };
         this.playlists = [];
+        this.error_message = "";
     }
     ProjectProfilePublicComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -5451,14 +5516,14 @@ var ProjectProfilePublicComponent = (function () {
     };
     ProjectProfilePublicComponent.prototype.reload = function () {
         var _this = this;
-        this._service.findUserById(this.puid).subscribe(function (user) { _this.user_public = user; }, function (err) { });
-        /*
-        this._service.findUserById(this.uid).subscribe(
-          (user : User) => {this.user = user;},
-          (err : any) => { }
-          );
-        */
-        this._plservice.findPlaylistsByUser(this.puid).subscribe(function (lsts) { _this.playlists = lsts; }, function (err) { });
+        this._service.findUserById(this.puid).subscribe(function (user) { _this.user_public = user; }, function (err) {
+            var msg = JSON.parse(err._body);
+            _this.error_message = msg.message;
+        });
+        this._plservice.findPlaylistsByUser(this.puid).subscribe(function (lsts) { _this.playlists = lsts; }, function (err) {
+            var msg = JSON.parse(err._body);
+            _this.error_message = msg.message;
+        });
         if (this.uid) {
             this._socialService.isConnectedTo(this.uid, this.puid).subscribe(function (res) { _this.isConnected = res; }, function (err) { });
         }
@@ -5468,11 +5533,17 @@ var ProjectProfilePublicComponent = (function () {
     };
     ProjectProfilePublicComponent.prototype.follow = function () {
         var _this = this;
-        this._socialService.follow(this.uid, this.puid).subscribe(function (res) { _this.isConnected = true; }, function (err) { });
+        this._socialService.follow(this.uid, this.puid).subscribe(function (res) { _this.isConnected = true; }, function (err) {
+            var msg = JSON.parse(err._body);
+            _this.error_message = msg.message;
+        });
     };
     ProjectProfilePublicComponent.prototype.unfollow = function () {
         var _this = this;
-        this._socialService.unfollow(this.uid, this.puid).subscribe(function (res) { _this.isConnected = false; }, function (err) { });
+        this._socialService.unfollow(this.uid, this.puid).subscribe(function (res) { _this.isConnected = false; }, function (err) {
+            var msg = JSON.parse(err._body);
+            _this.error_message = msg.message;
+        });
     };
     ProjectProfilePublicComponent.prototype.copyPlaylist = function (lst) {
         var _this = this;
@@ -5482,6 +5553,9 @@ var ProjectProfilePublicComponent = (function () {
                 .subscribe(function (new_lst) {
                 var url = "/project/(project:user/" + _this.uid + "/list/" + new_lst._id + ")";
                 _this.router.navigateByUrl(url);
+            }, function (err) {
+                var msg = JSON.parse(err._body);
+                _this.error_message = msg.message;
             });
         }
     };
@@ -5533,7 +5607,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-profile/project-profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--heading on the nav bar-->\n    <div class=\"profile-margin\">\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Profile</b>\n      </a>\n    </p>\n    </div>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin padding-right-default\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"changes_saved\" class=\"help-block\">Changes Saved</div>\n\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n  <div>\n    <p><b>Following:</b></p>\n    <ul class=\"list-group\"\n        *ngIf=\"following.length>0\">\n      <li class=\"list-group-item\"\n          *ngFor=\"let followee of following\">\n        {{followee.username}}\n        <div class =\"pull-right\">\n          <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'profile', followee._id]}}]\">\n              <span class=\"glyphicon glyphicon-user\"></span>\n          </a>\n        </div>\n      </li>\n    </ul>\n    <div *ngIf=\"following.length===0\">\n      Not Following any users\n    </div>\n  </div>\n\n  <br/>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list']}}]\">\n     My Playlists</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'queue']}}]\">\n     My Song Queue</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'messages']}}]\">\n     My Notifications</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list', 'search']}}]\">\n     Search Public Playlists</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     *ngIf=\"isAdmin()\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'admin']}}]\">\n     Admin</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"logout()\">Logout</a>\n\n</div>\n\n"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--heading on the nav bar-->\n    <div class=\"profile-margin\">\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Profile</b>\n      </a>\n    </p>\n    </div>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin padding-right-default\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"changes_saved\" class=\"help-block\">Changes Saved</div>\n  <div *ngIf=\"error_message\" class=\"alert alert-danger\">{{error_message}}</div>\n\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A user name is required</div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n  <div>\n    <p><b>Following:</b></p>\n    <ul class=\"list-group\"\n        *ngIf=\"following.length>0\">\n      <li class=\"list-group-item list-item-borderless padding-left-none padding-right-none\"\n          *ngFor=\"let followee of following\">\n        {{followee.username}}\n        <div class =\"pull-right\">\n          <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'profile', followee._id]}}]\">\n              <span class=\"glyphicon glyphicon-user\"></span>\n          </a>\n        </div>\n      </li>\n    </ul>\n    <div *ngIf=\"following.length===0\">\n      Not Following any users\n    </div>\n  </div>\n\n  <br/>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list']}}]\">\n     My Playlists</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'queue']}}]\">\n     My Song Queue</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'messages']}}]\">\n     My Notifications</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list', 'search']}}]\">\n     Search Public Playlists</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     *ngIf=\"isAdmin()\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'admin']}}]\">\n     Admin</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"logout()\">Logout</a>\n\n</div>\n\n"
 
 /***/ }),
 
@@ -5573,8 +5647,10 @@ var ProjectProfileComponent = (function () {
         this._socialService = _socialService;
         this._plservice = _plservice;
         this._sharedService = _sharedService;
+        this.error_message = "";
         this.user = new __WEBPACK_IMPORTED_MODULE_4__objects_user_object__["a" /* User */]("", "", "", "", "", "");
         this.changes_saved = false;
+        this.invalid_name = false;
         this.playlists = [];
         this.following = [];
     }
@@ -5597,15 +5673,24 @@ var ProjectProfileComponent = (function () {
         this._service.logout()
             .subscribe(function (data) {
             _this._sharedService.current_user = null;
-            _this.router.navigateByUrl('/project/search/pl');
+            _this.router.navigateByUrl('/');
         });
     };
     ProjectProfileComponent.prototype.isAdmin = function () {
         return this._service.isAdmin();
     };
     ProjectProfileComponent.prototype.saveChanges = function () {
-        this._service.updateUser(this.uid, this.user);
-        this.changes_saved = true;
+        var _this = this;
+        this.error_message = "";
+        this.invalid_name = false;
+        if (this.user.username === "") {
+            this.invalid_name = true;
+        }
+        this._service.updateUser(this.uid, this.user).subscribe(function () {
+            _this.changes_saved = true;
+        }, function (err) {
+            _this.error_message = "Unable to update user";
+        });
     };
     return ProjectProfileComponent;
 }());
@@ -5644,7 +5729,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-register/project-register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container-fluid container-margin\">\n  <h1>Register</h1>\n\n  <form name=\"form\" (ngSubmit)=\"register()\" #f=\"ngForm\">\n\n    <div *ngIf=\"error_message\" class=\"help-block\">\n      {{error_message}}\n    </div>\n\n\n    <input type=\"text\"\n           [(ngModel)]=\"firstName\"\n           name=\"firstName\"\n           placeholder=\"First Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"lastName\"\n           name=\"lastName\"\n           placeholder=\"Last Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"username\"\n           name=\"username\"\n           placeholder=\"username\"\n           class=\"form-control\"\n           required/>\n\n    <div *ngIf=\"invalid_username\" class=\"help-block\">Username Already Exists</div>\n\n    <input type=\"email\"\n           [(ngModel)]=\"email\"\n           name=\"email\"\n           placeholder=\"email\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password\"\n           name=\"password\"\n           placeholder=\"password\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password_check\"\n           name=\"password_check\"\n           placeholder=\"retype password\"\n           class=\"form-control\"\n           required/>\n\n    <div *ngIf=\"password!=password_check\" class=\"help-block\">Passwords do not match</div>\n\n  <button type=\"submit\" [disabled]=\"!f.valid\"\n          class=\"btn btn-primary btn-block\">Register</button>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n     [routerLink]=\"['/project/search/pl']\">Cancel</a>\n\n</div>"
+module.exports = "\n<div class=\"container-fluid container-margin\">\n  <h1>Register</h1>\n\n  <form name=\"form\" (ngSubmit)=\"register()\" #f=\"ngForm\">\n\n    <input type=\"text\"\n           [(ngModel)]=\"firstName\"\n           name=\"firstName\"\n           placeholder=\"First Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"lastName\"\n           name=\"lastName\"\n           placeholder=\"Last Name\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"text\"\n           [(ngModel)]=\"username\"\n           name=\"username\"\n           placeholder=\"username\"\n           class=\"form-control\"\n           required\n           autocomplete=\"on\"\n           autocorrect=\"off\"\n           autocapitalize=\"off\"\n           spellcheck=\"false\"/>\n\n    <div *ngIf=\"invalid_username\" class=\"alert alert-danger\">Username Already Exists</div>\n\n    <input type=\"email\"\n           [(ngModel)]=\"email\"\n           name=\"email\"\n           placeholder=\"email\"\n           class=\"form-control\"\n           required/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password\"\n           name=\"password\"\n           placeholder=\"password\"\n           class=\"form-control\"\n           required\n           autocomplete=\"on\"\n           autocorrect=\"off\"\n           autocapitalize=\"off\"\n           spellcheck=\"false\"/>\n\n    <input type=\"password\"\n           [(ngModel)]=\"password_check\"\n           name=\"password_check\"\n           placeholder=\"retype password\"\n           class=\"form-control\"\n           required\n           autocomplete=\"on\"\n           autocorrect=\"off\"\n           autocapitalize=\"off\"\n           spellcheck=\"false\"/>\n\n    <div *ngIf=\"invalid_password\" class=\"alert alert-danger\">Passwords do not match</div>\n\n  <button type=\"submit\" [disabled]=\"!f.valid\"\n          class=\"btn btn-primary btn-block\">Register</button>\n  </form>\n\n  <a class=\"btn btn-danger btn-block\"\n     [routerLink]=\"['/project/search/pl']\">Cancel</a>\n\n</div>"
 
 /***/ }),
 
@@ -5696,19 +5781,29 @@ var ProjectRegisterComponent = (function () {
             this.invalid_password = true;
             return;
         }
-        var body = {
-            username: this.username,
-            password: this.password,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            email: this.email
-        };
-        this._service.register(body)
+        if (this.username === "") {
+            this.invalid_username = true;
+            return;
+        }
+        this._service.findUserByUsername(this.username)
             .subscribe(function (user) {
-            _this._sharedService.current_user = user;
-            _this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
+            _this.invalid_username = true;
+            _this.error_message = "Invalid username";
         }, function (err) {
-            _this.error_message = err;
+            var body = {
+                username: _this.username,
+                password: _this.password,
+                firstName: _this.firstName,
+                lastName: _this.lastName,
+                email: _this.email
+            };
+            _this._service.register(body)
+                .subscribe(function (user) {
+                _this._sharedService.current_user = user;
+                _this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
+            }, function (err) {
+                _this.error_message = err;
+            });
         });
     };
     return ProjectRegisterComponent;
@@ -6951,6 +7046,7 @@ var UserService = (function () {
             password: password
         };
         this.options.withCredentials = true;
+        console.log("got to log in");
         return this._http.post(this.baseUrl + '/api/login', body, this.options)
             .map(function (res) {
             var data = res.json();

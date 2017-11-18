@@ -38,25 +38,41 @@ export class ProjectRegisterComponent implements OnInit {
         return
     }
 
-    let body = {
-         username:  this.username,
-         password:  this.password,
-         firstName: this.firstName,
-         lastName:  this.lastName,
-         email:     this.email
+    if (this.username==="") {
+      this.invalid_username = true
+      return
     }
 
-    this._service.register(body)
+    this._service.findUserByUsername(this.username)
       .subscribe(
-        (user) => {
-          this._sharedService.current_user = user;
-          this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
+        (user)=> {
+
+          this.invalid_username = true;
+          this.error_message = "Invalid username";
+
         },
         (err) => {
-          this.error_message = err;
-        }
-      );
 
+          let body = {
+               username:  this.username,
+               password:  this.password,
+               firstName: this.firstName,
+               lastName:  this.lastName,
+               email:     this.email
+          }
+
+          this._service.register(body)
+            .subscribe(
+              (user) => {
+                this._sharedService.current_user = user;
+                this.router.navigateByUrl("/project/(project:user/" + user._id + ")");
+              },
+              (err) => {
+                this.error_message = err;
+              }
+            );
+        }
+      )
   }
 
 }

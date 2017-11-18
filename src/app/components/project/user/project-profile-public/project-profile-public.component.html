@@ -4,17 +4,8 @@
   <div class="container-fluid">
 
     <div class="row" *ngIf="uid">
-      <!--back mark-->
-      <!--
-      <p class="navbar-text pull-left glyph-margin">
-        <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', 'search']}}]"
-           class="navbar-link  navbar-chevron-link">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-      </p>
-      -->
 
-      <p class="navbar-text pull-left glyph-margin">
+      <p class="navbar-text pull-left glyph-margin padding-left-default">
         <a (click)="back()"
            class="navbar-link  navbar-chevron-link">
           <span class="glyphicon glyphicon-chevron-left"></span>
@@ -23,7 +14,7 @@
 
       <p class="navbar-header pull-left">
       <a class="navbar-brand thick">
-        <b>{{user_public.username}}</b>
+        <b>User Profile</b>
       </a>
       </p>
     </div>
@@ -60,52 +51,60 @@
   </div>
 </nav>
 
-<div class="container-fluid container-margin content-body">
+<div class="container-fluid container-margin content-body ">
 
-      User Name: {{user_public.username}}<br>
-      Name: {{user_public.firstName}} {{user_public.lastName}}<br>
-      Email: {{user_public.email}}<br>
+  <div *ngIf="error_message" class="help-block">
+        {{error_message}}
+  </div>
 
-<div *ngIf="uid">
+  <b>User Name:</b><br/>
+  {{user_public.username}}<br/>
+  <b>Name:</b><br/>
+  {{user_public.firstName}} {{user_public.lastName}}<br/>
+  <b>Email:</b><br/>
+  {{user_public.email}}<br>
 
-<div *ngIf="isConnected">
-  <a class="btn btn-primary btn-block"
-     (click)="unfollow()">
-     Unfollow</a>
-</div>
+  <br/>
 
-<div *ngIf="!isConnected">
-  <a class="btn btn-primary btn-block"
-     (click)="follow()">
-     Follow</a>
-</div>
+  <div *ngIf="uid">
 
-</div>
+    <div *ngIf="isConnected">
+      <a class="btn btn-primary btn-block"
+         (click)="unfollow()">
+         Unfollow</a>
+    </div>
 
-<br>
-<b>Playlists:</b>
-<br>
-<ul *ngIf="playlists.length>0"
-    class="list-group">
- <li *ngFor="let lst of playlists"
-     class="list-group-item">
-       {{lst.name}}
+    <div *ngIf="!isConnected">
+      <a class="btn btn-primary btn-block"
+         (click)="follow()">
+         Follow</a>
+    </div>
+  </div>
 
-        <div class ="pull-right">
-            <a *ngIf="uid"
-               (click)="copyPlaylist(lst)">
-            <span class="glyphicon glyphicon-copy padding-right-default"></span>
-            </a>
+  <br>
+  <b>Playlists:</b>
+  <br>
+  <ul *ngIf="playlists.length>0" class="list-group">
+   <li *ngFor="let lst of playlists"
+       class="list-group-item list-item-borderless padding-left-none padding-right-none">
 
-            <a (click)="viewPlaylist(lst)">
-            <span class="glyphicon glyphicon-info-sign"></span>
-            </a>
-        </div>
- </li>
-</ul>
-<div *ngIf="playlists.length===0">
-No Playlists to display
-</div>
+         <a (click)="viewPlaylist(lst)">
+         {{lst.name}}
+         </a>
+
+          <div class ="pull-right">
+              <a *ngIf="uid"
+                 (click)="copyPlaylist(lst)">
+              <span class="glyphicon glyphicon-copy padding-left-default"></span>
+              </a>
+
+          </div>
+   </li>
+  </ul>
+
+  <div *ngIf="playlists.length===0">
+  No Playlists to display
+  </div>
 
 </div>
 

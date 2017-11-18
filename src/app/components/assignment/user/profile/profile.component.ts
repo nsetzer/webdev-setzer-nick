@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   user : User = new User("","","","","","");
   private sub: any;
   changes_saved : boolean = false;
+  invalid_name = true
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -52,8 +53,22 @@ export class ProfileComponent implements OnInit {
   }
 
   saveChanges() {
-    this._service.updateUser(this.uid, this.user);
-    this.changes_saved = true;
+
+    this.error_message = ""
+    this.invalid_name = false
+
+    if (this.user.username === "") {
+      this.invalid_name = true
+    }
+
+    this._service.updateUser(this.uid, this.user).subscribe(
+      () => {
+        this.changes_saved = true;
+      },
+      (err) => {
+        this.error_message = "Unable to update user"
+      }
+    );
   }
 
 }

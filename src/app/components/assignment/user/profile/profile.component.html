@@ -24,11 +24,8 @@
 
 <div class="container-fluid container-margin content-body">
 
-  <div *ngIf="error_message" class="help-block">
-        {{error_message}}
-  </div>
-
   <div *ngIf="changes_saved" class="help-block">Changes Saved</div>
+  <div *ngIf="error_message" class="alert alert-danger">{{error_message}}</div>
 
 
   <form>
@@ -42,6 +39,7 @@
              (ngModelChange)="changes_saved=false"
              required/>
     </div>
+    <div *ngIf="invalid_name" class="alert alert-danger">A user name is required</div>
 
     <div class="form-group">
       <label for="email">Email address</label>

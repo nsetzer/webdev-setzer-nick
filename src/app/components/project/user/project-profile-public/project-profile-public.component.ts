@@ -20,6 +20,7 @@ export class ProjectProfilePublicComponent implements OnInit {
   user_public = { username: "", firstName:"", lastName:"", email:""};
   playlists = [];
   private sub: any;
+  error_message = ""
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -43,17 +44,18 @@ export class ProjectProfilePublicComponent implements OnInit {
   reload() {
     this._service.findUserById(this.puid).subscribe(
       (user : User) => {this.user_public = user;},
-      (err : any) => { }
+      (err : any) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
       );
-    /*
-    this._service.findUserById(this.uid).subscribe(
-      (user : User) => {this.user = user;},
-      (err : any) => { }
-      );
-    */
+
     this._plservice.findPlaylistsByUser(this.puid).subscribe(
       (lsts) => {this.playlists = lsts;},
-      (err : any) => { }
+      (err : any) => {
+        let msg = JSON.parse(err._body)
+        this.error_message = msg.message;
+      }
       );
 
     if (this.uid) {
@@ -71,14 +73,20 @@ export class ProjectProfilePublicComponent implements OnInit {
   follow() {
     this._socialService.follow(this.uid,this.puid).subscribe(
         (res) => {this.isConnected = true},
-        (err : any) => { }
+        (err : any) => {
+          let msg = JSON.parse(err._body)
+          this.error_message = msg.message;
+        }
       );
   }
 
   unfollow() {
     this._socialService.unfollow(this.uid,this.puid).subscribe(
         (res) => {this.isConnected = false},
-        (err : any) => { }
+        (err : any) => {
+          let msg = JSON.parse(err._body)
+          this.error_message = msg.message;
+        }
       );
   }
 
@@ -90,6 +98,10 @@ export class ProjectProfilePublicComponent implements OnInit {
           (new_lst) => {
               let url = "/project/(project:user/" + this.uid + "/list/"+new_lst._id+")"
               this.router.navigateByUrl(url);
+          },
+          (err) => {
+            let msg = JSON.parse(err._body)
+            this.error_message = msg.message;
           }
       );
     }

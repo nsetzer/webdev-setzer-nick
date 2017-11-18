@@ -262,8 +262,7 @@ span.search-result-icons {
   overflow:hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width:330px;
-  padding-top: 15px;
+  width:350px;
   /*font-size: 85%;*/
   /*background-color: rgba(.7,.7,.7,.3);*/
 }

@@ -14,13 +14,16 @@ import { PlaylistService } from '../../../../services/playlist.service.client';
 export class ProjectProfileComponent implements OnInit {
 
 
+  error_message : string = ""
   uid : string;
   user : any = new User("","","","","","")
   private sub: any;
   changes_saved : boolean = false;
+  invalid_name = false
 
   playlists : any = [];
   following : any = [];
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -64,7 +67,22 @@ export class ProjectProfileComponent implements OnInit {
   }
 
   saveChanges() {
-    this._service.updateUser(this.uid, this.user);
-    this.changes_saved = true;
+
+    this.error_message = ""
+    this.invalid_name = false
+
+    if (this.user.username === "") {
+      this.invalid_name = true
+    }
+
+    this._service.updateUser(this.uid, this.user).subscribe(
+      () => {
+        this.changes_saved = true;
+      },
+      (err) => {
+        this.error_message = "Unable to update user"
+      }
+    );
+
   }
 }

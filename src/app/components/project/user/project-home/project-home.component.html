@@ -7,7 +7,7 @@
 <nav class="navbar navbar-dark bg-primary navbar-fixed-bottom">
   <div class="container-fluid">
 
-    <div class="navbar-text pull-left glyph-margin">
+    <div class="navbar-text glyph-margin padding-left-none p-footer">
       <audio
          name="audioPlayer"
          #audioPlayer
@@ -30,12 +30,12 @@
         <span class="glyphicon glyphicon-forward"></span>
       </a>
 
-
-    </div>
-
-    <div class="p-footer">
+      <!--<div class="p-footer" style="background-color:red">-->
       &nbsp;&nbsp;{{current_song.title}}
+
     </div>
+
+
 
     <div *ngIf="uid"
        class="p-footer-right glyph-margin">
