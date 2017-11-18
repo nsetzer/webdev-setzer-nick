@@ -218,6 +218,10 @@ module.exports = function (app, model) {
     }
 
     async function facebookStrategy(req, token, refreshToken, profile, done) {
+        console.log("strategy")
+        console.log(token)
+        console.log(refreshToken)
+        console.log(profile)
         let user = await model.UserModel
                        .findOrCreateUserByFacebookProfile(profile, token);
 

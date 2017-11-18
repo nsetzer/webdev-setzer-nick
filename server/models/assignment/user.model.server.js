@@ -37,6 +37,7 @@ module.exports = function(mongoose, UserSchema) {
     }
 
     async function findOrCreateUserByFacebookProfile(profile, token) {
+        console.log(profile)
         let result = await model.find({'facebook.id': profile.id})
         if (result.length === 0) {
 
