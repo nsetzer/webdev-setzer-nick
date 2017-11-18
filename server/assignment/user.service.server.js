@@ -191,25 +191,45 @@ module.exports = function (app, model) {
             );
         }
 
+
+    function roleIndex(role) {
+        return ["user", "superuser", "admin"].indexOf(role)
+    }
+
+    // return true if the user can use a given role
+    function validateUserRole(user,role) {
+        let a = roleIndex(user.role)
+        let b = roleIndex(role)
+        console.log(a,b)
+        return  b <= a
+    }
+
     async function localStrategy(username, password, done) {
         let arr = username.split("/")
         username = arr[0]
-        let role = "user"
-        if (arr.length > 1) {
-            role = arr[1]
-        }
-        if (role !== "user" && role !== "superuser" && role != "admin") {
-            return done(_message.Error('invalid role: ' + role), null);
-        }
 
         let user = await model.UserModel
                             .findUserByCredentials(username, password)
 
-        if(user) {
-            if (user.activeRole != role) {
-                await model.UserModel.update({_id: user._id},{activeRole: role})
+        let requestedRole = user.role;
+        if (arr.length > 1) {
+            requestedRole = arr[1]
+            if (requestedRole !== "user" &&
+                requestedRole !== "superuser" &&
+                requestedRole != "admin") {
+                return done(_message.Error('invalid role: ' + requestedRole), null);
             }
-            user.activeRole = role
+        }
+
+        if (!validateUserRole(user,requestedRole)) {
+            return done(_message.Error('invalid role: ' + requestedRole), null);
+        }
+
+        if(user) {
+            if (user.activeRole != requestedRole) {
+                await model.UserModel.update({_id: user._id},{activeRole: requestedRole})
+            }
+            user.activeRole = requestedRole
             winston.info("(local) userName: " + user.username + " activeRole: " + user.activeRole)
             return done(null, user);
         } else {
@@ -218,10 +238,6 @@ module.exports = function (app, model) {
     }
 
     async function facebookStrategy(req, token, refreshToken, profile, done) {
-        console.log("strategy")
-        console.log(token)
-        console.log(refreshToken)
-        console.log(profile)
         let user = await model.UserModel
                        .findOrCreateUserByFacebookProfile(profile, token);
 

@@ -2,6 +2,7 @@
 module.exports = function(mongoose, UserSchema) {
     let model =  mongoose.model("UserModel", UserSchema);
     var _bcrypt = require("bcrypt-nodejs");
+    var winston = require("winston");
 
     model.createUser = createUser
     model.findUserById = findUserById
@@ -37,10 +38,10 @@ module.exports = function(mongoose, UserSchema) {
     }
 
     async function findOrCreateUserByFacebookProfile(profile, token) {
-        console.log(profile)
+        winston.info(profile)
+        winston.info(token)
         let result = await model.find({'facebook.id': profile.id})
         if (result.length === 0) {
-
             let user = {
                 username: profile.id,
                 firstName: profile.name.givenName || "N/A",
@@ -48,7 +49,7 @@ module.exports = function(mongoose, UserSchema) {
                 role: "user",
                 facebook:{"id":profile.id,token:token}
             }
-            return await model.create({})
+            return await model.create(user)
         }
         return result[0]
     }
