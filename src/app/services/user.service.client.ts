@@ -42,6 +42,7 @@ export class UserService {
      password : password
     };
     this.options.withCredentials = true;
+    console.log("got to log in")
     return this._http.post(this.baseUrl + '/api/login', body, this.options)
      .map(
        (res: Response) => {

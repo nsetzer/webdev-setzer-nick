@@ -16,6 +16,7 @@ export class PageNewComponent implements OnInit {
   current_page = {name:"",title:""};
   private sub: any;
   error_message: string = ""
+  invalid_name = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -39,6 +40,12 @@ export class PageNewComponent implements OnInit {
   }
 
   saveChanges() {
+
+    if (this.current_page.name === "") {
+      this.invalid_name = true
+      return;
+    }
+
     this._service.createPage(this.wid, this.current_page).subscribe(
       (res) => {
         this.router.navigate(["/user/" + this.uid + "/website/" + this.wid + "/page"]);

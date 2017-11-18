@@ -55,7 +55,7 @@ export class ProjectProfileComponent implements OnInit {
      .subscribe(
        (data: any) => {
          this._sharedService.current_user = null;
-         this.router.navigateByUrl('/project/search/pl');
+         this.router.navigateByUrl('/');
        });
   }
 

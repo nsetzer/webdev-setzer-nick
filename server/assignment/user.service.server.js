@@ -211,21 +211,22 @@ module.exports = function (app, model) {
         let user = await model.UserModel
                             .findUserByCredentials(username, password)
 
-        let requestedRole = user.role;
-        if (arr.length > 1) {
-            requestedRole = arr[1]
-            if (requestedRole !== "user" &&
-                requestedRole !== "superuser" &&
-                requestedRole != "admin") {
+        if(user) {
+            let requestedRole = user.role;
+            if (arr.length > 1) {
+                requestedRole = arr[1]
+                if (requestedRole !== "user" &&
+                    requestedRole !== "superuser" &&
+                    requestedRole != "admin") {
+                    return done(_message.Error('invalid role: ' + requestedRole), null);
+                }
+            }
+
+            if (!validateUserRole(user,requestedRole)) {
                 return done(_message.Error('invalid role: ' + requestedRole), null);
             }
-        }
 
-        if (!validateUserRole(user,requestedRole)) {
-            return done(_message.Error('invalid role: ' + requestedRole), null);
-        }
 
-        if(user) {
             if (user.activeRole != requestedRole) {
                 await model.UserModel.update({_id: user._id},{activeRole: requestedRole})
             }

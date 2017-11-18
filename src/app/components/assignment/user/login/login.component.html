@@ -3,10 +3,6 @@
 
     <h1 (click)="username='alice'; password='alice'">Login</h1>
 
-    <div *ngIf="error_message" class="help-block">
-        {{error_message}}
-    </div>
-
     <form name="form" (ngSubmit)="login()" #f="ngForm">
       <input type="text"
              [(ngModel)]="username"
@@ -15,8 +11,12 @@
              class="form-control"
              required
              autofocus
+             autocomplete="on"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"
              />
-      <div *ngIf="invalid_username" class="help-block">
+      <div *ngIf="invalid_username" class="alert alert-danger">
         Username not Found
       </div>
 
@@ -26,8 +26,12 @@
              placeholder="password"
              class="form-control"
              required
+             autocomplete="on"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"
              />
-      <div *ngIf="invalid_password" class="help-block">
+      <div *ngIf="invalid_password" class="alert alert-danger">
         Invalid Username or Password
       </div>
 

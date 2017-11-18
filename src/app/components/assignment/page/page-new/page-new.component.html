@@ -46,6 +46,8 @@
              placeholder="Page Name"
              required/>
     </div>
+    <div *ngIf="invalid_name" class="alert alert-danger">A website name is required</div>
+
 
     <div class="form-group">
       <label for="pageDescription">Page Title</label>

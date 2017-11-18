@@ -111,6 +111,8 @@
              placeholder="Website Name"
              required/>
         </div>
+        <div *ngIf="invalid_name" class="alert alert-danger">A website name is required</div>
+
         <div class="form-group">
           <label for="websiteDescription">Website Description</label>
           <textarea rows="5"

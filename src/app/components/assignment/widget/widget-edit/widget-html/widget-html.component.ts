@@ -19,6 +19,7 @@ export class WidgetHtmlComponent implements OnInit {
   pid : string = "";
   wgid : string = "";
   widget : Widget = new Widget('','','');
+  invalid_name = false
 
   private sub: any;
 
@@ -49,6 +50,10 @@ export class WidgetHtmlComponent implements OnInit {
   }
 
   saveChanges() {
+    if (this.widget.name === "") {
+      this.invalid_name = true
+      return;
+    }
     this._service.updateWidget(this.wgid, this.widget).subscribe(
       (widget) => {
         let url = "/user/" + this.uid +

@@ -4,11 +4,6 @@
 
   <form name="form" (ngSubmit)="register()" #f="ngForm">
 
-    <div *ngIf="error_message" class="help-block">
-      {{error_message}}
-    </div>
-
-
     <input type="text"
            [(ngModel)]="firstName"
            name="firstName"
@@ -28,9 +23,13 @@
            name="username"
            placeholder="username"
            class="form-control"
-           required/>
+           required
+           autocomplete="on"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"/>
 
-    <div *ngIf="invalid_username" class="help-block">Username Already Exists</div>
+    <div *ngIf="invalid_username" class="alert alert-danger">Username Already Exists</div>
 
     <input type="email"
            [(ngModel)]="email"
@@ -44,16 +43,24 @@
            name="password"
            placeholder="password"
            class="form-control"
-           required/>
+           required
+           autocomplete="on"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"/>
 
     <input type="password"
            [(ngModel)]="password_check"
            name="password_check"
            placeholder="retype password"
            class="form-control"
-           required/>
+           required
+           autocomplete="on"
+           autocorrect="off"
+           autocapitalize="off"
+           spellcheck="false"/>
 
-    <div *ngIf="password!=password_check" class="help-block">Passwords do not match</div>
+    <div *ngIf="invalid_password" class="alert alert-danger">Passwords do not match</div>
 
   <button type="submit" [disabled]="!f.valid"
           class="btn btn-primary btn-block">Register</button>

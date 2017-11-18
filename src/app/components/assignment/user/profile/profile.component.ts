@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
      .subscribe(
        (data: any) => {
          this._sharedService.current_user = null;
-         this.router.navigate(['/login']);
+         this.router.navigate(['/']);
        });
   }
 

@@ -41,16 +41,31 @@ export class LoginComponent implements OnInit {
     this.invalid_password = false;
     this.invalid_username = false;
 
-    this._service.login(this.username, this.password)
-     .subscribe(
-       (user) => {
-           this._sharedService.current_user = user;
-           this.router.navigate(["/user/" + user._id])
-       },
-       (err) => {
-           this.error_message = "Invalid username or password";
-       }
-     );
+    this._service.findUserByUsername(this.username)
+      .subscribe(
+        (user)=> {
+          console.log("found user")
+          this._service.login(this.username, this.password)
+            .subscribe(
+              (user) => {
+                console.log("logged in")
+                this._sharedService.current_user = user;
+                this.router.navigate(["/user/" + user._id])
+              },
+              (err) => {
+                console.log("logged in error")
+                this.invalid_password = true
+                this.error_message = "Invalid username or password";
+              }
+            );
+        },
+        (err) => {
+          this.invalid_username = true;
+          this.error_message = "Invalid username";
+        }
+      )
+
+
 
 
   }

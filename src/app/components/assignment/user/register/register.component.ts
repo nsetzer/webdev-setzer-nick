@@ -39,44 +39,41 @@ export class RegisterComponent implements OnInit {
         return
     }
 
-    /*this._service.createUser({
-         username:  this.username,
-         password:  this.password,
-         firstName: this.firstName,
-         lastName:  this.lastName,
-         email:     this.email
-    }).subscribe(
-     (user) => {
-      this.router.navigate(["/login"]);
-     },
-     (err) => {
-      let msg = JSON.parse(err._body)
-      this.error_message = msg.message;
-     }
-    );
-    */
-    let body = {
-         username:  this.username,
-         password:  this.password,
-         firstName: this.firstName,
-         lastName:  this.lastName,
-         email:     this.email
+    if (this.username==="") {
+      this.invalid_username = true
+      return
     }
 
-    this._service.register(body)
+    this._service.findUserByUsername(this.username)
       .subscribe(
-        (user) => {
-          this._sharedService.current_user = user;
-          this.router.navigate(['/user/'+user._id]);
+        (user)=> {
+
+          this.invalid_username = true;
+          this.error_message = "Invalid username";
+
         },
         (err) => {
-          this.error_message = err;
+
+          let body = {
+               username:  this.username,
+               password:  this.password,
+               firstName: this.firstName,
+               lastName:  this.lastName,
+               email:     this.email
+          }
+
+          this._service.register(body)
+            .subscribe(
+              (user) => {
+                this._sharedService.current_user = user;
+                this.router.navigate(['/user/'+user._id]);
+              },
+              (err) => {
+                this.error_message = err;
+              }
+            );
         }
-      );
-
-
-
-
+      )
   }
 
 }

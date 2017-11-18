@@ -21,6 +21,7 @@ export class WidgetImageComponent implements OnInit {
   wgid : string = "";
   widget : Widget = new Widget('','','');
   error_message: string = ""
+  invalid_name = false
 
   @ViewChild('myFile') myFile;
   @ViewChild('myForm') myForm;
@@ -58,6 +59,11 @@ export class WidgetImageComponent implements OnInit {
   }
 
   saveChanges() {
+
+    if (this.widget.name === "") {
+      this.invalid_name = true
+      return;
+    }
 
     this.invalid_width = false;
     this.invalid_link = false;

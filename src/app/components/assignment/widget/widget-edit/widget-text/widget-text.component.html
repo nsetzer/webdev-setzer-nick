@@ -47,6 +47,7 @@
          name="name"
          placeholder="Name">
 </div>
+    <div *ngIf="invalid_name" class="alert alert-danger">A widget name is required</div>
 
 <label for="widget.placeholder">Placeholder</label>
 <input [(ngModel)]="widget.placeholder" class="form-control" required/>

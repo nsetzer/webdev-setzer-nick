@@ -19,6 +19,7 @@ export class WidgetYoutubeComponent implements OnInit {
   wgid : string = "";
   widget : Widget = new Widget('','','');
   error_message: string = ""
+  invalid_name = false
 
   invalid_width: boolean = false;
   invalid_link: boolean = false;

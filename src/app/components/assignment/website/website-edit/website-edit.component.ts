@@ -15,6 +15,7 @@ export class WebsiteEditComponent implements OnInit {
   current_site = {name:"", description:""};
   private sub: any;
   error_message: string = ""
+  invalid_name = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -55,6 +56,11 @@ export class WebsiteEditComponent implements OnInit {
   }
 
   saveChanges() {
+
+    if (this.current_site.name === "") {
+      this.invalid_name = true
+      return;
+    }
 
     this._service.updateWebsite(this.wid, this.current_site).subscribe(
       (res) => {
