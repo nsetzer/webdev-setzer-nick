@@ -35,7 +35,7 @@
 
       <!-- TODO this should allow editing -->
       <div class="form-group">
-        <label for="widgetName">Name</label>
+        <label for="widgetName">Title</label>
         <input type="text"
                [(ngModel)]="song.title"
                name="widgetName"
@@ -43,6 +43,9 @@
                class="form-control"
                required/>
       </div>
+
+      <div *ngIf="invalid_title" class="alert alert-danger">A artist name is required</div>
+
 
       <div class="form-group">
         <label for="widgetText">Description</label>

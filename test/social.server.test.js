@@ -73,6 +73,8 @@ describe('Social', function() {
     });
   });
 
+
+
   describe('/api/social is connected', function() {
     it('should return true', function(done) {
       chai.request(server)
@@ -105,6 +107,7 @@ describe('Social', function() {
     }); // end it
   }); // end describe
 
+
   describe('/api/social delete', function() {
     it('should delete the connection', function(done) {
       chai.request(server)
@@ -127,6 +130,7 @@ describe('Social', function() {
         });
     });
   });
+
 
   describe('/api/social rate list', function() {
     it('should return true', function(done) {
@@ -162,4 +166,6 @@ describe('Social', function() {
         });
     });
   });
+
+
 });

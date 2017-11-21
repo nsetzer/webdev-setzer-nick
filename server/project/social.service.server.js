@@ -17,32 +17,47 @@ module.exports = function (app, model) {
     app.delete('/api/user/:uid/rate/:plid', unrateList);
 
     async function addConnection(req,res) {
-        await model.FollowModel.connect(req.params.uid,req.params.fid)
+        var connection = {
+            follower: req.params.uid,
+            followee: req.params.fid
+        }
+        await model.FollowModel.create(connection);
+        //await model.FollowModel.connect(req.params.uid,req.params.fid)
         winston.info("added new connection from "+req.params.uid+
                      " to "+req.params.fid);
         res.status(201).json(null)
     }
 
     async function deleteConnection(req,res) {
-        await model.FollowModel.disconnect(req.params.uid,req.params.fid)
+        var connection = {
+            follower: req.params.uid,
+            followee: req.params.fid
+        }
+        await model.FollowModel.remove(connection);
+        //await model.FollowModel.disconnect(req.params.uid,req.params.fid)
         winston.info("removed connection from "+req.params.uid+
                      " to "+req.params.fid);
         res.status(200).json(null)
     }
 
-
-
-
-
     async function getUserFollowers(req,res) {
-        users = await model.FollowModel.getUserFollowers(req.params.uid, "followee", "follower")
-        winston.info("found "+users.length+" followers of " + req.params.uid)
+       // users = await model.FollowModel.getUserFollowers(req.params.uid, "followee", "follower")
+       // winston.info("found "+users.length+" followers of " + req.params.uid)
+       // res.status(200).json(users)
+
+        var uid = req.params.uid;
+        let connections = await model.FollowModel.find({followee: uid});
+        let uids = connections.map( x => x.follower );
+        let users = await model.UserModel.find({_id: {$in: uids}});
         res.status(200).json(users)
+
     }
 
     async function getUserFollowing(req,res) {
-        users = await model.FollowModel.getUserFollowers(req.params.uid, "follower", "followee")
-        winston.info("found "+users.length+" followees of " + req.params.uid)
+        var uid = req.params.uid;
+        let connections = await model.FollowModel.find({follower: uid});
+        let uids = connections.map( x => x.followee );
+        let users = await model.UserModel.find({_id: {$in: uids}});
         res.status(200).json(users)
     }
 
@@ -52,15 +67,18 @@ module.exports = function (app, model) {
      */
     async function getUserIsConnected(req,res) {
 
-        var uid = req.params.uid;
-        var fid = req.params.fid;
+        var connection = {
+            follower: req.params.uid,
+            followee: req.params.fid
+        }
 
-        let isConnected = await model.FollowModel.isConnected(uid, fid);
+        let results = await model.FollowModel.find(connection);
 
+        var isConnected = results.length > 0
         if (isConnected) {
-            winston.info("user "+uid+" is connected to " + fid);
+            winston.info("user "+req.params.uid+" is connected to " + req.params.fid);
         } else {
-            winston.info("user "+uid+" is not connected to " + fid);
+            winston.info("user "+req.params.uid+" is not connected to " + req.params.fid);
         }
 
         res.status(200).json(isConnected)
@@ -111,10 +129,6 @@ module.exports = function (app, model) {
         res.status(200).json(messages)
     }
 
-    // TODO: no api is provided to get the rating of a playlist
-    //       this can be implemented as a server side join whenever a
-    //       a playlist is returned by a query.
-
     async function rateList(req,res) {
         var uid = req.params.uid;
         var plid = req.params.plid;
@@ -129,8 +143,7 @@ module.exports = function (app, model) {
             return;
         }
 
-        await model.RatingModel
-            .update({uid:uid, plid: plid}, data, {upsert:true})
+        await model.RatingModel.rateList(uid, plid, data.value)
 
         res.status(200).json(null);
     }
@@ -139,8 +152,7 @@ module.exports = function (app, model) {
         var uid = req.params.uid;
         var plid = req.params.plid;
 
-        await model.RatingModel
-            .remove({uid:uid, plid: plid})
+        await model.RatingModel.unRateList(uid, plid)
 
         res.status(200).json(null);
     }

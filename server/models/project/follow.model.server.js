@@ -12,7 +12,8 @@ module.exports = function(mongoose, FollowSchema, UserModel) {
             follower: follower,
             followee: followee
         }
-
+        console.log("connect")
+        console.log(connection)
         return await model.create(connection)
     }
 
@@ -21,7 +22,8 @@ module.exports = function(mongoose, FollowSchema, UserModel) {
             follower: follower,
             followee: followee
         }
-
+        console.log("disconnect")
+        console.log(connection)
         return await model.remove(connection)
     }
 
@@ -36,6 +38,12 @@ module.exports = function(mongoose, FollowSchema, UserModel) {
         record[src] = uid;
         let connections = await model.find(record);
         let uids = connections.map( x => x[tgt] );
+        console.log(src)
+        console.log(tgt)
+        console.log(record)
+        console.log(connections)
+        console.log(await model.find({}))
+        console.log(uids)
         let users = await UserModel
                 .find({_id: {$in: uids}});
         return users

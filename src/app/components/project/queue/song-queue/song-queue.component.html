@@ -34,19 +34,11 @@
     appSortable
     (newIndexes)="reorderList($event)">
     <li *ngFor="let song of playlist.songs"
-         class="list-group-item list-item-borderless">
+         class="list-group-item list-item-borderless p-list-item">
 
         {{song.title}}
 
-        <div class ="pull-right">
-
-
-            <a [routerLink]="['/project', {outlets: {'project': ['user', uid]}}]">
-            <span class="glyphicon glyphicon-info-sign"></span>
-            </a>
-        </div>
-
-    </li>
+     </li>
 </ul>
 
 <div *ngIf="!(playlist) || playlist.songs.length===0">

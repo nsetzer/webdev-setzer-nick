@@ -20,6 +20,8 @@ export class PlaylistUploadComponent implements OnInit {
   description : string = "";
   private sub: any;
   invalid_file = false
+  invalid_title = false
+  invalid_artist = false
 
   @ViewChild('myFile') myFile;
   @ViewChild('myForm') myForm;
@@ -46,13 +48,26 @@ export class PlaylistUploadComponent implements OnInit {
   }
 
   uploadAudio() {
+
+    this.invalid_artist = false
+    this.invalid_title = false
+
+    if (this.artist === "") {
+      this.invalid_artist = true
+      return
+    }
+    if (this.title === "") {
+      this.invalid_title = true
+      return
+    }
+
     const myFile = this.myFile.nativeElement;
     const myForm = this.myForm.nativeElement;
     if (myFile.files && myFile.files[0]) {
       const formData = new FormData();
       formData.append('myFile', myFile.files[0]);
       formData.append('artist', this.artist)
-      formData.append('title', this.title)
+      formData.append('title', this.artist + " - " + this.title)
       formData.append('description', this.description)
       formData.append('baseUrl', this.baseUrl)
       formData.append('plid', this.plid)

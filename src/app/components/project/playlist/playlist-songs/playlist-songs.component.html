@@ -49,7 +49,7 @@
     <li *ngFor="let song of songs; let i = index"
          class="list-group-item list-item-borderless p-list-item">
 
-        {{song.index}}.%nbsp;
+        {{song.index}}.&nbsp;
         <a [routerLink]="['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]">
         {{song.title}}
         </a>

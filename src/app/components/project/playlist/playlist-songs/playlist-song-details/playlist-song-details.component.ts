@@ -17,6 +17,7 @@ export class PlaylistSongDetailsComponent implements OnInit {
   videoId : any = null;
   idx     : number = 0;
   song : any = {title:"",description:""};
+  invalid_title = false;
   private sub: any;
 
   constructor(private route: ActivatedRoute,
@@ -49,6 +50,14 @@ export class PlaylistSongDetailsComponent implements OnInit {
   }
 
   saveChanges() {
+
+    this.invalid_title = false
+
+    if (this.song.title === "") {
+      this.invalid_title = true
+      return
+    }
+
     this._plservice.updateSong(this.song).subscribe(
       (res) => {
         let url = "/project/(project:user/" + this.uid + "/list/"+this.plid+"/songs)"

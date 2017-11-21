@@ -9,6 +9,6 @@ module.exports = function(mongoose) {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'UserModel'
         },
-        dateCreated: {type: Date, default: Date.now}
+        //dateCreated: {type: Date, default: Date.now}
     });
 }
