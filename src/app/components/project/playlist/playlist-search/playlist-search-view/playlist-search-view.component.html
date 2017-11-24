@@ -13,7 +13,7 @@
         <!--heading on the nav bar-->
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
-            <b>{{playlist.name}}</b>
+            <b>Playlist Songs</b>
           </a>
         </p>
     </div>
@@ -32,7 +32,7 @@
 
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
-            <b>Project Title Here</b>
+            <b>Playlist Songs</b>
           </a>
         </p>
       </div>
@@ -57,15 +57,10 @@
      <li *ngFor="let song of songs; let i = index;"
          class="list-group-item">
           {{i+1}}.&nbsp;
-          <a (click)="viewDetails(i)">
+          <a (click)="viewDetails(i)"
+              class="p-list-item">
            {{song.title}}
           </a>
-           <!-- <div class ="pull-right">
-
-                <span class="glyphicon glyphicon-info-sign"></span>
-                </a>
-            </div>
-            -->
      </li>
 </ol>
 

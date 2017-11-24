@@ -17,6 +17,8 @@ export class PlaylistSongDetailsComponent implements OnInit {
   videoId : any = null;
   idx     : number = 0;
   song : any = {title:"",description:""};
+  song_video_url = ""
+  song_video_width = "85%"
   invalid_title = false;
   private sub: any;
 
@@ -41,6 +43,16 @@ export class PlaylistSongDetailsComponent implements OnInit {
     this._plservice.findSongForPlaylist(this.plid,this.idx).subscribe(
         (song) => {
             this.song = song;
+
+            if (!this.song.videoId.includes("public")) {
+              this.song_video_url = "https://www.youtube.com/embed/" + this.song.videoId
+            } else {
+              this.song_video_url = ""
+            }
+
+            if (!this.song.description) {
+              this.song.description = "No Description"
+            }
         }
     );
   }

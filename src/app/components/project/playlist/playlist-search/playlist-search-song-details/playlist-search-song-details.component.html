@@ -13,7 +13,7 @@
         <!--heading on the nav bar-->
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
-            <b>Playlist Info</b>
+            <b>Song Details</b>
           </a>
         </p>
     </div>
@@ -32,7 +32,7 @@
 
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
-            <b>Project Title Here</b>
+            <b>Song Details</b>
           </a>
         </p>
       </div>
@@ -55,23 +55,56 @@
 
 <div *ngIf="song">
 
-    Title: {{song.title}}<br>
-    Description: {{song.description}}<br>
+    <b>Title:</b> {{song.title}}
+    <br/>
+    <br/>
+    <b>Description:</b><br/>
 
+    <div class="p-detail-outer">
+      <div class="p-detail-inner">
+        {{song.description}}
+      </div>
+    </div>
+    <br/>
+    <br/>
+
+    <!--
     <div class="image-container" *ngIf="song.thumbnail">
         <img [src]="makeSafe(song.thumbnail)"
              width="33%"
              class="image-container"
              />
     </div>
-</div>
+    -->
 
+
+    <div *ngIf="song_video_url"
+         class="video-container-outer"
+         [style.width]="song_video_width">
+      <div class="video-container-inner">
+          <iframe class="video-container"
+                  [src]="makeSafe(song_video_url)"
+                  frameborder="0" allowfullscreen>
+          </iframe>
+      </div>
+    </div>
+
+
+
+</div>
+    <br/>
+    <br/>
 <div >
   <p>Playlists from other users that contain this song:</p>
   <ul *ngIf="playlists.length>0" class="list-group">
     <li *ngFor="let playlist of playlists" class="list-group-item">
       <b>{{playlist.uid.username}}</b><br/>
-      {{playlist.name}}
+      <div class="p-list-item">
+
+      <a (click)="openPublicPlaylist(playlist)">
+        {{playlist.name}}
+      </a>
+      </div>
     </li>
   </ul>
 </div>

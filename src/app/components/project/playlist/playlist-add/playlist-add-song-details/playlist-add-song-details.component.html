@@ -32,7 +32,7 @@
 
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
-            <b>Project Title Here</b>
+            <b>Song Details</b>
           </a>
         </p>
       </div>
@@ -55,25 +55,44 @@
 
 <div *ngIf="song">
 
-  Title: {{song.title}}<br>
-  Description: {{song.description}}<br>
+  <b>Title:</b> {{song.title}}
+    <br/>
+    <br/>
+    <b>Description:</b><br/>
 
-  <div class="image-container">
-      <img [src]="makeSafe(song.thumbnail)"
-           width="33%"
-           class="image-container"
-           />
-  </div>
+    <div class="p-detail-outer">
+      <div class="p-detail-inner">
+        {{song.description}}
+      </div>
+    </div>
+    <br/>
+    <br/>
+
+  <div *ngIf="song_video_url"
+         class="video-container-outer"
+         [style.width]="song_video_width">
+      <div class="video-container-inner">
+          <iframe class="video-container"
+                  [src]="makeSafe(song_video_url)"
+                  frameborder="0" allowfullscreen>
+          </iframe>
+      </div>
+    </div>
 </div>
 
+<!--
 <div >
   <p>Playlists from other users that contain this song:</p>
-  <ul *ngIf="playlists.length>0">
-    <li *ngFor="let playlist of playlists">
+  <ul *ngIf="playlists.length>0" class="list-group">
+    <li *ngFor="let playlist of playlists" class="list-group-item">
+      <b>{{playlist.uid.username}}</b><br/>
+      <div class="p-list-item">
       {{playlist.name}}
+      </div>
     </li>
   </ul>
 </div>
+-->
 
 </div>
 

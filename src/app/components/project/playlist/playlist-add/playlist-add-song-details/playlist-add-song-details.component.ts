@@ -18,6 +18,8 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
   idx     : number = 0;
   song : any;
   private sub: any;
+  song_video_url = ""
+  song_video_width = "85%"
   playlists= [];
 
   constructor(private route: ActivatedRoute,
@@ -67,6 +69,16 @@ export class PlaylistAddSongDetailsComponent implements OnInit {
 
   reload(results) {
     this.song = results[this.idx];
+
+    if (!this.song.videoId.includes("public")) {
+      this.song_video_url = "https://www.youtube.com/embed/" + this.song.videoId
+    } else {
+      this.song_video_url = ""
+    }
+
+    if (!this.song.description) {
+      this.song.description = "No Description"
+    }
 
     if (this.song.videoId) {
       this._pservice.findPlaylistsContaining(this.song.videoId).subscribe(

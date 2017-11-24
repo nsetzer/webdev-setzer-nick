@@ -18,6 +18,8 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
   idx     : number = 0;
   song : any;
   private sub: any;
+  song_video_url = ""
+  song_video_width = "85%"
   playlists= [];
 
   constructor(private route: ActivatedRoute,
@@ -45,7 +47,7 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
   }
 
   reload() {
-    // todo make a direct api for this
+
     this._plservice.findSongsForPlaylist(this.plid).subscribe(
         (lst) => {
           this.song = lst[this.idx];
@@ -57,6 +59,16 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
             )
           }
 
+          if (!this.song.videoId.includes("public")) {
+            this.song_video_url = "https://www.youtube.com/embed/" + this.song.videoId
+          } else {
+            this.song_video_url = ""
+          }
+
+          if (!this.song.description) {
+            this.song.description = "No Description"
+          }
+
         }
     );
   }
@@ -66,10 +78,10 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
     if (this.uid) {
         if (this.puid) {
           url = "/project/(project:user/" + this.uid +
-              "/profile/" + this.puid + "/" + this.plid;
+              "/profile/" + this.puid + "/" + this.plid + ")";
         } else {
           url = "/project/(project:user/" + this.uid +
-              "/list/search/" + this.plid;
+              "/list/search/" + this.plid + ")";
         }
     } else {
       if (this.puid) {
@@ -79,6 +91,32 @@ export class PlaylistSearchSongDetailsComponent implements OnInit {
       }
     }
     this.router.navigateByUrl(url);
+  }
+
+  openPublicPlaylist(playlist) {
+
+    let url = ""
+    let plid = playlist._id
+    console.log(playlist)
+
+    if (this.uid) {
+      if (this.puid) {
+        url = "/project/(project:user/" + this.uid +
+              "/profile/" + this.puid + "/" + plid + ")";
+      } else {
+        url = "/project/(project:user/" + this.uid +
+              "/list/search/" + plid + ")";
+      }
+    } else {
+      if (this.puid) {
+        url = "/project/search/user/" + this.puid + "/" + plid;
+      } else {
+        url = "/project/search/pl/"+ plid;
+      }
+    }
+    console.log("public " + url)
+    this.router.navigateByUrl(url);
+
   }
 
   makeSafe(url) {

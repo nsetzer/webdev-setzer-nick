@@ -293,3 +293,17 @@ span.search-result-icons {
 .p-small-fonts {
   font-size: 85%;
 }
+
+.p-detail-outer {
+  border-style: solid;
+  border-color: black;
+  border-width: medium;
+  border-radius: 5px;
+}
+
+.p-detail-inner {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+}

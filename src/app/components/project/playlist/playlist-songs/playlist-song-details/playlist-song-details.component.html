@@ -56,12 +56,16 @@
                   id="widgetText">{{song.description}}</textarea>
       </div>
 
-      <div class="image-container" *ngIf="song.thumbnail">
-          <img [src]="makeSafe(song.thumbnail)"
-               width="33%"
-               class="image-container"
-               />
+    <div *ngIf="song_video_url"
+         class="video-container-outer"
+         [style.width]="song_video_width">
+      <div class="video-container-inner">
+          <iframe class="video-container"
+                  [src]="makeSafe(song_video_url)"
+                  frameborder="0" allowfullscreen>
+          </iframe>
       </div>
+    </div>
   </div>
 
 </div>

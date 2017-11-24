@@ -23,7 +23,7 @@
       <div class="col-sm-8 col-xs-6">
         <p class="navbar-header pull-left">
           <a class="navbar-brand thick">
-            <b>Project Title Here</b>
+            <b>Search Songs</b>
           </a>
         </p>
       </div>
@@ -81,7 +81,7 @@
     class="list-group">
   <li *ngFor="let result of searchResults"
       class="list-group-item list-item-borderless padding-left-none">
-       <a class="search-result" (click)="viewDetails(result.index)">
+       <a class="search-result p-list-item" (click)="viewDetails(result.index)">
        {{result.title}}
        </a>
 
@@ -89,7 +89,7 @@
           <source type="audio/mp3">
        </audio>
 
-        <span class="search-result-icons">
+        <span class="p-list-item-icons">
             <!-- TODO: after POC hide this behind user role -->
             <a (click)="playPauseIndex(result.index)">
             <span class="glyphicon glyphicon-play"  *ngIf="result.state==='wait'"></span>
