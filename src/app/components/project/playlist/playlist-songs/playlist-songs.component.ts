@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user.service.client';
 import { PlaylistService } from '../../../../services/playlist.service.client';
 import { ProjectService } from '../../../../services/project.service.client';
+import { QueueService } from '../../../../services/queue.service.client';
 import { Location } from '@angular/common';
 
 @Component({
@@ -19,6 +20,7 @@ export class PlaylistSongsComponent implements OnInit {
   playlist : any = {songs:[]};
   songs = []
   private sub: any;
+  queue_success = false
 
   changed : Boolean = false
 
@@ -27,7 +29,8 @@ export class PlaylistSongsComponent implements OnInit {
               private location: Location,
               private _service: UserService,
               private _plservice: PlaylistService,
-              private _pservice: ProjectService) { }
+              private _pservice: ProjectService,
+              private _qservice: QueueService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -113,6 +116,19 @@ export class PlaylistSongsComponent implements OnInit {
       let url = "/project/(project:user/" + this.uid + "/list/" + this.plid + "/add)"
       this.router.navigateByUrl(url);
     }
+  }
+
+  queuePlaylist() {
+
+    this._qservice.setQueue(this.uid, this.playlist).subscribe(
+      (res) => {
+        this.queue_success = true
+      },
+      (err) => {
+        this.queue_success = false
+      }
+    )
+
   }
 
   // TODO: other ways out of this page need to check if the list was changed

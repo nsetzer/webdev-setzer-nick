@@ -16,6 +16,14 @@
             <b>Playlist Songs</b>
           </a>
         </p>
+
+        <p class="navbar-text pull-right glyph-margin padding-right-default">
+          <a (click)="queuePlaylist()"
+             class="navbar-link padding-right-default">
+            <span class="glyphicon glyphicon-share"></span>
+          </a>
+       </p>
+
     </div>
 
     <div class="row" *ngIf="!uid">
@@ -55,7 +63,7 @@
 
 <ol *ngIf="songs.length>0" class="list-group">
      <li *ngFor="let song of songs; let i = index;"
-         class="list-group-item">
+         class="list-group-item p-list-item">
           {{i+1}}.&nbsp;
           <a (click)="viewDetails(i)"
               class="p-list-item">
