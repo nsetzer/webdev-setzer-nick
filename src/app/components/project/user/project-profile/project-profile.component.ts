@@ -23,6 +23,7 @@ export class ProjectProfileComponent implements OnInit {
 
   playlists : any = [];
   following : any = [];
+  followers : any = [];
 
 
   constructor(private route: ActivatedRoute,
@@ -49,6 +50,11 @@ export class ProjectProfileComponent implements OnInit {
 
     this._socialService.getFollowing(this.uid).subscribe(
       (users) => { this.following = users;},
+      (err) => {}
+    );
+
+    this._socialService.getFollowers(this.uid).subscribe(
+      (users) => { this.followers = users;},
       (err) => {}
     );
   }

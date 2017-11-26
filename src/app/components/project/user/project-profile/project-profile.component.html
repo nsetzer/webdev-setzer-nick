@@ -90,6 +90,25 @@
     </div>
   </div>
 
+  <div>
+    <p><b>Followers:</b></p>
+    <ul class="list-group"
+        *ngIf="followers.length>0">
+      <li class="list-group-item list-item-borderless padding-left-none padding-right-none"
+          *ngFor="let follower of followers">
+        {{follower.username}}
+        <div class ="pull-right">
+          <a [routerLink]="['/project', {outlets: {'project': ['user', uid , 'profile', follower._id]}}]">
+              <span class="glyphicon glyphicon-user"></span>
+          </a>
+        </div>
+      </li>
+    </ul>
+    <div *ngIf="followers.length===0">
+      Not Following any users
+    </div>
+  </div>
+
   <br/>
 
   <a class="btn btn-primary btn-block"
