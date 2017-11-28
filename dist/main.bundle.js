@@ -2972,7 +2972,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-add/playlist-add-song-details/playlist-add-song-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n<div *ngIf=\"song\">\n\n  Title: {{song.title}}<br>\n  Description: {{song.description}}<br>\n\n  <div class=\"image-container\">\n      <img [src]=\"makeSafe(song.thumbnail)\"\n           width=\"33%\"\n           class=\"image-container\"\n           />\n  </div>\n</div>\n\n<div >\n  <p>Playlists from other users that contain this song:</p>\n  <ul *ngIf=\"playlists.length>0\">\n    <li *ngFor=\"let playlist of playlists\">\n      {{playlist.name}}\n    </li>\n  </ul>\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Song Details</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n<div *ngIf=\"song\">\n\n  <b>Title:</b> {{song.title}}\n    <br/>\n    <br/>\n    <b>Description:</b><br/>\n\n    <div class=\"p-detail-outer\">\n      <div class=\"p-detail-inner\">\n        {{song.description}}\n      </div>\n    </div>\n    <br/>\n    <br/>\n\n  <div *ngIf=\"song_video_url\"\n         class=\"video-container-outer\"\n         [style.width]=\"song_video_width\">\n      <div class=\"video-container-inner\">\n          <iframe class=\"video-container\"\n                  [src]=\"makeSafe(song_video_url)\"\n                  frameborder=\"0\" allowfullscreen>\n          </iframe>\n      </div>\n    </div>\n</div>\n\n<!--\n<div >\n  <p>Playlists from other users that contain this song:</p>\n  <ul *ngIf=\"playlists.length>0\" class=\"list-group\">\n    <li *ngFor=\"let playlist of playlists\" class=\"list-group-item\">\n      <b>{{playlist.uid.username}}</b><br/>\n      <div class=\"p-list-item\">\n      {{playlist.name}}\n      </div>\n    </li>\n  </ul>\n</div>\n-->\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -3009,6 +3009,8 @@ var PlaylistAddSongDetailsComponent = (function () {
         this.sanitizer = sanitizer;
         this.videoId = null;
         this.idx = 0;
+        this.song_video_url = "";
+        this.song_video_width = "85%";
         this.playlists = [];
     }
     PlaylistAddSongDetailsComponent.prototype.ngOnInit = function () {
@@ -3052,6 +3054,15 @@ var PlaylistAddSongDetailsComponent = (function () {
     PlaylistAddSongDetailsComponent.prototype.reload = function (results) {
         var _this = this;
         this.song = results[this.idx];
+        if (!this.song.videoId.includes("public")) {
+            this.song_video_url = "https://www.youtube.com/embed/" + this.song.videoId;
+        }
+        else {
+            this.song_video_url = "";
+        }
+        if (!this.song.description) {
+            this.song.description = "No Description";
+        }
         if (this.song.videoId) {
             this._pservice.findPlaylistsContaining(this.song.videoId).subscribe(function (lists) { _this.playlists = lists; }, function (err) { });
         }
@@ -3112,7 +3123,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-add/playlist-add.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b>Add Songs</b>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n      <div class=\"col-sm-8 col-xs-6\">\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-sm-2 col-xs-3 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\"\n           style=\"font-size: 85%;\">Login</a>\n      </div>\n\n      <div class=\"col-sm-2 col-xs-3 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\"\n           style=\"font-size: 85%;\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n<ul class=\"nav nav-tabs\" *ngIf=\"!uid\">\n  <li>\n  <a [routerLink]=\"['/project/search/pl']\">Search for Playlists</a>\n  </li>\n  <li class=\"active\">\n  <a disabled=\"true\"><b>Search for Songs</b></a>\n  </li>\n</ul>\n\n<!--\n  <div *ngIf=\"alertMessage\"\n       class=\"alert alert-danger\">\n    \"Failed to create\"\n  </div>\n\n  <div *ngIf=\"successMessage\"\n       class=\"alert alert-success\">\n    \"Succesfully executed query\"\n  </div>\n-->\n\n<div class=\"input-group\">\n <input [(ngModel)]=\"searchTerm\" type=\"text\" class=\"form-control\"\n        placeholder=\"Enter Search Term\">\n <span class=\"input-group-btn\">\n         <a (click)=\"runSearch()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n </span>\n</div>\n\n<ul *ngIf=\"searchResults.length>0\"\n    class=\"list-group\">\n  <li *ngFor=\"let result of searchResults\"\n      class=\"list-group-item list-item-borderless padding-left-none\">\n       <a class=\"search-result\" (click)=\"viewDetails(result.index)\">\n       {{result.title}}\n       </a>\n\n       <audio name=\"audioPlayer\" #audioPlayer>\n          <source type=\"audio/mp3\">\n       </audio>\n\n        <span class=\"search-result-icons\">\n            <!-- TODO: after POC hide this behind user role -->\n            <a (click)=\"playPauseIndex(result.index)\">\n            <span class=\"glyphicon glyphicon-play\"  *ngIf=\"result.state==='wait'\"></span>\n            <span class=\"glyphicon glyphicon-play\"  *ngIf=\"result.state==='paused'\"></span>\n            <span class=\"glyphicon glyphicon-pause\" *ngIf=\"result.state==='playing'\"></span>\n            <span class=\"glyphicon glyphicon-stop\"  *ngIf=\"result.state==='error'\"></span>\n            </a>\n\n            <a *ngIf=\"uid\"\n               (click)=\"addIndexToPlaylist(result.index)\">\n            <span class=\"glyphicon glyphicon-plus padding-left-default\"></span>\n            </a>\n\n            <a (click)=\"findRelatedSongs(result.index)\">\n            <span class=\"glyphicon glyphicon-search padding-left-default\"></span>\n            </a>\n        </span>\n  </li>\n</ul>\n\n<div *ngIf=\"searchWasRun && !searchResults.length\">\nNo results to display\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', plid, 'songs']}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b>Add Songs</b>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n      <div class=\"col-sm-8 col-xs-6\">\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Search Songs</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-sm-2 col-xs-3 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\"\n           style=\"font-size: 85%;\">Login</a>\n      </div>\n\n      <div class=\"col-sm-2 col-xs-3 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\"\n           style=\"font-size: 85%;\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n<ul class=\"nav nav-tabs\" *ngIf=\"!uid\">\n  <li>\n  <a [routerLink]=\"['/project/search/pl']\">Search for Playlists</a>\n  </li>\n  <li class=\"active\">\n  <a disabled=\"true\"><b>Search for Songs</b></a>\n  </li>\n</ul>\n\n<!--\n  <div *ngIf=\"alertMessage\"\n       class=\"alert alert-danger\">\n    \"Failed to create\"\n  </div>\n\n  <div *ngIf=\"successMessage\"\n       class=\"alert alert-success\">\n    \"Succesfully executed query\"\n  </div>\n-->\n\n<div class=\"input-group\">\n <input [(ngModel)]=\"searchTerm\" type=\"text\" class=\"form-control\"\n        placeholder=\"Enter Search Term\">\n <span class=\"input-group-btn\">\n         <a (click)=\"runSearch()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n </span>\n</div>\n\n<ul *ngIf=\"searchResults.length>0\"\n    class=\"list-group\">\n  <li *ngFor=\"let result of searchResults\"\n      class=\"list-group-item list-item-borderless padding-left-none\">\n       <a class=\"search-result p-list-item\" (click)=\"viewDetails(result.index)\">\n       {{result.title}}\n       </a>\n\n       <audio name=\"audioPlayer\" #audioPlayer>\n          <source type=\"audio/mp3\">\n       </audio>\n\n        <span class=\"p-list-item-icons\">\n            <!-- TODO: after POC hide this behind user role -->\n            <a (click)=\"playPauseIndex(result.index)\">\n            <span class=\"glyphicon glyphicon-play\"  *ngIf=\"result.state==='wait'\"></span>\n            <span class=\"glyphicon glyphicon-play\"  *ngIf=\"result.state==='paused'\"></span>\n            <span class=\"glyphicon glyphicon-pause\" *ngIf=\"result.state==='playing'\"></span>\n            <span class=\"glyphicon glyphicon-stop\"  *ngIf=\"result.state==='error'\"></span>\n            </a>\n\n            <a *ngIf=\"uid\"\n               (click)=\"addIndexToPlaylist(result.index)\">\n            <span class=\"glyphicon glyphicon-plus padding-left-default\"></span>\n            </a>\n\n            <a (click)=\"findRelatedSongs(result.index)\">\n            <span class=\"glyphicon glyphicon-search padding-left-default\"></span>\n            </a>\n        </span>\n  </li>\n</ul>\n\n<div *ngIf=\"searchWasRun && !searchResults.length\">\nNo results to display\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -3636,7 +3647,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-search/playlist-search-song-details/playlist-search-song-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Info</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    Title: {{song.title}}<br>\n    Description: {{song.description}}<br>\n\n    <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n</div>\n\n<div >\n  <p>Playlists from other users that contain this song:</p>\n  <ul *ngIf=\"playlists.length>0\" class=\"list-group\">\n    <li *ngFor=\"let playlist of playlists\" class=\"list-group-item\">\n      <b>{{playlist.uid.username}}</b><br/>\n      {{playlist.name}}\n    </li>\n  </ul>\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Song Details</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Song Details</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<div *ngIf=\"song\">\n\n    <b>Title:</b> {{song.title}}\n    <br/>\n    <br/>\n    <b>Description:</b><br/>\n\n    <div class=\"p-detail-outer\">\n      <div class=\"p-detail-inner\">\n        {{song.description}}\n      </div>\n    </div>\n    <br/>\n    <br/>\n\n    <!--\n    <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n        <img [src]=\"makeSafe(song.thumbnail)\"\n             width=\"33%\"\n             class=\"image-container\"\n             />\n    </div>\n    -->\n\n\n    <div *ngIf=\"song_video_url\"\n         class=\"video-container-outer\"\n         [style.width]=\"song_video_width\">\n      <div class=\"video-container-inner\">\n          <iframe class=\"video-container\"\n                  [src]=\"makeSafe(song_video_url)\"\n                  frameborder=\"0\" allowfullscreen>\n          </iframe>\n      </div>\n    </div>\n\n\n\n</div>\n    <br/>\n    <br/>\n<div >\n  <p>Playlists from other users that contain this song:</p>\n  <ul *ngIf=\"playlists.length>0\" class=\"list-group\">\n    <li *ngFor=\"let playlist of playlists\" class=\"list-group-item\">\n      <b>{{playlist.uid.username}}</b><br/>\n      <div class=\"p-list-item\">\n\n      <a (click)=\"openPublicPlaylist(playlist)\">\n        {{playlist.name}}\n      </a>\n      </div>\n    </li>\n  </ul>\n</div>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -3670,6 +3681,8 @@ var PlaylistSearchSongDetailsComponent = (function () {
         this.sanitizer = sanitizer;
         this.videoId = null;
         this.idx = 0;
+        this.song_video_url = "";
+        this.song_video_width = "85%";
         this.playlists = [];
     }
     PlaylistSearchSongDetailsComponent.prototype.ngOnInit = function () {
@@ -3694,11 +3707,19 @@ var PlaylistSearchSongDetailsComponent = (function () {
     };
     PlaylistSearchSongDetailsComponent.prototype.reload = function () {
         var _this = this;
-        // todo make a direct api for this
         this._plservice.findSongsForPlaylist(this.plid).subscribe(function (lst) {
             _this.song = lst[_this.idx];
             if (_this.song.videoId) {
                 _this._plservice.findPlaylistsContaining(_this.song.videoId).subscribe(function (lists) { _this.playlists = lists; }, function (err) { });
+            }
+            if (!_this.song.videoId.includes("public")) {
+                _this.song_video_url = "https://www.youtube.com/embed/" + _this.song.videoId;
+            }
+            else {
+                _this.song_video_url = "";
+            }
+            if (!_this.song.description) {
+                _this.song.description = "No Description";
             }
         });
     };
@@ -3707,11 +3728,11 @@ var PlaylistSearchSongDetailsComponent = (function () {
         if (this.uid) {
             if (this.puid) {
                 url = "/project/(project:user/" + this.uid +
-                    "/profile/" + this.puid + "/" + this.plid;
+                    "/profile/" + this.puid + "/" + this.plid + ")";
             }
             else {
                 url = "/project/(project:user/" + this.uid +
-                    "/list/search/" + this.plid;
+                    "/list/search/" + this.plid + ")";
             }
         }
         else {
@@ -3722,6 +3743,31 @@ var PlaylistSearchSongDetailsComponent = (function () {
                 url = "/project/search/pl/" + this.plid;
             }
         }
+        this.router.navigateByUrl(url);
+    };
+    PlaylistSearchSongDetailsComponent.prototype.openPublicPlaylist = function (playlist) {
+        var url = "";
+        var plid = playlist._id;
+        console.log(playlist);
+        if (this.uid) {
+            if (this.puid) {
+                url = "/project/(project:user/" + this.uid +
+                    "/profile/" + this.puid + "/" + plid + ")";
+            }
+            else {
+                url = "/project/(project:user/" + this.uid +
+                    "/list/search/" + plid + ")";
+            }
+        }
+        else {
+            if (this.puid) {
+                url = "/project/search/user/" + this.puid + "/" + plid;
+            }
+            else {
+                url = "/project/search/pl/" + plid;
+            }
+        }
+        console.log("public " + url);
         this.router.navigateByUrl(url);
     };
     PlaylistSearchSongDetailsComponent.prototype.makeSafe = function (url) {
@@ -3764,7 +3810,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>{{playlist.name}}</b>\n          </a>\n        </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n<ol *ngIf=\"songs.length>0\" class=\"list-group\">\n     <li *ngFor=\"let song of songs; let i = index;\"\n         class=\"list-group-item\">\n          {{i+1}}.&nbsp;\n          <a (click)=\"viewDetails(i)\">\n           {{song.title}}\n          </a>\n           <!-- <div class =\"pull-right\">\n\n                <span class=\"glyphicon glyphicon-info-sign\"></span>\n                </a>\n            </div>\n            -->\n     </li>\n</ol>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <!--heading on the nav bar-->\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Songs</b>\n          </a>\n        </p>\n\n        <p class=\"navbar-text pull-right glyph-margin padding-right-default\">\n          <a (click)=\"queuePlaylist()\"\n             class=\"navbar-link padding-right-default\">\n            <span class=\"glyphicon glyphicon-share\"></span>\n          </a>\n       </p>\n\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n\n\n      <div class=\"col-xs-8\">\n        <!--back mark-->\n        <p class=\"navbar-text pull-left glyph-margin\">\n          <a (click)=\"return()\"\n             class=\"navbar-link  navbar-chevron-link\">\n            <span class=\"glyphicon glyphicon-chevron-left\"></span>\n          </a>\n        </p>\n\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Playlist Songs</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block\">Login</a>\n      </div>\n\n      <div class=\"col-xs-2 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block\">Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n<ol *ngIf=\"songs.length>0\" class=\"list-group\">\n     <li *ngFor=\"let song of songs; let i = index;\"\n         class=\"list-group-item p-list-item\">\n          {{i+1}}.&nbsp;\n          <a (click)=\"viewDetails(i)\"\n              class=\"p-list-item\">\n           {{song.title}}\n          </a>\n     </li>\n</ol>\n\n</div>\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n  </div>\n</nav>"
 
 /***/ }),
 
@@ -3776,7 +3822,8 @@ module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__ = __webpack_require__("../../../../../src/app/services/playlist.service.client.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_queue_service_client__ = __webpack_require__("../../../../../src/app/services/queue.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3790,13 +3837,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var PlaylistSearchViewComponent = (function () {
-    function PlaylistSearchViewComponent(route, router, _plservice, sanitizer) {
+    function PlaylistSearchViewComponent(route, router, _plservice, _qservice, sanitizer) {
         this.route = route;
         this.router = router;
         this._plservice = _plservice;
+        this._qservice = _qservice;
         this.sanitizer = sanitizer;
         this.playlist = { songs: [] };
+        this.queue_success = false;
         this.songs = [];
     }
     PlaylistSearchViewComponent.prototype.ngOnInit = function () {
@@ -3843,6 +3893,14 @@ var PlaylistSearchViewComponent = (function () {
         }
         this.router.navigateByUrl(url);
     };
+    PlaylistSearchViewComponent.prototype.queuePlaylist = function () {
+        var _this = this;
+        this._qservice.setQueue(this.uid, this.playlist).subscribe(function (res) {
+            _this.queue_success = true;
+        }, function (err) {
+            _this.queue_success = false;
+        });
+    };
     PlaylistSearchViewComponent.prototype.viewDetails = function (index) {
         var url = "";
         if (this.uid) {
@@ -3873,10 +3931,10 @@ PlaylistSearchViewComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/project/playlist/playlist-search/playlist-search-view/playlist-search-view.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["b" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["b" /* DomSanitizer */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__services_queue_service_client__["a" /* QueueService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_queue_service_client__["a" /* QueueService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__["b" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__["b" /* DomSanitizer */]) === "function" && _e || Object])
 ], PlaylistSearchViewComponent);
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=playlist-search-view.component.js.map
 
 /***/ }),
@@ -3902,7 +3960,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-search/playlist-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Search Playlists</b>\n      </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n      <div class=\"col-sm-8 col-xs-6\">\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Project Title Here</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-sm-2 col-xs-3 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block p-small-fonts\"\n           >Login</a>\n      </div>\n\n      <div class=\"col-sm-2 col-xs-3 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block p-small-fonts\"\n           >Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n<!--\n  <div *ngIf=\"alertMessage\"\n       class=\"alert alert-danger\">\n    \"Failed to create\"\n  </div>\n\n  <div *ngIf=\"successMessage\"\n       class=\"alert alert-success\">\n    \"Succesfully executed query\"\n  </div>\n-->\n\n<ul class=\"nav nav-tabs\" *ngIf=\"!uid\">\n  <li class=\"active\">\n  <a disabled=\"true\"><b>Search for Playlists</b></a>\n  </li>\n  <li>\n  <a [routerLink]=\"['/project/search/s']\">Search for Songs</a>\n  </li>\n</ul>\n\n<div class=\"input-group\">\n <input [(ngModel)]=\"searchTerm\" type=\"text\" class=\"form-control\"\n        placeholder=\"Enter Search Term\">\n <span class=\"input-group-btn\">\n         <a (click)=\"runSearch()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n </span>\n</div>\n\n\n\n<ul *ngIf=\"searchResults.length>0\"\n    class=\"list-group\">\n  <li *ngFor=\"let result of searchResults\"\n      class=\"list-group-item list-item-borderless padding-left-none\">\n       <a class=\"p-list-item\" (click)=\"viewPlaylist(result)\">\n       {{result.name}}\n       </a>\n\n        <div class=\"p-list-item-icons\">\n            <a *ngIf=\"isAdmin()\"\n               (click)=\"delete(result)\">\n              <span class=\"glyphicon glyphicon-trash\"></span>\n            </a>\n\n            <a (click)=\"openProfile(result)\">\n            <span class=\"glyphicon glyphicon-user padding-left-default\"></span>\n            </a>\n\n            <a *ngIf=\"uid\"\n                (click)=\"copyPlaylist(result)\">\n            <span class=\"glyphicon glyphicon-copy padding-left-default\"></span>\n            </a>\n         </div>\n  </li>\n</ul>\n\n<div *ngIf=\"searchWasRun && !searchResults.length\">\nNo results to display\n</div>\n\n</div>\n\n\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <div class=\"row\" *ngIf=\"uid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin padding-left-default\">\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Search Playlists</b>\n      </a>\n      </p>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!uid\">\n      <div class=\"col-sm-8 col-xs-6\">\n        <p class=\"navbar-header pull-left\">\n          <a class=\"navbar-brand thick\">\n            <b>Search Playlists</b>\n          </a>\n        </p>\n      </div>\n\n      <div class=\"col-sm-2 col-xs-3 padding-all\">\n        <a [routerLink]=\"['/project/login']\"\n           class=\"btn btn-default btn-block p-small-fonts\"\n           >Login</a>\n      </div>\n\n      <div class=\"col-sm-2 col-xs-3 padding-all\">\n        <a [routerLink]=\"['/project/register']\"\n           class=\"btn btn-danger btn-block p-small-fonts\"\n           >Register</a>\n      </div>\n    </div>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n<!--\n  <div *ngIf=\"alertMessage\"\n       class=\"alert alert-danger\">\n    \"Failed to create\"\n  </div>\n\n  <div *ngIf=\"successMessage\"\n       class=\"alert alert-success\">\n    \"Succesfully executed query\"\n  </div>\n-->\n\n<ul class=\"nav nav-tabs\" *ngIf=\"!uid\">\n  <li class=\"active\">\n  <a disabled=\"true\"><b>Search for Playlists</b></a>\n  </li>\n  <li>\n  <a [routerLink]=\"['/project/search/s']\">Search for Songs</a>\n  </li>\n</ul>\n\n<div class=\"input-group\">\n <input [(ngModel)]=\"searchTerm\" type=\"text\" class=\"form-control\"\n        placeholder=\"Enter Search Term\">\n <span class=\"input-group-btn\">\n         <a (click)=\"runSearch()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n </span>\n</div>\n\n\n\n<ul *ngIf=\"searchResults.length>0\"\n    class=\"list-group\">\n  <li *ngFor=\"let result of searchResults\"\n      class=\"list-group-item list-item-borderless padding-left-none\">\n       <a class=\"p-list-item\" (click)=\"viewPlaylist(result)\">\n       {{result.name}}\n       </a>\n\n        <div class=\"p-list-item-icons\">\n            <a *ngIf=\"isAdmin()\"\n               (click)=\"delete(result)\">\n              <span class=\"glyphicon glyphicon-trash\"></span>\n            </a>\n\n            <a (click)=\"openProfile(result)\">\n            <span class=\"glyphicon glyphicon-user padding-left-default\"></span>\n            </a>\n\n            <a *ngIf=\"uid\"\n                (click)=\"copyPlaylist(result)\">\n            <span class=\"glyphicon glyphicon-copy padding-left-default\"></span>\n            </a>\n         </div>\n  </li>\n</ul>\n\n<div *ngIf=\"searchWasRun && !searchResults.length\">\nNo results to display\n</div>\n\n</div>\n\n\n\n<!-- Footer -->\n<nav *ngIf=\"!uid\"\n  class=\"navbar navbar-dark bg-primary navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -4048,7 +4106,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-song-details/playlist-song-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a (click)=\"back()\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Song Details</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin padding-right-default\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"song\">\n\n      <!-- TODO this should allow editing -->\n      <div class=\"form-group\">\n        <label for=\"widgetName\">Name</label>\n        <input type=\"text\"\n               [(ngModel)]=\"song.title\"\n               name=\"widgetName\"\n               placeholder=\"Song Title\"\n               class=\"form-control\"\n               required/>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"widgetText\">Description</label>\n        <textarea rows=\"5\"\n                  class=\"form-control\"\n                  [(ngModel)]=\"song.description\"\n                  name=\"widgetText\"\n                  id=\"widgetText\">{{song.description}}</textarea>\n      </div>\n\n      <div class=\"image-container\" *ngIf=\"song.thumbnail\">\n          <img [src]=\"makeSafe(song.thumbnail)\"\n               width=\"33%\"\n               class=\"image-container\"\n               />\n      </div>\n  </div>\n\n</div>"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a (click)=\"back()\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Edit Song Details</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin padding-right-default\">\n      <a (click)=\"saveChanges()\"\n         class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"song\">\n\n      <!-- TODO this should allow editing -->\n      <div class=\"form-group\">\n        <label for=\"widgetName\">Title</label>\n        <input type=\"text\"\n               [(ngModel)]=\"song.title\"\n               name=\"widgetName\"\n               placeholder=\"Song Title\"\n               class=\"form-control\"\n               required/>\n      </div>\n\n      <div *ngIf=\"invalid_title\" class=\"alert alert-danger\">A artist name is required</div>\n\n\n      <div class=\"form-group\">\n        <label for=\"widgetText\">Description</label>\n        <textarea rows=\"5\"\n                  class=\"form-control\"\n                  [(ngModel)]=\"song.description\"\n                  name=\"widgetText\"\n                  id=\"widgetText\">{{song.description}}</textarea>\n      </div>\n\n    <div *ngIf=\"song_video_url\"\n         class=\"video-container-outer\"\n         [style.width]=\"song_video_width\">\n      <div class=\"video-container-inner\">\n          <iframe class=\"video-container\"\n                  [src]=\"makeSafe(song_video_url)\"\n                  frameborder=\"0\" allowfullscreen>\n          </iframe>\n      </div>\n    </div>\n  </div>\n\n</div>"
 
 /***/ }),
 
@@ -4086,6 +4144,9 @@ var PlaylistSongDetailsComponent = (function () {
         this.videoId = null;
         this.idx = 0;
         this.song = { title: "", description: "" };
+        this.song_video_url = "";
+        this.song_video_width = "85%";
+        this.invalid_title = false;
     }
     PlaylistSongDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -4101,6 +4162,15 @@ var PlaylistSongDetailsComponent = (function () {
         // todo make a direct api for this
         this._plservice.findSongForPlaylist(this.plid, this.idx).subscribe(function (song) {
             _this.song = song;
+            if (!_this.song.videoId.includes("public")) {
+                _this.song_video_url = "https://www.youtube.com/embed/" + _this.song.videoId;
+            }
+            else {
+                _this.song_video_url = "";
+            }
+            if (!_this.song.description) {
+                _this.song.description = "No Description";
+            }
         });
     };
     PlaylistSongDetailsComponent.prototype.back = function () {
@@ -4108,6 +4178,11 @@ var PlaylistSongDetailsComponent = (function () {
     };
     PlaylistSongDetailsComponent.prototype.saveChanges = function () {
         var _this = this;
+        this.invalid_title = false;
+        if (this.song.title === "") {
+            this.invalid_title = true;
+            return;
+        }
         this._plservice.updateSong(this.song).subscribe(function (res) {
             var url = "/project/(project:user/" + _this.uid + "/list/" + _this.plid + "/songs)";
             _this.router.navigateByUrl(url);
@@ -4153,7 +4228,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-songs.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar\n    <p class=\"navbar-header pull-left p-header\">\n      <a class=\"navbar-brand thick\">\n        <b></b>\n      </a>\n    </p>\n-->\n    <div class=\"navbar-brand p-header\">\n      <b>{{playlist.name}}</b>\n    </div>\n\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"uploadSong()\"\n         *ngIf=\"isSuperUser()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-cloud-upload\"></span>\n      </a>\n\n      <a (click)=\"addSongs()\" class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-plus\"></span>\n      </a>\n\n      <a (click)=\"saveChanges()\" class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && songs\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of songs; let i = index\"\n         class=\"list-group-item list-item-borderless p-list-item\">\n\n        {{song.index}}.%nbsp;\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]\">\n        {{song.title}}\n        </a>\n\n        <div class =\"pull-right p-list-item-icons\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]\">\n            <span class=\"glyphicon glyphicon-search padding-right-default\"></span>\n            </a>\n\n            <a (click)=\"delete(i)\">\n              <span class=\"glyphicon glyphicon-trash padding-right-default\"></span>\n            </a>\n\n        </div>\n\n    </li>\n</ul>\n\n</div>"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list']}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar\n    <p class=\"navbar-header pull-left p-header\">\n      <a class=\"navbar-brand thick\">\n        <b></b>\n      </a>\n    </p>\n-->\n    <div class=\"navbar-brand p-header\">\n      <b>{{playlist.name}}</b>\n    </div>\n\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"queuePlaylist()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-share\"></span>\n      </a>\n\n      <a (click)=\"uploadSong()\"\n         *ngIf=\"isSuperUser()\"\n         class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-cloud-upload\"></span>\n      </a>\n\n      <a (click)=\"addSongs()\" class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-plus\"></span>\n      </a>\n\n      <a (click)=\"saveChanges()\" class=\"navbar-link padding-right-default\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && songs\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of songs; let i = index\"\n         class=\"list-group-item list-item-borderless p-list-item\">\n\n        {{song.index}}.&nbsp;\n        <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'songs', i]}}]\">\n        {{song.title}}\n        </a>\n\n        <div class =\"pull-right p-list-item-icons\">\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid, 'list', playlist._id, 'add', song.videoId]}}]\">\n            <span class=\"glyphicon glyphicon-search padding-right-default\"></span>\n            </a>\n\n            <a (click)=\"delete(i)\">\n              <span class=\"glyphicon glyphicon-trash padding-right-default\"></span>\n            </a>\n\n        </div>\n\n    </li>\n</ul>\n\n</div>"
 
 /***/ }),
 
@@ -4167,7 +4242,8 @@ module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_playlist_service_client__ = __webpack_require__("../../../../../src/app/services/playlist.service.client.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_project_service_client__ = __webpack_require__("../../../../../src/app/services/project.service.client.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_queue_service_client__ = __webpack_require__("../../../../../src/app/services/queue.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4183,16 +4259,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var PlaylistSongsComponent = (function () {
-    function PlaylistSongsComponent(route, router, location, _service, _plservice, _pservice) {
+    function PlaylistSongsComponent(route, router, location, _service, _plservice, _pservice, _qservice) {
         this.route = route;
         this.router = router;
         this.location = location;
         this._service = _service;
         this._plservice = _plservice;
         this._pservice = _pservice;
+        this._qservice = _qservice;
         this.playlist = { songs: [] };
         this.songs = [];
+        this.queue_success = false;
         this.changed = false;
     }
     PlaylistSongsComponent.prototype.ngOnInit = function () {
@@ -4261,6 +4340,14 @@ var PlaylistSongsComponent = (function () {
             this.router.navigateByUrl(url);
         }
     };
+    PlaylistSongsComponent.prototype.queuePlaylist = function () {
+        var _this = this;
+        this._qservice.setQueue(this.uid, this.playlist).subscribe(function (res) {
+            _this.queue_success = true;
+        }, function (err) {
+            _this.queue_success = false;
+        });
+    };
     // TODO: other ways out of this page need to check if the list was changed
     // TODO: reordered elements need their indices updated
     PlaylistSongsComponent.prototype.reorderList = function (event) {
@@ -4285,10 +4372,10 @@ PlaylistSongsComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-songs.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/project/playlist/playlist-songs/playlist-songs.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__angular_common__["f" /* Location */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_common__["f" /* Location */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__services_project_service_client__["a" /* ProjectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_project_service_client__["a" /* ProjectService */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__angular_common__["f" /* Location */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_common__["f" /* Location */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__services_playlist_service_client__["a" /* PlaylistService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_playlist_service_client__["a" /* PlaylistService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__services_project_service_client__["a" /* ProjectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_project_service_client__["a" /* ProjectService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__services_queue_service_client__["a" /* QueueService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__services_queue_service_client__["a" /* QueueService */]) === "function" && _g || Object])
 ], PlaylistSongsComponent);
 
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=playlist-songs.component.js.map
 
 /***/ }),
@@ -4314,7 +4401,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/playlist/playlist-songs/playlist-upload/playlist-upload.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a (click)=\"back()\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b>Upload Song</b>\n        </a>\n      </p>\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form name=\"myForm\" #myForm\n        method=\"post\" enctype=\"multipart/form-data\">\n     <label for=\"artist\">Artist</label>\n      <input type=\"text\"\n             [(ngModel)]=\"artist\"\n             name=\"artist\"\n             placeholder=\"Artist Name\"\n             class=\"form-control\"\n             required/>\n     <label for=\"title\">Title</label>\n      <input type=\"text\"\n             [(ngModel)]=\"title\"\n             name=\"title\"\n             placeholder=\"Song Title\"\n             class=\"form-control\"\n             required/>\n\n     <label for=\"myFile\">File Upload</label>\n     <input  name=\"myFile\" #myFile type=\"file\"     class=\"form-control\"/>\n     <button type=\"button\" (click)=\"uploadAudio()\"\n             class=\"btn btn-block btn-primary\">Upload Audio</button>\n     <span class=\"small text-danger ml-2\"\n            *ngIf=\"invalid_file\">Please Select a File to Upload</span>\n  </form>\n\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n      <!--back mark-->\n      <p class=\"navbar-text pull-left glyph-margin\">\n        <a (click)=\"back()\"\n           class=\"navbar-link  navbar-chevron-link\">\n          <span class=\"glyphicon glyphicon-chevron-left\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b>Upload Song</b>\n        </a>\n      </p>\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <form name=\"myForm\" #myForm\n        method=\"post\" enctype=\"multipart/form-data\">\n     <label for=\"artist\">Artist</label>\n      <input type=\"text\"\n             [(ngModel)]=\"artist\"\n             name=\"artist\"\n             placeholder=\"Artist Name\"\n             class=\"form-control\"\n             required/>\n    <div *ngIf=\"invalid_artist\" class=\"alert alert-danger\">A artist name is required</div>\n\n     <label for=\"title\">Title</label>\n      <input type=\"text\"\n             [(ngModel)]=\"title\"\n             name=\"title\"\n             placeholder=\"Song Title\"\n             class=\"form-control\"\n             required/>\n\n    <div *ngIf=\"invalid_title\" class=\"alert alert-danger\">A title name is required</div>\n\n\n    <div class=\"form-group\">\n        <label for=\"widgetText\">Description</label>\n        <textarea rows=\"5\"\n                  class=\"form-control\"\n                  [(ngModel)]=\"description\"\n                  name=\"widgetText\"\n                  id=\"widgetText\">{{description}}</textarea>\n      </div>\n\n     <label for=\"myFile\">File Upload</label>\n     <input  name=\"myFile\" #myFile type=\"file\"     class=\"form-control\"/>\n     <button type=\"button\" (click)=\"uploadAudio()\"\n             class=\"btn btn-block btn-primary\">Upload Audio</button>\n     <span class=\"small text-danger ml-2\"\n            *ngIf=\"invalid_file\">Please Select a File to Upload</span>\n  </form>\n\n</div>\n"
 
 /***/ }),
 
@@ -4355,6 +4442,8 @@ var PlaylistUploadComponent = (function () {
         this.title = "";
         this.description = "";
         this.invalid_file = false;
+        this.invalid_title = false;
+        this.invalid_artist = false;
     }
     PlaylistUploadComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -4371,13 +4460,23 @@ var PlaylistUploadComponent = (function () {
     };
     PlaylistUploadComponent.prototype.uploadAudio = function () {
         var _this = this;
+        this.invalid_artist = false;
+        this.invalid_title = false;
+        if (this.artist === "") {
+            this.invalid_artist = true;
+            return;
+        }
+        if (this.title === "") {
+            this.invalid_title = true;
+            return;
+        }
         var myFile = this.myFile.nativeElement;
         var myForm = this.myForm.nativeElement;
         if (myFile.files && myFile.files[0]) {
             var formData = new FormData();
             formData.append('myFile', myFile.files[0]);
             formData.append('artist', this.artist);
-            formData.append('title', this.title);
+            formData.append('title', this.artist + " - " + this.title);
             formData.append('description', this.description);
             formData.append('baseUrl', this.baseUrl);
             formData.append('plid', this.plid);
@@ -4439,7 +4538,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/queue/song-queue/song-queue.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>My Song Queue</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && playlist.songs.length>0\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of playlist.songs\"\n         class=\"list-group-item list-item-borderless\">\n\n        {{song.title}}\n\n        <div class =\"pull-right\">\n\n\n            <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\">\n            <span class=\"glyphicon glyphicon-info-sign\"></span>\n            </a>\n        </div>\n\n    </li>\n</ul>\n\n<div *ngIf=\"!(playlist) || playlist.songs.length===0\">\nNo Songs To Display\n</div>\n\n</div>"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--back mark-->\n    <p class=\"navbar-text pull-left glyph-margin\">\n      <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid]}}]\"\n         class=\"navbar-link  navbar-chevron-link\">\n        <span class=\"glyphicon glyphicon-chevron-left\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>My Song Queue</b>\n      </a>\n    </p>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid content-body\">\n\n<ul class=\"list-group\"\n    *ngIf=\"playlist && playlist.songs.length>0\"\n    appSortable\n    (newIndexes)=\"reorderList($event)\">\n    <li *ngFor=\"let song of playlist.songs\"\n         class=\"list-group-item list-item-borderless p-list-item\">\n\n        {{song.title}}\n\n     </li>\n</ul>\n\n<div *ngIf=\"!(playlist) || playlist.songs.length===0\">\nNo Songs To Display\n</div>\n\n</div>"
 
 /***/ }),
 
@@ -5607,7 +5706,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/project/user/project-profile/project-profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--heading on the nav bar-->\n    <div class=\"profile-margin\">\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Profile</b>\n      </a>\n    </p>\n    </div>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin padding-right-default\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"changes_saved\" class=\"help-block\">Changes Saved</div>\n  <div *ngIf=\"error_message\" class=\"alert alert-danger\">{{error_message}}</div>\n\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A user name is required</div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n  <div>\n    <p><b>Following:</b></p>\n    <ul class=\"list-group\"\n        *ngIf=\"following.length>0\">\n      <li class=\"list-group-item list-item-borderless padding-left-none padding-right-none\"\n          *ngFor=\"let followee of following\">\n        {{followee.username}}\n        <div class =\"pull-right\">\n          <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'profile', followee._id]}}]\">\n              <span class=\"glyphicon glyphicon-user\"></span>\n          </a>\n        </div>\n      </li>\n    </ul>\n    <div *ngIf=\"following.length===0\">\n      Not Following any users\n    </div>\n  </div>\n\n  <br/>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list']}}]\">\n     My Playlists</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'queue']}}]\">\n     My Song Queue</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'messages']}}]\">\n     My Notifications</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list', 'search']}}]\">\n     Search Public Playlists</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     *ngIf=\"isAdmin()\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'admin']}}]\">\n     Admin</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"logout()\">Logout</a>\n\n</div>\n\n"
+module.exports = "\n<nav class=\"navbar navbar-dark bg-primary navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--heading on the nav bar-->\n    <div class=\"profile-margin\">\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b>Profile</b>\n      </a>\n    </p>\n    </div>\n\n    <!--tick mark-->\n    <p class=\"navbar-text pull-right glyph-margin padding-right-default\">\n      <a (click)=\"saveChanges()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n<div class=\"container-fluid container-margin content-body\">\n\n  <div *ngIf=\"changes_saved\" class=\"help-block\">Changes Saved</div>\n  <div *ngIf=\"error_message\" class=\"alert alert-danger\">{{error_message}}</div>\n\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.username\"\n             name=\"username\"\n             placeholder=\"username\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n    <div *ngIf=\"invalid_name\" class=\"alert alert-danger\">A user name is required</div>\n\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\"\n             [(ngModel)]=\"user.email\"\n             name=\"email\"\n             placeholder=\"email\"\n             class=\"form-control\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.firstName\"\n             name=\"firstName\"\n             class=\"form-control\"\n             placeholder=\"First Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"user.lastName\"\n             name=\"lastName\"\n             class=\"form-control\"\n             placeholder=\"Last Name\"\n             (ngModelChange)=\"changes_saved=false\"\n             required/>\n    </div>\n\n  <div>\n    <p><b>Following:</b></p>\n    <ul class=\"list-group\"\n        *ngIf=\"following.length>0\">\n      <li class=\"list-group-item list-item-borderless padding-left-none padding-right-none\"\n          *ngFor=\"let followee of following\">\n        {{followee.username}}\n        <div class =\"pull-right\">\n          <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'profile', followee._id]}}]\">\n              <span class=\"glyphicon glyphicon-user\"></span>\n          </a>\n        </div>\n      </li>\n    </ul>\n    <div *ngIf=\"following.length===0\">\n      Not Following any users\n    </div>\n  </div>\n\n  <div>\n    <p><b>Followers:</b></p>\n    <ul class=\"list-group\"\n        *ngIf=\"followers.length>0\">\n      <li class=\"list-group-item list-item-borderless padding-left-none padding-right-none\"\n          *ngFor=\"let follower of followers\">\n        {{follower.username}}\n        <div class =\"pull-right\">\n          <a [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'profile', follower._id]}}]\">\n              <span class=\"glyphicon glyphicon-user\"></span>\n          </a>\n        </div>\n      </li>\n    </ul>\n    <div *ngIf=\"followers.length===0\">\n      Not Following any users\n    </div>\n  </div>\n\n  <br/>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list']}}]\">\n     My Playlists</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'queue']}}]\">\n     My Song Queue</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'messages']}}]\">\n     My Notifications</a>\n\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'list', 'search']}}]\">\n     Search Public Playlists</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     *ngIf=\"isAdmin()\"\n     [routerLink]=\"['/project', {outlets: {'project': ['user', uid , 'admin']}}]\">\n     Admin</a>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"logout()\">Logout</a>\n\n</div>\n\n"
 
 /***/ }),
 
@@ -5653,6 +5752,7 @@ var ProjectProfileComponent = (function () {
         this.invalid_name = false;
         this.playlists = [];
         this.following = [];
+        this.followers = [];
     }
     ProjectProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -5667,6 +5767,7 @@ var ProjectProfileComponent = (function () {
             _this.user = user;
         }, function (err) { });
         this._socialService.getFollowing(this.uid).subscribe(function (users) { _this.following = users; }, function (err) { });
+        this._socialService.getFollowers(this.uid).subscribe(function (users) { _this.followers = users; }, function (err) { });
     };
     ProjectProfileComponent.prototype.logout = function () {
         var _this = this;
