@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   user : User = new User("","","","","","");
   private sub: any;
   changes_saved : boolean = false;
-  invalid_name = true
+  invalid_name = false
 
   constructor(private route: ActivatedRoute,
               private router: Router,
