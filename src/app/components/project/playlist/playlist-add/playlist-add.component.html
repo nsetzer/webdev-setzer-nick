@@ -46,6 +46,19 @@
 
 <div class="container-fluid container-margin content-body">
 
+
+
+<div class="row" *ngIf="!uid">
+<br>
+<p class="bg-info">
+An audio service for easily building playlists and discovering new music.
+<br>
+<br>
+From this page you can search for music on youtube. To create
+your own playlist, please login.
+</p>
+<br>
+
 <ul class="nav nav-tabs" *ngIf="!uid">
   <li>
   <a [routerLink]="['/project/search/pl']">Search for Playlists</a>

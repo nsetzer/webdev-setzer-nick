@@ -226,6 +226,13 @@ img.image-container {
   margin:auto;
 }
 
+img2.image-container-2 {
+  display: block;
+  margin:auto;
+  width: 100%;
+  max-width: 128px;
+}
+
 /*
 search results:
 attempts at word wrap
